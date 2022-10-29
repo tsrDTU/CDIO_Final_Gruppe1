@@ -24,10 +24,7 @@ public class Main {
         Fields.initialiseFields(fields,"12"); //setup fields
         GUI gui = new GUI(fields, Color.WHITE); //setup GUI
 
-
         language_ok = false;
-
-
         do {
             language = gui.getUserButtonPressed("Select Langage:","Dansk", "English", "Francias", "German"); // Select language for the game dialog
             if (language.equals("Dansk")) language_ok = true;
@@ -98,28 +95,9 @@ public class Main {
 
             //Moving cars on the fields - and taking consequence of field
             if (player1.getBalance() < 3000 && player2.getBalance() < 3000) {
-                //Check car locations and set new car locations
-                for (int i = 0; i <= 11; i++) {
-                    //Checks for 2 players on the same field
-                    if (fields[i].hasCar(player1) && fields[i].hasCar((player2))) {
-                        fields[i].removeAllCars();
-                        if (selectedPlayer == player1) {
-                            fields[i].setCar(player2, true);
-                            i = 11;
-                        }
-                        //Sets car back in its original place
-                        else fields[i].setCar(player1, true);
-                        fields[getSum(d1, d2) - 2].setCar(selectedPlayer, true);
-                        i = 11;
-                    }
-                    //Push through with changing car location
-                    else if (fields[i].hasCar(selectedPlayer)) {
-                        fields[i].removeAllCars();
-                        fields[getSum(d1, d2) - 2].setCar(selectedPlayer, true);
-                        i = 11;
-                    }
 
-                }
+               Cars.moveCars(getSum(d1, d2),  selectedPlayer, player1, player2, fields);
+
                 //Deposit/Withdraw money from fields on the board
                 int konsekvens = Integer.parseInt(fields[getSum(d1, d2) - 2].getRent());
                 selectedPlayer.setBalance(selectedPlayer.getBalance() + konsekvens);

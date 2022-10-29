@@ -7,7 +7,7 @@ import java.awt.*;
 
 
 public class Fields {
-       static void initialiseFields(GUI_Field[] fields, String felter) {
+       public static void initialiseFields(GUI_Field[] fields, String felter) {
         if (felter.equals("12")) {
             //GUI_Street[] fields = new GUI_Street[11];
             fields[0] = new GUI_Street("2 Tower ", "+250", "", "250", Color.GREEN, Color.BLACK);
