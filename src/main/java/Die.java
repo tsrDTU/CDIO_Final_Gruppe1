@@ -1,6 +1,6 @@
 public class Die
 {
-    private int faceValue = 0, numberOfSides = 6;
+    private int faceValue, numberOfSides = 6;
 
 
 

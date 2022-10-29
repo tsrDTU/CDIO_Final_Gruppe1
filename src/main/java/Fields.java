@@ -1,6 +1,7 @@
+import gui_codebehind.GUI_Center;
 import gui_fields.GUI_Field;
+import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
-import gui_main.GUI;
 
 import java.awt.*;
 
@@ -23,4 +24,17 @@ public class Fields {
             fields[10] = new GUI_Street("12 Goldmine ", "+650", "", "+650", Color.GREEN, Color.BLACK);
         }
     }
+    public static void displayDescriptions(GUI_Player selected, int diceSum, GUI_Street[] fields){
+        if (Integer.parseInt(fields[diceSum - 2].getRent()) > 0)
+            GUI_Center.getInstance().setBGColor(Color.GREEN);
+        else if (Integer.parseInt(fields[diceSum - 2].getRent()) == -80)
+            GUI_Center.getInstance().setBGColor(Color.GRAY);
+        else if (Integer.parseInt(fields[diceSum - 2].getRent()) < 0)
+            GUI_Center.getInstance().setBGColor(Color.RED);
+        else
+            GUI_Center.getInstance().setBGColor(Color.YELLOW);
+    }
+
+
+
 }

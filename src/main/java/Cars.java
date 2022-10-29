@@ -13,7 +13,6 @@ public class Cars {
                 street[i].removeAllCars();
                 if (currentplayer == p1) {
                     street[i].setCar(p2, true);
-                    i = 11;
                 }
                 //Sets car back in its original place
                 else street[i].setCar(p1, true);
@@ -26,8 +25,13 @@ public class Cars {
                 street[DiceRollSum - 2].setCar(currentplayer, true);
                 i = 11;
             }
-
         }
-
+    }
+    static void restart(GUI_Player player1, GUI_Player player2, GUI_Field[] fields) {
+        player1.setBalance(1000);
+        player2.setBalance(1000);
+        for (int i =0;i<11;i++) fields[i].removeAllCars();
+        fields[0].setCar(player1, true);
+        fields[0].setCar(player2, true);
     }
 }

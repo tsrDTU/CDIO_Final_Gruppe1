@@ -1,21 +1,18 @@
-import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 import gui_fields.GUI_Street;
-import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import gui_fields.GUI_Car;
-import gui_codebehind.GUI_Center;
 import java.awt.Color;
 
 public class Main {
 
 
     public static void main(String[] args) {
-        Scanner indtasning = new Scanner(System.in);
+
         String string_in, language, answer_game;
         String[] dialog = new String[12];
-        int antal_kant, n;
+        int antal_kant;
         boolean language_ok, game_running, answerGameOk;
 
         game_running = true;
@@ -66,8 +63,8 @@ public class Main {
         boolean selection = gui.getUserLeftButtonPressed(dialog[3], player1.getName(), player2.getName());
 
         //Create a selected player that will point at active player
-        GUI_Player selectedPlayer = null;
-        boolean gameEnd = false, lastMax = false;
+        GUI_Player selectedPlayer;
+        boolean gameEnd = false; //, lastMax = false;
 
         //Create the dices. Default 6 sides
         Die d1 = new Die();
@@ -90,7 +87,7 @@ public class Main {
             d2.dice_roll();
 
             //Inform which user is playing
-            String s = gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
+            gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
             //Moving cars on the fields - and taking consequence of field
@@ -100,7 +97,7 @@ public class Main {
 
                 //Deposit/Withdraw money from fields on the board
                 int konsekvens = Integer.parseInt(fields[getSum(d1, d2) - 2].getRent());
-                selectedPlayer.setBalance(selectedPlayer.getBalance() + konsekvens);
+                selectedPlayer.setBalance(selectedPlayer.getBalance() + konsekvens*200);
 
                 //Negative balance is not allowed
                 if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
@@ -109,14 +106,7 @@ public class Main {
 
             //Shows description of the space you land on, and changes color
             gui.displayChanceCard(selectedPlayer.getName() + " | " + fields[getSum(d1, d2) - 2].getTitle() + "\n" + fields[getSum(d1, d2) - 2].getSubText());
-            if (Integer.parseInt(fields[getSum(d1, d2) - 2].getRent()) > 0)
-                GUI_Center.getInstance().setBGColor(Color.GREEN);
-            else if (Integer.parseInt(fields[getSum(d1, d2) - 2].getRent()) == -80)
-                GUI_Center.getInstance().setBGColor(Color.GRAY);
-            else if (Integer.parseInt(fields[getSum(d1, d2) - 2].getRent()) < 0)
-                GUI_Center.getInstance().setBGColor(Color.RED);
-            else
-                GUI_Center.getInstance().setBGColor(Color.YELLOW);
+            Fields.displayDescriptions(selectedPlayer, getSum(d1,d2), fields);
 
 
             //Randomiser for dice positioning on the board
@@ -151,26 +141,17 @@ public class Main {
                     if (answer_game.equals("y") || answer_game.equals("j") || answer_game.equals("o") || answer_game.equals(dialog[10])) {
                         answerGameOk = true;
                         game_running = true;
-                        player1.setBalance(1000);
-                        player2.setBalance(1000);
-                        for (int i =0;i<11;i++) fields[i].removeAllCars();
-                        fields[0].setCar(player1, true);
-                        fields[0].setCar(player2, true);
+                        Cars.restart(player1, player2, fields);
                     }
-                } while (!answerGameOk);
-            }}
-
-
-        while (game_running == true) ;
-        System.exit(0);
+                }
+                while (!answerGameOk);
+                if (!game_running)
+                    System.exit(0);
+            }
+        }
     }
 
     private static int getSum(Die d1, Die d2) {
         return d1.getFaceValue() + d2.getFaceValue();
     }
-
-    private static boolean getEquals(Die d1, Die d2) {
-        return (d1.getFaceValue() == d2.getFaceValue());
-    }
-
 }
