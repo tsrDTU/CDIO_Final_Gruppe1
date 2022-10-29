@@ -1,11 +1,6 @@
 import gui_fields.GUI_Player;
-//
 import gui_main.GUI;
 import gui_fields.GUI_Street;
-//import gui_main.GUI;
-
-//import java.awt.*;
-//import java.io.File;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import gui_fields.GUI_Car;
@@ -24,6 +19,8 @@ public class Main {
 
         game_running = true;
 
+
+        Fields define = new Fields();
 
         //Fields get defined:
         GUI_Street[] fields = new GUI_Street[11];

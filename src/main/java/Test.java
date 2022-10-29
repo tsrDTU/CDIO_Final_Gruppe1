@@ -24,6 +24,7 @@ public class Test {
         System.out.printf("Deviation from expected value in pct: %3.2f\n", ((results[5] / expectedValue) * 100 - 100));
 
     }
+
 }
 
 
