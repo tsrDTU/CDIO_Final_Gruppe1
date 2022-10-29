@@ -1,6 +1,8 @@
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 import gui_fields.GUI_Street;
+import gui_codebehind.GUI_BoardController;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import gui_fields.GUI_Car;
 import java.awt.Color;
@@ -30,28 +32,29 @@ public class Main {
             if (language.equals("German")) language_ok = true;
         } while (!language_ok);
 
-
         Language.initializeDialog(dialog, language); // Initialize the game dialog
-
 
         do {
             string_in = gui.getUserButtonPressed(dialog[0], "2", "3", "4", "5", "6"); //Quest the number of sides for the dice
-
             //Set the number sides for the dices
-
             if (string_in.length() > 0) {
                 antal_kant = (int) string_in.charAt(0) - '0';
-
             } else antal_kant = 6;
-
         } while (antal_kant < 2 || antal_kant > 6);
+
         //Makes Cars in different colors depending on player
         GUI_Car p1car = new GUI_Car(Color.BLUE, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
         GUI_Car p2car = new GUI_Car(Color.RED, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
 
         //Initializes players with name inputs
-        GUI_Player player1 = new GUI_Player(gui.getUserString(dialog[1]), 1000, p1car);
-        GUI_Player player2 = new GUI_Player(gui.getUserString(dialog[2]), 1000, p2car);
+        String player1name = gui.getUserString(dialog[1]);
+        String player2name = gui.getUserString(dialog[2]);
+        if (player1name.length() == 0) player1name = ("Player1");
+        if (player2name.length() == 0) player2name = ("Player2");
+        GUI_Player player1 = new GUI_Player(player1name, 1000, p1car);
+        GUI_Player player2 = new GUI_Player(player2name, 1000, p2car);
+        //if (Objects.equals(player1.getName(), null)) player1.setName("Player1");
+        //if (Objects.equals(player2.getName(), null)) player1.setName("Player2");
         gui.addPlayer(player1);
         gui.addPlayer(player2);
 
@@ -75,7 +78,6 @@ public class Main {
             d1.setNumberOfSides(antal_kant);
             d2.setNumberOfSides(antal_kant);
         }
-
 
         //Game loop
         while (player1.getBalance() < 3000 && player2.getBalance() < 3000 && !gameEnd) {
@@ -103,7 +105,6 @@ public class Main {
                 if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
             }
 
-
             //Shows description of the space you land on, and changes color
             gui.displayChanceCard(selectedPlayer.getName() + " | " + fields[getSum(d1, d2) - 2].getTitle() + "\n" + fields[getSum(d1, d2) - 2].getSubText());
             Fields.displayDescriptions(selectedPlayer, getSum(d1,d2), fields);
@@ -115,7 +116,6 @@ public class Main {
             int random_numz = ThreadLocalRandom.current().nextInt(5, 7);
             //Show dice on screen
             gui.setDice(d1.getFaceValue(), random_numx, random_numy, d2.getFaceValue(), random_numx + 1, random_numz);
-
 
             //Switch selected player
             if (!(Integer.parseInt(fields[getSum(d1, d2) - 2].getRent()) == -80))
