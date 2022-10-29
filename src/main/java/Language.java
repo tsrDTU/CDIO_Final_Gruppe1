@@ -1,6 +1,6 @@
 public class Language {
 
-    private static void initializeDialog(String[] dialog, String sprog) {
+    static void initializeDialog(String[] dialog, String sprog) {
         if (sprog.equals("Dansk")) {
             dialog[0] = "Der er forhåndsvalgt terninger med 6 kanter. Tast enter for at vælge dette. Ellers indtast det ønskede antal kanter  (2 - 5) og tast enter";
             dialog[1] = "Hvem er Spiller 1?";

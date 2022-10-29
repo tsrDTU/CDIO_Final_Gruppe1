@@ -1,3 +1,4 @@
+import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 import gui_fields.GUI_Street;
@@ -19,23 +20,8 @@ public class Main {
 
         game_running = true;
 
-
-        Fields define = new Fields();
-
-        //Fields get defined:
-        GUI_Street[] fields = new GUI_Street[11];
-        fields[0] = new GUI_Street("2 Tower ", "+250", "", "250", Color.GREEN, Color.BLACK);
-        fields[1] = new GUI_Street("3 Crater ", "-100", "", "-100", Color.RED, Color.BLACK);
-        fields[2] = new GUI_Street("4 Palace gates", "+100", "c", "+100", Color.GREEN, Color.BLACK);
-        fields[3] = new GUI_Street("5 Cold Desert", "-20", "E", "-20", Color.RED, Color.BLACK);
-        fields[4] = new GUI_Street("6 Walled city", "+180", "c", "+180", Color.GREEN, Color.BLACK);
-        fields[5] = new GUI_Street("7 Monastery ", "0", "E", "0", Color.YELLOW, Color.BLACK);
-        fields[6] = new GUI_Street("8 Black cave ", "-70", "c", "-70", Color.RED, Color.BLACK);
-        fields[7] = new GUI_Street("9 Huts in the mountain", "+60", "E", "+60", Color.GREEN, Color.BLACK);
-        fields[8] = new GUI_Street("10 The Werewall", "-80 Ekstra tur", "c", "-80", Color.GRAY, Color.BLACK);
-        fields[9] = new GUI_Street("11 The pit ", "-50", "", "-50", Color.RED, Color.BLACK);
-        fields[10] = new GUI_Street("12 Goldmine ", "+650", "", "+650", Color.GREEN, Color.BLACK);
-
+        GUI_Street[] fields = new GUI_Street[11];   //setup streets
+        Fields.initialiseFields(fields,"12"); //setup fields
         GUI gui = new GUI(fields, Color.WHITE); //setup GUI
 
 
@@ -51,7 +37,7 @@ public class Main {
         } while (!language_ok);
 
 
-        initializeDialog(dialog, language); // Initialize the game dialog
+        Language.initializeDialog(dialog, language); // Initialize the game dialog
 
 
         do {
@@ -209,67 +195,4 @@ public class Main {
         return (d1.getFaceValue() == d2.getFaceValue());
     }
 
-
-
-    private static void initializeDialog(String[] dialog, String sprog) {
-        if (sprog.equals("Dansk")) {
-            dialog[0] = "Der er forhåndsvalgt terninger med 6 kanter. Tast enter for at vælge dette. Ellers indtast det ønskede antal kanter  (2 - 5) og tast enter";
-            dialog[1] = "Hvem er Spiller 1?";
-            dialog[2] = "Hvem er Spiller 2?";
-            dialog[3] = "Hvem starter spillet?";
-            dialog[4] = "Det er";
-            dialog[5] = " der har tur";
-            dialog[6] = "Rul med terningerne";
-            dialog[7] = " Du har fået en ekstra tur, fordi du ramte felt 8.";
-            dialog[8] = " Har vundet med en score på:";
-            dialog[9] = " Nyt spil?";
-            dialog[10] = "Ja";
-            dialog[11] = "Nej";
-
-        } else if (sprog.equals("Francias")) {
-            dialog[0] = "Un dé à six faces est choisi par défaut. Veuillez appuyer sur Entrée pour le sélectionner. Ou entrez le nombre de faces (2 - 5) que vous souhaitez:";
-            dialog[1] = "Qui est le joueur 1?";
-            dialog[2] = "Qui est le joueur 2?";
-            dialog[3] = "Qui commence le jeu?";
-            dialog[4] = "Il est";
-            dialog[5] = " El jouant";
-            dialog[6] = "Veuillez lancer les dés";
-            dialog[7] = "Vous avez un jet de dé supplémentaire, car vous avez touché la case 8.";
-            dialog[8] = "a gagné avec le score";
-            dialog[9] = "Un nouveau jeu?";
-            dialog[10] = "Oui";
-            dialog[11] = "Non";
-
-        } else if (sprog.equals("English")) {
-            dialog[0] = "A dice with six sides are default chosen. Please press enter to select this. Or enter the number of sides (2 - 5) you wish:";
-            dialog[1] = "Who is Player 1?";
-            dialog[2] = "Who is Player 2?";
-            dialog[3] = "Who starts the game?";
-            dialog[4] = "It is";
-            dialog[5] = " playing";
-            dialog[6] = "Please roll the dices";
-            dialog[7] = " You have an additional dice roll, because you have hit field 8.";
-            dialog[8] = " has won with the score:";
-            dialog[9] = " A new game?";
-            dialog[10] = "Yes";
-            dialog[11] = "No";
-
-        } else if (sprog.equals("German")) {
-            dialog[0] = "Es gibt vorgewählte Würfel mit 6 Kanten. Drücken Sie die Eingabetaste, um dies auszuwählen. Geben Sie andernfalls die gewünschte Anzahl von Kanten (2 - 5) ein und drücken Sie die Eingabetaste";
-            dialog[1] = "Wer ist Spieler 1?";
-            dialog[2] = "Wer ist Spieler 2?";
-            dialog[3] = "Wer startet das Spiel?";
-            dialog[4] = "Es ist";
-            dialog[5] = " spielen";
-            dialog[6] = "Bitte würfeln";
-            dialog[7] = " Du hast einen zusätzlichen Würfelwurf, weil du Feld 8 getroffen hast.";
-            dialog[8] = " hat mit der Partitur gewonnen:";
-            dialog[9] = " Ein neues Spiel?";
-            dialog[10] = "Ja";
-            dialog[11] = "Nein";
-
-
-        }
-
-    }
 }
