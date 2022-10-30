@@ -44,21 +44,21 @@ public class Main {
         //GUI_Car p1car = new GUI_Car(Color.BLUE, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
         //GUI_Car p2car = new GUI_Car(Color.RED, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
 
-        String Players = gui.getUserButtonPressed("how many players?","2","3","4","5","6");
+        //String Players = gui.getUserButtonPressed("how many players?","2","3","4","5","6");
+        String Players = "2";
         GUI_Player[] PlayerArray = new GUI_Player[Integer.parseInt(Players)];
         GUI_Car[] playerCars = new GUI_Car[Integer.parseInt(Players)];
         String[] players = new String[Integer.parseInt(Players)];
-
+        String[] PlayerName = new String[Integer.parseInt(Players)];
         for (int i = 0; i<Integer.parseInt(Players);i++) {
-            playerCars[i] = new GUI_Car();
-            PlayerArray[i] = new GUI_Player("Player"+String.valueOf(i),1000,playerCars[i+1]);
-            PlayerArray[i].setName("Player"+String.valueOf(i));
-            PlayerArray[i].setName(gui.getUserString(dialog[i+1]));
-            if (PlayerArray[i].getName().length() == 0) PlayerArray[i].setName("Player"+String.valueOf(i));
-            //PlayerArray[i].setBalance(1000);
-
+            PlayerName[i] = (gui.getUserString(dialog[i]));
+            if (PlayerName[i].length()==0) PlayerName[i]=("Player"+String.valueOf(i+1));
+            playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
+            PlayerArray[i] = new GUI_Player(PlayerName[i],1000,playerCars[i]);
+            Cars.CarColor(playerCars,PlayerArray, Players, i);
             gui.addPlayer(PlayerArray[i]);
-            //PlayerArray[i]
+
+
         }
 
         /*
