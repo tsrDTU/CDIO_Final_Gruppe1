@@ -27,11 +27,11 @@ public class Cars {
             }
         }
     }
-    static void restart(GUI_Player player1, GUI_Player player2, GUI_Field[] fields) {
-        player1.setBalance(1000);
-        player2.setBalance(1000);
+    static void restart(GUI_Player PlayerArray[], GUI_Field[] fields) {
+        PlayerArray[0].setBalance(1000);
+        PlayerArray[1].setBalance(1000);
         for (int i =0;i<11;i++) fields[i].removeAllCars();
-        fields[0].setCar(player1, true);
-        fields[0].setCar(player2, true);
+        fields[0].setCar(PlayerArray[0], true);
+        fields[0].setCar(PlayerArray[1], true);
     }
 }

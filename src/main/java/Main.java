@@ -47,10 +47,16 @@ public class Main {
         String Players = gui.getUserButtonPressed("how many players?","2","3","4","5","6");
         GUI_Player[] PlayerArray = new GUI_Player[Integer.parseInt(Players)];
         GUI_Car[] playerCars = new GUI_Car[Integer.parseInt(Players)];
+        String[] players = new String[Integer.parseInt(Players)];
+
         for (int i = 0; i<Integer.parseInt(Players);i++) {
+            playerCars[i] = new GUI_Car();
+            PlayerArray[i] = new GUI_Player("Player"+String.valueOf(i),1000,playerCars[i+1]);
+            PlayerArray[i].setName("Player"+String.valueOf(i));
             PlayerArray[i].setName(gui.getUserString(dialog[i+1]));
-            if (PlayerArray[i].getName() == null) PlayerArray[i].setName("Player"+String.valueOf(i));
-            PlayerArray[i].setBalance(1000);
+            if (PlayerArray[i].getName().length() == 0) PlayerArray[i].setName("Player"+String.valueOf(i));
+            //PlayerArray[i].setBalance(1000);
+
             gui.addPlayer(PlayerArray[i]);
             //PlayerArray[i]
         }
@@ -71,11 +77,11 @@ public class Main {
 
 
         //Sets the initial car location
-        fields[0].setCar(player1, true);
-        fields[0].setCar(player2, true);
+        fields[0].setCar(PlayerArray[0], true);
+        fields[0].setCar(PlayerArray[1], true);
 
         //Selects who starts the game by selection in gui
-        boolean selection = gui.getUserLeftButtonPressed(dialog[3], player1.getName(), player2.getName());
+        boolean selection = gui.getUserLeftButtonPressed(dialog[3], PlayerArray[0].getName(), PlayerArray[1].getName());
 
         //Create a selected player that will point at active player
         GUI_Player selectedPlayer;
@@ -92,9 +98,9 @@ public class Main {
         }
 
         //Game loop
-        while (player1.getBalance() < 3000 && player2.getBalance() < 3000 && !gameEnd) {
-            if (selection) selectedPlayer = player1;
-            else selectedPlayer = player2;
+        while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
+            if (selection) selectedPlayer = PlayerArray[0];
+            else selectedPlayer = PlayerArray[1];
 
             //roll the dices
             d1.dice_roll();
@@ -105,9 +111,9 @@ public class Main {
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
             //Moving cars on the fields - and taking consequence of field
-            if (player1.getBalance() < 3000 && player2.getBalance() < 3000) {
+            if (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000) {
 
-               Cars.moveCars(Die.getSum(d1, d2),  selectedPlayer, player1, player2, fields);
+               Cars.moveCars(Die.getSum(d1, d2),  selectedPlayer, PlayerArray[0], PlayerArray[1], fields);
 
                 //Deposit/Withdraw money from fields on the board
                 int konsekvens = Integer.parseInt(fields[Die.getSum(d1, d2) - 2].getRent());
@@ -147,7 +153,9 @@ public class Main {
                     if (answer_game.equals("y") || answer_game.equals("j") || answer_game.equals("o") || answer_game.equals(dialog[10])) {
                         answerGameOk = true;
                         game_running = true;
-                        Cars.restart(player1, player2, fields);
+
+                        int i=2;
+                        Cars.restart(PlayerArray, fields);
                     }
                 }
                 while (!answerGameOk);
