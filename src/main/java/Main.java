@@ -1,11 +1,9 @@
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 import gui_fields.GUI_Street;
-import gui_codebehind.GUI_BoardController;
-import java.util.Objects;
-import java.util.concurrent.ThreadLocalRandom;
 import gui_fields.GUI_Car;
 import java.awt.Color;
+import java.util.Objects;
 
 public class Main {
 
@@ -49,12 +47,11 @@ public class Main {
         //Initializes players with name inputs
         String player1name = gui.getUserString(dialog[1]);
         String player2name = gui.getUserString(dialog[2]);
+        //Creates automatic playernames in case none is given
         if (player1name.length() == 0) player1name = ("Player1");
         if (player2name.length() == 0) player2name = ("Player2");
         GUI_Player player1 = new GUI_Player(player1name, 1000, p1car);
         GUI_Player player2 = new GUI_Player(player2name, 1000, p2car);
-        //if (Objects.equals(player1.getName(), null)) player1.setName("Player1");
-        //if (Objects.equals(player2.getName(), null)) player1.setName("Player2");
         gui.addPlayer(player1);
         gui.addPlayer(player2);
 
@@ -95,30 +92,24 @@ public class Main {
             //Moving cars on the fields - and taking consequence of field
             if (player1.getBalance() < 3000 && player2.getBalance() < 3000) {
 
-               Cars.moveCars(getSum(d1, d2),  selectedPlayer, player1, player2, fields);
+               Cars.moveCars(Die.getSum(d1, d2),  selectedPlayer, player1, player2, fields);
 
                 //Deposit/Withdraw money from fields on the board
-                int konsekvens = Integer.parseInt(fields[getSum(d1, d2) - 2].getRent());
-                selectedPlayer.setBalance(selectedPlayer.getBalance() + konsekvens*200);
+                int konsekvens = Integer.parseInt(fields[Die.getSum(d1, d2) - 2].getRent());
+                selectedPlayer.setBalance(selectedPlayer.getBalance() + konsekvens);
 
                 //Negative balance is not allowed
                 if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
             }
 
             //Shows description of the space you land on, and changes color
-            gui.displayChanceCard(selectedPlayer.getName() + " | " + fields[getSum(d1, d2) - 2].getTitle() + "\n" + fields[getSum(d1, d2) - 2].getSubText());
-            Fields.displayDescriptions(selectedPlayer, getSum(d1,d2), fields);
-
-
-            //Randomiser for dice positioning on the board
-            int random_numx = ThreadLocalRandom.current().nextInt(4, 6);
-            int random_numy = ThreadLocalRandom.current().nextInt(5, 7);
-            int random_numz = ThreadLocalRandom.current().nextInt(5, 7);
-            //Show dice on screen
-            gui.setDice(d1.getFaceValue(), random_numx, random_numy, d2.getFaceValue(), random_numx + 1, random_numz);
+            gui.displayChanceCard(selectedPlayer.getName() + " | " + fields[Die.getSum(d1, d2) - 2].getTitle() + "\n" + fields[Die.getSum(d1, d2) - 2].getSubText());
+            Fields.displayDescriptions(selectedPlayer, Die.getSum(d1,d2), fields);
+            //Display Die on the Board
+            Die.OnBoard(d1, d2, gui);
 
             //Switch selected player
-            if (!(Integer.parseInt(fields[getSum(d1, d2) - 2].getRent()) == -80))
+            if (!(Objects.equals(fields[Die.getSum(d1, d2) - 2].getTitle(), fields[8].getTitle())))
                 selection = !selection;
 
                 //Extra tour
@@ -149,9 +140,5 @@ public class Main {
                     System.exit(0);
             }
         }
-    }
-
-    private static int getSum(Die d1, Die d2) {
-        return d1.getFaceValue() + d2.getFaceValue();
     }
 }

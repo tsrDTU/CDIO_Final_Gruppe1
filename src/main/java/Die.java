@@ -1,19 +1,35 @@
-public class Die
-{
+import gui_codebehind.GUI_Center;
+import gui_fields.GUI_Board;
+import gui_fields.GUI_Field;
+import gui_fields.GUI_Street;
+import gui_main.GUI;
+
+import java.util.concurrent.ThreadLocalRandom;
+
+public class Die {
     private int faceValue, numberOfSides = 6;
 
 
-
-    public Die()
-    {
-        faceValue = (int)(Math.random() * numberOfSides) + 1;
+    public Die() {
+        faceValue = (int) (Math.random() * numberOfSides) + 1;
 
     }
 
-    public Die(int upperBound)
-    {
-        faceValue = (int)(Math.random() * upperBound) + 1;
+    public Die(int upperBound) {
+        faceValue = (int) (Math.random() * upperBound) + 1;
 
+    }
+
+    //Displays Dice on the Board:
+    static void OnBoard(Die d1, Die d2, GUI gui) {
+    int random_numx = ThreadLocalRandom.current().nextInt(4, 6);
+    int random_numy = ThreadLocalRandom.current().nextInt(5, 7);
+    int random_numz = ThreadLocalRandom.current().nextInt(5, 7);
+    //Show dice on screen
+            gui.setDice(d1.getFaceValue(),random_numx,random_numy,d2.getFaceValue(),random_numx +1,random_numz);
+    }
+    public static int getSum(Die d1, Die d2) {
+        return d1.getFaceValue() + d2.getFaceValue();
     }
     public void Die_test (int lowerBound, int upperBound)
     {
