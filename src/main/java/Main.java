@@ -41,19 +41,34 @@ public class Main {
         } while (antal_kant < 2 || antal_kant > 6);
 
         //Makes Cars in different colors depending on player
-        GUI_Car p1car = new GUI_Car(Color.BLUE, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
-        GUI_Car p2car = new GUI_Car(Color.RED, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
+        //GUI_Car p1car = new GUI_Car(Color.BLUE, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
+        //GUI_Car p2car = new GUI_Car(Color.RED, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
 
+        String Players = gui.getUserButtonPressed("how many players?","2","3","4","5","6");
+        GUI_Player[] PlayerArray = new GUI_Player[Integer.parseInt(Players)];
+        GUI_Car[] playerCars = new GUI_Car[Integer.parseInt(Players)];
+        for (int i = 0; i<Integer.parseInt(Players);i++) {
+            PlayerArray[i].setName(gui.getUserString(dialog[i+1]));
+            if (PlayerArray[i].getName() == null) PlayerArray[i].setName("Player"+String.valueOf(i));
+            PlayerArray[i].setBalance(1000);
+            gui.addPlayer(PlayerArray[i]);
+            //PlayerArray[i]
+        }
+
+        /*
         //Initializes players with name inputs
         String player1name = gui.getUserString(dialog[1]);
         String player2name = gui.getUserString(dialog[2]);
         //Creates automatic playernames in case none is given
         if (player1name.length() == 0) player1name = ("Player1");
         if (player2name.length() == 0) player2name = ("Player2");
-        GUI_Player player1 = new GUI_Player(player1name, 1000, p1car);
-        GUI_Player player2 = new GUI_Player(player2name, 1000, p2car);
+        GUI_Player player1 = new GUI_Player(player1name, 1000);
+        GUI_Player player2 = new GUI_Player(player2name, 1000);
         gui.addPlayer(player1);
         gui.addPlayer(player2);
+        */
+
+
 
         //Sets the initial car location
         fields[0].setCar(player1, true);
