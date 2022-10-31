@@ -111,7 +111,7 @@ public class Main {
 
                 //Deposit/Withdraw money from fields on the board
                 int konsekvens = Integer.parseInt(fields[Die.getSum(d1, d2) - 2].getRent());
-                selectedPlayer.setBalance(selectedPlayer.getBalance() + konsekvens*500);
+                selectedPlayer.setBalance(selectedPlayer.getBalance() + konsekvens);
 
                 //Negative balance is not allowed
                 if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
