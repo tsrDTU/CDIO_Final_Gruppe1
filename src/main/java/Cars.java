@@ -48,12 +48,12 @@ public class Cars {
 
     }
 
-    static void restart(GUI_Player PlayerArray[], GUI_Field[] fields) {
-        PlayerArray[0].setBalance(1000);
-        PlayerArray[1].setBalance(1000);
+    static void restart(GUI_Player PlayerArray[], GUI_Field[] fields, int AmountofPlayers) {
         for (int i = 0; i < 11; i++) fields[i].removeAllCars();
-        fields[0].setCar(PlayerArray[0], true);
-        fields[0].setCar(PlayerArray[1], true);
+        for (int i=0;i<AmountofPlayers;i++){
+            PlayerArray[i].setBalance(1000);
+            fields[0].setCar(PlayerArray[i], true);
+        }
     }
 
     static void CarColor(GUI_Car playerCars[], GUI_Player PlayerArray[], String Players, int PlayerNumber) {

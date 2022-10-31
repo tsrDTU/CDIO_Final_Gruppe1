@@ -88,7 +88,9 @@ public class Main {
         }
 
         //Game loop
-        while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
+        while (!gameEnd)
+         {
+        //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
             if (selection) selectedPlayer = PlayerArray[0];
             else selectedPlayer = PlayerArray[1];
 
@@ -109,7 +111,7 @@ public class Main {
 
                 //Deposit/Withdraw money from fields on the board
                 int konsekvens = Integer.parseInt(fields[Die.getSum(d1, d2) - 2].getRent());
-                selectedPlayer.setBalance(selectedPlayer.getBalance() + konsekvens);
+                selectedPlayer.setBalance(selectedPlayer.getBalance() + konsekvens*500);
 
                 //Negative balance is not allowed
                 if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
@@ -147,12 +149,13 @@ public class Main {
                         game_running = true;
 
                         int i=2;
-                        Cars.restart(PlayerArray, fields);
+                        Cars.restart(PlayerArray, fields, AmountofPlayers);
                     }
                 }
                 while (!answerGameOk);
                 if (!game_running)
                     System.exit(0);
+
             }
         }
     }
