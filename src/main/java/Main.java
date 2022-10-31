@@ -1,3 +1,4 @@
+import gui_fields.GUI_Board;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 import gui_fields.GUI_Street;
@@ -46,7 +47,8 @@ public class Main {
         //GUI_Car p2car = new GUI_Car(Color.RED, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
 
         //String Players = gui.getUserButtonPressed("how many players?","2","3","4","5","6");
-        String Players = "2";
+        String Players = gui.getUserButtonPressed(dialog[11], "2", "3", "4");
+        int AmountofPlayers = Integer.parseInt(Players);
         GUI_Player[] PlayerArray = new GUI_Player[Integer.parseInt(Players)];
         GUI_Car[] playerCars = new GUI_Car[Integer.parseInt(Players)];
         String[] players = new String[Integer.parseInt(Players)];
@@ -58,28 +60,15 @@ public class Main {
             PlayerArray[i] = new GUI_Player(PlayerName[i],1000,playerCars[i]);
             Cars.CarColor(playerCars,PlayerArray, Players, i);
             gui.addPlayer(PlayerArray[i]);
-
-
         }
-
-        /*
-        //Initializes players with name inputs
-        String player1name = gui.getUserString(dialog[1]);
-        String player2name = gui.getUserString(dialog[2]);
-        //Creates automatic playernames in case none is given
-        if (player1name.length() == 0) player1name = ("Player1");
-        if (player2name.length() == 0) player2name = ("Player2");
-        GUI_Player player1 = new GUI_Player(player1name, 1000);
-        GUI_Player player2 = new GUI_Player(player2name, 1000);
-        gui.addPlayer(player1);
-        gui.addPlayer(player2);
-        */
 
 
 
         //Sets the initial car location
-        fields[0].setCar(PlayerArray[0], true);
-        fields[0].setCar(PlayerArray[1], true);
+        for (int i = 0; i<Integer.parseInt(Players);i++) {
+            fields[0].setCar(PlayerArray[i], true);
+        }
+
 
         //Selects who starts the game by selection in gui
         boolean selection = gui.getUserLeftButtonPressed(dialog[3], PlayerArray[0].getName(), PlayerArray[1].getName());
@@ -111,10 +100,12 @@ public class Main {
             gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
+            int AmountofSpaces = 11;
+
             //Moving cars on the fields - and taking consequence of field
             if (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000) {
 
-               Cars.moveCars(Die.getSum(d1, d2),  selectedPlayer, PlayerArray[0], PlayerArray[1], fields);
+               Cars.moveCars(Die.getSum(d1, d2),  selectedPlayer, PlayerArray, fields, AmountofPlayers, AmountofSpaces);
 
                 //Deposit/Withdraw money from fields on the board
                 int konsekvens = Integer.parseInt(fields[Die.getSum(d1, d2) - 2].getRent());
