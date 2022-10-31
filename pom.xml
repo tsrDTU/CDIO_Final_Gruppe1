@@ -17,7 +17,7 @@
 <repositories>
     <repository>
         <id>Matador_GUI-repository</id>
-        <url>https://github.com/diplomit-dtu/Matador_GUI/raw/repository</url>
+        <url>https://github.com/diplomit-dtu/MatadorGUIGuide/tree/3.2.x</url>
         <snapshots>
             <enabled>true</enabled>
             <updatePolicy>always</updatePolicy>
