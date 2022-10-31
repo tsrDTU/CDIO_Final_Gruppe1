@@ -69,9 +69,40 @@ public class Main {
             fields[0].setCar(PlayerArray[i], true);
         }
 
-
+        boolean selection=true;
+        String select="";
+        String[] pl = new String[AmountofPlayers];
         //Selects who starts the game by selection in gui
-        boolean selection = gui.getUserLeftButtonPressed(dialog[3], PlayerArray[0].getName(), PlayerArray[1].getName());
+        //boolean selection = gui.getUserLeftButtonPressed(dialog[3], PlayerArray[0].getName(), PlayerArray[1].getName());
+        for (int i=0;i<AmountofPlayers;i++){
+            pl[i] = PlayerArray[i].getName();
+        }
+        if (AmountofPlayers==2)
+            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1]);
+        if (AmountofPlayers==3)
+            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1], pl[2]);
+        if (AmountofPlayers==4)
+            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1], pl[2], pl[3]);
+        /*
+        if (AmountofPlayers==5)
+            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1], pl[2], pl[3], pl[4]);
+        if (AmountofPlayers==6)
+            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1], pl[2], pl[3], pl[4], pl[5]);
+        if (AmountofPlayers==7)
+            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1], pl[2], pl[3], pl[4],pl[5], pl[6]);
+        if (AmountofPlayers==8)
+            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1], pl[2], pl[3], pl[4],pl[5], pl[6], pl[7])
+         */
+
+        int intselect = 0;
+        int[] selectPlayer = new int[AmountofPlayers];
+        for (int i=0;i<AmountofPlayers;i++) {
+            selectPlayer[i] = 0;
+            if (Objects.equals(select, PlayerArray[i].getName())) {
+                selectPlayer[i] = i;
+                intselect = i;
+            }
+        }
 
         //Create a selected player that will point at active player
         GUI_Player selectedPlayer;
@@ -87,12 +118,18 @@ public class Main {
             d2.setNumberOfSides(antal_kant);
         }
 
+        int playingPlayer=intselect;
+        int playingPlayer2=0;
         //Game loop
         while (!gameEnd)
          {
         //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
-            if (selection) selectedPlayer = PlayerArray[0];
-            else selectedPlayer = PlayerArray[1];
+
+             if (playingPlayer==AmountofPlayers)
+             playingPlayer=0;
+             playingPlayer2=playingPlayer;
+             if (selection) selectedPlayer = PlayerArray[playingPlayer];
+            else selectedPlayer = PlayerArray[playingPlayer2];
 
             //roll the dices
             d1.dice_roll();
@@ -105,7 +142,7 @@ public class Main {
             int AmountofSpaces = 11;
 
             //Moving cars on the fields - and taking consequence of field
-            if (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000) {
+            if (!gameEnd) {
 
                Cars.moveCars(Die.getSum(d1, d2),  selectedPlayer, PlayerArray, fields, AmountofPlayers, AmountofSpaces);
 
@@ -124,9 +161,10 @@ public class Main {
             Die.OnBoard(d1, d2, gui);
 
             //Switch selected player
-            if (!(Objects.equals(fields[Die.getSum(d1, d2) - 2].getTitle(), fields[8].getTitle())))
+            if (!(Objects.equals(fields[Die.getSum(d1, d2) - 2].getTitle(), fields[8].getTitle()))) {
                 selection = !selection;
-
+                playingPlayer++;
+            }
                 //Extra tour
             else if (!(selectedPlayer.getBalance() > 3000)) {
                 gui.showMessage(selectedPlayer.getName() + dialog[7]);
