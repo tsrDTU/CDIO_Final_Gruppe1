@@ -3,12 +3,13 @@ import gui_main.GUI;
 import gui_fields.GUI_Street;
 import gui_fields.GUI_Car;
 import java.awt.Color;
+import java.io.IOException;
 import java.util.Objects;
 
 public class Main {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         String string_in, language, answer_game;
         String[] dialog = new String[12];

@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="CDIOdel3A" />
+        <module name="CDIOdel3Gruppe1.java" />
       </profile>
     </annotationProcessing>
   </component>

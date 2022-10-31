@@ -1,19 +1,66 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+
+
 public class Language {
 
-    static void initializeDialog(String[] dialog, String sprog) {
+    public Language() throws FileNotFoundException {
+    }
+
+
+    static void initializeDialog(String[] dialog, String sprog) throws IOException {
+        String file = "src/main/Language/Dansk"; // file location
+        BufferedReader reader = null;
+
+            //Creates the Reader
+            reader = new BufferedReader(new FileReader(file));
+            String currentLine = reader.readLine();
+
+        //Sets the line to read to 0
+        String line= "0";
         if (sprog.equals("Dansk")) {
-            dialog[0] = "Der er forhåndsvalgt terninger med 6 kanter. Tast enter for at vælge dette. Ellers indtast det ønskede antal kanter  (2 - 5) og tast enter";
-            dialog[1] = "Hvem er Spiller 1?";
-            dialog[2] = "Hvem er Spiller 2?";
-            dialog[3] = "Hvem starter spillet?";
-            dialog[4] = "Det er";
-            dialog[5] = " der har tur";
-            dialog[6] = "Rul med terningerne";
-            dialog[7] = " Du har fået en ekstra tur, fordi du ramte felt 8.";
-            dialog[8] = " Har vundet med en score på:";
-            dialog[9] = " Nyt spil?";
-            dialog[10] = "Ja";
-            dialog[11] = "Nej";
+            file = "Dansk";
+            //dialog[0] = "Der er forhåndsvalgt terninger med 6 kanter. Tast enter for at vælge dette. Ellers indtast det ønskede antal kanter  (2 - 5) og tast enter";
+            for (int i = 0;i<12;i++) {
+                dialog[i] = line = reader.readLine();
+                line = String.valueOf(Integer.parseInt(line + 1));
+            }
+               /*
+                //dialog[1] = "Hvem er Spiller 1?";
+                dialog[1] = line = reader.readLine();
+                line = "2";
+                dialog[2] = line = reader.readLine();//"Hvem er Spiller 2?";
+                line = "3";
+                dialog[3] = line = reader.readLine(); //"Hvem starter spillet?";
+                dialog[4] = "Det er";
+                dialog[5] = " der har tur";
+                dialog[6] = "Rul med terningerne";
+                dialog[7] = " Du har fået en ekstra tur, fordi du ramte felt 8.";
+                dialog[8] = " Har vundet med en score på:";
+                dialog[9] = " Nyt spil?";
+                dialog[10] = "Ja";
+                dialog[11] = "Nej";
+                reader.close();
+
+                */
+
+            //dialog[12] = reader.readLine();
+            //Path file = Paths.get("src/main/Language/Dansk");
+            //BufferedReader reader = new BufferedReader(new FileReader(file));
+
+            //  String expected_value = "Hello, world!";
+
+
+            //String read = Files.readString(file).get(0);
+               /* throw IOException {
+                String expected_value = "Hello, world!";
+                String read = Files.readAllLines(file).get(0);
+                assertEquals(expected_value, read);
+                }*/
+
 
         } else if (sprog.equals("Francias")) {
             dialog[0] = "Un dé à six faces est choisi par défaut. Veuillez appuyer sur Entrée pour le sélectionner. Ou entrez le nombre de faces (2 - 5) que vous souhaitez:";
@@ -61,5 +108,6 @@ public class Language {
         }
 
     }
+
 }
 
