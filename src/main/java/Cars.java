@@ -53,9 +53,7 @@ public class Cars {
         //color[6] = Color.MAGENTA;
         //color[7] = Color.PINK;
         //color[8] = Color.CYAN;
-
-            PlayerArray[PlayerNumber].getCar().setPrimaryColor(color[PlayerNumber]);
-
+        PlayerArray[PlayerNumber].getCar().setPrimaryColor(color[PlayerNumber]);
     }
 }
 
