@@ -8,7 +8,31 @@ import java.awt.*;
 
 
 public class Fields {
-       public static void initialiseFields(GUI_Field[] fields, String felter) {
+
+    /*    NOTE FOR NEW FIELD COLOR SYSTEM
+    public static void initialiseFields(GUI_Fields[] fields, String felter, AmountofFields);
+
+//Define Colors based on description
+    GUI_Color[] Colors = new GUI_Color[8] // this makes the amount of colors to display
+    Colors[0] = new GUI_Color(Color.WHITE)
+    Colors[1] = new GUI_Color(Color.RED)
+    Colors[2] = new GUI_Color(Color.YELLOW)
+    Colors[3] = new GUI_Color(Color.GREEN)
+    Colors[4] = new GUI_Color(Color.BLUE)
+    Colors[5] = new GUI_Color(Color.decode("#a52a2a")
+    Colors[6] = new GUI_Color(Color.CYAN)
+    Colors[7] = new GUI_Color(Color.MAGENTA)
+    Colors[8] = new GUI_Color(Color.ORANGE)
+
+    //Define all fields
+    for (int i=0;i<AmountofFields;i++) {
+    fields[i] = new GUI_Street(Get Line From Txt Title, GLFT subText,
+     GLFT Description, GLFT rent, get Color based on description, Color.BLACK);
+     if (getDescription == red)
+     fields[i].setColor Color[descripNum];
+     }
+     */
+    public static void initialiseFields(GUI_Field[] fields, String felter) {
         if (felter.equals("12")) {
             //GUI_Street[] fields = new GUI_Street[11];
             fields[0] = new GUI_Street("2 Tower ", "+250", "", "250", Color.GREEN, Color.BLACK);

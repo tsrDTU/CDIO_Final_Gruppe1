@@ -51,7 +51,6 @@ public class Main {
         int AmountofPlayers = Integer.parseInt(Players);
         GUI_Player[] PlayerArray = new GUI_Player[Integer.parseInt(Players)];
         GUI_Car[] playerCars = new GUI_Car[Integer.parseInt(Players)];
-        String[] players = new String[Integer.parseInt(Players)];
         String[] PlayerName = new String[Integer.parseInt(Players)];
         for (int i = 0; i<Integer.parseInt(Players);i++) {
             PlayerName[i] = (gui.getUserString(dialog[i]));
