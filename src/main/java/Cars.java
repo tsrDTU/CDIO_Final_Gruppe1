@@ -57,17 +57,14 @@ public class Cars {
     }
 
     static void CarColor(GUI_Car playerCars[], GUI_Player PlayerArray[], String Players, int PlayerNumber) {
-        Color[] color = new Color[6];
-        color[0] = Color.RED;
-        color[1] = Color.BLUE;
-        color[2] = Color.GREEN;
-        color[3] = Color.YELLOW;
-        color[4] = Color.LIGHT_GRAY;
-        color[5] = Color.BLACK;
-        //color[6] = Color.MAGENTA;
-        //color[7] = Color.PINK;
-        //color[8] = Color.CYAN;
-        PlayerArray[PlayerNumber].getCar().setPrimaryColor(color[PlayerNumber]);
+        Color[] color = new Color[Integer.parseInt(Players)];
+        float f;
+        for (int i =0;i<Integer.parseInt(Players);i++){
+            String h = String.valueOf(i*0.18+1);
+            color[i] = Color.getHSBColor(Float.parseFloat(h), 1f, 1f);
+            PlayerArray[PlayerNumber].getCar().setPrimaryColor(color[PlayerNumber]);
+        }
+
     }
 }
 
