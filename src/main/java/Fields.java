@@ -11,6 +11,16 @@ public class Fields {
 
     /*    NOTE FOR NEW FIELD COLOR SYSTEM
     public static void initialiseFields(GUI_Fields[] fields, String felter, AmountofFields);
+    String[] ColorNR = new String[8];
+    String[0] ColorNR = "white";
+    String[1] ColorNR = "red;
+    String[2] ColorNR = "yellow";
+    String[3] ColorNR = "green";
+    String[4] ColorNR = "blue";
+    String[5] ColorNR = "brown";
+    String[6] ColorNR = "cyan";
+    String[7] ColorNR = "magenta";
+    String[8] ColorNR = "orange";
 
 //Define Colors based on description
     GUI_Color[] Colors = new GUI_Color[8] // this makes the amount of colors to display
@@ -23,6 +33,12 @@ public class Fields {
     Colors[6] = new GUI_Color(Color.CYAN)
     Colors[7] = new GUI_Color(Color.MAGENTA)
     Colors[8] = new GUI_Color(Color.ORANGE)
+
+for (int i = 0;i<AmountofFields;i++){
+    if (ColorNR[i] == get color from description)
+        field[i].setcolor(Colors[i])
+    else field[i].setcolor(Color.WHITE);
+}
 
     //Define all fields
     for (int i=0;i<AmountofFields;i++) {
