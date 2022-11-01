@@ -28,7 +28,7 @@ public class Language {
         dialog[11] = "Nej";
 
 
-
+// søg på youtube: java reading txt files
             //dialog[12] = reader.readLine();
             //Path file = Paths.get("src/main/Language/Dansk");
             //BufferedReader reader = new BufferedReader(new FileReader(file));
