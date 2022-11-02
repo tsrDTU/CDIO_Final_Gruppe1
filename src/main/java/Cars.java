@@ -16,12 +16,15 @@ public class Cars {
         boolean[] SpaceHasCurrentPlayer = new boolean[AmountofSpaces];
             int LocationCurrent=0;
             int Space = DiceRollSum-2;
+            int LocationNEW = 0;
 
                //Checks the Location for the car that wants to move
                 for (int i = 0;i<AmountofSpaces;i++){
                     if (street[i].hasCar(currentplayer)) {
                         SpaceHasCurrentPlayer[i] = true;
                         LocationCurrent = i;
+                        LocationNEW = (LocationCurrent+Space)-24;
+
                     }
                     else SpaceHasCurrentPlayer[i] = false;
         }
@@ -36,6 +39,7 @@ public class Cars {
                 for (int i = 0;i<AmountofSpaces;i++) {
                     if (SpaceHasCurrentPlayer[i])
                         street[LocationCurrent].removeAllCars();
+
                 }
 
                 //if boolean value of a car is true, they get put back into the space they were in
@@ -43,8 +47,20 @@ public class Cars {
                     if (PlayerNum[i])
                         street[LocationCurrent].setCar(players[i], true);
                 }
+
+
+
+
+
+
         //Moves the Player That wanted to move in the first place
-        street[Space].setCar(currentplayer, true);
+        if (LocationCurrent+Space<=23)
+        street[LocationCurrent+Space].setCar(currentplayer, true);
+        else
+            street[LocationNEW].setCar(currentplayer,true);
+
+
+
 
     }
 

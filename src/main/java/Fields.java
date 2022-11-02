@@ -1,5 +1,4 @@
 import gui_codebehind.GUI_Center;
-import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 
@@ -48,7 +47,32 @@ for (int i = 0;i<AmountofFields;i++){
      fields[i].setColor Color[descripNum];
      }
      */
-    public static void initialiseFields(GUI_Field[] fields, String felter) {
+
+    public static Color ColorSpace(int description, int spaceamount){
+            if (spaceamount==9)
+                description = description-9;//*(spaceamount)/9;
+        if (description==0) return Color.WHITE;
+        else if (description==1) return Color.RED;
+        else if (description==2) return Color.BLUE;
+        else if (description==3) return Color.getHSBColor(0.10f,1f,1f);
+        else if (description==4) return Color.getHSBColor(0.90f,1f,1f);
+        else if (description==5) return Color.CYAN;
+        else if (description==6) return Color.YELLOW;
+        else if (description==7) return Color.getHSBColor(0.80f,0.77f,0.8f);
+        else if (description==8) return Color.GREEN;
+        else return Color.WHITE;
+    }
+
+    public static void initialiseFields(GUI_Street[] fields,String fieldNR) {
+        //GUI_Street[] fields = new GUI_Street[Integer.parseInt(fieldNR)];
+        /*
+        for (int i =0;i<Integer.parseInt(fieldNR)-1;i++){
+            fields[i] = new GUI_Street("get this","20", "description","0", Color.GREEN, Color.BLACK);
+        }
+
+         */
+        //GUI gui = new GUI(felter, Color.WHITE);
+        /*
         if (felter.equals("12")) {
             //GUI_Street[] fields = new GUI_Street[11];
             fields[0] = new GUI_Street("2 Tower ", "+250", "", "250", Color.GREEN, Color.BLACK);
@@ -63,6 +87,8 @@ for (int i = 0;i<AmountofFields;i++){
             fields[9] = new GUI_Street("11 The pit ", "-50", "", "-50", Color.RED, Color.BLACK);
             fields[10] = new GUI_Street("12 Goldmine ", "+650", "", "+650", Color.GREEN, Color.BLACK);
         }
+
+         */
     }
     public static void displayDescriptions(GUI_Player selected, int diceSum, GUI_Street[] fields){
         if (Integer.parseInt(fields[diceSum - 2].getRent()) > 0)
