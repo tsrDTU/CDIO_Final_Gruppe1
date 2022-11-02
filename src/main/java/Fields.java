@@ -1,12 +1,66 @@
 import gui_codebehind.GUI_Center;
-import gui_fields.GUI_Player;
-import gui_fields.GUI_Street;
+import gui_fields.*;
 
 import java.awt.*;
-
+import java.util.Objects;
 
 
 public class Fields {
+
+    public static String wannaBuyDoYou(boolean OwnedtrueOwnedfalse,
+                                       int description,
+                                       int price,
+                                       int AmountofPlayers,
+                                       GUI_Player selectedPlayer,
+                                       GUI_Street[] fields,
+                                       boolean boolforBUY,
+                                       GUI_Player[] PlayerArray,
+                                       int AmountofSpaces) {
+        String ReturnMessageNoFunding = "Not enough money";
+        String ReturnMessageYesFunding = "Property bought";
+        String ReturnDontWantBuy = "Its ok not to buy";
+        String ReturnOwned = "Owned field";
+        boolean wannaBuy = false;
+        boolean[] Playerboughtspace = new boolean[AmountofPlayers];
+        if (OwnedtrueOwnedfalse)
+            if (boolforBUY)
+                for (int i = 0; i < AmountofSpaces; i++) {
+                    if (fields[i].hasCar(PlayerArray[i])) {
+                        if (PlayerArray[1].getBalance() >= price) {
+                            PlayerArray[1].setBalance(PlayerArray[1].getBalance() - price);
+                            for (int k = 0; k < AmountofPlayers; k++) {
+                                Playerboughtspace[i] = false;
+                                if (selectedPlayer == PlayerArray[k])
+                                    Playerboughtspace[i] = true;
+                            }
+
+                            return ReturnMessageYesFunding;
+                        } else return ReturnMessageNoFunding;
+                    }
+                    return ReturnDontWantBuy;
+                }
+
+            else if (!OwnedtrueOwnedfalse)
+                for (int i = 0; i < AmountofSpaces; i++) {
+                    if (fields[i].hasCar(PlayerArray[i])) {
+                        int moneys = Integer.parseInt(fields[i].getRent());
+                        for (int k = 0; k < AmountofPlayers; k++) {
+                            if (Objects.equals(PlayerArray[i].getName(), selectedPlayer.getName()))
+                                selectedPlayer.setBalance(selectedPlayer.getBalance() - moneys);
+                        }
+                    }
+
+                }
+        return ReturnOwned;
+
+    }
+
+
+
+
+
+
+
 
     /*    NOTE FOR NEW FIELD COLOR SYSTEM
     public static void initialiseFields(GUI_Fields[] fields, String felter, AmountofFields);
@@ -101,6 +155,23 @@ for (int i = 0;i<AmountofFields;i++){
             GUI_Center.getInstance().setBGColor(Color.YELLOW);
     }
 
+    /*
+    public static void Properties(GUI_Street[] fields, int AmountofFields, int AllowedAmountofOwnableFields, File DescriptionF, File subTextF, File TitleF, File rentF) throws FileNotFoundException {
+        GUI_Ownable[] OwnableField = new GUI_Ownable[AllowedAmountofOwnableFields];
+        for (int i=0;i<AllowedAmountofOwnableFields;i++){
+            String I = String.valueOf(i);
+            OwnableField[i] = new GUI_Ownable(
+                    ColorSpace(Integer.parseInt(Main.txtReadAndReturn(DescriptionF,I)), AllowedAmountofOwnableFields),
+                    Color.BLACK,
+                    Main.txtReadAndReturn(TitleF,I),
+                    Main.txtReadAndReturn(subTextF,I),
+                    Main.txtReadAndReturn(rentF,I),
+                    Main.txtReadAndReturn(rentF,I));
+
+        }
+
+    }
+     */
 
 
 }
