@@ -10,50 +10,77 @@ import java.awt.color.ColorSpace;
 
 public class Cars {
 
-    static void moveCars(int DiceRollSum, GUI_Player currentplayer, GUI_Player p1,
-                         GUI_Player p2, GUI_Street[] street) {
+    static void moveCars(int DiceRollSum, GUI_Player currentplayer, GUI_Player[] players, GUI_Street[] street, int AmountofPlayers, int AmountofSpaces) {
         //Fields.initialiseFields(fields, "12");
-        for (int i = 0; i <= 11; i++) {
-            //Checks for 2 players on the same field
-            if (street[i].hasCar(p1) && street[i].hasCar((p2))) {
-                street[i].removeAllCars();
-                if (currentplayer == p1) {
-                    street[i].setCar(p2, true);
+        boolean[] PlayerNum =  new boolean[AmountofPlayers];
+        boolean[] SpaceHasCurrentPlayer = new boolean[AmountofSpaces];
+            int LocationCurrent=0;
+            int Space = DiceRollSum-2;
+            int LocationNEW = 0;
+
+               //Checks the Location for the car that wants to move
+                for (int i = 0;i<AmountofSpaces;i++){
+                    if (street[i].hasCar(currentplayer)) {
+                        SpaceHasCurrentPlayer[i] = true;
+                        LocationCurrent = i;
+                        LocationNEW = (LocationCurrent+Space)-24;
+
+                    }
+                    else SpaceHasCurrentPlayer[i] = false;
+        }
+
+                //Checks if each player is on the field and attaches a boolean value
+                for (int i = 0;i<AmountofPlayers;i++) {
+                    if (street[LocationCurrent].hasCar(players[i]) && currentplayer!=players[i])
+                        PlayerNum[i] = true;
+                    else PlayerNum[i] = false;
+            }
+                //Removes all cars for the space that (the car that wants to move) is in
+                for (int i = 0;i<AmountofSpaces;i++) {
+                    if (SpaceHasCurrentPlayer[i])
+                        street[LocationCurrent].removeAllCars();
+
                 }
-                //Sets car back in its original place
-                else street[i].setCar(p1, true);
-                street[DiceRollSum - 2].setCar(currentplayer, true);
-                i = 11;
-            }
-            //Push through with changing car location
-            else if (street[i].hasCar(currentplayer)) {
-                street[i].removeAllCars();
-                street[DiceRollSum - 2].setCar(currentplayer, true);
-                i = 11;
-            }
+
+                //if boolean value of a car is true, they get put back into the space they were in
+                for (int i = 0; i<AmountofPlayers;i++){
+                    if (PlayerNum[i])
+                        street[LocationCurrent].setCar(players[i], true);
+                }
+
+
+
+
+
+
+        //Moves the Player That wanted to move in the first place
+        if (LocationCurrent+Space<=23)
+        street[LocationCurrent+Space].setCar(currentplayer, true);
+        else
+            street[LocationNEW].setCar(currentplayer,true);
+
+
+
+
+    }
+
+    static void restart(GUI_Player PlayerArray[], GUI_Field[] fields, int AmountofPlayers) {
+        for (int i = 0; i < 11; i++) fields[i].removeAllCars();
+        for (int i=0;i<AmountofPlayers;i++){
+            PlayerArray[i].setBalance(1000);
+            fields[0].setCar(PlayerArray[i], true);
         }
     }
 
-    static void restart(GUI_Player PlayerArray[], GUI_Field[] fields) {
-        PlayerArray[0].setBalance(1000);
-        PlayerArray[1].setBalance(1000);
-        for (int i = 0; i < 11; i++) fields[i].removeAllCars();
-        fields[0].setCar(PlayerArray[0], true);
-        fields[0].setCar(PlayerArray[1], true);
-    }
-
     static void CarColor(GUI_Car playerCars[], GUI_Player PlayerArray[], String Players, int PlayerNumber) {
-        Color[] color = new Color[6];
-        color[0] = Color.RED;
-        color[1] = Color.BLUE;
-        color[2] = Color.GREEN;
-        color[3] = Color.YELLOW;
-        color[4] = Color.LIGHT_GRAY;
-        color[5] = Color.BLACK;
-        //color[6] = Color.MAGENTA;
-        //color[7] = Color.PINK;
-        //color[8] = Color.CYAN;
-        PlayerArray[PlayerNumber].getCar().setPrimaryColor(color[PlayerNumber]);
+        Color[] color = new Color[Integer.parseInt(Players)];
+        float f;
+        for (int i =0;i<Integer.parseInt(Players);i++){
+            String h = String.valueOf(i*0.18+1);
+            color[i] = Color.getHSBColor(Float.parseFloat(h), 1f, 1f);
+            PlayerArray[PlayerNumber].getCar().setPrimaryColor(color[PlayerNumber]);
+        }
+
     }
 }
 
