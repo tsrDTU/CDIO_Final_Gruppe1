@@ -6,8 +6,18 @@ import java.util.Objects;
 
 
 public class Fields {
+    public static boolean OwnedCheck(int[][] Ownedtrue, int AmountofSpaces, int PlayerNR) {
+        for (int i = 0;i<AmountofSpaces;i++){
+            if (Ownedtrue[i][PlayerNR+1] == 1)
+                return true;
+            System.out.println("Fields OwnedCheck for loop returned true");
+        }
+        System.out.println("Fields OwnedCheck NOT for loop returned false");
+        return false;
+    }
 
-    public static String wannaBuyDoYou(boolean OwnedtrueOwnedfalse,
+
+    public static String wannaBuyDoYou(int[][] Ownedtrue,
                                        int description,
                                        int price,
                                        int AmountofPlayers,
@@ -19,38 +29,63 @@ public class Fields {
         String ReturnMessageNoFunding = "Not enough money";
         String ReturnMessageYesFunding = "Property bought";
         String ReturnDontWantBuy = "Its ok not to buy";
-        String ReturnOwned = "Owned field";
+        String ReturnOwned = "Something went wwrong in the wannabuy method under fields";
         boolean wannaBuy = false;
         boolean[] Playerboughtspace = new boolean[AmountofPlayers];
-        if (OwnedtrueOwnedfalse)
-            if (boolforBUY)
+        int THEfieldsNR=0;
+        String NewBal ="0";
+        for (int i=0;i<AmountofSpaces;i++){
+            if (fields[i].hasCar(selectedPlayer))
+                THEfieldsNR =i;
+        }
+
+        if ((Ownedtrue[THEfieldsNR][selectedPlayer.getNumber()]==0))
+            if (boolforBUY) {
                 for (int i = 0; i < AmountofSpaces; i++) {
-                    if (fields[i].hasCar(PlayerArray[i])) {
-                        if (PlayerArray[1].getBalance() >= price) {
-                            PlayerArray[1].setBalance(PlayerArray[1].getBalance() - price);
+                    if (fields[i].hasCar(selectedPlayer)) {
+                        if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= price) {
+                            PlayerArray[selectedPlayer.getNumber()].setBalance(PlayerArray[selectedPlayer.getNumber()].getBalance() - price);
                             for (int k = 0; k < AmountofPlayers; k++) {
-                                Playerboughtspace[i] = false;
-                                if (selectedPlayer == PlayerArray[k])
-                                    Playerboughtspace[i] = true;
+                                Ownedtrue[i][1] = 1;
+                                //if (selectedPlayer == PlayerArray[k])
+                                //    Ownedtrue[i][1] = 1;
                             }
-
-                            return ReturnMessageYesFunding;
-                        } else return ReturnMessageNoFunding;
+                            System.out.println(selectedPlayer.getNumber());
+                            return "0";
+                        } else return "0";
                     }
-                    return ReturnDontWantBuy;
                 }
-
-            else if (!OwnedtrueOwnedfalse)
+            }
+            else if (Ownedtrue[THEfieldsNR][selectedPlayer.getNumber()] ==1) {
                 for (int i = 0; i < AmountofSpaces; i++) {
-                    if (fields[i].hasCar(PlayerArray[i])) {
+                    if (fields[i].hasCar(selectedPlayer)) {
                         int moneys = Integer.parseInt(fields[i].getRent());
+                        selectedPlayer.setBalance(selectedPlayer.getBalance() - moneys);
+                        /*
                         for (int k = 0; k < AmountofPlayers; k++) {
                             if (Objects.equals(PlayerArray[i].getName(), selectedPlayer.getName()))
                                 selectedPlayer.setBalance(selectedPlayer.getBalance() - moneys);
                         }
+                        */
                     }
-
                 }
+            }
+                else {
+                NewBal = String.valueOf(selectedPlayer.getBalance()+fields[THEfieldsNR].getRent());
+                    return NewBal;
+                /*
+                    for (int i =0;i<AmountofSpaces;i++) {
+                    if (fields[i].hasCar(selectedPlayer)){
+                        NewBal = String.valueOf(selectedPlayer.getBalance()+fields[i].getRent());
+                        //selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(fields[i].getRent()));
+                        return NewBal;
+                    }
+                    else System.out.println("couldn't find the field of the player");
+                }
+                */
+
+            }
+
         return ReturnOwned;
 
     }

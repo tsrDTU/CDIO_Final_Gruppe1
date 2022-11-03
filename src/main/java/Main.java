@@ -20,7 +20,7 @@ public class Main {
         boolean language_ok, game_running, answerGameOk;
 
         game_running = true;
-        int fieldNR = 24 + 1;
+        int fieldNR = 24;
         //GUI_Street[] fields = new GUI_Street[11];   //setup streets
 
         File DescriptionF = new File("src/main/Field Guts/description");
@@ -29,9 +29,9 @@ public class Main {
         File rentF = new File("src/main/Field Guts/rent");
 
 
-        GUI_Street[] fields = new GUI_Street[fieldNR - 1];
+        GUI_Street[] fields = new GUI_Street[fieldNR];
         int line = 0;
-        for (int i = 0; i < fieldNR - 1; i++) {
+        for (int i = 0; i < fieldNR; i++) {
             fields[i] = new GUI_Street(
                     txtReadAndReturn(TitleF,String.valueOf(i+1)),
                     txtReadAndReturn(subtextF,String.valueOf(i+1)),
@@ -52,7 +52,7 @@ public class Main {
 
 
         /*
-        for (int c = 1; c < fieldNR - 10; c++) {
+        for (int c = 1; c < fieldNR0; c++) {
             //Color FC = Fields.ColorSpace(StringRDR("src/main/Field Guts/description", fieldNR, c));
             //fields[c].setBackGroundColor(FC);
             Color FC = Fields.ColorSpace(d.nextLine());
@@ -96,7 +96,7 @@ public class Main {
 
         Language.initializeDialog(dialog, language); // Initialize the game dialog
 
-        //GUI_Street[] fields = new GUI_Street[fieldNR - 1];
+        //GUI_Street[] fields = new GUI_Street[fieldNR];
 
 
         //GUI gui = new GUI(fields, Color.WHITE);
@@ -129,6 +129,17 @@ public class Main {
             Cars.CarColor(playerCars, PlayerArray, Players, i);
             gui.addPlayer(PlayerArray[i]);
         }
+
+        //Initialise true false for OwnedNotOwnedFields
+        int[][] OwnedtrueOwnedFalse = new int[fieldNR][AmountofPlayers+1];
+        for (int n=0;n<fieldNR;n++){
+            OwnedtrueOwnedFalse[n][0] = n;
+            for (int i =0;i<AmountofPlayers;i++){
+            OwnedtrueOwnedFalse[n][i] = 0;
+            }
+        }
+
+
 
         //Integer.parseInt(Players)
         //Sets the initial car location
@@ -190,6 +201,11 @@ public class Main {
         Die d1 = new Die();
         Die d2 = new Die();
 
+
+
+
+
+
         // If sides are different from 6, set the number of sides.
         if (antal_kant != 6) {
             d1.setNumberOfSides(antal_kant);
@@ -220,16 +236,39 @@ public class Main {
             gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
-            int AmountofSpaces = fieldNR - 1;
+            int AmountofSpaces = fieldNR;
             int DieSum = Die.getSum(d1,d2)+2;
             //Moving cars on the fields - and taking consequence of field
             if (!gameEnd) {
 
                 Cars.moveCars(DieSum, selectedPlayer, PlayerArray, fields, AmountofPlayers, AmountofSpaces);
-
+/*
                 //Deposit/Withdraw money from fields on the board
                 int konsekvens = Integer.parseInt(fields[DieSum].getRent());
                 selectedPlayer.setBalance(selectedPlayer.getBalance() + konsekvens);
+*/
+                boolean wanttobuyYesNo = false;
+                String wanttobuyYesNoS = gui.getUserButtonPressed("wanna buy?", "Yes", "No");
+                if (Objects.equals(wanttobuyYesNoS, "Yes"))
+                    wanttobuyYesNo = true;
+                else wanttobuyYesNo = false;
+
+                if (wanttobuyYesNo) {
+                    String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
+                            Integer.parseInt(fields[selectedPlayer.getNumber()].getDescription()),
+                            Integer.parseInt(fields[1].getRent()),
+                            AmountofPlayers,
+                            selectedPlayer,
+                            fields,
+                            wanttobuyYesNo,
+                            PlayerArray,
+                            AmountofSpaces);
+                    selectedPlayer.setBalance(selectedPlayer.getBalance()+Integer.parseInt(NewBalance));
+                }
+
+
+
+
 
                 //Negative balance is not allowed
                 if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
