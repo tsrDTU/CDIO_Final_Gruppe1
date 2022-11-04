@@ -2,13 +2,16 @@ import gui_codebehind.GUI_Center;
 import gui_fields.*;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Objects;
 
 
 public class Fields {
     public static boolean OwnedCheck(int[][] Ownedtrue, int AmountofSpaces, int PlayerNR) {
-        for (int i = 0;i<AmountofSpaces;i++){
-            if (Ownedtrue[i][PlayerNR+1] == 1)
+        for (int i = 0; i < AmountofSpaces; i++) {
+            if (Ownedtrue[i][PlayerNR + 1] == 1)
                 return true;
             System.out.println("Fields OwnedCheck for loop returned true");
         }
@@ -18,60 +21,112 @@ public class Fields {
 
 
     public static String wannaBuyDoYou(int[][] Ownedtrue,
-                                       int description,
                                        int price,
                                        int AmountofPlayers,
                                        GUI_Player selectedPlayer,
                                        GUI_Street[] fields,
                                        boolean boolforBUY,
                                        GUI_Player[] PlayerArray,
-                                       int AmountofSpaces) {
-        String ReturnMessageNoFunding = "Not enough money";
-        String ReturnMessageYesFunding = "Property bought";
-        String ReturnDontWantBuy = "Its ok not to buy";
-        String ReturnOwned = "Something went wwrong in the wannabuy method under fields";
+                                       int AmountofSpaces,
+                                       int PlayerNR,
+                                       int CurrentSpaceForSelectedPlayer,
+                                       int[] CosttoOwn,
+                                       File TitleF) throws IOException {
         boolean wannaBuy = false;
         boolean[] Playerboughtspace = new boolean[AmountofPlayers];
-        int THEfieldsNR=0;
-        String NewBal ="0";
-        for (int i=0;i<AmountofSpaces;i++){
+        int THEfieldsNR = 0;
+        String NewBal = "0";
+        for (int i = 0; i < AmountofSpaces; i++) {
             if (fields[i].hasCar(selectedPlayer))
-                THEfieldsNR =i;
+                THEfieldsNR = i;
+        }
+        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL"))
+            return "0"; //Jail
+        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL VISIT"))
+            return "0"; // Jail visit
+
+        if ((THEfieldsNR%3)%3==0) {
+            System.out.println("number is devideble by 3 twice");
+//-----------------------------------------------------------------------------------------------------
+//
+//      HER SKAL DER STÅ HVAD DER SKER PÅ CHANCEKORT
+//
+//-----------------------------------------------------------------------------------------------------
+            return "0";
         }
 
-        if ((Ownedtrue[THEfieldsNR][selectedPlayer.getNumber()]==0))
+        int SpaceOwner = 0;
+        boolean GoOn= true;
+        for (int i=0;i<AmountofPlayers;i++) {
+            if (Ownedtrue[THEfieldsNR][i + 1] == 0){
+            GoOn = true;
+        }
+            else {
+                GoOn = false;
+                SpaceOwner=i;
+                break;
+            }
+        }
+
+        //  This checks if the field is owned, and continues if it is not
+        if ((Ownedtrue[THEfieldsNR][selectedPlayer.getNumber()]) == 0) {
+            //  This is a check for if the player wants to buy, ((It does not function because the player is forced to buy))
             if (boolforBUY) {
+                //  This checks if the selected player has enough money, And buys the space if it does.
+                if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= CosttoOwn[THEfieldsNR] && GoOn) {
+                    System.out.println("you bought the space");
+                    Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] = 1;
+                    return String.valueOf(-CosttoOwn[THEfieldsNR]);
+                    //  Returns a string that is used to add to the amount of money for the selected player
+                }
+
+
+                /*
                 for (int i = 0; i < AmountofSpaces; i++) {
                     if (fields[i].hasCar(selectedPlayer)) {
                         if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= price) {
                             PlayerArray[selectedPlayer.getNumber()].setBalance(PlayerArray[selectedPlayer.getNumber()].getBalance() - price);
+                            System.out.println("you bought the space");
                             for (int k = 0; k < AmountofPlayers; k++) {
-                                Ownedtrue[i][1] = 1;
+                                Ownedtrue[i][selectedPlayer.getNumber() + 1] = 1;
+                                System.out.println("attempted to set field to bought state");
+                                */
                                 //if (selectedPlayer == PlayerArray[k])
                                 //    Ownedtrue[i][1] = 1;
-                            }
-                            System.out.println(selectedPlayer.getNumber());
-                            return "0";
-                        } else return "0";
+
+                        } else return "Error";
                     }
-                }
+
+
+
+            else if (Ownedtrue[THEfieldsNR][selectedPlayer.getNumber()] ==1 && GoOn) {
+                System.out.println("selected player owned field detected");
+                //int moneys = CosttoOwn[THEfieldsNR];
+                //selectedPlayer.setBalance(selectedPlayer.getBalance() - moneys);
+                return "0";
             }
-            else if (Ownedtrue[THEfieldsNR][selectedPlayer.getNumber()] ==1) {
+                /*
                 for (int i = 0; i < AmountofSpaces; i++) {
                     if (fields[i].hasCar(selectedPlayer)) {
                         int moneys = Integer.parseInt(fields[i].getRent());
                         selectedPlayer.setBalance(selectedPlayer.getBalance() - moneys);
+                    }
+                }
+                */
                         /*
                         for (int k = 0; k < AmountofPlayers; k++) {
                             if (Objects.equals(PlayerArray[i].getName(), selectedPlayer.getName()))
                                 selectedPlayer.setBalance(selectedPlayer.getBalance() - moneys);
                         }
                         */
-                    }
-                }
-            }
+
+
+
+
                 else {
-                NewBal = String.valueOf(selectedPlayer.getBalance()+fields[THEfieldsNR].getRent());
+                NewBal = String.valueOf(-CosttoOwn[THEfieldsNR]);
+            System.out.println("Payed Rent");
+            PlayerArray[SpaceOwner].setBalance(PlayerArray[SpaceOwner].getBalance()+CosttoOwn[THEfieldsNR]);
                     return NewBal;
                 /*
                     for (int i =0;i<AmountofSpaces;i++) {
@@ -85,8 +140,9 @@ public class Fields {
                 */
 
             }
-
-        return ReturnOwned;
+        System.out.println("you own this field");;
+        return "0";
+        
 
     }
 
@@ -207,6 +263,20 @@ for (int i = 0;i<AmountofFields;i++){
 
     }
      */
-
-
+    static void RestartFieldTitles(File file,int AmountofSpaces,GUI_Street[] fields) throws FileNotFoundException {
+for (int i=0;i<AmountofSpaces;i++){
+    fields[i].setTitle(Main.txtReadAndReturn(file, String.valueOf(i)));
 }
+    }
+
+    static void RestartOwnStatus(int[][] OwnedtrueOwnedFalse,int fieldNR, int AmountofPlayers) {
+        for (int n = 0; n < fieldNR; n++) {
+            OwnedtrueOwnedFalse[n][0] = n;
+            for (int i = 0; i < AmountofPlayers; i++) {
+                OwnedtrueOwnedFalse[n][i] = 0;
+            }
+        }
+    }
+    }
+
+

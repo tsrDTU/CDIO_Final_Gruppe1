@@ -67,7 +67,7 @@ public class Cars {
     static void restart(GUI_Player PlayerArray[], GUI_Field[] fields, int AmountofPlayers) {
         for (int i = 0; i < 11; i++) fields[i].removeAllCars();
         for (int i=0;i<AmountofPlayers;i++){
-            PlayerArray[i].setBalance(1000);
+            PlayerArray[i].setBalance(20-(AmountofPlayers-2)*(2));
             fields[0].setCar(PlayerArray[i], true);
         }
     }
