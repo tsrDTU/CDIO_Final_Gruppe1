@@ -3,6 +3,7 @@ import gui_fields.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLOutput;
 import java.util.Objects;
 
 
@@ -51,6 +52,7 @@ public class Fields {
 //      HER SKAL DER STÅ HVAD DER SKER PÅ CHANCEKORT
 //
 //-----------------------------------------------------------------------------------------------------
+            //System.out.println(" 3%3 ");      | EMPTY NOTE |
             return "0";
         }
         //  Defines an owner of a given space
@@ -70,7 +72,7 @@ public class Fields {
         }
 
         //  This checks if the field is owned, and continues if it is not
-        if ((Ownedtrue[THEfieldsNR][selectedPlayer.getNumber()]) == 0) {
+        if (GoOn)
             //  This is a check for if the player wants to buy, ((It does not function because the player is forced to buy))
             if (boolforBUY) {
                 //  This checks if the selected player has enough money, And buys the space if it does.
@@ -80,19 +82,22 @@ public class Fields {
                     //  Puts the name of the player who bought the space onto the title of the field
                     fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
                     //  Returns a string that is used to add to the amount of money for the selected player
+                    //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
                     return String.valueOf(-CosttoOwn[THEfieldsNR]);
                 }
             }
             else return "Error"; // returns error message in case there is an error
-        }
+
         //  Knows that someone owns the field, Pays rent and adds the rent to the SpaceOwners balance
         else {
             NewBal = String.valueOf(-CosttoOwn[THEfieldsNR]);
             //System.out.println("Payed Rent");     | EMPTY NOTE |
             PlayerArray[SpaceOwner].setBalance(PlayerArray[SpaceOwner].getBalance()+CosttoOwn[THEfieldsNR]);
+            //System.out.println(-CosttoOwn[THEfieldsNR] + "   " +CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
             return NewBal;
         }
         //  The selected player has landed on their own field and 0 is added to their account
+        //System.out.println("    0");      | EMPTY NOTE |
         return "0";
     }
 
