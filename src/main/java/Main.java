@@ -2,7 +2,8 @@ import gui_fields.GUI_Player;
 import gui_main.GUI;
 import gui_fields.GUI_Street;
 import gui_fields.GUI_Car;
-import java.awt.Color;
+
+import java.awt.*;
 import java.io.*;
 import java.util.Objects;
 import java.util.Scanner;
@@ -10,33 +11,32 @@ import java.util.Scanner;
 //v1.0
 
 public class Main {
-
-
     public static void main(String[] args) throws IOException {
-
+        //  initialises language and gameanwser - makes dialog strings
         String string_in, language, answer_game;
         String[] dialog = new String[12];
+        //  initialises the antal_kant for dice and language statements
         int antal_kant;
         boolean language_ok, game_running, answerGameOk;
-
+        //  sets game to run - sets the amount of fields
         game_running = true;
         int fieldNR = 24;
-        //GUI_Street[] fields = new GUI_Street[11];   //setup streets
 
+        //  Sets up the path to txt files in the
         File DescriptionF = new File("src/main/Field Guts/description");
         File TitleF = new File("src/main/Field Guts/Title");
         File subtextF = new File("src/main/Field Guts/subText");
         File rentF = new File("src/main/Field Guts/rent");
         File CostToOwnFieldF = new File("src/main/Field Guts/CostToOwnField");
 
+        //  Initialises cost to own for every space based off the subsequent value in - src/main/Field Guts/CostToOwnField
         int[] CosttoOwn = new int[fieldNR];
         for (int i = 0; i < fieldNR; i++) {
             CosttoOwn[i] = (Integer.parseInt(Main.txtReadAndReturn(CostToOwnFieldF, String.valueOf(i))));
         }
 
-
+        //  Initialises the fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
         GUI_Street[] fields = new GUI_Street[fieldNR];
-        int line = 0;
         for (int i = 0; i < fieldNR; i++) {
             fields[i] = new GUI_Street(
                     txtReadAndReturn(TitleF, String.valueOf(i + 1)),
@@ -46,46 +46,11 @@ public class Main {
                     //fields[i] = new GUI_Street("","","","1",
                     Fields.ColorSpace(Integer.parseInt(txtReadAndReturn(DescriptionF, String.valueOf(i + 1))), i),
                     Color.BLACK);
-
-            /*for (int b=0;b<i;b++){
-                if (LineIndex == i);
-                fields[i].setBackGroundColor(Fields.ColorSpace((d.nextLine())));
-                }
-             */
-
         }
-
-
-
-        /*
-        for (int c = 1; c < fieldNR0; c++) {
-            //Color FC = Fields.ColorSpace(StringRDR("src/main/Field Guts/description", fieldNR, c));
-            //fields[c].setBackGroundColor(FC);
-            Color FC = Fields.ColorSpace(d.nextLine());
-            if (c == Integer.parseInt(d.nextLine())){
-                FC = Fields.ColorSpace(d.nextLine());}
-            fields[c].setBackGroundColor(FC);
-
-        }
-        */
-
-
-            /*
-            for (int i = 1;i<fieldNR;i++) {
-                fields[i].setBackGroundColor(FC);
-            }*/
-        ////fields[i].setBackGroundColor(StringRDR("src/main/Field Guts/description",fieldNR,i));
-        //fields[i].setBackGroundColor(Fields.ColorSpace(StringRDR("src/main/Field Guts/description", "1")));
-/*for (int i =0; i<10;i++) {
-    System.out.println("||"+d.nextLine());
-}*/
-
-
+        //  Sets up the background GUI (Graphical User Interface) to a plain white
         GUI gui = new GUI(fields, Color.WHITE);
-        // GUI gui = new GUI(fields, Color.WHITE);
-        //Fields.initialiseFields(fields, fieldNR); //setup fields
-        //setup GUI
-        //GUI gui = new GUI(fields, Color.WHITE);
+
+        //  Asks if the language has been initialised and makes a button for user to select language
         language_ok = false;
         String sprog = "English";
         do {
@@ -100,15 +65,11 @@ public class Main {
             sprog = "German";
         } while (!language_ok);
 
-        Language.initializeDialog(dialog, language); // Initialize the game dialog
-
-        //GUI_Street[] fields = new GUI_Street[fieldNR];
-
-
-        //GUI gui = new GUI(fields, Color.WHITE);
-
+        //  Initialize the game dialog
+        Language.initializeDialog(dialog, language);
 
         do {
+            //  Asks for the number of dots on the sides of the dice - 2 dices
             string_in = gui.getUserButtonPressed(dialog[0], "2", "3", "4", "5", "6"); //Quest the number of sides for the dice
             //Set the number sides for the dices
             if (string_in.length() > 0) {
@@ -116,24 +77,26 @@ public class Main {
             } else antal_kant = 6;
         } while (antal_kant < 2 || antal_kant > 6);
 
-        //Makes Cars in different colors depending on player
-        //GUI_Car p1car = new GUI_Car(Color.BLUE, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
-        //GUI_Car p2car = new GUI_Car(Color.RED, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
-
-        //String Players = gui.getUserButtonPressed("how many players?","2","3","4","5","6");
+        //Asks how many players, and sets cars and players
         String Players = gui.getUserButtonPressed(dialog[11], "2", "3", "4");
         int AmountofPlayers = Integer.parseInt(Players);
-        int AmPl1l = Integer.parseInt(Players);
         GUI_Player[] PlayerArray = new GUI_Player[Integer.parseInt(Players)];
         GUI_Car[] playerCars = new GUI_Car[Integer.parseInt(Players)];
         String[] PlayerName = new String[Integer.parseInt(Players)];
 
+        //  Sets names for each player in a for loop and gives an adjacent car with a private color
+        //  for loop, asks for each player to input a name
         for (int i = 0; i < Integer.parseInt(Players); i++) {
             PlayerName[i] = (gui.getUserString(dialog[i]));
-            if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + String.valueOf(i + 1));
+            //  if No name is given - player is named fx. Player2
+            if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i+1));
+            //  Sets the car of each player
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
+            //  Sets the staring balance
             PlayerArray[i] = new GUI_Player(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
+            //  Sets the Car Color with CarColor method under Cars - src/main/java/Cars
             Cars.CarColor(playerCars, PlayerArray, Players, i);
+            //  Adds it all to the gui
             gui.addPlayer(PlayerArray[i]);
         }
 
@@ -145,60 +108,15 @@ public class Main {
                 OwnedtrueOwnedFalse[n][i] = 0;
             }
         }
-
-
-        //Integer.parseInt(Players)
-        //Sets the initial car location
-        /*
-        for (int i = 0; i < Integer.parseInt(Players)+1; i++) {
-            fields[0].setCar(PlayerArray[i], true);
-        if (i==Integer.parseInt(Players)-2) break;
-        }
-          */
+        // The player who starts has been selected
         boolean selection = true;
-        String select = "";
-        String[] pl = new String[AmountofPlayers];
-        //Selects who starts the game by selection in gui
-        //boolean selection = gui.getUserLeftButtonPressed(dialog[3], PlayerArray[0].getName(), PlayerArray[1].getName());
-        /*
+        //Sets all player locations on the board to space 0
         for (int i = 0; i < AmountofPlayers; i++) {
-            pl[i] = PlayerArray[i].getName();
-        }
-
-        if (AmountofPlayers == 2)
-            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1]);
-        if (AmountofPlayers == 3)
-            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1], pl[2]);
-        if (AmountofPlayers == 4)
-            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1], pl[2], pl[3]);
-
-        if (AmountofPlayers==5)
-            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1], pl[2], pl[3], pl[4]);
-        if (AmountofPlayers==6)
-            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1], pl[2], pl[3], pl[4], pl[5]);
-        if (AmountofPlayers==7)
-            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1], pl[2], pl[3], pl[4],pl[5], pl[6]);
-        if (AmountofPlayers==8)
-            select = gui.getUserButtonPressed(dialog[3], pl[0], pl[1], pl[2], pl[3], pl[4],pl[5], pl[6], pl[7])
-         */
-
-
-        for (int i = 0; i < AmountofPlayers; i++) {
-            GUI_Car car = PlayerArray[i].getCar();
             if (i > 0 && fields[i] != null) fields[0].setCar(PlayerArray[i], true);
         }
 
 
         int intselect = 0;
-        int[] selectPlayer = new int[AmountofPlayers];
-        for (int i = 0; i < AmountofPlayers; i++) {
-            selectPlayer[i] = 0;
-            if (Objects.equals(select, PlayerArray[i].getName())) {
-                selectPlayer[i] = i;
-                intselect = i;
-            }
-        }
-
         //Create a selected player that will point at active player
         GUI_Player selectedPlayer;
         boolean gameEnd = false; //, lastMax = false;
@@ -215,9 +133,8 @@ public class Main {
         }
 
         int playingPlayer = intselect;
-        int playingPlayer2 = 0;
+        int playingPlayer2;
 
-        Cars.restart(PlayerArray, fields, AmountofPlayers);
 
         int amountOfGameLoops = 0;
         //Game loop
@@ -239,50 +156,37 @@ public class Main {
             gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
-            int AmountofSpaces = fieldNR;
             int DieSum = Die.getSum(d1, d2) + 2;
-            //Moving cars on the fields - and taking consequence of field
+
+            //if the game hasn't ended, continue
             if (!gameEnd) {
+                // Moves the cars around the field and gives consequence- see the Cars Class under - src/main/java/Cars
+                Cars.moveCars(DieSum, selectedPlayer, PlayerArray, fields, AmountofPlayers, fieldNR);
 
-                Cars.moveCars(DieSum, selectedPlayer, PlayerArray, fields, AmountofPlayers, AmountofSpaces);
-/*
-                //Deposit/Withdraw money from fields on the board
-                int konsekvens = Integer.parseInt(fields[DieSum].getRent());
-                selectedPlayer.setBalance(selectedPlayer.getBalance() + konsekvens);
-*/
-                //boolean wanttobuyYesNo = false;
-                //String wanttobuyYesNoS = gui.getUserButtonPressed("wanna buy?", "Yes", "No");
-                //if (Objects.equals(wanttobuyYesNoS, "Yes"))
-                boolean wanttobuyYesNo = true;
-                //else wanttobuyYesNo = false;
-
+                //  Sets the current space for the selected player to a value
                 int CurrentSpaceForSelectedPlayer = 0;
-                for (int i = 0; i < AmountofSpaces; i++) {
+                for (int i = 0; i < fieldNR; i++) {
                     if (fields[i].hasCar(selectedPlayer))
                         CurrentSpaceForSelectedPlayer = i;
                 }
 
+                //  You get forced to buy the field, therefor (you want to buy)
+                boolean wanttobuyYesNo = true;
 
-                int price = Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent());
-
+                //  This handles the trades with rent and buying of fields - see at - src/main/java/Fields
                 if (wanttobuyYesNo) {
                     String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
-                            price,
                             AmountofPlayers,
                             selectedPlayer,
                             fields,
                             wanttobuyYesNo,
                             PlayerArray,
-                            AmountofSpaces,
-                            selectPlayer[amountOfGameLoops],
+                            fieldNR,
                             CurrentSpaceForSelectedPlayer,
                             CosttoOwn, TitleF);
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
-                    System.out.println(String.valueOf(NewBalance));
+                    //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
-                System.out.println("finished the wannabuy method -------------");
-
-
 
                 amountOfGameLoops++;
 
@@ -306,168 +210,83 @@ public class Main {
                 gui.showMessage(selectedPlayer.getName() + dialog[7]);
             }
 
-
             answerGameOk = false;
 
-
+            //  Initialises values for displaying a winner
             String Winner = " ";
             int WinnerMoney = 0;
-            int[] endGameResult = new int[AmountofPlayers];
-            answer_game = dialog[11];
+            int WinnerInt = 0;
 
+            //  if someone loses, the game ends and a winner/ winners are decided
             if (selectedPlayer.getBalance() < 1) {
-                System.out.println("giggle giggle laugh laugh");
-                for (int i = 1; i < AmountofPlayers; i++) {
-                    Winner = PlayerArray[0].getName();
-                    WinnerMoney = PlayerArray[0].getBalance();
-                    if (PlayerArray[i].getBalance() > WinnerMoney) {
-                        Winner = PlayerArray[i].getName();
-                        WinnerMoney = PlayerArray[i].getBalance();
-                    }
-                }
 
+                //  Makes an array of potential winners
                 String[] Winners = new String[AmountofPlayers];
                 for (int i = 1; i < AmountofPlayers; i++) {
+                    //  Sets the winner to player1
                     Winners[0] = PlayerArray[0].getName();
                     WinnerMoney = PlayerArray[0].getBalance();
+                    //  if the player has more money, set it as the new winner, by resetting the array and putting the new value in
                     if (PlayerArray[i].getBalance() > WinnerMoney) {
                         for (int b = 0; b < AmountofPlayers; b++) {
                             Winners[b] = " ";
                         }
-                        Winner = PlayerArray[i].getName();
-                        WinnerMoney = PlayerArray[i].getBalance();
-                    } else if (PlayerArray[i].getBalance() == WinnerMoney)
                         Winners[i] = PlayerArray[i].getName();
-
+                        WinnerMoney = PlayerArray[i].getBalance();
+                        WinnerInt = i;
+                    }
+                    // if the next player has the same balance as previous player, set both as winners
+                    else if (PlayerArray[i].getBalance() == WinnerMoney)
+                        for (int l=1;l<AmountofPlayers;l++) {
+                            Winners[i] = (Winners[i-1] + " " + PlayerArray[i].getName());
+                        }
                 }
 
-                String WinnerNames = "";
-                for (int i = 1; i < AmountofPlayers; i++) {
-                    Winners[0] = WinnerNames;
-                    WinnerNames = Winners[0] + Winners[i];
-                }
-
-                gui.showMessage(WinnerNames + dialog[8] + WinnerMoney);
+                //  Displaying the Winners
+                gui.showMessage(Winners[WinnerInt] + dialog[8] + WinnerMoney);
 
             do {
-                answer_game = gui.getUserButtonPressed(dialog[9], dialog[10], dialog[11]); // Select language for the game dialog
+                //  Select language for the game dialog
+                answer_game = gui.getUserButtonPressed(dialog[9], dialog[10], dialog[11]);
 
+                //  if anwser to "a new game" is no - stop the game
                 if (answer_game.equals(dialog[11])) {
                     game_running = false;
                     answerGameOk = true;
                 }
-
+                //  if anwser to "a new game" is yes - keep it going
                 if (answer_game.equals("y") || answer_game.equals("j") || answer_game.equals("o") || answer_game.equals(dialog[10])) {
                     answerGameOk = true;
                     game_running = true;
 
-                    int i = 2;
-                    Cars.restart(PlayerArray, fields, AmountofPlayers);
-                    Cars.restart(PlayerArray, fields, AmountofPlayers);
-                    Fields.RestartFieldTitles(TitleF, AmountofSpaces, fields);
-                    Fields.RestartOwnStatus(OwnedtrueOwnedFalse, AmountofSpaces, AmountofPlayers);
+                    //  if game is restarting - Resets the Board
+                    Cars.restart(PlayerArray, fields, AmountofPlayers, fieldNR);
+                    Fields.RestartFieldTitles(TitleF, fieldNR, fields);
+                    Fields.RestartOwnStatus(OwnedtrueOwnedFalse, fieldNR, AmountofPlayers);
 
 
                 }
             }
             while (!answerGameOk);
         }
-
+            //end game if last selection to (wanna keep playing?) is no
             if (!game_running)
                 System.exit(0);
         }
     }
-
-
-
-
-
-
-
     public static String txtReadAndReturn(File file, String LineNR) throws FileNotFoundException {
         Scanner TXTRDRscanner = new Scanner(file);
         int ReadLineNR = Integer.parseInt(LineNR);
 
-        int AmountofColors = 7;
         for (int i = 0; i <= ReadLineNR; i++) {
-            //if (i==AmountofColors) {
-                //TXTRDRscanner.close();
-                //TXTRDRscanner = new Scanner(file);
-            //}
-
             if (i == ReadLineNR - 1) {
                 //
                 return TXTRDRscanner.nextLine();
             } else TXTRDRscanner.nextLine();
         }
+        //  Closes the scanner after use
         TXTRDRscanner.close();
         TXTRDRscanner = new Scanner(file);
         return LineNR;
     }
-
-    //
-    //      THIS DOES NOT WORK PROPERLY - - DO NOT USE
-    //
-    /*
-    public static String txtWriteAndReturn(File file, String LineNR, String WhatYouWantToWrite) throws IOException {
-        BufferedWriter  TXTWTRscanner = new BufferedWriter(new FileWriter(file));
-        int WriteLineNR = Integer.parseInt(LineNR);
-        int AmountofColors = 7;
-        for (int i = 0; i <= WriteLineNR; i++) {
-            if (i == WriteLineNR - 1) {
-                TXTWTRscanner.write(WhatYouWantToWrite);
-                return Main.txtReadAndReturn(file,String.valueOf(WriteLineNR));
-            } else Main.txtReadAndReturn(file,String.valueOf(WriteLineNR));
-        }
-        TXTWTRscanner.close();
-        TXTWTRscanner = new BufferedWriter(new FileWriter(file));
-        return LineNR;
-    }
-*/
-
-
-
-
 }
-
-/*
-    public static String StringRDR(String fileToRead, int max, int i1) throws IOException {
-        BufferedReader reader = null;
-        reader = new BufferedReader(new FileReader(fileToRead));
-        for (int lineNumber = 1; lineNumber < max; lineNumber++) {
-
-                reader.readLine();
-                for (int k=0;k<i;k++){
-                    return reader.readLine();
-
-                }
-                String text = String.valueOf(i1);
-            try {
-                FileReader file = new FileReader("src/main/Field Guts/description");
-                BufferedReader readbuffer = new BufferedReader(file);
-
-                for (int i = 1; i < max; i++) {
-
-                    if (i == i1) {
-                        text = readbuffer.readLine();
-
-                        return text;
-
-                    } else return text;
-
-
-                    }
-
-
-
-
-            } finally {
-
-            }
-
-        return text;
-    }}
-*/
-
-
-
