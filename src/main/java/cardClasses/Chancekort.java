@@ -1,3 +1,5 @@
+package cardClasses;
+
 public class Chancekort
 {
     private int kortType;
