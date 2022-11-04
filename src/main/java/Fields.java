@@ -92,6 +92,7 @@ public class Fields {
         else {
             NewBal = String.valueOf(-CosttoOwn[THEfieldsNR]);
             //System.out.println("Payed Rent");     | EMPTY NOTE |
+
             PlayerArray[SpaceOwner].setBalance(PlayerArray[SpaceOwner].getBalance()+CosttoOwn[THEfieldsNR]);
             //System.out.println(-CosttoOwn[THEfieldsNR] + "   " +CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
             return NewBal;
