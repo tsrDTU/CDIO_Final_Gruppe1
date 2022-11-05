@@ -25,7 +25,9 @@ public class Fields {
                                        int AmountofSpaces,
                                        int CurrentSpaceForSelectedPlayer,
                                        int[] CosttoOwn,
-                                       File TitleF) {
+                                       File TitleF,
+                                       int[] PlayerSpaceNRexcact,
+                                       boolean[][] JailOn) throws FileNotFoundException {
         boolean wannaBuy = false;
         boolean[] Playerboughtspace = new boolean[AmountofPlayers];
         int THEfieldsNR = 0;
@@ -34,24 +36,77 @@ public class Fields {
             if (fields[i].hasCar(selectedPlayer))
                 THEfieldsNR = i;
         }
+
+        boolean PassedGo = false;
+        //  defines the exact locations for each player (used for the jail and Go spaces)
+        if (PlayerSpaceNRexcact[selectedPlayer.getNumber()] < THEfieldsNR)
+            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = THEfieldsNR;
+        else if (PlayerSpaceNRexcact[selectedPlayer.getNumber()] > THEfieldsNR){
+            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = THEfieldsNR;
+            PassedGo = true;
+        }
+
+
         if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL")){
+            System.out.println("Jail space reached");
+            //  Finds the Space with JailVisit
+            int JailVisitSpace=0;
+            for (int i = 0; i < AmountofSpaces; i++) {
+                if (fields[i] == fields[6])
+                    JailVisitSpace = i;
+            }
+            //  Moves car to JailVisitSpace
+            Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, fields, selectedPlayer, JailVisitSpace);
+            //  Jail Register
+            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
+
+                JailOn[selectedPlayer.getNumber()][0]=true;
+                JailOn[selectedPlayer.getNumber()][1]=true;
+                System.out.println("JailOn is set TRUE   Player"+(selectedPlayer.getNumber()+1));
+                return "-1";
+
+
+
+
+
 //-----------------------------------------------------------------------------------------------------
 //
 //      HER SKAL DER STÅ HVAD DER SKER PÅ JAIL
+//      spiller lander på JAIL, bil placeres på JAIL VISIT,      SKIP TURN - boolean value og NO MONEY AT NEXT GO - boolean
+//      hvis skip selectplayer+1 spiller neste gang og SKIP TURN boolean bliver false - næste gang omkring GO ændres boolean og der trækkes 2 fra balancen
 //
 //-----------------------------------------------------------------------------------------------------
-            return "0"; //Jail
+
         }
         if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL VISIT"))
+//-----------------------------------------------------------------------------------------------------
+//
+//      HER SKAL DER STÅ HVAD DER SKER PÅ JAILVISIT
+//
+//-----------------------------------------------------------------------------------------------------
             return "0";
+
+        if (PassedGo){
+            PlayerArray[selectedPlayer.getNumber()].setBalance(selectedPlayer.getBalance()+2);
+            //  sets balance according to jail status - and removes jail status for next trip around the board
+            System.out.println("BOARD PASSED");
+
+            if (JailOn[selectedPlayer.getNumber()][1]){
+                System.out.println("Subtracted 2 from balance cause JAIL");
+                selectedPlayer.setBalance(selectedPlayer.getBalance()-2);
+                JailOn[selectedPlayer.getNumber()][1] = false;
+            } else System.out.println("Did not subtract 2 Player"+(selectedPlayer.getNumber()+1));
+        }
+        PassedGo = false;
         //  This checks if the field is even when devided by 3 twice - the location of the chance spaces
+
         if ((THEfieldsNR%3)%3==0) {
 //-----------------------------------------------------------------------------------------------------
 //
 //      HER SKAL DER STÅ HVAD DER SKER PÅ CHANCEKORT
 //
 //-----------------------------------------------------------------------------------------------------
-            //System.out.println(" 3%3 ");      | EMPTY NOTE |
+            //System.out.println(" 3%3 ");     // | EMPTY NOTE |
             return "0";
         }
         //  Defines an owner of a given space
@@ -137,7 +192,7 @@ public class Fields {
     static void RestartFieldTitles(File file,int AmountofSpaces,GUI_Street[] fields) throws FileNotFoundException {
         //  Resets all titles
         for (int i=0;i<AmountofSpaces;i++){
-            fields[i].setTitle(Main.txtReadAndReturn(file, String.valueOf(i)));
+            fields[i].setTitle(Main.txtReadAndReturn(file, String.valueOf(i+1)));
         }
     }
 

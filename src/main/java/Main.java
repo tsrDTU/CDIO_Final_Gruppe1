@@ -135,6 +135,17 @@ public class Main {
         int playingPlayer = intselect;
         int playingPlayer2;
 
+        //  Initialising something for Jail and Start field
+        int[] PlayerSpaceNRexcact = new int[AmountofPlayers];
+        for (int i = 0; i < AmountofPlayers; i++) {
+            PlayerSpaceNRexcact[i] =0;
+        }
+
+        boolean[][] JailOn = new boolean[AmountofPlayers][2];
+        for (int i = 0; i < AmountofPlayers; i++) {
+            JailOn[i][0] = false;
+            JailOn[i][1] = false;
+        }
 
         int amountOfGameLoops = 0;
         //Game loop
@@ -148,6 +159,8 @@ public class Main {
             if (selection) selectedPlayer = PlayerArray[playingPlayer];
             else selectedPlayer = PlayerArray[playingPlayer2];
 
+            //if (amountOfGameLoops == 0);
+            //Jail.JailRegister(selectedPlayer,AmountofPlayers, fieldNR, fields);
             //roll the dices
             d1.dice_roll();
             d2.dice_roll();
@@ -173,6 +186,7 @@ public class Main {
                 //  You get forced to buy the field, therefor (you want to buy)
                 boolean wanttobuyYesNo = true;
 
+
                 //  This handles the trades with rent and buying of fields - see at - src/main/java/Fields
                 if (wanttobuyYesNo) {
                     String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
@@ -183,7 +197,9 @@ public class Main {
                             PlayerArray,
                             fieldNR,
                             CurrentSpaceForSelectedPlayer,
-                            CosttoOwn, TitleF);
+                            CosttoOwn, TitleF,
+                            PlayerSpaceNRexcact,
+                            JailOn);
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
@@ -263,7 +279,9 @@ public class Main {
                     Cars.restart(PlayerArray, fields, AmountofPlayers, fieldNR);
                     Fields.RestartFieldTitles(TitleF, fieldNR, fields);
                     Fields.RestartOwnStatus(OwnedtrueOwnedFalse, fieldNR, AmountofPlayers);
-
+                    for (int i = 0; i <AmountofPlayers; i++) {
+                        PlayerSpaceNRexcact[i] = 0;
+                    }
 
                 }
             }
