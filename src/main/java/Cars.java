@@ -10,7 +10,9 @@ import java.awt.color.ColorSpace;
 
 public class Cars {
 
-    static void moveCars(int DiceRollSum, GUI_Player currentplayer, GUI_Player[] players, GUI_Street[] street, int AmountofPlayers, int AmountofSpaces) {
+    static void moveCars(int DiceRollSum, GUI_Player currentplayer,
+                         GUI_Player[] players, GUI_Street[] street,
+                         int AmountofPlayers, int AmountofSpaces) {
         //  Initialise Values for movement of cars on the Board
         boolean[] PlayerNum =  new boolean[AmountofPlayers];
         boolean[] SpaceHasCurrentPlayer = new boolean[AmountofSpaces];
@@ -60,7 +62,6 @@ public class Cars {
     // Color creation for the cars - Look up HSB colors system online to learn more
     static void CarColor(GUI_Car playerCars[], GUI_Player PlayerArray[], String Players, int PlayerNumber) {
         Color[] color = new Color[Integer.parseInt(Players)];
-        float f;
         for (int i =0;i<Integer.parseInt(Players);i++){
             String h = String.valueOf(i*0.18+1);
             color[i] = Color.getHSBColor(Float.parseFloat(h), 1f, 1f);

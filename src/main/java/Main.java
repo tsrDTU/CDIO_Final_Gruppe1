@@ -20,7 +20,7 @@ public class Main {
         boolean language_ok, game_running, answerGameOk;
         //  sets game to run - sets the amount of fields
         game_running = true;
-        int fieldNR = 40;
+        int fieldNR = 24;
 
         //  Sets up the path to txt files in the
         File DescriptionF = new File("src/main/Field Guts/description");
