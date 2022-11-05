@@ -3,10 +3,30 @@ package cardClasses;
 public class ChanceKortFarve extends Chancekort
 {
     private int farvekode;
-    public ChanceKortFarve(String nvn,String inf,int fako)
+
+    @Override
+    public String toString() {
+        return "ChanceKortFarve{" +
+                "farvekode=" + farvekode +
+                '}';
+    }
+
+    public ChanceKortFarve(String nvn, String inf, int fako)
     {
         super(nvn,inf);
         farvekode=fako;
 
     }
+    /*
+    public String navn() {
+        return navn();
+    }
+
+    public String info() {
+        return info();
+
+
+    }
+
+     */
 }

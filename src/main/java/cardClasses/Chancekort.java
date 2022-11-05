@@ -16,5 +16,12 @@ public class Chancekort
         kortInfo=info;
 
     }
+    public String getKortNavnavn() {
+        return kortNavn;
+    }
+
+    public String getKortInfo() {
+        return kortInfo;
+    }
 }
 

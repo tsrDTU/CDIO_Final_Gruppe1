@@ -9,4 +9,14 @@ public class ChanceAmnistiFeng extends Chancekort
     {
         super(nvn,inf);
     }
+    /*
+    public String navn() {
+        return navn();
+    }
+
+    public String info() {
+        return info();
+    }
+
+     */
 }
