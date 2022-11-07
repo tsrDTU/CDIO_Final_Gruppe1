@@ -48,7 +48,7 @@ public class Fields {
 
 
         if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL")){
-            System.out.println("Jail space reached");
+            //System.out.println("Jail space reached");    // | EMPTY NOTE |
             //  Finds the Space with JailVisit
             int JailVisitSpace=0;
             for (int i = 0; i < AmountofSpaces; i++) {
@@ -62,8 +62,8 @@ public class Fields {
 
                 JailOn[selectedPlayer.getNumber()][0]=true;
                 JailOn[selectedPlayer.getNumber()][1]=true;
-                System.out.println("JailOn is set TRUE   Player"+(selectedPlayer.getNumber()+1));
-                return "-1";
+                //System.out.println("JailOn is set TRUE   Player"+(selectedPlayer.getNumber()+1)); // EMPTY NOTE
+                return "-1";  // return value to add to someones balance
 
 
 
@@ -81,7 +81,7 @@ public class Fields {
         if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL VISIT"))
 //-----------------------------------------------------------------------------------------------------
 //
-//      HER SKAL DER STÅ HVAD DER SKER PÅ JAILVISIT
+//      HER SKAL DER STÅ HVAD DER SKER PÅ JAILVISIT     (intet skal ske)
 //
 //-----------------------------------------------------------------------------------------------------
             return "0";
@@ -89,13 +89,13 @@ public class Fields {
         if (PassedGo){
             PlayerArray[selectedPlayer.getNumber()].setBalance(selectedPlayer.getBalance()+2);
             //  sets balance according to jail status - and removes jail status for next trip around the board
-            System.out.println("BOARD PASSED");
+            //System.out.println("BOARD PASSED");    // | EMPTY NOTE |
 
             if (JailOn[selectedPlayer.getNumber()][1]){
-                System.out.println("Subtracted 2 from balance cause JAIL");
+                //System.out.println("Subtracted 2 from balance cause JAIL");       //  | EMPTY NOTE |
                 selectedPlayer.setBalance(selectedPlayer.getBalance()-2);
                 JailOn[selectedPlayer.getNumber()][1] = false;
-            } else System.out.println("Did not subtract 2 Player"+(selectedPlayer.getNumber()+1));
+            }  //else System.out.println("Did not subtract 2 Player"+(selectedPlayer.getNumber()+1));
         }
         PassedGo = false;
         //  This checks if the field is even when devided by 3 twice - the location of the chance spaces
@@ -199,12 +199,42 @@ public class Fields {
     static void RestartOwnStatus(int[][] OwnedtrueOwnedFalse,int fieldNR, int AmountofPlayers) {
         //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < fieldNR; n++) {
-            OwnedtrueOwnedFalse[n][0] = n;
+            //OwnedtrueOwnedFalse[n][0] = n;
             for (int i = 0; i < AmountofPlayers; i++) {
                 OwnedtrueOwnedFalse[n][i] = 0;
             }
         }
     }
 }
+/*
+
+            FEJL DER HÅBES AT BLIVE FIXED
+
+1.
+ved start af spil 2 pladerne har sværere ved at sætte pladerne
+2.
+Terningen virker men skal sættes ned til 1  ( spil er bedre )
+3.
+forskellige sprog skal fungerer bedre
+4.
+Vinderen skal vises rigtigt ( det gø den ikke ved flere end 2 spillere )
+5.
+spiller 4 ser ud til altid at vinde
 
 
+
+            TING TIL AT TILFØGE
+1.
+Forklaring måske? om hvordan spillet virker.
+2.
+Spring en tur over hvis spilleren kommer i fenglsel
+3.
+Vis flere vindere hvis de har samme mængde penge
+4.
+Kartoffel           Priority one
+5.
+
+
+
+
+*/

@@ -238,10 +238,10 @@ public class Main {
 
                 //  Makes an array of potential winners
                 String[] Winners = new String[AmountofPlayers];
+                //  Sets the winner to player1
+                Winners[0] = PlayerArray[0].getName();
+                WinnerMoney = PlayerArray[0].getBalance();
                 for (int i = 1; i < AmountofPlayers; i++) {
-                    //  Sets the winner to player1
-                    Winners[0] = PlayerArray[0].getName();
-                    WinnerMoney = PlayerArray[0].getBalance();
                     //  if the player has more money, set it as the new winner, by resetting the array and putting the new value in
                     if (PlayerArray[i].getBalance() > WinnerMoney) {
                         for (int b = 0; b < AmountofPlayers; b++) {
