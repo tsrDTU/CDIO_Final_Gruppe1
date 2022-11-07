@@ -18,16 +18,7 @@ public class Chance2Farver extends Chancekort
     public int getFarve2() {
         return farve2;
     }
-    /*
-    public String navn() {
-        return navn();
-    }
 
-    public String info() {
-        return info();
-    }
-
-     */
     public Chance2Farver(String nvn, String inf, int f1, int f2)
     {
         super(nvn,inf);

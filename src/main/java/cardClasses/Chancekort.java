@@ -1,10 +1,9 @@
 package cardClasses;
 
-public class Chancekort
+public abstract class Chancekort
 {
-    private int kortType;
-    private String kortNavn=new String();
-    private  String kortInfo=new String();
+    private String kortNavn;
+    private  String kortInfo;
     private String modtager=new String();
     private int action;
     private boolean aktivt;
@@ -23,5 +22,6 @@ public class Chancekort
     public String getKortInfo() {
         return kortInfo;
     }
+
 }
 

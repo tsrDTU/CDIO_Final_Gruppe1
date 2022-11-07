@@ -27,14 +27,18 @@ public class ChanceBanktrans extends Chancekort
         modtager=mo;
         afsender=af;
     }
-    /*
-    public String navn() {
-        return navn();
+
+    public int getBeloeb() {
+        return beloeb;
     }
 
-    public String info() {
-        return info();
+    public int getModtager() {
+        return modtager;
+    }
+    public int getAfsender()
+    {
+        return afsender;
     }
 
-     */
+
 }

@@ -1,14 +1,15 @@
 package cardClasses;
-import java.util.Arrays;
+
 
 
 public  class Chance {
     public static Chancekort[] chanceCards=new Chancekort[20];
 
 
+
     public Chance()
 {
-    System.out.println("Chace initialiseres");
+    System.out.println("Chance initialiseres");
 
     chanceCards[0]=new ChanceOverdragelseskort("Til Bil","Bil: På din næste tur skal du drøne frem til et hvilket som helst ledigt felt og købe det. Hvis det ikke er nogen ledige felter skal du købe et fra en anden spiller!", "Bil");
 
@@ -38,10 +39,40 @@ public  class Chance {
 public Chancekort traekEtChanceKort()
 {
     int kort_nr;
+    boolean kOk=false;
+
+    do {
 
     kort_nr = (int)(Math.random() * 20);
     System.out.println(kort_nr);
+
+    if (kort_nr==0|| kort_nr == 5 || kort_nr == 11 || kort_nr == 12 || kort_nr == 9)
+    {
+
+
+            if (chanceCards[kort_nr].getClass().equals(ChanceOverdragelseskort.class))
+            {
+                if (chanceCards[kort_nr] instanceof ChanceOverdragelseskort){
+                    if(!((ChanceOverdragelseskort) chanceCards[kort_nr]).getAktivt()) kOk=true;
+                }
+
+            }
+            else if (chanceCards[kort_nr] instanceof ChanceAmnistiFeng)
+            {
+               if (!((ChanceAmnistiFeng) chanceCards[kort_nr]).getAktivt()) kOk=true;
+            }
+            else kOk=true;
+
+
+
+    }
+
+    } while (!kOk);
+
     return chanceCards[kort_nr];
+
+
+
 }
 
 }

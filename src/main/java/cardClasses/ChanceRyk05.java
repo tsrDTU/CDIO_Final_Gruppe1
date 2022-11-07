@@ -11,14 +11,5 @@ public class ChanceRyk05 extends Chancekort
     {
         super(nvn,inf);
     }
-    /*
-    public String navn() {
-        return navn();
-    }
 
-    public String info() {
-        return info();
-    }
-
-     */
 }

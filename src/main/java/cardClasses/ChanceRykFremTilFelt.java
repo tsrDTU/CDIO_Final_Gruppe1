@@ -16,14 +16,9 @@ public class ChanceRykFremTilFelt extends Chancekort
         super(nvn,inf);
         destinationsFelt=dest;
     }
-    /*
-    public String navn() {
-        return navn();
+
+    public int getDestinationsFelt() {
+        return destinationsFelt;
     }
 
-    public String info() {
-        return info();
-    }
-
-     */
 }

@@ -9,14 +9,23 @@ public class ChanceAmnistiFeng extends Chancekort
     {
         super(nvn,inf);
     }
-    /*
-    public String navn() {
-        return navn();
+
+    public int getIndehaver() {
+        return indehaver;
     }
 
-    public String info() {
-        return info();
+    public boolean getAktivt() {
+        return aktivt;
     }
 
-     */
+    public void setAktivt(boolean akt)
+    {
+        aktivt=akt;
+    }
+    public void setIndehaver(int indeh)
+    {
+        indehaver=indeh;
+    }
+
+
 }

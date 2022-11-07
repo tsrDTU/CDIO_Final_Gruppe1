@@ -11,14 +11,5 @@ public class ChanceRyk1ElChMemere extends Chancekort
     {
         super(inf,nvn);
     }
-    /*
-    public String navn() {
-        return navn();
-    }
 
-    public String info() {
-        return info();
-    }
-
-     */
 }

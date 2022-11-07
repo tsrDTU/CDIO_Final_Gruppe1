@@ -17,16 +17,11 @@ public class ChanceKortFarve extends Chancekort
         farvekode=fako;
 
     }
-    /*
-    public String navn() {
-        return navn();
+
+    public int getFarvekode() {
+        return farvekode;
     }
 
-    public String info() {
-        return info();
 
 
-    }
-
-     */
 }

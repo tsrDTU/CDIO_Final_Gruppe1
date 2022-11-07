@@ -2,7 +2,7 @@ package cardClasses;
 
 public class ChanceOverdragelseskort extends Chancekort
 {
-    private String modtager=new String();
+    private String modtager;
     private boolean aktivt;
 
     @Override
@@ -18,13 +18,14 @@ public class ChanceOverdragelseskort extends Chancekort
         super(nvn,inf);
         modtager=modt;
     }
-    /*
-    public String navn() {
-        return navn();
+
+    public String getModtager() {
+        return modtager;
     }
 
-    public String info() {
-        return info();
+    public boolean getAktivt() {
+        return aktivt;
+    }
 
-     */
+
 }
