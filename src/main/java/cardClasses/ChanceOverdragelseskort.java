@@ -23,8 +23,18 @@ public class ChanceOverdragelseskort extends Chancekort
         return modtager;
     }
 
+    public void setModtager(String modt)
+    {
+        modtager=modt;
+    }
+
     public boolean getAktivt() {
         return aktivt;
+    }
+
+    public void setAktivt(boolean akt)
+    {
+        aktivt=akt;
     }
 
 
