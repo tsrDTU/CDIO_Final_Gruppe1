@@ -1,3 +1,4 @@
+import cardClasses.Chance;
 import gui_codebehind.GUI_Center;
 import gui_fields.*;
 import java.awt.*;
@@ -106,7 +107,13 @@ public class Fields {
 //      HER SKAL DER STÅ HVAD DER SKER PÅ CHANCEKORT
 //
 //-----------------------------------------------------------------------------------------------------
-            //System.out.println(" 3%3 ");     // | EMPTY NOTE |
+
+            Chance landetPaaChance = new Chance();
+            landetPaaChance.traekEtChanceKort();
+
+            System.out.println(landetPaaChance.traekEtChanceKort());
+            System.out.println(" 3%3 ");     // | EMPTY NOTE |
+
             return "0";
         }
         //  Defines an owner of a given space
@@ -200,7 +207,7 @@ public class Fields {
         //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < fieldNR; n++) {
             //OwnedtrueOwnedFalse[n][0] = n;
-            for (int i = 0; i < AmountofPlayers; i++) {
+            for (int i = 1; i < AmountofPlayers+1; i++) {
                 OwnedtrueOwnedFalse[n][i] = 0;
             }
         }
@@ -210,16 +217,18 @@ public class Fields {
 
             FEJL DER HÅBES AT BLIVE FIXED
 
-1.
+1. - FIXED -
 ved start af spil 2 pladerne har sværere ved at sætte pladerne
 2.
 Terningen virker men skal sættes ned til 1  ( spil er bedre )
 3.
 forskellige sprog skal fungerer bedre
-4.
+4.  - MORE TESTING -
 Vinderen skal vises rigtigt ( det gø den ikke ved flere end 2 spillere )
-5.
+5. - FIXED -
 spiller 4 ser ud til altid at vinde
+6. - FIXED -
+spillere dupleres ved skift til fengsel
 
 
 

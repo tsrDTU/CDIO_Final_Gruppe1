@@ -6,7 +6,7 @@ import java.awt.Color;
 
 public class Cars {
 
-    static void moveCars(int DiceRollSum, GUI_Player currentplayer,
+    public static void moveCars(int DiceRollSum, GUI_Player currentplayer,
                          GUI_Player[] players, GUI_Street[] street,
                          int AmountofPlayers, int AmountofSpaces) {
         //  Initialise Values for movement of cars on the Board

@@ -1,3 +1,4 @@
+import cardClasses.Chance;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 import gui_fields.GUI_Street;
@@ -11,6 +12,11 @@ import java.util.Scanner;
 //v1.0
 
 public class Main {
+
+    /*
+    public static int fieldNR(){
+        return 24;
+    }*/
     public static void main(String[] args) throws IOException {
         //  initialises language and gameanwser - makes dialog strings
         String string_in, language, answer_game;
@@ -20,7 +26,8 @@ public class Main {
         boolean language_ok, game_running, answerGameOk;
         //  sets game to run - sets the amount of fields
         game_running = true;
-        int fieldNR = 24;
+        //int fieldNR = 24;
+
 
         //  Sets up the path to txt files in the
         File DescriptionF = new File("src/main/Field Guts/description");
@@ -29,16 +36,15 @@ public class Main {
         File rentF = new File("src/main/Field Guts/rent");
         File CostToOwnFieldF = new File("src/main/Field Guts/CostToOwnField");
 
-        //  Initialises cost to own for every space based off the subsequent value in - src/main/Field Guts/CostToOwnField
-        int[] CosttoOwn = new int[fieldNR];
-        for (int i = 0; i < fieldNR; i++) {
-            CosttoOwn[i] = (Integer.parseInt(Main.txtReadAndReturn(CostToOwnFieldF, String.valueOf(i))));
+//  Initialises cost to own for every space based off the subsequent value in - src/main/Field Guts/CostToOwnField
+        for (int i = 0; i < Base.fieldNR(); i++) {
+            Base.CosttoOwn[i] = (Integer.parseInt(Main.txtReadAndReturn(CostToOwnFieldF, String.valueOf(i))));
         }
 
-        //  Initialises the fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
-        GUI_Street[] fields = new GUI_Street[fieldNR];
-        for (int i = 0; i < fieldNR; i++) {
-            fields[i] = new GUI_Street(
+        //  Initialises the Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
+        //GUI_Street[] fields = new GUI_Street[Base.fieldNR()];
+        for (int i = 0; i < Base.fieldNR(); i++) {
+            Base.fields[i] = new GUI_Street(
                     txtReadAndReturn(TitleF, String.valueOf(i + 1)),
                     txtReadAndReturn(subtextF, String.valueOf(i + 1)),
                     txtReadAndReturn(DescriptionF, String.valueOf(i + 1)),
@@ -48,7 +54,7 @@ public class Main {
                     Color.BLACK);
         }
         //  Sets up the background GUI (Graphical User Interface) to a plain white
-        GUI gui = new GUI(fields, Color.WHITE);
+        GUI gui = new GUI(Base.fields, Color.WHITE);
 
         //  Asks if the language has been initialised and makes a button for user to select language
         language_ok = false;
@@ -101,8 +107,8 @@ public class Main {
         }
 
         //Initialise true false for OwnedNotOwnedFields
-        int[][] OwnedtrueOwnedFalse = new int[fieldNR][AmountofPlayers + 1];
-        for (int n = 0; n < fieldNR; n++) {
+        int[][] OwnedtrueOwnedFalse = new int[Base.fieldNR()][AmountofPlayers + 1];
+        for (int n = 0; n < Base.fieldNR(); n++) {
             OwnedtrueOwnedFalse[n][0] = n;
             for (int i = 0; i < AmountofPlayers; i++) {
                 OwnedtrueOwnedFalse[n][i] = 0;
@@ -112,7 +118,7 @@ public class Main {
         boolean selection = true;
         //Sets all player locations on the board to space 0
         for (int i = 0; i < AmountofPlayers; i++) {
-            if (i > 0 && fields[i] != null) fields[0].setCar(PlayerArray[i], true);
+            if (i > 0 && Base.fields[i] != null) Base.fields[0].setCar(PlayerArray[i], true);
         }
 
 
@@ -122,8 +128,9 @@ public class Main {
         boolean gameEnd = false; //, lastMax = false;
 
         //Create the dices. Default 6 sides
-        Die d1 = new Die();
-        Die d2 = new Die();
+        //String AmountofDice = gui.getUserButtonPressed("how many dice?", "1", "2");
+            Die d1 = new Die();
+            Die d2 = new Die();
 
 
         // If sides are different from 6, set the number of sides.
@@ -160,7 +167,7 @@ public class Main {
             else selectedPlayer = PlayerArray[playingPlayer2];
 
             //if (amountOfGameLoops == 0);
-            //Jail.JailRegister(selectedPlayer,AmountofPlayers, fieldNR, fields);
+            //Jail.JailRegister(selectedPlayer,AmountofPlayers, Base.fieldNR(), fields);
             //roll the dices
             d1.dice_roll();
             d2.dice_roll();
@@ -172,14 +179,15 @@ public class Main {
             int DieSum = Die.getSum(d1, d2) + 2;
 
             //if the game hasn't ended, continue
+            int CurrentSpaceForSelectedPlayer = 0;
             if (!gameEnd) {
                 // Moves the cars around the field and gives consequence- see the Cars Class under - src/main/java/Cars
-                Cars.moveCars(DieSum, selectedPlayer, PlayerArray, fields, AmountofPlayers, fieldNR);
+                Cars.moveCars(DieSum, selectedPlayer, PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
 
                 //  Sets the current space for the selected player to a value
-                int CurrentSpaceForSelectedPlayer = 0;
-                for (int i = 0; i < fieldNR; i++) {
-                    if (fields[i].hasCar(selectedPlayer))
+                CurrentSpaceForSelectedPlayer = 0;
+                for (int i = 0; i < Base.fieldNR(); i++) {
+                    if (Base.fields[i].hasCar(selectedPlayer))
                         CurrentSpaceForSelectedPlayer = i;
                 }
 
@@ -192,12 +200,12 @@ public class Main {
                     String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
                             AmountofPlayers,
                             selectedPlayer,
-                            fields,
+                            Base.fields,
                             wanttobuyYesNo,
                             PlayerArray,
-                            fieldNR,
+                            Base.fieldNR(),
                             CurrentSpaceForSelectedPlayer,
-                            CosttoOwn, TitleF,
+                            Base.CosttoOwn, TitleF,
                             PlayerSpaceNRexcact,
                             JailOn);
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
@@ -210,14 +218,22 @@ public class Main {
                 if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
             }
 
+            //Changes currentSpaceForSelected Player to the new location
+            if (CurrentSpaceForSelectedPlayer + DieSum > Base.fieldNR())
+                CurrentSpaceForSelectedPlayer = CurrentSpaceForSelectedPlayer + DieSum - Base.fieldNR();
+
             //Shows description of the space you land on, and changes color
-            gui.displayChanceCard(selectedPlayer.getName() + " | " + fields[DieSum].getTitle() + "\n" + fields[DieSum].getSubText());
-            Fields.displayDescriptions(selectedPlayer, DieSum, fields);
+            if (Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "CHANCE") {
+                gui.displayChanceCard(Chance.chanceCards[DieSum - 5].getKortNavnavn());
+            } else
+                gui.displayChanceCard(selectedPlayer.getName() + " | " + Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]
+                        ].getTitle() + "\n" + Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getSubText());
+            Fields.displayDescriptions(selectedPlayer, DieSum, Base.fields);
             //Display Die on the Board
             Die.OnBoard(d1, d2, gui);
 
             //Switch selected player
-            if (!(Objects.equals(fields[DieSum].getTitle(), "extra"))) {
+            if (!(Objects.equals(Base.fields[DieSum].getTitle(), "extra"))) {
                 selection = !selection;
                 playingPlayer++;
             }
@@ -253,40 +269,40 @@ public class Main {
                     }
                     // if the next player has the same balance as previous player, set both as winners
                     else if (PlayerArray[i].getBalance() == WinnerMoney)
-                        for (int l=1;l<AmountofPlayers;l++) {
-                            Winners[i] = (Winners[i-1] + " " + PlayerArray[i].getName());
+                        for (int l = 1; l < AmountofPlayers; l++) {
+                            Winners[i] = (Winners[i - 1] + " " + PlayerArray[i].getName());
                         }
                 }
 
                 //  Displaying the Winners
                 gui.showMessage(Winners[WinnerInt] + dialog[8] + WinnerMoney);
 
-            do {
-                //  Select language for the game dialog
-                answer_game = gui.getUserButtonPressed(dialog[9], dialog[10], dialog[11]);
+                do {
+                    //  Select language for the game dialog
+                    answer_game = gui.getUserButtonPressed(dialog[9], dialog[10], dialog[11]);
 
-                //  if anwser to "a new game" is no - stop the game
-                if (answer_game.equals(dialog[11])) {
-                    game_running = false;
-                    answerGameOk = true;
-                }
-                //  if anwser to "a new game" is yes - keep it going
-                if (answer_game.equals("y") || answer_game.equals("j") || answer_game.equals("o") || answer_game.equals(dialog[10])) {
-                    answerGameOk = true;
-                    game_running = true;
-
-                    //  if game is restarting - Resets the Board
-                    Cars.restart(PlayerArray, fields, AmountofPlayers, fieldNR);
-                    Fields.RestartFieldTitles(TitleF, fieldNR, fields);
-                    Fields.RestartOwnStatus(OwnedtrueOwnedFalse, fieldNR, AmountofPlayers);
-                    for (int i = 0; i <AmountofPlayers; i++) {
-                        PlayerSpaceNRexcact[i] = 0;
+                    //  if anwser to "a new game" is no - stop the game
+                    if (answer_game.equals(dialog[11])) {
+                        game_running = false;
+                        answerGameOk = true;
                     }
+                    //  if anwser to "a new game" is yes - keep it going
+                    if (answer_game.equals("y") || answer_game.equals("j") || answer_game.equals("o") || answer_game.equals(dialog[10])) {
+                        answerGameOk = true;
+                        game_running = true;
 
+                        //  if game is restarting - Resets the Board
+                        Cars.restart(PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
+                        Fields.RestartFieldTitles(TitleF, Base.fieldNR(), Base.fields);
+                        Fields.RestartOwnStatus(OwnedtrueOwnedFalse, Base.fieldNR(), AmountofPlayers);
+                        for (int i = 0; i < AmountofPlayers; i++) {
+                            PlayerSpaceNRexcact[i] = 0;
+                        }
+
+                    }
                 }
+                while (!answerGameOk);
             }
-            while (!answerGameOk);
-        }
             //end game if last selection to (wanna keep playing?) is no
             if (!game_running)
                 System.exit(0);
