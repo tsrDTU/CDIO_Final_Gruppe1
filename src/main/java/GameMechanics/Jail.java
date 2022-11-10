@@ -1,3 +1,5 @@
+package GameMechanics;
+
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 
@@ -14,7 +16,7 @@ public class Jail {
             JailOn[i][0]=false;
             JailOn[i][1]=false;
         }
-        //  sets Jail time
+        //  sets GameMechanics.Jail time
         JailOn[selectedPlayer.getNumber()][0] = true;
         JailOn[selectedPlayer.getNumber()][1] = true;
         return JailOn;

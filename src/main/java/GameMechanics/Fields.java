@@ -52,7 +52,7 @@ public class Fields {
 
 
         if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL")){
-            //System.out.println("Jail space reached");    // | EMPTY NOTE |
+            //System.out.println("GameMechanics.Jail space reached");    // | EMPTY NOTE |
             //  Finds the Space with JailVisit
             int JailVisitSpace=0;
             for (int i = 0; i < AmountofSpaces; i++) {
@@ -61,7 +61,7 @@ public class Fields {
             }
             //  Moves car to JailVisitSpace
             Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, fields, selectedPlayer, JailVisitSpace);
-            //  Jail Register
+            //  GameMechanics.Jail Register
             PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
 
                 JailOn[selectedPlayer.getNumber()][0]=true;

@@ -1,6 +1,7 @@
 import GameMechanics.Cars;
 import GameMechanics.Die;
 import GameMechanics.Fields;
+import GameMechanics.Jail;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
 import TheBoard.Language;
@@ -17,7 +18,7 @@ import java.util.Scanner;
 import static Files.FileReference.*;
 import static GameMechanics.textReaderClass.textRDR;
 import static TheBoard.Base.*;
-
+import static TheBoard.BoardCreator.JailInit;
 
 //v1.0
 
@@ -144,18 +145,19 @@ public class Main {
         int playingPlayer = intselect;
         int playingPlayer2;
 
-        //  Initialising something for Jail and Start field
+        //  Initialising something for GameMechanics.Jail and Start field
         int[] PlayerSpaceNRexcact = new int[AmountofPlayers];
         for (int i = 0; i < AmountofPlayers; i++) {
             PlayerSpaceNRexcact[i] =0;
         }
-
+        TheBoard.BoardCreator.JailInit(AmountofPlayers);
+/*
         boolean[][] JailOn = new boolean[AmountofPlayers][2];
         for (int i = 0; i < AmountofPlayers; i++) {
             JailOn[i][0] = false;
             JailOn[i][1] = false;
         }
-
+*/
         int amountOfGameLoops = 0;
         //Game loop
         while (!gameEnd) {
@@ -169,7 +171,7 @@ public class Main {
             else selectedPlayer = PlayerArray[playingPlayer2];
 
             //if (amountOfGameLoops == 0);
-            //Jail.JailRegister(selectedPlayer,AmountofPlayers, TheBoard.Base.fieldNR(), fields);
+            //GameMechanics.Jail.JailRegister(selectedPlayer,AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
             d1.dice_roll();
             d2.dice_roll();
@@ -209,7 +211,7 @@ public class Main {
                             CurrentSpaceForSelectedPlayer,
                             BoardCreator.CostofField(), TitleF,
                             PlayerSpaceNRexcact,
-                            JailOn);
+                            JailInit(AmountofPlayers));
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }

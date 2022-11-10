@@ -36,6 +36,15 @@ public class BoardCreator{
                     Color.BLACK);
         }*/
     }
+    public static boolean[][] JailInit(int AmountofPlayers) {
+        boolean[][] JailOn = new boolean[AmountofPlayers][2];
+        for (int i = 0; i < AmountofPlayers; i++) {
+            JailOn[i][0] = false;
+            JailOn[i][1] = false;
+        }
+        return JailOn;
+    }
+
 
     public static void PersonCreator(int AmountofPlayers, GUI_Player[] PlayerArray, String[] PlayerName, GUI_Car[] playerCars) {
 
