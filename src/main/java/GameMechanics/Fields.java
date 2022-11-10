@@ -222,11 +222,11 @@ public class Fields {
 
 1. - FIXED -
 ved start af spil 2 pladerne har sværere ved at sætte pladerne
-2.
+2. - TB -
 Terningen virker men skal sættes ned til 1  ( spil er bedre )
-3.
+3. - FIXED -
 forskellige sprog skal fungerer bedre
-4.  - MORE TESTING -
+4.  - FIXED -
 Vinderen skal vises rigtigt ( det gø den ikke ved flere end 2 spillere )
 5. - FIXED -
 spiller 4 ser ud til altid at vinde

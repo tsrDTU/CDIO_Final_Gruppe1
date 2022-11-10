@@ -7,6 +7,18 @@ import gui_fields.GUI_Street;
 import java.awt.Color;
 
 public class Cars {
+    private static GUI_Car.Type T1 = GUI_Car.Type.CAR;
+    private static GUI_Car.Type T2 = GUI_Car.Type.RACECAR;
+    private static GUI_Car.Type T3 = GUI_Car.Type.UFO;
+    private static GUI_Car.Type T4 = GUI_Car.Type.TRACTOR;
+
+    public static GUI_Car.Type setCarType(int i) {
+        if (i==1) return T1;
+        if (i==2) return T2;
+        if (i==3) return T3;
+        if (i==4) return T4;
+        else return T1;
+    }
 
     public static void moveCars(int DiceRollSum, GUI_Player currentplayer,
                          GUI_Player[] players, GUI_Street[] street,

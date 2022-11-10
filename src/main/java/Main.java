@@ -102,11 +102,13 @@ public class Main {
             //  Sets the car of each player
             PlayerName[i] = (gui.getUserString(dialog[3]+(i+1)+"?"));
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
-            playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
+            playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
             PlayerArray[i] = new GUI_Player(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             GameMechanics.Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i);
             gui.addPlayer(PlayerArray[i]);
         }
+        Cars.restart(PlayerArray,fields, AmountofPlayers,fieldNR());
+
 
         int[][] OwnedtrueOwnedFalse = Base.InitializeOwnedStat(AmountofPlayers).clone();
 
