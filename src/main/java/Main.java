@@ -1,3 +1,4 @@
+import cardClasses.Chance;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 import gui_fields.GUI_Street;
@@ -8,6 +9,7 @@ import java.io.*;
 import java.util.Objects;
 import java.util.Scanner;
 
+import cardClasses.Chance;
 //v1.0
 
 public class Main {
@@ -20,7 +22,7 @@ public class Main {
         boolean language_ok, game_running, answerGameOk;
         //  sets game to run - sets the amount of fields
         game_running = true;
-        int fieldNR = 24;
+        int fieldNR = 24, actualField;
         String[] userRoles={"Bil","Skib","Hund","Kat"};
         String[] freeUserRoles;
 
@@ -147,14 +149,7 @@ public class Main {
         Die d1 = new Die();
         Die d2 = new Die();
 
-/*
-        // If sides are different from 6, set the number of sides.
-        if (antal_kant != 6) {
-            d1.setNumberOfSides(antal_kant);
-            d2.setNumberOfSides(antal_kant);
-        }
 
- */
 
         int playingPlayer = intselect;
         int playingPlayer2;
@@ -198,7 +193,15 @@ public class Main {
             //if the game hasn't ended, continue
             if (!gameEnd) {
                 // Moves the cars around the field and gives consequence- see the Cars Class under - src/main/java/Cars
-                Cars.moveCars(DieSum, selectedPlayer, PlayerArray, fields, AmountofPlayers, fieldNR);
+                actualField=Cars.moveCars(DieSum, selectedPlayer, PlayerArray, fields, AmountofPlayers, fieldNR);
+      //          System.out.println(actualField);
+                if (actualField==3 || actualField==9 || actualField==15 || actualField==21)
+                {
+                    //The cas is on a chance field
+                    System.out.println("Landet på Chance");
+
+
+                }
 
                 //  Sets the current space for the selected player to a value
                 int CurrentSpaceForSelectedPlayer = 0;

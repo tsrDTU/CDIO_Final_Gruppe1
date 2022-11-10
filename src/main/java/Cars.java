@@ -6,7 +6,7 @@ import java.awt.Color;
 
 public class Cars {
 
-    static void moveCars(int DiceRollSum, GUI_Player currentplayer,
+    static int moveCars(int DiceRollSum, GUI_Player currentplayer,
                          GUI_Player[] players, GUI_Street[] street,
                          int AmountofPlayers, int AmountofSpaces) {
         //  Initialise Values for movement of cars on the Board
@@ -46,6 +46,7 @@ public class Cars {
         street[LocationCurrent+Space].setCar(currentplayer, true);
         else
             street[LocationNEW].setCar(currentplayer,true);
+        return LocationCurrent+Space;
     }
     //  Resets the GUI_Player
     static void restart(GUI_Player PlayerArray[], GUI_Field[] fields, int AmountofPlayers, int AmountofSpaces) {
