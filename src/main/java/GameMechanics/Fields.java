@@ -1,3 +1,6 @@
+package GameMechanics;
+
+import TheBoard.BoardCreator;
 import cardClasses.Chance;
 import gui_codebehind.GUI_Center;
 import gui_fields.*;
@@ -144,7 +147,7 @@ public class Fields {
                     fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
                     //  Returns a string that is used to add to the amount of money for the selected player
                     //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
-                    return String.valueOf(-CosttoOwn[THEfieldsNR]);
+                    return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
                 }
             }
             else return "Error"; // returns error message in case there is an error
@@ -196,14 +199,14 @@ public class Fields {
     }
 
 
-    static void RestartFieldTitles(File file,int AmountofSpaces,GUI_Street[] fields) throws FileNotFoundException {
+    public static void RestartFieldTitles(File file, int AmountofSpaces, GUI_Street[] fields) throws FileNotFoundException {
         //  Resets all titles
         for (int i=0;i<AmountofSpaces;i++){
-            fields[i].setTitle(Main.txtReadAndReturn(file, String.valueOf(i+1)));
+            fields[i].setTitle(textReaderClass.textRDR(file, String.valueOf(i+1)));
         }
     }
 
-    static void RestartOwnStatus(int[][] OwnedtrueOwnedFalse,int fieldNR, int AmountofPlayers) {
+    public static void RestartOwnStatus(int[][] OwnedtrueOwnedFalse, int fieldNR, int AmountofPlayers) {
         //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < fieldNR; n++) {
             //OwnedtrueOwnedFalse[n][0] = n;

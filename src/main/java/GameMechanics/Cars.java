@@ -1,3 +1,5 @@
+package GameMechanics;
+
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
@@ -48,7 +50,7 @@ public class Cars {
             street[LocationNEW].setCar(currentplayer,true);
     }
     //  Resets the GUI_Player
-    static void restart(GUI_Player PlayerArray[], GUI_Field[] fields, int AmountofPlayers, int AmountofSpaces) {
+    public static void restart(GUI_Player PlayerArray[], GUI_Field[] fields, int AmountofPlayers, int AmountofSpaces) {
         for (int i = 0; i < AmountofSpaces; i++) fields[i].removeAllCars();
         for (int i=0;i<AmountofPlayers;i++){
             PlayerArray[i].setBalance(20-(AmountofPlayers-2)*(2));
@@ -56,7 +58,7 @@ public class Cars {
         }
     }
     // Color creation for the cars - Look up HSB colors system online to learn more
-    static void CarColor(GUI_Car playerCars[], GUI_Player PlayerArray[], String Players, int PlayerNumber) {
+    public static void CarColor(GUI_Car playerCars[], GUI_Player PlayerArray[], String Players, int PlayerNumber) {
         Color[] color = new Color[Integer.parseInt(Players)];
         for (int i =0;i<Integer.parseInt(Players);i++){
             String h = String.valueOf(i*0.18+1);
