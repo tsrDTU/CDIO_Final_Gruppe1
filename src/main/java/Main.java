@@ -16,11 +16,13 @@ public class Main {
         String string_in, language, answer_game;
         String[] dialog = new String[12];
         //  initialises the antal_kant for dice and language statements
-        int antal_kant;
+        int antal_kant, j, k;
         boolean language_ok, game_running, answerGameOk;
         //  sets game to run - sets the amount of fields
         game_running = true;
         int fieldNR = 24;
+        String[] userRoles={"Bil","Skib","Hund","Kat"};
+        String[] freeUserRoles;
 
         //  Sets up the path to txt files in the
         File DescriptionF = new File("src/main/Field Guts/description");
@@ -94,6 +96,27 @@ public class Main {
             PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             //  Sets the Car Color with CarColor method under Cars - src/main/java/Cars
             Cars.CarColor(playerCars, PlayerArray, Players, i);
+            //Set users role
+            PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[2],
+                    userRoles));
+            //Remove this role from the list.
+            for (j=0;j<userRoles.length;j++)
+            {
+                if (userRoles[j].equals(PlayerArray[i].getUserRole()))
+                {
+                    userRoles[j]=" ";
+                    /*
+                    for (k=j;k<userRoles[j].length() -1;k++)
+                    {
+                        userRoles[k]=userRoles[k+1];
+                        freeUserRoles.
+                    }
+
+                     */
+
+
+                }
+            }
             //  Adds it all to the gui
             gui.addPlayer(PlayerArray[i]);
         }
