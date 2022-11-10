@@ -67,39 +67,38 @@ public class Main {
 
         //  Initialize the game dialog
         Language.initializeDialog(dialog, language);
+  //      System.out.println("over");
 
-        do {
-            //  Asks for the number of dots on the sides of the dice - 2 dices
-            string_in = gui.getUserButtonPressed(dialog[0], "2", "3", "4", "5", "6"); //Quest the number of sides for the dice
-            //Set the number sides for the dices
-            if (string_in.length() > 0) {
-                antal_kant = (int) string_in.charAt(0) - '0';
-            } else antal_kant = 6;
-        } while (antal_kant < 2 || antal_kant > 6);
 
         //Asks how many players, and sets cars and players
         String Players = gui.getUserButtonPressed(dialog[11], "2", "3", "4");
+
         int AmountofPlayers = Integer.parseInt(Players);
-        GUI_Player[] PlayerArray = new GUI_Player[Integer.parseInt(Players)];
+
+        MjPlayer[] PlayerArray = new MjPlayer[Integer.parseInt(Players)];
+ //       System.out.println("3");
         GUI_Car[] playerCars = new GUI_Car[Integer.parseInt(Players)];
         String[] PlayerName = new String[Integer.parseInt(Players)];
+ //       System.out.println(Integer.parseInt(Players));
 
         //  Sets names for each player in a for loop and gives an adjacent car with a private color
         //  for loop, asks for each player to input a name
+
         for (int i = 0; i < Integer.parseInt(Players); i++) {
-            PlayerName[i] = (gui.getUserString(dialog[i]));
+            PlayerName[i] = gui.getUserString(dialog[1]+(i+1)+"?");
             //  if No name is given - player is named fx. Player2
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i+1));
             //  Sets the car of each player
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
             //  Sets the staring balance
-            PlayerArray[i] = new GUI_Player(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
+            PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             //  Sets the Car Color with CarColor method under Cars - src/main/java/Cars
             Cars.CarColor(playerCars, PlayerArray, Players, i);
             //  Adds it all to the gui
             gui.addPlayer(PlayerArray[i]);
         }
 
+ //       System.out.println("7");
         //Initialise true false for OwnedNotOwnedFields
         int[][] OwnedtrueOwnedFalse = new int[fieldNR][AmountofPlayers + 1];
         for (int n = 0; n < fieldNR; n++) {
@@ -118,19 +117,21 @@ public class Main {
 
         int intselect = 0;
         //Create a selected player that will point at active player
-        GUI_Player selectedPlayer;
+        MjPlayer selectedPlayer;
         boolean gameEnd = false; //, lastMax = false;
 
         //Create the dices. Default 6 sides
         Die d1 = new Die();
         Die d2 = new Die();
 
-
+/*
         // If sides are different from 6, set the number of sides.
         if (antal_kant != 6) {
             d1.setNumberOfSides(antal_kant);
             d2.setNumberOfSides(antal_kant);
         }
+
+ */
 
         int playingPlayer = intselect;
         int playingPlayer2;
