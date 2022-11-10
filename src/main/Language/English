@@ -1,7 +1,17 @@
 A dice with six sides are default chosen. Please press enter to select this. Or enter the number of sides (2 - 5) you wish:
-Who is Player 1?
-Who is Player 2?
-Who starts the game?
+How many players will be playing?
+Who is Player
+It is
+ Playing
+Roll the dice
+ has won with the score:
+ New game?
+Yes
+No
+0
+1
+2
+3
 It is
  playing
 Please roll the dices
@@ -10,3 +20,13 @@ Please roll the dices
  A new game?
 Yes
 No
+0
+0
+0
+0
+0
+0
+0
+0
+0
+Who starts the game?

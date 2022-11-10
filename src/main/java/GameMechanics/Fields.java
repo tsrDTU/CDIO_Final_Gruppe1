@@ -114,8 +114,8 @@ public class Fields {
             Chance landetPaaChance = new Chance();
             landetPaaChance.traekEtChanceKort();
 
-            System.out.println(landetPaaChance.traekEtChanceKort());
-            System.out.println(" 3%3 ");     // | EMPTY NOTE |
+            //System.out.println(landetPaaChance.traekEtChanceKort());
+            //System.out.println(" 3%3 ");     // | EMPTY NOTE |
 
             return "0";
         }

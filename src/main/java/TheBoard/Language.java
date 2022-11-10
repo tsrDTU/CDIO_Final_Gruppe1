@@ -4,6 +4,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
+
+import static GameMechanics.textReaderClass.textRDR;
 
 
 
@@ -11,10 +14,31 @@ public class Language {
 
     public Language() throws FileNotFoundException {
     }
-
-
+private static final int DialogLineAmaount = 11;
+public static String[] dialog = new String[DialogLineAmaount];
     public static void initializeDialog(String[] dialog, String sprog) throws IOException {
-        String file = "src/main/TheBoard.Language/Dansk"; // file location
+        //String[] dialog = new String[20];
+        //String file = "src/main/TheBoard.Language/Dansk"; // file location
+        File file = new File("src/main/Language/English");
+        if (Objects.equals(sprog, "Dansk"))
+            file = new File("src/main/Language/Dansk");
+        if (Objects.equals(sprog,"French"))
+            file = new File("src/main/Language/French");
+        if (Objects.equals(sprog,"German"))
+            file = new File("src/main/Language/German");
+
+
+        for (int i = 0; i < DialogLineAmaount; i++) {
+            dialog[i] = textRDR(file, String.valueOf(i));
+        }
+
+
+
+
+
+
+
+        /*
     if (sprog=="Dansk") {
         dialog[0] = "Der er forhåndsvalgt terninger med 6 kanter. Tast enter for at vælge dette. Ellers indtast det ønskede antal kanter  (2 - 5) og tast enter";
         dialog[1] = "Hvem er Spiller 1?";
@@ -45,7 +69,7 @@ public class Language {
                 assertEquals(expected_value, read);
                 }*/
 
-
+/*
         } else if (sprog.equals("Francias")) {
             dialog[0] = "Un dé à six faces est choisi par défaut. Veuillez appuyer sur Entrée pour le sélectionner. Ou entrez le nombre de faces (2 - 5) que vous souhaitez:";
             dialog[1] = "Qui est le joueur 1?";
@@ -88,10 +112,10 @@ public class Language {
             dialog[10] = "Ja";
             dialog[11] = "Nein";
 
-
+*/
         }
 
     }
 
-}
+
 

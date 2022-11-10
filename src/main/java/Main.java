@@ -19,6 +19,7 @@ import static Files.FileReference.*;
 import static GameMechanics.textReaderClass.textRDR;
 import static TheBoard.Base.*;
 import static TheBoard.BoardCreator.JailInit;
+import static TheBoard.Language.dialog;
 
 //v1.0
 
@@ -29,7 +30,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         //  initialises language and gameanwser - makes dialog strings
         String string_in, language, answer_game;
-        String[] dialog = new String[12];
+        //String[] dialog = new String[20];
         //  initialises the antal_kant for dice and language statements
         int antal_kant;
         boolean language_ok, game_running, answerGameOk;
@@ -75,7 +76,7 @@ public class Main {
 
         do {
             //  Asks for the number of dots on the sides of the dice - 2 dices
-            string_in = gui.getUserButtonPressed(dialog[0], "2", "3", "4", "5", "6"); //Quest the number of sides for the dice
+            string_in = gui.getUserButtonPressed(dialog[1], "2", "3", "4", "5", "6"); //Quest the number of sides for the dice
             //Set the number sides for the dices
             if (string_in.length() > 0) {
                 antal_kant = (int) string_in.charAt(0) - '0';
@@ -85,7 +86,7 @@ public class Main {
 
 
             //Asks how many players, and sets cars and players
-            String Players = gui.getUserButtonPressed(dialog[11], "2", "3", "4");
+            String Players = gui.getUserButtonPressed(dialog[2], "2", "3", "4");
             int AmountofPlayers = Integer.parseInt(Players);
 
 
@@ -99,7 +100,7 @@ public class Main {
 //  Sets names for each player in a for loop and gives an adjacent car with a private color
         for (int i = 0; i < AmountofPlayers; i++) {
             //  Sets the car of each player
-            PlayerName[i] = (gui.getUserString(dialog[i]));
+            PlayerName[i] = (gui.getUserString(dialog[3]+(i+1)+"?"));
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
             PlayerArray[i] = new GUI_Player(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
@@ -279,19 +280,19 @@ public class Main {
                 }
 
                 //  Displaying the Winners
-                gui.showMessage(Winners[WinnerInt] + dialog[8] + WinnerMoney);
+                gui.showMessage(Winners[WinnerInt] + dialog[7] + WinnerMoney);
 
                 do {
                     //  Select language for the game dialog
-                    answer_game = gui.getUserButtonPressed(dialog[9], dialog[10], dialog[11]);
+                    answer_game = gui.getUserButtonPressed(dialog[8], dialog[9], dialog[10]);
 
                     //  if anwser to "a new game" is no - stop the game
-                    if (answer_game.equals(dialog[11])) {
+                    if (answer_game.equals(dialog[10])) {
                         game_running = false;
                         answerGameOk = true;
                     }
                     //  if anwser to "a new game" is yes - keep it going
-                    if (answer_game.equals("y") || answer_game.equals("j") || answer_game.equals("o") || answer_game.equals(dialog[10])) {
+                    if (answer_game.equals("y") || answer_game.equals("j") || answer_game.equals("o") || answer_game.equals(dialog[9 ])) {
                         answerGameOk = true;
                         game_running = true;
 

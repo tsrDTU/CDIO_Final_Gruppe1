@@ -14,6 +14,6 @@ public class FileReference {
     public static File CostToOwnFieldF = new File("src/main/Field Guts/CostToOwnField");
 
 //------------------------------------------------------------------------------------------
-//      Languages for buttons
+//      Languages for
 //------------------------------------------------------------------------------------------
 }
