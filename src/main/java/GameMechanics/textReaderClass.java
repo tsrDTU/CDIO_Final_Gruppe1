@@ -5,6 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class textReaderClass {
+//-------------------------------------------------------------------------------
+//
+//      This reads text files and returns lines of text as Strings
+//
+//-------------------------------------------------------------------------------
     public static String textRDR(File file, String LineNR) throws FileNotFoundException {
         Scanner TXTRDRscanner = new Scanner(file);
         int ReadLineNR = Integer.parseInt(LineNR);

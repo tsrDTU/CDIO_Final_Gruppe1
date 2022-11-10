@@ -4,6 +4,11 @@ import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 
 public class Jail {
+//-------------------------------------------------------------------------------
+//
+//          Makes a Register that keeps info on who has been jailed - sets free after board turn
+//
+//-------------------------------------------------------------------------------
     static boolean[][] JailRegister(GUI_Player selectedPlayer, int AmountofPlayers, int AmountofSpaces, GUI_Street[] fields) {
         //  Finds the Space with JailVisit
         int JailVisitSpace=0;

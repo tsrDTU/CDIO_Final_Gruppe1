@@ -7,6 +7,11 @@ import gui_fields.GUI_Street;
 import java.awt.Color;
 
 public class Cars {
+//-------------------------------------------------------------------------------
+//
+//      Car Type Distributor
+//
+//-------------------------------------------------------------------------------
     private static GUI_Car.Type T1 = GUI_Car.Type.CAR;
     private static GUI_Car.Type T2 = GUI_Car.Type.RACECAR;
     private static GUI_Car.Type T3 = GUI_Car.Type.UFO;
@@ -20,6 +25,12 @@ public class Cars {
         else return T1;
     }
 
+
+//-------------------------------------------------------------------------------
+//
+//          Moves car based off dice roll
+//
+//-------------------------------------------------------------------------------
     public static void moveCars(int DiceRollSum, GUI_Player currentplayer,
                          GUI_Player[] players, GUI_Street[] street,
                          int AmountofPlayers, int AmountofSpaces) {
@@ -61,6 +72,12 @@ public class Cars {
         else
             street[LocationNEW].setCar(currentplayer,true);
     }
+
+//-------------------------------------------------------------------------------
+//
+//          Resets Cars to Start position
+//
+//-------------------------------------------------------------------------------
     //  Resets the GUI_Player
     public static void restart(GUI_Player PlayerArray[], GUI_Field[] fields, int AmountofPlayers, int AmountofSpaces) {
         for (int i = 0; i < AmountofSpaces; i++) fields[i].removeAllCars();
@@ -69,6 +86,11 @@ public class Cars {
             fields[0].setCar(PlayerArray[i], true);
         }
     }
+//-------------------------------------------------------------------------------
+//
+//         Makes colors based off the HSB color system
+//
+//-------------------------------------------------------------------------------
     // Color creation for the cars - Look up HSB colors system online to learn more
     public static void CarColor(GUI_Car playerCars[], GUI_Player PlayerArray[], String Players, int PlayerNumber) {
         Color[] color = new Color[Integer.parseInt(Players)];
@@ -81,7 +103,11 @@ public class Cars {
     }
 
 
-
+//-------------------------------------------------------------------------------
+//
+//          Moves a specific car to a specific location
+//
+//-------------------------------------------------------------------------------
     static void moveCarTo(int AmountofPlayers, GUI_Player[] players, int LocationCurrent,
                           GUI_Street[] street, GUI_Player currentplayer, int LocationToMoveTo) {
         //Checks if each player is on the field and attaches a boolean value

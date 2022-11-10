@@ -173,6 +173,8 @@ public class Main {
             if (selection) selectedPlayer = PlayerArray[playingPlayer];
             else selectedPlayer = PlayerArray[playingPlayer2];
 
+
+
             //if (amountOfGameLoops == 0);
             //GameMechanics.Jail.JailRegister(selectedPlayer,AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
