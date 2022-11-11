@@ -4,6 +4,8 @@ import gui_fields.GUI_Car;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 
+import static TheBoard.Language.dialog;
+
 public class Base {
 //----------------------------------------------------------------------------------------------
 //
@@ -27,11 +29,7 @@ public class Base {
     //  defines the cost to own a field array (list)
 
 
-
-    //public static GUI_Player[] PlayerArray = new GUI_Player[AmountofPlayers];
-      //  public static GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
-       // public static String[] PlayerName = new String[AmountofPlayers];
-
+    public static int AmountofPlayers;
 
 
     public static GUI_Street[] fields = new GUI_Street[Base.fieldNR()];

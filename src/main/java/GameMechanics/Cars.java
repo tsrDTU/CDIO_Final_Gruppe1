@@ -1,5 +1,6 @@
 package GameMechanics;
 
+import TheBoard.Base;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
@@ -20,6 +21,10 @@ public class Cars {
         else return T1;
     }
 
+
+    public static void CreateCars() {
+
+    }
     public static void moveCars(int DiceRollSum, GUI_Player currentplayer,
                          GUI_Player[] players, GUI_Street[] street,
                          int AmountofPlayers, int AmountofSpaces) {
@@ -82,27 +87,27 @@ public class Cars {
 
 
 
-    static void moveCarTo(int AmountofPlayers, GUI_Player[] players, int LocationCurrent,
-                          GUI_Street[] street, GUI_Player currentplayer, int LocationToMoveTo) {
+    static void moveCarTo(int AmountofPlayers, GUI_Player[] players, int LocationCurrent
+                          , GUI_Player currentplayer, int LocationToMoveTo) {
         //Checks if each player is on the field and attaches a boolean value
         boolean[] PlayerNum = new boolean[AmountofPlayers];
         for (int i = 0; i < AmountofPlayers; i++) {
             PlayerNum[i] = false;
         }
         for (int i = 0; i < AmountofPlayers; i++) {
-            if (street[LocationCurrent].hasCar(players[i]) && currentplayer != players[i])
+            if (Base.fields[LocationCurrent].hasCar(players[i]) && currentplayer != players[i])
                 PlayerNum[i] = true;
             else PlayerNum[i] = false;
         }
         //Removes all cars for the space that (the car that wants to move) is in
-        street[LocationCurrent].removeAllCars();
+        Base.fields[LocationCurrent].removeAllCars();
 
         //if boolean value of a car is true, they get put back into the space they were in
         //boolean[] JailOn = new boolean[2];
         for (int i = 0; i < AmountofPlayers; i++) {
             if (PlayerNum[i])
-                street[LocationCurrent].setCar(players[i], true);
-            street[LocationToMoveTo].setCar(currentplayer,true);
+                Base.fields[LocationCurrent].setCar(players[i], true);
+            Base.fields[LocationToMoveTo].setCar(currentplayer,true);
             //JailOn[0] = true;
             //JailOn[1] = true;
             }

@@ -28,28 +28,21 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        //  initialises language and gameanwser - makes dialog strings
         String string_in, language, answer_game;
-        //String[] dialog = new String[20];
-        //  initialises the antal_kant for dice and language statements
         int antal_kant;
-        boolean language_ok, game_running, answerGameOk;
-        //  sets game to run - sets the amount of fields
+        boolean game_running, answerGameOk;
         game_running = true;
         //int fieldNR = 24;
 
+//-------------------------------------------------------------------------------------------
+//
+//          Game Definitions
+//
+//-------------------------------------------------------------------------------------------
+
 
         //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
-        for (int i = 0; i < Base.fieldNR(); i++) {
-            fields[i] = new GUI_Street(
-                    textRDR(TitleF, String.valueOf(i + 1)),
-                    textRDR(subtextF, String.valueOf(i + 1)),
-                    textRDR(DescriptionF, String.valueOf(i + 1)),
-                    textRDR(rentF, String.valueOf(i + 1)),
-                    //fields[i] = new GUI_Street("","","","1",
-                    Fields.ColorSpace(Integer.parseInt(textRDR(DescriptionF, String.valueOf(i + 1))), i),
-                    Color.BLACK);
-        }
+        TheBoard.BoardCreator.InitBoardFieldsGuts();
 
 
         //BoardCreator.SetGUItext();
@@ -57,19 +50,7 @@ public class Main {
         GUI gui = new GUI(Base.fields, Color.WHITE);
 
         //  Asks if the language has been initialised and makes a button for user to select language
-        language_ok = false;
-        String sprog = "English";
-        do {
             language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
-            if (language.equals("Dansk")) language_ok = true;
-            sprog = "Dansk";
-            if (language.equals("English")) language_ok = true;
-            sprog = "English";
-            if (language.equals("Francias")) language_ok = true;
-            sprog = "Francias";
-            if (language.equals("German")) language_ok = true;
-            sprog = "German";
-        } while (!language_ok);
 
         //  Initialize the game dialog
         TheBoard.Language.initializeDialog(dialog, language);
@@ -87,12 +68,14 @@ public class Main {
 
             //Asks how many players, and sets cars and players
             String Players = gui.getUserButtonPressed(dialog[2], "2", "3", "4");
-            int AmountofPlayers = Integer.parseInt(Players);
+            AmountofPlayers = Integer.parseInt(Players);
 
 
-        GUI_Player[] PlayerArray = new GUI_Player[Integer.parseInt(Players)];
-        GUI_Car[] playerCars = new GUI_Car[Integer.parseInt(Players)];
-        String[] PlayerName = new String[Integer.parseInt(Players)];
+
+        GUI_Player[] PlayerArray = new GUI_Player[AmountofPlayers];
+        GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
+        String[] PlayerName = new String[AmountofPlayers];
+
         BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
 
 
@@ -153,16 +136,14 @@ public class Main {
         for (int i = 0; i < AmountofPlayers; i++) {
             PlayerSpaceNRexcact[i] =0;
         }
-        TheBoard.BoardCreator.JailInit(AmountofPlayers);
-/*
-        boolean[][] JailOn = new boolean[AmountofPlayers][2];
-        for (int i = 0; i < AmountofPlayers; i++) {
-            JailOn[i][0] = false;
-            JailOn[i][1] = false;
-        }
-*/
+        TheBoard.BoardCreator.JailInit();
+
+//-------------------------------------------------------------------------------------------
+//
+//          Game Starts officially
+//
+//-------------------------------------------------------------------------------------------
         int amountOfGameLoops = 0;
-        //Game loop
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
             if (amountOfGameLoops == AmountofPlayers)
@@ -205,16 +186,12 @@ public class Main {
                 //  This handles the trades with rent and buying of fields - see at - src/main/java/GameMechanics.Fields
                 if (wanttobuyYesNo) {
                     String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
-                            AmountofPlayers,
                             selectedPlayer,
-                            Base.fields,
                             wanttobuyYesNo,
                             PlayerArray,
-                            Base.fieldNR(),
                             CurrentSpaceForSelectedPlayer,
-                            BoardCreator.CostofField(), TitleF,
                             PlayerSpaceNRexcact,
-                            JailInit(AmountofPlayers));
+                            JailInit());
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
@@ -225,19 +202,21 @@ public class Main {
                 if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
             }
 
-            //Changes currentSpaceForSelected Player to the new location
-            if (CurrentSpaceForSelectedPlayer + DieSum > Base.fieldNR())
-                CurrentSpaceForSelectedPlayer = CurrentSpaceForSelectedPlayer + DieSum - Base.fieldNR();
-
             //Shows description of the space you land on, and changes color
             if (Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "CHANCE") {
                 gui.displayChanceCard(Chance.chanceCards[DieSum - 5].getKortNavnavn());
             } else
                 gui.displayChanceCard(selectedPlayer.getName() + " | " + Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]
                         ].getTitle() + "\n" + Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getSubText());
-            Fields.displayDescriptions(selectedPlayer, DieSum, Base.fields);
+            Fields.displayDescriptions(fields, CurrentSpaceForSelectedPlayer+fieldNR(), amountOfGameLoops);
             //Display GameMechanics.Die on the Board
             GameMechanics.Die.OnBoard(d1, d2, gui);
+
+            //Changes currentSpaceForSelected Player to the new location
+            if (CurrentSpaceForSelectedPlayer + DieSum > Base.fieldNR())
+                CurrentSpaceForSelectedPlayer = CurrentSpaceForSelectedPlayer + DieSum - Base.fieldNR();
+
+
 
             //Switch selected player
             if (!(Objects.equals(Base.fields[DieSum].getTitle(), "extra"))) {
@@ -248,9 +227,12 @@ public class Main {
             else if ((selectedPlayer.getBalance() <= -1)) {
                 gui.showMessage(selectedPlayer.getName() + dialog[7]);
             }
-
             answerGameOk = false;
-
+//-------------------------------------------------------------------------------------------
+//
+//          Game Winner display
+//
+//-------------------------------------------------------------------------------------------
             //  Initialises values for displaying a winner
             String Winner = " ";
             int WinnerMoney = 0;
@@ -280,32 +262,29 @@ public class Main {
                             Winners[i] = (Winners[i - 1] + " " + PlayerArray[i].getName());
                         }
                 }
-
                 //  Displaying the Winners
                 gui.showMessage(Winners[WinnerInt] + dialog[7] + WinnerMoney);
-
+//-------------------------------------------------------------------------------------------
+//
+//          Game End
+//
+//-------------------------------------------------------------------------------------------
                 do {
-                    //  Select language for the game dialog
+                    //  Ask for new game
                     answer_game = gui.getUserButtonPressed(dialog[8], dialog[9], dialog[10]);
-
                     //  if anwser to "a new game" is no - stop the game
                     if (answer_game.equals(dialog[10])) {
                         game_running = false;
                         answerGameOk = true;
-                    }
-                    //  if anwser to "a new game" is yes - keep it going
-                    if (answer_game.equals("y") || answer_game.equals("j") || answer_game.equals("o") || answer_game.equals(dialog[9 ])) {
+                    }   //  else restart the game
+                    else {
                         answerGameOk = true;
-                        game_running = true;
-
-                        //  if game is restarting - Resets the Board
                         GameMechanics.Cars.restart(PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
                         GameMechanics.Fields.RestartFieldTitles(TitleF, Base.fieldNR(), Base.fields);
                         GameMechanics.Fields.RestartOwnStatus(OwnedtrueOwnedFalse, Base.fieldNR(), AmountofPlayers);
                         for (int i = 0; i < AmountofPlayers; i++) {
                             PlayerSpaceNRexcact[i] = 0;
                         }
-
                     }
                 }
                 while (!answerGameOk);
@@ -315,6 +294,11 @@ public class Main {
                 System.exit(0);
         }
     }
+    //-------------------------------------------------------------------------------------
+    //
+    //          Text reader
+    //
+    //-------------------------------------------------------------------------------------
     public static String txtReadAndReturn(File file, String LineNR) throws FileNotFoundException {
         Scanner TXTRDRscanner = new Scanner(file);
         int ReadLineNR = Integer.parseInt(LineNR);
