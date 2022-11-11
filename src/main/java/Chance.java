@@ -1,5 +1,4 @@
-package cardClasses;
-
+import cardClasses.*;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
 import gui_fields.GUI_Player;
@@ -87,7 +86,9 @@ public  class Chance {
 
     }
 
-    public void chanceFieldIsHit(int field_nr,MjPlayer actPlayer, GUI gui,GUI_Street[] street)
+    public void chanceFieldIsHit(MjPlayer actPlayer,
+                                 GUI_Player[] players, GUI_Street[] street,
+                                 int AmountofPlayers, int AmountofSpaces, GUI gui)
     {
        int i;
       Chancekort actKort=traekEtChanceKort();
@@ -95,7 +96,7 @@ public  class Chance {
        gui.showMessage(actKort.getKortInfo());
        if (actKort instanceof ChanceOverdragelseskort)
        {
-           //
+
        }
        if (actKort instanceof ChanceAmnistiFeng)
        {
@@ -117,7 +118,7 @@ public  class Chance {
            }
            else
            {
-               street[field_nr+1].setCar(actPlayer,true);
+      //         street[field_nr+1].setCar(actPlayer,true);
            }
 
        }

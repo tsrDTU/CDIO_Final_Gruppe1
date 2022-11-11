@@ -1,4 +1,3 @@
-import cardClasses.Chance;
 import gui_main.GUI;
 import gui_fields.GUI_Street;
 import gui_fields.GUI_Car;
@@ -201,7 +200,8 @@ public class Main {
                     //The cas is on a chance field
                     //System.out.println("Landet på Chance");
 
-                    chanKort.chanceFieldIsHit(actualField,selectedPlayer, gui,fields);
+                   // chanKort.chanceFieldIsHit(actualField,selectedPlayer, gui,fields);
+                    chanKort.chanceFieldIsHit(selectedPlayer,PlayerArray,fields, AmountofPlayers,fieldNR, gui);
 
                 }
 
