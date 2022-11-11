@@ -9,7 +9,7 @@ public  class Chance {
 
     public Chance()
 {
-    System.out.println("Chance initialiseres");
+    //System.out.println("Chance initialiseres");
 
     chanceCards[0]=new ChanceOverdragelseskort("Til BilSpiller4","Bil: På din næste tur skal du drøne frem til et hvilket som helst ledigt felt og købe det. Hvis det ikke er nogen ledige felter skal du købe et fra en anden spiller!", "Bil");
 
@@ -44,7 +44,7 @@ public Chancekort traekEtChanceKort()
     do {
 
     kort_nr = (int)(Math.random() * 20);
-    System.out.println(kort_nr);
+    //System.out.println(kort_nr);
 
     if (kort_nr==0|| kort_nr == 5 || kort_nr == 11 || kort_nr == 12 || kort_nr == 9)
     {
