@@ -201,7 +201,7 @@ public class Main {
                     //The cas is on a chance field
                     //System.out.println("Landet på Chance");
 
-                    chanKort.chanceFieldIsHit(actualField,selectedPlayer, gui);
+                    chanKort.chanceFieldIsHit(actualField,selectedPlayer, gui,fields);
 
                 }
 

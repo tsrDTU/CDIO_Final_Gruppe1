@@ -1,8 +1,11 @@
 package cardClasses;
 
+import gui_fields.GUI_Street;
 import gui_main.GUI;
 import gui_fields.GUI_Player;
 import player.MjPlayer;
+
+
 
 
 
@@ -19,20 +22,20 @@ public  class Chance {
     {
        System.out.println("Chance initialiseres");
 
-       chanceCards[0]=new ChanceOverdragelseskort("Til Bil","Bil: På din næste tur skal du drøne frem til et hvilket som helst ledigt felt og købe det. Hvis det ikke er nogen ledige felter skal du købe et fra en anden spiller!", "Bil");
+       chanceCards[0]=new ChanceOverdragelseskort("Dette chance kort er givet til Bilen. Tag et chancekort mere.Til Bil","Bil: På din næste tur skal du drøne frem til et hvilket som helst ledigt felt og købe det. Hvis det ikke er nogen ledige felter skal du købe et fra en anden spiller!", "Bil");
 
        chanceCards[1]=new ChanceRykFremTilFelt("Start","Ryk frem til start.", 0);
        chanceCards[2]=new ChanceRyk05("Ryk05","Ryk op til 5 felter frem");
        chanceCards[3]=new ChanceKortFarve("Ryk orange","Gratis felt. Ryk frem til et orange felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.", 3);
        chanceCards[4]=new ChanceRyk1ElChMemere("Ryk 1 eller change mere","Ryk 1 felt frem eller tag et chancekort mere");
-       chanceCards[5]=new ChanceOverdragelseskort("Til Skibet","Giv dette kort til skibet og tag et chancekort mere. Skib: På den næste skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Skibet");
+       chanceCards[5]=new ChanceOverdragelseskort("Til Skibet","Dette kort er givet til skibet. Tag et chancekort mere. Skib: På den næste skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Skibet");
        chanceCards[6]=new ChanceBanktrans("For meget slik","Du har spist for meget slik. Betal M2 til banken.", -2,1,0);
         chanceCards[7]=new Chance2Farver("Vælg orange eller grønt felt","Gratis felt. Ryk frem til et orange eller grønt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.", 3, 8);
        chanceCards[8]=new ChanceKortFarve("Ryk lyseblåt","Gratis felt. Ryk frem til et lyseblåt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",5);
        chanceCards[9]=new ChanceAmnistiFeng("Amnesti","Du løslades uden omkostninger. Behold dette kort til du får brug for det.");
         chanceCards[10]=new ChanceRykFremTilFelt("ryk tilStrandpromenaden","Ryk frem til Strandpromenaden.", 23);
-       chanceCards[11]=new ChanceOverdragelseskort("Til Katten","Giv dette kort til Katten og tag et chancekort mere. Kat: På den næste skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Katten");
-        chanceCards[12]=new ChanceOverdragelseskort("Til Hunden","Giv dette kort til Hunden og tag et chancekort mere. Hund: På den næste skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Hunden");
+       chanceCards[11]=new ChanceOverdragelseskort("Til Katten","Dette kort er givet til Katten. Tag et chancekort mere. Kat: På den næste skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Katten");
+        chanceCards[12]=new ChanceOverdragelseskort("Til Hunden","Dette kort er givet til Hunden.Tag et chancekort mere. Hund: På den næste skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Hunden");
        chanceCards[13]=new ChanceBanktrans("Fødselsdag","Det er din fødselsdag. Alle giver dig 1 M. Tillyke med fødselsdagen",1,0,2);
        chanceCards[14]=new Chance2Farver("Ryk til Pink eller Mørkeblåt","Gratis felt. Ryk frem til et pink eller mørkeblåt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",4,2);
        chanceCards[15]=new ChanceBanktrans("Alle lektier lavet","Du har lavet alle dine lektier. Modtag 2M fra banken",2,0,1);
@@ -84,11 +87,26 @@ public  class Chance {
 
     }
 
-    public void chanceFieldIsHit(int field_nr,MjPlayer actPlayer, GUI gui)
+    public void chanceFieldIsHit(int field_nr,MjPlayer actPlayer, GUI gui,GUI_Street[] street)
     {
+       int i;
       Chancekort actKort=traekEtChanceKort();
 
        gui.showMessage(actKort.getKortInfo());
+       if (actKort instanceof ChanceOverdragelseskort)
+       {
+           //
+       }
+       if (actKort instanceof ChanceAmnistiFeng)
+       {
+
+           actPlayer.setAmnistkortHaves(true);
+       }
+       if (actKort instanceof ChanceRykFremTilFelt)
+       {
+
+           street[field_nr].setCar(actPlayer,true);
+       }
     }
 
 }
