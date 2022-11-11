@@ -2,6 +2,7 @@ package cardClasses;
 
 import gui_main.GUI;
 import gui_fields.GUI_Player;
+import player.MjPlayer;
 
 
 
@@ -83,7 +84,7 @@ public  class Chance {
 
     }
 
-    public void chanceFieldIsHit(int field_nr,GUI_Player actPlayer, GUI gui)
+    public void chanceFieldIsHit(int field_nr,MjPlayer actPlayer, GUI gui)
     {
       Chancekort actKort=traekEtChanceKort();
 

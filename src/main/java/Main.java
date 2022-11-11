@@ -1,5 +1,4 @@
 import cardClasses.Chance;
-import gui_fields.GUI_Player;
 import gui_main.GUI;
 import gui_fields.GUI_Street;
 import gui_fields.GUI_Car;
@@ -9,7 +8,7 @@ import java.io.*;
 import java.util.Objects;
 import java.util.Scanner;
 
-import cardClasses.Chance;
+import player.MjPlayer;
 //v1.0
 
 public class Main {
@@ -166,6 +165,8 @@ public class Main {
             JailOn[i][1] = false;
         }
 
+        Chance chanKort=new Chance();
+
         int amountOfGameLoops = 0;
         //Game loop
         while (!gameEnd) {
@@ -198,8 +199,9 @@ public class Main {
                 if (actualField==3 || actualField==9 || actualField==15 || actualField==21)
                 {
                     //The cas is on a chance field
-                    System.out.println("Landet på Chance");
+                    //System.out.println("Landet på Chance");
 
+                    chanKort.chanceFieldIsHit(actualField,selectedPlayer, gui);
 
                 }
 
