@@ -1,7 +1,4 @@
-import GameMechanics.Cars;
-import GameMechanics.Die;
-import GameMechanics.Fields;
-import GameMechanics.Jail;
+import GameMechanics.*;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
 import TheBoard.Language;
@@ -233,6 +230,7 @@ public class Main {
 //          Game Winner display
 //
 //-------------------------------------------------------------------------------------------
+            /*
             //  Initialises values for displaying a winner
             String Winner = " ";
             int WinnerMoney = 0;
@@ -261,7 +259,12 @@ public class Main {
                         for (int l = 1; l < AmountofPlayers; l++) {
                             Winners[i] = (Winners[i - 1] + " " + PlayerArray[i].getName());
                         }
-                }
+                }*/
+            String Winner = " ";
+            int WinnerMoney = 0;
+            int WinnerInt = 0;
+            String[] Winners = GameMechanics.Winner.Values(PlayerArray,selectedPlayer, Winner, WinnerMoney, WinnerInt);
+
                 //  Displaying the Winners
                 gui.showMessage(Winners[WinnerInt] + dialog[7] + WinnerMoney);
 //-------------------------------------------------------------------------------------------
@@ -293,7 +296,7 @@ public class Main {
             if (!game_running)
                 System.exit(0);
         }
-    }
+
     //-------------------------------------------------------------------------------------
     //
     //          Text reader
