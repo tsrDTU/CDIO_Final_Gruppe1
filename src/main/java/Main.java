@@ -44,10 +44,10 @@ public class Main {
 
         //BoardCreator.SetGUItext();
         //  Sets up the background GUI (Graphical User Interface) to a plain white
-        GUI gui = new GUI(Base.fields, Color.WHITE);
+        GUI gui = new GUI(Base.fields, Color.GRAY);
 
         //  Asks if the language has been initialised and makes a button for user to select language
-            language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
+        language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
 
         //  Initialize the game dialog
         TheBoard.Language.initializeDialog(dialog, language);
@@ -62,32 +62,29 @@ public class Main {
         } while (antal_kant < 2 || antal_kant > 6);
 
 
-
-            //Asks how many players, and sets cars and players
-            String Players = gui.getUserButtonPressed(dialog[2], "2", "3", "4");
-            AmountofPlayers = Integer.parseInt(Players);
-
+        //Asks how many players, and sets cars and players
+        String Players = gui.getUserButtonPressed(dialog[2], "2", "3", "4");
+        AmountofPlayers = Integer.parseInt(Players);
 
 
         GUI_Player[] PlayerArray = new GUI_Player[AmountofPlayers];
         GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
         String[] PlayerName = new String[AmountofPlayers];
 
-        BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
-
+        BoardCreator.PersonCreator(AmountofPlayers, PlayerArray, PlayerName, playerCars);
 
 
 //  Sets names for each player in a for loop and gives an adjacent car with a private color
         for (int i = 0; i < AmountofPlayers; i++) {
             //  Sets the car of each player
-            PlayerName[i] = (gui.getUserString(dialog[3]+(i+1)+"?"));
+            PlayerName[i] = (gui.getUserString(dialog[3] + (i + 1) + "?"));
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
-            playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
+            playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i + 1), GUI_Car.Pattern.FILL);
             PlayerArray[i] = new GUI_Player(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             GameMechanics.Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i);
             gui.addPlayer(PlayerArray[i]);
         }
-        Cars.restart(PlayerArray,fields, AmountofPlayers,fieldNR());
+        Cars.restart(PlayerArray, fields, AmountofPlayers, fieldNR());
 
 
         int[][] OwnedtrueOwnedFalse = Base.InitializeOwnedStat(AmountofPlayers).clone();
@@ -115,8 +112,8 @@ public class Main {
 
         //Create the dices. Default 6 sides
         //String AmountofDice = gui.getUserButtonPressed("how many dice?", "1", "2");
-            Die d1 = new Die();
-            Die d2 = new Die();
+        Die d1 = new Die();
+        Die d2 = new Die();
 
 
         // If sides are different from 6, set the number of sides.
@@ -131,7 +128,7 @@ public class Main {
         //  Initialising something for GameMechanics.Jail and Start field
         int[] PlayerSpaceNRexcact = new int[AmountofPlayers];
         for (int i = 0; i < AmountofPlayers; i++) {
-            PlayerSpaceNRexcact[i] =0;
+            PlayerSpaceNRexcact[i] = 0;
         }
         TheBoard.BoardCreator.JailInit();
 
@@ -205,14 +202,13 @@ public class Main {
             } else
                 gui.displayChanceCard(selectedPlayer.getName() + " | " + Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]
                         ].getTitle() + "\n" + Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getSubText());
-            Fields.displayDescriptions(fields, CurrentSpaceForSelectedPlayer+fieldNR(), amountOfGameLoops);
+            Fields.displayDescriptions(fields, CurrentSpaceForSelectedPlayer + fieldNR(), amountOfGameLoops);
             //Display GameMechanics.Die on the Board
             GameMechanics.Die.OnBoard(d1, d2, gui);
 
             //Changes currentSpaceForSelected Player to the new location
             if (CurrentSpaceForSelectedPlayer + DieSum > Base.fieldNR())
                 CurrentSpaceForSelectedPlayer = CurrentSpaceForSelectedPlayer + DieSum - Base.fieldNR();
-
 
 
             //Switch selected player
@@ -230,43 +226,15 @@ public class Main {
 //          Game Winner display
 //
 //-------------------------------------------------------------------------------------------
-            /*
-            //  Initialises values for displaying a winner
-            String Winner = " ";
-            int WinnerMoney = 0;
-            int WinnerInt = 0;
 
             //  if someone loses, the game ends and a winner/ winners are decided
             if (selectedPlayer.getBalance() < 1) {
 
-                //  Makes an array of potential winners
-                String[] Winners = new String[AmountofPlayers];
-                //  Sets the winner to player1
-                Winners[0] = PlayerArray[0].getName();
-                WinnerMoney = PlayerArray[0].getBalance();
-                for (int i = 1; i < AmountofPlayers; i++) {
-                    //  if the player has more money, set it as the new winner, by resetting the array and putting the new value in
-                    if (PlayerArray[i].getBalance() > WinnerMoney) {
-                        for (int b = 0; b < AmountofPlayers; b++) {
-                            Winners[b] = " ";
-                        }
-                        Winners[i] = PlayerArray[i].getName();
-                        WinnerMoney = PlayerArray[i].getBalance();
-                        WinnerInt = i;
-                    }
-                    // if the next player has the same balance as previous player, set both as winners
-                    else if (PlayerArray[i].getBalance() == WinnerMoney)
-                        for (int l = 1; l < AmountofPlayers; l++) {
-                            Winners[i] = (Winners[i - 1] + " " + PlayerArray[i].getName());
-                        }
-                }*/
-            String Winner = " ";
-            int WinnerMoney = 0;
-            int WinnerInt = 0;
-            String[] Winners = GameMechanics.Winner.Values(PlayerArray,selectedPlayer, Winner, WinnerMoney, WinnerInt);
-
+                String[] Winners = GameMechanics.Winner.Values(PlayerArray, selectedPlayer);
+                int WinnerMoney = GameMechanics.Winner.Money(PlayerArray, selectedPlayer);
                 //  Displaying the Winners
                 gui.showMessage(Winners[WinnerInt] + dialog[7] + WinnerMoney);
+
 //-------------------------------------------------------------------------------------------
 //
 //          Game End
@@ -276,7 +244,8 @@ public class Main {
                     //  Ask for new game
                     answer_game = gui.getUserButtonPressed(dialog[8], dialog[9], dialog[10]);
                     //  if anwser to "a new game" is no - stop the game
-                    if (answer_game.equals(dialog[10])) {
+                    if (answer_game.equals(dialog[10])) // Dialog -- NO
+                    {
                         game_running = false;
                         answerGameOk = true;
                     }   //  else restart the game
@@ -291,12 +260,13 @@ public class Main {
                     }
                 }
                 while (!answerGameOk);
+
             }
             //end game if last selection to (wanna keep playing?) is no
             if (!game_running)
                 System.exit(0);
         }
-
+    }
     //-------------------------------------------------------------------------------------
     //
     //          Text reader
