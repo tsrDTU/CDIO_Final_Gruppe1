@@ -87,7 +87,7 @@ public  class Chance {
     }
 
     public void chanceFieldIsHit(MjPlayer actPlayer,
-                                 GUI_Player[] players, GUI_Street[] street,
+                                 GUI_Player[] players, GUI_Street[] street,int actField,
                                  int AmountofPlayers, int AmountofSpaces, GUI gui)
     {
        int i;
@@ -107,7 +107,10 @@ public  class Chance {
        {
 
            gui.showMessage(actKort.getKortInfo());
-           street[((ChanceRykFremTilFelt) actKort).getDestinationsFelt()].setCar(actPlayer,true);
+           // static void moveCarTo(int AmountofPlayers, GUI_Player[] players, int LocationCurrent,
+           //                          GUI_Street[] street, GUI_Player currentplayer, int LocationToMoveTo)
+           Cars.moveCarTo(AmountofPlayers, players,actField,street,actPlayer,((ChanceRykFremTilFelt) actKort).getDestinationsFelt());
+      //     street[((ChanceRykFremTilFelt) actKort).getDestinationsFelt()].setCar(actPlayer,true);
        }
        if (actKort instanceof  ChanceRyk1ElChMemere)
        {
@@ -119,6 +122,7 @@ public  class Chance {
            else
            {
       //         street[field_nr+1].setCar(actPlayer,true);
+               Cars.moveCarTo(AmountofPlayers, players,actField,street,actPlayer,actField+1);
            }
 
        }

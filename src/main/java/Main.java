@@ -201,7 +201,7 @@ public class Main {
                     //System.out.println("Landet på Chance");
 
                    // chanKort.chanceFieldIsHit(actualField,selectedPlayer, gui,fields);
-                    chanKort.chanceFieldIsHit(selectedPlayer,PlayerArray,fields, AmountofPlayers,fieldNR, gui);
+                    chanKort.chanceFieldIsHit(selectedPlayer,PlayerArray,fields, actualField, AmountofPlayers,fieldNR, gui);
 
                 }
 
