@@ -86,11 +86,13 @@ public  class Chance {
 
     }
 
-    public void chanceFieldIsHit(MjPlayer actPlayer,
+    public int chanceFieldIsHit(MjPlayer actPlayer,
                                  GUI_Player[] players, GUI_Street[] street,int actField,
                                  int AmountofPlayers, int AmountofSpaces, GUI gui)
     {
-       int i;
+       int i, bilPos;
+
+       bilPos=actField;
       Chancekort actKort=traekEtChanceKort();
 
        gui.showMessage(actKort.getKortInfo());
@@ -110,6 +112,7 @@ public  class Chance {
            // static void moveCarTo(int AmountofPlayers, GUI_Player[] players, int LocationCurrent,
            //                          GUI_Street[] street, GUI_Player currentplayer, int LocationToMoveTo)
            Cars.moveCarTo(AmountofPlayers, players,actField,street,actPlayer,((ChanceRykFremTilFelt) actKort).getDestinationsFelt());
+           bilPos=((ChanceRykFremTilFelt) actKort).getDestinationsFelt();
       //     street[((ChanceRykFremTilFelt) actKort).getDestinationsFelt()].setCar(actPlayer,true);
        }
        if (actKort instanceof  ChanceRyk1ElChMemere)
@@ -123,9 +126,11 @@ public  class Chance {
            {
       //         street[field_nr+1].setCar(actPlayer,true);
                Cars.moveCarTo(AmountofPlayers, players,actField,street,actPlayer,actField+1);
+               bilPos=actField+1;
            }
 
        }
+       return bilPos;
     }
 
 }
