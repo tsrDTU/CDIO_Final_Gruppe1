@@ -116,16 +116,15 @@ public class Fields {
 
  //           Chance landetPaaChance = new Chance();
  //           landetPaaChance.traekEtChanceKort();
-/*
-            public int chanceFieldIsHit(MjPlayer actPlayer,
-                    MjPlayer[] players, GUI_Street[] street,int actField,
 
-
- */
 
             //bilen har muligvis fået ny positon efter chancekortet er eksekveret
-            ny_bilPos=chankort.chanceFieldIsHit(selectedPlayer, PlayerArray,AmountofPlayers, 3,3,gui);
+            ny_bilPos=chankort.chanceFieldIsHit(selectedPlayer, PlayerArray,CurrentSpaceForSelectedPlayer, AmountofPlayers,3,gui);
 
+            if (CurrentSpaceForSelectedPlayer != ny_bilPos)
+            {
+                Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, ny_bilPos);
+            }
             //System.out.println(landetPaaChance.traekEtChanceKort());
             //System.out.println(" 3%3 ");     // | EMPTY NOTE |
 

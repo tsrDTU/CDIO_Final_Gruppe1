@@ -78,63 +78,53 @@ public  class Chance {
 
 
     }
-  /*  public static String wannaBuyDoYou(int[][] Ownedtrue,
-                                       GUI_Player selectedPlayer,
-                                       boolean boolforBUY,
-                                       GUI_Player[] PlayerArray,
-                                       int CurrentSpaceForSelectedPlayer,
-                                       int[] PlayerSpaceNRexcact,
-  chankort.traekEtChanceKort(selectedPlayer,PlayerArray,CurrentSpaceForSelectedPlayer,AmountofPlayers,3,gui);
-  /*,
-                               MjPlayer[] players, int actField,
-                                int AmountofPlayers, int AmountofSpaces, GUI gui
-   */
+
 
     public int chanceFieldIsHit(MjPlayer actPlayer,MjPlayer[] players, int actField,
                                 int AmountofPlayers, int AmountofSpaces, GUI gui)
     {
         int i, bilPos;
+        boolean slut=true;
 
-       bilPos=actField;
-        Chancekort actKort=traekEtChanceKort();
+        bilPos=actField;
 
-        gui.showMessage(actKort.getKortInfo());
-        if (actKort instanceof ChanceOverdragelseskort)
-        {
+        do {
 
-        }
-        if (actKort instanceof ChanceAmnistiFeng)
-        {
+            slut=true;
 
-            actPlayer.setAmnistkortHaves(true);
-        }
-        if (actKort instanceof ChanceRykFremTilFelt)
-        {
+            Chancekort actKort = traekEtChanceKort();
 
-           gui.showMessage(actKort.getKortInfo());
-            // static void moveCarTo(int AmountofPlayers, GUI_Player[] players, int LocationCurrent,
-            //                          GUI_Street[] street, GUI_Player currentplayer, int LocationToMoveTo)
-            //     Cars.moveCarTo(AmountofPlayers, players,actField,street,actPlayer,((ChanceRykFremTilFelt) actKort).getDestinationsFelt());
-            bilPos=((ChanceRykFremTilFelt) actKort).getDestinationsFelt();
-            //     street[((ChanceRykFremTilFelt) actKort).getDestinationsFelt()].setCar(actPlayer,true);
-        }
-        if (actKort instanceof  ChanceRyk1ElChMemere)
-        {
-           String valg = gui.getUserButtonPressed("Vælg", "En chance mere", "Ryk et felt frem");
-           if (valg.equals("En chance mere"))
+            gui.showMessage(actKort.getKortInfo());
+            if (actKort instanceof ChanceOverdragelseskort)
             {
-                actKort=traekEtChanceKort();
+
+                actPlayer.setKortModtaget(true);
+                actPlayer.setActChancekort(actKort);
+                slut=false;
             }
-            else
-            {
-                //         street[field_nr+1].setCar(actPlayer,true);
-                //          Cars.moveCarTo(AmountofPlayers, players,actField,street,actPlayer,actField+1);
-        //        bilPos=actField+1;
+            if (actKort instanceof ChanceAmnistiFeng) {
+
+                actPlayer.setAmnistkortHaves(true);
             }
+            if (actKort instanceof ChanceRykFremTilFelt) {
+
+                gui.showMessage(actKort.getKortInfo());
+
+                bilPos = ((ChanceRykFremTilFelt) actKort).getDestinationsFelt();
+
+            }
+            if (actKort instanceof ChanceRyk1ElChMemere) {
+                String valg = gui.getUserButtonPressed("Vælg", "En chance mere", "Ryk et felt frem");
+                if (valg.equals("En chance mere")) {
+                   slut=false;
+                } else {
+                    bilPos = actField + 1;
+                }
 
 
+            }
+        }while (slut);
 
-        }
         return bilPos;
 
     }
