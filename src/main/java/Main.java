@@ -20,8 +20,9 @@ import static GameMechanics.textReaderClass.textRDR;
 import static TheBoard.Base.*;
 import static TheBoard.BoardCreator.JailInit;
 import static TheBoard.Language.dialog;
+import player.MjPlayer;
 
-//v1.0
+//v1.2
 
 public class Main {
 
@@ -29,10 +30,13 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         String string_in, language, answer_game;
-        int antal_kant;
+        int antal_kant, j;
         boolean game_running, answerGameOk;
         game_running = true;
         //int fieldNR = 24;
+        String[] userRoles={"Bil","Skib","Hund","Kat"};
+        String[] freeUserRoles;
+
 
 //-------------------------------------------------------------------------------------------
 //
@@ -54,7 +58,7 @@ public class Main {
 
         //  Initialize the game dialog
         TheBoard.Language.initializeDialog(dialog, language);
-
+/*
         do {
             //  Asks for the number of dots on the sides of the dice - 2 dices
             string_in = gui.getUserButtonPressed(dialog[1], "2", "3", "4", "5", "6"); //Quest the number of sides for the dice
@@ -63,8 +67,9 @@ public class Main {
                 antal_kant = (int) string_in.charAt(0) - '0';
             } else antal_kant = 6;
         } while (antal_kant < 2 || antal_kant > 6);
+*/
 
-
+        antal_kant = 6;
 
             //Asks how many players, and sets cars and players
             String Players = gui.getUserButtonPressed(dialog[2], "2", "3", "4");
@@ -72,7 +77,7 @@ public class Main {
 
 
 
-        GUI_Player[] PlayerArray = new GUI_Player[AmountofPlayers];
+        MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
         GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
         String[] PlayerName = new String[AmountofPlayers];
 
@@ -86,8 +91,29 @@ public class Main {
             PlayerName[i] = (gui.getUserString(dialog[3]+(i+1)+"?"));
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
-            PlayerArray[i] = new GUI_Player(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
+            PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             GameMechanics.Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i);
+            //Set users role
+            PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[2],
+                    userRoles));
+            //Remove this role from the list.
+            for (j=0;j<userRoles.length;j++)
+            {
+                if (userRoles[j].equals(PlayerArray[i].getUserRole())) {
+                    userRoles[j] = " ";
+                    /*
+                    for (k=j;k<userRoles[j].length() -1;k++)
+                    {
+                        userRoles[k]=userRoles[k+1];
+                        freeUserRoles.
+                    }
+
+                     */
+
+
+                }
+            }
+
             gui.addPlayer(PlayerArray[i]);
         }
         Cars.restart(PlayerArray,fields, AmountofPlayers,fieldNR());
@@ -113,7 +139,7 @@ public class Main {
 
         int intselect = 0;
         //Create a selected player that will point at active player
-        GUI_Player selectedPlayer;
+        MjPlayer selectedPlayer;
         boolean gameEnd = false; //, lastMax = false;
 
         //Create the dices. Default 6 sides
@@ -137,6 +163,8 @@ public class Main {
             PlayerSpaceNRexcact[i] =0;
         }
         TheBoard.BoardCreator.JailInit();
+
+        Chance chankort=new Chance();
 
 //-------------------------------------------------------------------------------------------
 //
@@ -193,7 +221,7 @@ public class Main {
                             PlayerArray,
                             CurrentSpaceForSelectedPlayer,
                             PlayerSpaceNRexcact,
-                            JailInit());
+                            JailInit(), chankort, gui);
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
@@ -205,8 +233,9 @@ public class Main {
             }
 
             //Shows description of the space you land on, and changes color
-            if (Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "CHANCE") {
-                gui.displayChanceCard(Chance.chanceCards[DieSum - 5].getKortNavnavn());
+            //Skal flyttes til Chance. Min mening Torben
+           if (Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "CHANCE") {
+            //    gui.displayChanceCard(Chance.chanceCards[DieSum - 5].getKortNavnavn());
             } else
                 gui.displayChanceCard(selectedPlayer.getName() + " | " + Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]
                         ].getTitle() + "\n" + Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getSubText());
