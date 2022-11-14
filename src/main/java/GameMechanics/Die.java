@@ -1,7 +1,5 @@
-import gui_codebehind.GUI_Center;
-import gui_fields.GUI_Board;
-import gui_fields.GUI_Field;
-import gui_fields.GUI_Street;
+package GameMechanics;
+
 import gui_main.GUI;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,7 +19,7 @@ public class Die {
     }
 
     //Displays Dice on the Board:
-    static void OnBoard(Die d1, Die d2, GUI gui) {
+    public static void OnBoard(Die d1, Die d2, GUI gui) {
     int random_numx = ThreadLocalRandom.current().nextInt(4, 6);
     int random_numy = ThreadLocalRandom.current().nextInt(5, 7);
     int random_numz = ThreadLocalRandom.current().nextInt(5, 7);

@@ -1,3 +1,4 @@
+import GameMechanics.Die;
 
 public class Test {
     public static void main(String[] args) {

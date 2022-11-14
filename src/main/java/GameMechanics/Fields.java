@@ -1,3 +1,8 @@
+package GameMechanics;
+import Files.FileReference;
+import TheBoard.Base;
+import TheBoard.BoardCreator;
+import cardClasses.Chance;
 import gui_codebehind.GUI_Center;
 import gui_fields.*;
 import java.awt.*;
@@ -5,6 +10,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 
+import static TheBoard.Base.AmountofPlayers;
+import static TheBoard.Base.fieldNR;
 
 public class Fields {
     public static boolean OwnedCheck(int[][] Ownedtrue, int AmountofSpaces, int PlayerNR) {
@@ -17,23 +24,18 @@ public class Fields {
 
 
     public static String wannaBuyDoYou(int[][] Ownedtrue,
-                                       int AmountofPlayers,
                                        GUI_Player selectedPlayer,
-                                       GUI_Street[] fields,
                                        boolean boolforBUY,
                                        GUI_Player[] PlayerArray,
-                                       int AmountofSpaces,
                                        int CurrentSpaceForSelectedPlayer,
-                                       int[] CosttoOwn,
-                                       File TitleF,
                                        int[] PlayerSpaceNRexcact,
                                        boolean[][] JailOn) throws FileNotFoundException {
         boolean wannaBuy = false;
         boolean[] Playerboughtspace = new boolean[AmountofPlayers];
         int THEfieldsNR = 0;
         String NewBal;
-        for (int i = 0; i < AmountofSpaces; i++) {
-            if (fields[i].hasCar(selectedPlayer))
+        for (int i = 0; i < Base.fieldNR(); i++) {
+            if (Base.fields[i].hasCar(selectedPlayer))
                 THEfieldsNR = i;
         }
 
@@ -47,17 +49,17 @@ public class Fields {
         }
 
 
-        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL")){
-            //System.out.println("Jail space reached");    // | EMPTY NOTE |
+        if (Objects.equals(Base.fields[THEfieldsNR].getTitle(), "JAIL")){
+            //System.out.println("GameMechanics.Jail space reached");    // | EMPTY NOTE |
             //  Finds the Space with JailVisit
             int JailVisitSpace=0;
-            for (int i = 0; i < AmountofSpaces; i++) {
-                if (fields[i] == fields[6])
+            for (int i = 0; i < Base.fieldNR(); i++) {
+                if (Base.fields[i] == Base.fields[6])
                     JailVisitSpace = i;
             }
             //  Moves car to JailVisitSpace
-            Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, fields, selectedPlayer, JailVisitSpace);
-            //  Jail Register
+            Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, JailVisitSpace);
+            //  GameMechanics.Jail Register
             PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
 
                 JailOn[selectedPlayer.getNumber()][0]=true;
@@ -78,7 +80,7 @@ public class Fields {
 //-----------------------------------------------------------------------------------------------------
 
         }
-        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL VISIT"))
+        if (Objects.equals(Base.fields[THEfieldsNR].getTitle(), "JAIL VISIT"))
 //-----------------------------------------------------------------------------------------------------
 //
 //      HER SKAL DER STÅ HVAD DER SKER PÅ JAILVISIT     (intet skal ske)
@@ -106,7 +108,13 @@ public class Fields {
 //      HER SKAL DER STÅ HVAD DER SKER PÅ CHANCEKORT
 //
 //-----------------------------------------------------------------------------------------------------
+
+            Chance landetPaaChance = new Chance();
+            landetPaaChance.traekEtChanceKort();
+
+            //System.out.println(landetPaaChance.traekEtChanceKort());
             //System.out.println(" 3%3 ");     // | EMPTY NOTE |
+
             return "0";
         }
         //  Defines an owner of a given space
@@ -130,24 +138,24 @@ public class Fields {
             //  This is a check for if the player wants to buy, ((It does not function because the player is forced to buy))
             if (boolforBUY) {
                 //  This checks if the selected player has enough money, And buys the space if it does.
-                if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= CosttoOwn[THEfieldsNR] && GoOn) {
+                if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= BoardCreator.CostofField()[THEfieldsNR] && GoOn) {
                     //System.out.println("you bought the space");   | EMPTY NOTE |
                     Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] = 1;
                     //  Puts the name of the player who bought the space onto the title of the field
-                    fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
+                    Base.fields[THEfieldsNR].setTitle(Base.fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
                     //  Returns a string that is used to add to the amount of money for the selected player
                     //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
-                    return String.valueOf(-CosttoOwn[THEfieldsNR]);
+                    return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
                 }
             }
             else return "Error"; // returns error message in case there is an error
 
         //  Knows that someone owns the field, Pays rent and adds the rent to the SpaceOwners balance
         else {
-            NewBal = String.valueOf(-CosttoOwn[THEfieldsNR]);
+            NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
             //System.out.println("Payed Rent");     | EMPTY NOTE |
 
-            PlayerArray[SpaceOwner].setBalance(PlayerArray[SpaceOwner].getBalance()+CosttoOwn[THEfieldsNR]);
+            PlayerArray[SpaceOwner].setBalance(PlayerArray[SpaceOwner].getBalance()+BoardCreator.CostofField()[THEfieldsNR]);
             //System.out.println(-CosttoOwn[THEfieldsNR] + "   " +CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
             return NewBal;
         }
@@ -156,10 +164,10 @@ public class Fields {
         return "0";
     }
 
-    public static Color ColorSpace(int description, int spaceamount){
+    public static Color ColorSpace(int description, int SpecificSpace){
         //  if the description returns a value above the amount of colors 9 is subtracted to not return an error
-        if (spaceamount==9)
-            description = description-9;
+        //if (SpecificSpace==9)
+        //    description = description-9;
         //  Defines all colors based off a value from 0-9
         if (description==0) return Color.WHITE;
         else if (description==1) return Color.RED;
@@ -173,34 +181,27 @@ public class Fields {
         else return Color.WHITE;    // if something goes wrong, White color is returned.
     }
 
-    public static void displayDescriptions(GUI_Player selected, int diceSum, GUI_Street[] fields){
-        //  Checks the space a player lands on, If the rent is positive, displays a green middle with explanation.
-        if (Integer.parseInt(fields[diceSum - 2].getRent()) > 0)
-            GUI_Center.getInstance().setBGColor(Color.GREEN);
-        //  Checks the space a player lands on, If it is a chance field, displays white middle.
-        else if (Integer.parseInt(fields[diceSum - 2].getRent()) == -80)
-            GUI_Center.getInstance().setBGColor(Color.WHITE);
-        //  Checks the space a player lands on, If the rent is negative, displays a red middle with explanation.
-        else if (Integer.parseInt(fields[diceSum - 2].getRent()) < 0)
-            GUI_Center.getInstance().setBGColor(Color.RED);
-        //  If all else fails, returns yellow color
-        else
-            GUI_Center.getInstance().setBGColor(Color.YELLOW);
-    }
+    public static void displayDescriptions(GUI_Street[] fields,int currentLocation, int TimesAroundBoard) throws FileNotFoundException {
+        //  Changes the color of the Discription space
+        Color NewColor = ColorSpace(Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF,String.valueOf(currentLocation+1))),
+                0);
+        System.out.println(textReaderClass.textRDR(FileReference.DescriptionF, String.valueOf(currentLocation+1)));
+        GUI_Center.getInstance().setBGColor(NewColor);
+}
 
 
-    static void RestartFieldTitles(File file,int AmountofSpaces,GUI_Street[] fields) throws FileNotFoundException {
+    public static void RestartFieldTitles(File file, int AmountofSpaces, GUI_Street[] fields) throws FileNotFoundException {
         //  Resets all titles
         for (int i=0;i<AmountofSpaces;i++){
-            fields[i].setTitle(Main.txtReadAndReturn(file, String.valueOf(i+1)));
+            fields[i].setTitle(textReaderClass.textRDR(file, String.valueOf(i+1)));
         }
     }
 
-    static void RestartOwnStatus(int[][] OwnedtrueOwnedFalse,int fieldNR, int AmountofPlayers) {
+    public static void RestartOwnStatus(int[][] OwnedtrueOwnedFalse, int fieldNR, int AmountofPlayers) {
         //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < fieldNR; n++) {
             //OwnedtrueOwnedFalse[n][0] = n;
-            for (int i = 0; i < AmountofPlayers; i++) {
+            for (int i = 1; i < AmountofPlayers+1; i++) {
                 OwnedtrueOwnedFalse[n][i] = 0;
             }
         }
@@ -210,16 +211,18 @@ public class Fields {
 
             FEJL DER HÅBES AT BLIVE FIXED
 
-1.
+1. - FIXED -
 ved start af spil 2 pladerne har sværere ved at sætte pladerne
-2.
+2. - TB -
 Terningen virker men skal sættes ned til 1  ( spil er bedre )
-3.
+3. - FIXED -
 forskellige sprog skal fungerer bedre
-4.
+4.  - FIXED -
 Vinderen skal vises rigtigt ( det gø den ikke ved flere end 2 spillere )
-5.
+5. - FIXED -
 spiller 4 ser ud til altid at vinde
+6. - FIXED -
+spillere dupleres ved skift til fengsel
 
 
 
