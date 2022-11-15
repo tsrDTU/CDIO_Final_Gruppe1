@@ -30,7 +30,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         String string_in, language, answer_game;
-        int antal_kant, j;
+        int antal_kant, j, DialogNR=2;
         boolean game_running, answerGameOk;
         game_running = true;
         //int fieldNR = 24;
@@ -72,7 +72,7 @@ public class Main {
         antal_kant = 6;
 
             //Asks how many players, and sets cars and players
-            String Players = gui.getUserButtonPressed(dialog[2], "2", "3", "4");
+            String Players = gui.getUserButtonPressed(dialog[DialogNR], "2", "3", "4"); DialogNR++;
             AmountofPlayers = Integer.parseInt(Players);
 
 
@@ -88,14 +88,14 @@ public class Main {
 //  Sets names for each player in a for loop and gives an adjacent car with a private color
         for (int i = 0; i < AmountofPlayers; i++) {
             //  Sets the car of each player
-            PlayerName[i] = (gui.getUserString(dialog[3]+(i+1)+"?"));
+            PlayerName[i] = (gui.getUserString(dialog[DialogNR]+(i+1)+"?")); DialogNR++;
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
             PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             GameMechanics.Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i);
             //Set users role
-            PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[2],
-                    userRoles));
+            PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[DialogNR],
+                    userRoles)); DialogNR++;
             //Remove this role from the list.
             for (j=0;j<userRoles.length;j++)
             {
@@ -174,6 +174,7 @@ public class Main {
         int amountOfGameLoops = 0;
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
+            DialogNR = 5;
             if (amountOfGameLoops == AmountofPlayers)
                 amountOfGameLoops = 0;
             if (playingPlayer == AmountofPlayers)
@@ -191,7 +192,7 @@ public class Main {
             d2.dice_roll();
 
             //Inform which user is playing
-            gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
+            gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1], dialog[DialogNR+2]); DialogNR+=3;
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
             int DieSum = Die.getSum(d1, d2) + 2;
@@ -225,7 +226,7 @@ public class Main {
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
-
+                GameMechanics.textReaderClass.textRDR(DescriptionF, "12");
                 amountOfGameLoops++;
 
                 //Negative balance is not allowed
@@ -256,7 +257,7 @@ public class Main {
             }
             //Extra tour
             else if ((selectedPlayer.getBalance() <= -1)) {
-                gui.showMessage(selectedPlayer.getName() + dialog[7]);
+                gui.showMessage(selectedPlayer.getName() + dialog[DialogNR]); DialogNR++;
             }
             answerGameOk = false;
 //-------------------------------------------------------------------------------------------
@@ -294,7 +295,7 @@ public class Main {
                         }
                 }
                 //  Displaying the Winners
-                gui.showMessage(Winners[WinnerInt] + dialog[7] + WinnerMoney);
+                gui.showMessage(Winners[WinnerInt] + dialog[DialogNR] + WinnerMoney); DialogNR++;
 //-------------------------------------------------------------------------------------------
 //
 //          Game End
@@ -302,11 +303,12 @@ public class Main {
 //-------------------------------------------------------------------------------------------
                 do {
                     //  Ask for new game
-                    answer_game = gui.getUserButtonPressed(dialog[8], dialog[9], dialog[10]);
+                    answer_game = gui.getUserButtonPressed(dialog[DialogNR], dialog[DialogNR+1], dialog[DialogNR+2]); DialogNR+=3;
                     //  if anwser to "a new game" is no - stop the game
-                    if (answer_game.equals(dialog[10])) {
+                    if (answer_game.equals(dialog[DialogNR])) {
                         game_running = false;
                         answerGameOk = true;
+                        DialogNR++;
                     }   //  else restart the game
                     else {
                         answerGameOk = true;

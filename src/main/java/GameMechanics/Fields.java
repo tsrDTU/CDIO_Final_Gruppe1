@@ -159,6 +159,7 @@ public class Fields {
                     //  Returns a string that is used to add to the amount of money for the selected player
                     //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
                     return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
+                    // OVENFOR KAN KØBSVÆRDI ÆNDRES
                 }
             }
             else return "Error"; // returns error message in case there is an error
