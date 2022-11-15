@@ -7,6 +7,7 @@ import player.MjPlayer;
 
 public  class Chance {
     private static Chancekort[] chanceCards=new Chancekort[20];
+    int testKortMode=0;
 
 
 
@@ -46,7 +47,13 @@ public  class Chance {
 
         do {
 
-            kort_nr = (int)(Math.random() * 20);
+            if (testKortMode==0) {
+                kort_nr = (int) (Math.random() * 20);
+            }
+            else
+            {
+                kort_nr=testKortMode;
+            }
             System.out.println(kort_nr);
 
             if (kort_nr==0|| kort_nr == 5 || kort_nr == 11 || kort_nr == 12 || kort_nr == 9)
@@ -128,6 +135,12 @@ public  class Chance {
         return bilPos;
 
     }
+
+    public void setTestKortMode(int testNr)
+    {
+        testKortMode=testNr;
+    }
+
 
 }
 
