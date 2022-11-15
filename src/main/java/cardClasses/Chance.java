@@ -15,7 +15,7 @@ public  class Chance {
     {
         System.out.println("Chance initialiseres");
 
-        chanceCards[0]=new ChanceOverdragelseskort("Dette chance kort er givet til Bilen. Tag et chancekort mere.Til Bil","Bil: På din næste tur skal du drøne frem til et hvilket som helst ledigt felt og købe det. Hvis det ikke er nogen ledige felter skal du købe et fra en anden spiller!", "Bil");
+        chanceCards[0]=new ChanceOverdragelseskort(".Til Bil","Dette chance kort er givet til Bilen. Tag et chancekort mere Bil: På din næste tur skal du drøne frem til et hvilket som helst ledigt felt og købe det. Hvis det ikke er nogen ledige felter skal du købe et fra en anden spiller!", "Bil");
 
         chanceCards[1]=new ChanceRykFremTilFelt("Start","Du rykkes frem til start.", 0);
         chanceCards[2]=new ChanceRyk05("Ryk05","Ryk op til 5 felter frem");
@@ -37,7 +37,7 @@ public  class Chance {
         chanceCards[18]=new Chance2Farver("Ryk frem til lyseblåt eller rødt","Gratis felt. Ryk frem til et lyseblåt eller rødt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",5,1);
         chanceCards[19]=new Chance2Farver("Ryk frem til brunt eller gylt felt","Gratis felt. Ryk frem til et brunt eller gult felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",9,6);
 
-        //   System.out.println(chanceCards[18].getClass());
+
     }
 
     public Chancekort traekEtChanceKort()
@@ -49,12 +49,15 @@ public  class Chance {
 
             if (testKortMode==0) {
                 kort_nr = (int) (Math.random() * 20);
+                System.out.println("Normalt kort trukket");
             }
             else
             {
                 kort_nr=testKortMode;
+                testKortMode=0;
+                System.out.println("Testkort trukket");
             }
-            System.out.println(kort_nr);
+            System.out.println("Chancekort nr: "+kort_nr+" trukket");
 
             if (kort_nr==0|| kort_nr == 5 || kort_nr == 11 || kort_nr == 12 || kort_nr == 9)
             {
@@ -99,6 +102,7 @@ public  class Chance {
 
             slut=true;
 
+            System.out.println("Chancekort trækkes");
             Chancekort actKort = traekEtChanceKort();
 
             gui.showMessage(actKort.getKortInfo());
@@ -108,6 +112,7 @@ public  class Chance {
                 actPlayer.setKortModtaget(true);
                 actPlayer.setActChancekort(actKort);
                 slut=false;
+                System.out.println("ChanceOverdragelseskort eksekveret");
             }
             if (actKort instanceof ChanceAmnistiFeng) {
 
@@ -130,7 +135,8 @@ public  class Chance {
 
 
             }
-        }while (slut);
+
+        }while (!slut);
 
         return bilPos;
 

@@ -122,7 +122,7 @@ class ChanceTest {
         //  Initialising something for GameMechanics.Jail and Start field
         int[] PlayerSpaceNRexcact = new int[AmountofPlayers];
 
-        mjChance.setTestKortMode(11);
+        mjChance.setTestKortMode(1);
         gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
 
         Cars.moveCars(5, selectedPlayer, PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
