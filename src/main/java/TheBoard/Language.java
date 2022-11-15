@@ -14,7 +14,7 @@ public class Language {
 
     public Language() throws FileNotFoundException {
     }
-private static final int DialogLineAmaount = 11;
+private static final int DialogLineAmaount = 20;
 public static String[] dialog = new String[DialogLineAmaount];
     public static void initializeDialog(String[] dialog, String sprog) throws IOException {
         //String[] dialog = new String[20];
@@ -41,8 +41,8 @@ public static String[] dialog = new String[DialogLineAmaount];
         /*
     if (sprog=="Dansk") {
         dialog[0] = "Der er forhåndsvalgt terninger med 6 kanter. Tast enter for at vælge dette. Ellers indtast det ønskede antal kanter  (2 - 5) og tast enter";
-        dialog[1] = "Hvem er Spiller 1?";
-        dialog[2] = "Hvem er Spiller 2?";
+        dialog[1] = "Hvem er Spiller ";
+        dialog[2] = "Vælg spillerens rolle";
         dialog[3] = "Hvem starter spillet?";
         dialog[4] = "Det er";
         dialog[5] = " der har tur";
@@ -72,8 +72,8 @@ public static String[] dialog = new String[DialogLineAmaount];
 /*
         } else if (sprog.equals("Francias")) {
             dialog[0] = "Un dé à six faces est choisi par défaut. Veuillez appuyer sur Entrée pour le sélectionner. Ou entrez le nombre de faces (2 - 5) que vous souhaitez:";
-            dialog[1] = "Qui est le joueur 1?";
-            dialog[2] = "Qui est le joueur 2?";
+            dialog[1] = "Qui est le joueur ";
+            dialog[2] = "Sélectionner le rôle du joueur";
             dialog[3] = "Qui commence le jeu?";
             dialog[4] = "Il est";
             dialog[5] = " El jouant";
@@ -86,8 +86,8 @@ public static String[] dialog = new String[DialogLineAmaount];
 
         } else if (sprog.equals("English")) {
             dialog[0] = "A dice with six sides are default chosen. Please press enter to select this. Or enter the number of sides (2 - 5) you wish:";
-            dialog[1] = "Who is Player 1?";
-            dialog[2] = "Who is Player 2?";
+            dialog[1] = "Who is Player ";
+            dialog[2] = "Select the role of the player";
             dialog[3] = "Who starts the game?";
             dialog[4] = "It is";
             dialog[5] = " playing";
@@ -100,8 +100,8 @@ public static String[] dialog = new String[DialogLineAmaount];
 
         } else if (sprog.equals("German")) {
             dialog[0] = "Es gibt vorgewählte Würfel mit 6 Kanten. Drücken Sie die Eingabetaste, um dies auszuwählen. Geben Sie andernfalls die gewünschte Anzahl von Kanten (2 - 5) ein und drücken Sie die Eingabetaste";
-            dialog[1] = "Wer ist Spieler 1?";
-            dialog[2] = "Wer ist Spieler 2?";
+            dialog[1] = "Wer ist Spieler ";
+            dialog[2] = "Wählem Sie die Rolle des Spielers aus";
             dialog[3] = "Wer startet das Spiel?";
             dialog[4] = "Es ist";
             dialog[5] = " spielen";

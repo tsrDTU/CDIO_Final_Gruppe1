@@ -1,6 +1,4 @@
-package cardClasses;
-
-import static org.junit.jupiter.api.Assertions.*;
+import cardClasses.*;
 
 class ChanceTest {
 

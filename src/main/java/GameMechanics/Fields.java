@@ -3,15 +3,18 @@ import Files.FileReference;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
 import cardClasses.Chance;
+import cardClasses.Chancekort;
 import gui_codebehind.GUI_Center;
 import gui_fields.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Objects;
+import player.MjPlayer;
 
 import static TheBoard.Base.AmountofPlayers;
 import static TheBoard.Base.fieldNR;
+//import static cardClasses.*;
 
 public class Fields {
     public static boolean OwnedCheck(int[][] Ownedtrue, int AmountofSpaces, int PlayerNR) {
@@ -24,15 +27,16 @@ public class Fields {
 
 
     public static String wannaBuyDoYou(int[][] Ownedtrue,
-                                       GUI_Player selectedPlayer,
+                                       MjPlayer selectedPlayer,
                                        boolean boolforBUY,
-                                       GUI_Player[] PlayerArray,
+                                       MjPlayer[] PlayerArray,
                                        int CurrentSpaceForSelectedPlayer,
                                        int[] PlayerSpaceNRexcact,
-                                       boolean[][] JailOn) throws FileNotFoundException {
+                                       boolean[][] JailOn, Chance chankort, gui_main.GUI gui) throws FileNotFoundException {
         boolean wannaBuy = false;
         boolean[] Playerboughtspace = new boolean[AmountofPlayers];
         int THEfieldsNR = 0;
+        int ny_bilPos;
         String NewBal;
         for (int i = 0; i < Base.fieldNR(); i++) {
             if (Base.fields[i].hasCar(selectedPlayer))
@@ -109,9 +113,18 @@ public class Fields {
 //
 //-----------------------------------------------------------------------------------------------------
 
-            Chance landetPaaChance = new Chance();
-            landetPaaChance.traekEtChanceKort();
 
+ //           Chance landetPaaChance = new Chance();
+ //           landetPaaChance.traekEtChanceKort();
+
+
+            //bilen har muligvis fået ny positon efter chancekortet er eksekveret
+            ny_bilPos=chankort.chanceFieldIsHit(selectedPlayer, PlayerArray,CurrentSpaceForSelectedPlayer, AmountofPlayers,3,gui);
+
+            if (CurrentSpaceForSelectedPlayer != ny_bilPos)
+            {
+                Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, ny_bilPos);
+            }
             //System.out.println(landetPaaChance.traekEtChanceKort());
             //System.out.println(" 3%3 ");     // | EMPTY NOTE |
 
@@ -146,6 +159,7 @@ public class Fields {
                     //  Returns a string that is used to add to the amount of money for the selected player
                     //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
                     return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
+                    // OVENFOR KAN KØBSVÆRDI ÆNDRES
                 }
             }
             else return "Error"; // returns error message in case there is an error
