@@ -158,7 +158,7 @@ public class Fields {
                     Base.fields[THEfieldsNR].setTitle(Base.fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
                     //  Returns a string that is used to add to the amount of money for the selected player
                     //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
-                    return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
+                    return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]-20);
                     // OVENFOR KAN KØBSVÆRDI ÆNDRES
                 }
             }

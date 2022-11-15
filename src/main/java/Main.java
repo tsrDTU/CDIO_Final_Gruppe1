@@ -88,14 +88,14 @@ public class Main {
 //  Sets names for each player in a for loop and gives an adjacent car with a private color
         for (int i = 0; i < AmountofPlayers; i++) {
             //  Sets the car of each player
-            PlayerName[i] = (gui.getUserString(dialog[DialogNR]+(i+1)+"?")); DialogNR++;
+            PlayerName[i] = (gui.getUserString(dialog[DialogNR]+(i+1)+"?"));
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
             PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             GameMechanics.Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i);
             //Set users role
-            PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[DialogNR],
-                    userRoles)); DialogNR++;
+            PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[DialogNR+1],
+                    userRoles));
             //Remove this role from the list.
             for (j=0;j<userRoles.length;j++)
             {
@@ -113,9 +113,9 @@ public class Main {
 
                 }
             }
-
             gui.addPlayer(PlayerArray[i]);
         }
+        DialogNR+=2;
         Cars.restart(PlayerArray,fields, AmountofPlayers,fieldNR());
 
 
@@ -303,12 +303,11 @@ public class Main {
 //-------------------------------------------------------------------------------------------
                 do {
                     //  Ask for new game
-                    answer_game = gui.getUserButtonPressed(dialog[DialogNR], dialog[DialogNR+1], dialog[DialogNR+2]); DialogNR+=3;
+                    answer_game = gui.getUserButtonPressed(dialog[DialogNR], dialog[DialogNR+1], dialog[DialogNR+2]);
                     //  if anwser to "a new game" is no - stop the game
-                    if (answer_game.equals(dialog[DialogNR])) {
+                    if (answer_game.equals(dialog[DialogNR+2])) {
                         game_running = false;
                         answerGameOk = true;
-                        DialogNR++;
                     }   //  else restart the game
                     else {
                         answerGameOk = true;
