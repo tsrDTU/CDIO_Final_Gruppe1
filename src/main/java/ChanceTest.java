@@ -122,19 +122,22 @@ class ChanceTest {
         //  Initialising something for GameMechanics.Jail and Start field
         int[] PlayerSpaceNRexcact = new int[AmountofPlayers];
 
-        mjChance.setTestKortMode(1);
+        //Det kort man ønsker at teste vælges
+        mjChance.setTestKortMode(11);
+
         gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
 
+        //DiceRollSum=5 rammer chancen
         Cars.moveCars(5, selectedPlayer, PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
         //  Sets the current space for the selected player to a value
         CurrentSpaceForSelectedPlayer = 0;
-        /*
-        for (int i = 0; i < Base.fieldNR(); i++) {
+
+        for ( i = 0; i < Base.fieldNR(); i++) {
             if (Base.fields[i].hasCar(selectedPlayer))
                 CurrentSpaceForSelectedPlayer = i;
         }
 
-         */
+
 
         //  You get forced to buy the field, therefor (you want to buy)
         boolean wanttobuyYesNo = true;

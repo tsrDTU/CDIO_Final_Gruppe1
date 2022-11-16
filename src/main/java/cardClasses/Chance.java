@@ -43,9 +43,10 @@ public  class Chance {
     public Chancekort traekEtChanceKort()
     {
         int kort_nr;
-        boolean kOk=false;
+        int  kOk=0;
 
         do {
+            kOk=0;
 
             if (testKortMode==0) {
                 kort_nr = (int) (Math.random() * 20);
@@ -65,23 +66,23 @@ public  class Chance {
 
                 if (chanceCards[kort_nr].getClass().equals(ChanceOverdragelseskort.class))
                 {
-                    if (chanceCards[kort_nr] instanceof ChanceOverdragelseskort)
+                    if (chanceCards[kort_nr] instanceof ChanceOverdragelseskort==true)
                     {
-                        if(!((ChanceOverdragelseskort) chanceCards[kort_nr]).getAktivt()) kOk=true;
+                        if(((ChanceOverdragelseskort) chanceCards[kort_nr]).getAktivt()) kOk=11;
                     }
 
                 }
                 else if (chanceCards[kort_nr] instanceof ChanceAmnistiFeng)
                 {
-                    if (!((ChanceAmnistiFeng) chanceCards[kort_nr]).getAktivt()) kOk=true;
+                    if (!((ChanceAmnistiFeng) chanceCards[kort_nr]).getAktivt()) kOk=11;
                 }
-                else kOk=true;
+                else kOk=11;
 
 
 
             }
 
-        } while (!kOk);
+        } while (kOk > 0);
 
         return chanceCards[kort_nr];
 
@@ -94,50 +95,57 @@ public  class Chance {
                                 int AmountofPlayers, int AmountofSpaces, GUI gui)
     {
         int i, bilPos;
-        boolean slut=true;
+        int slut=0;
 
         bilPos=actField;
+        System.out.println("bilPos "+bilPos);
 
         do {
 
-            slut=true;
+            slut=0;
 
             System.out.println("Chancekort trækkes");
             Chancekort actKort = traekEtChanceKort();
 
             gui.showMessage(actKort.getKortInfo());
-            if (actKort instanceof ChanceOverdragelseskort)
-            {
 
+            if (actKort instanceof ChanceOverdragelseskort==true)
+            {
+      //          gui.showMessage(actKort.getKortInfo());
                 actPlayer.setKortModtaget(true);
                 actPlayer.setActChancekort(actKort);
-                slut=false;
+                slut=11;
                 System.out.println("ChanceOverdragelseskort eksekveret");
             }
-            if (actKort instanceof ChanceAmnistiFeng) {
+            if (actKort instanceof ChanceAmnistiFeng==true) {
 
                 actPlayer.setAmnistkortHaves(true);
+                System.out.println("ChanceAmnistiFeng");
             }
-            if (actKort instanceof ChanceRykFremTilFelt) {
+
+           if (actKort instanceof ChanceRykFremTilFelt==true) {
 
                 gui.showMessage(actKort.getKortInfo());
 
                 bilPos = ((ChanceRykFremTilFelt) actKort).getDestinationsFelt();
+                System.out.println("ChanceRykFremTilFelt. bilPos "+ bilPos);
 
             }
-            if (actKort instanceof ChanceRyk1ElChMemere) {
+            if (actKort instanceof ChanceRyk1ElChMemere==true) {
                 String valg = gui.getUserButtonPressed("Vælg", "En chance mere", "Ryk et felt frem");
                 if (valg.equals("En chance mere")) {
-                   slut=false;
+                   slut=11;
                 } else {
                     bilPos = actField + 1;
                 }
+                System.out.println("ChanceRyk1ElChMemere");
 
 
             }
 
-        }while (!slut);
-
+        }while (slut > 1);
+        System.out.println("While slut");
+        System.out.println("bilPos "+bilPos);
         return bilPos;
 
     }
