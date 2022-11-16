@@ -89,7 +89,7 @@ public class Main {
 
 
 //  Sets names for each player in a for loop and gives an adjacent car with a private color
-        int k = 3;
+        int k = AmountofPlayers;
         for (int i = 0; i < AmountofPlayers; i++) {
             //  Sets the car of each player
             PlayerName[i] = (gui.getUserString(dialog[DialogNR]+(i+1)+"?"));
@@ -98,7 +98,8 @@ public class Main {
             PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             GameMechanics.Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i);
             //Set users role
-
+            int first = 0; for (int l = 0; l < AmountofPlayers; l++) {if (userRoles.size()>AmountofPlayers)
+                userRoles.remove(first); first++;}
             String[] RoleArray = new String[k];
             PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[DialogNR+1], userRoles.toArray(RoleArray)));
             //Remove this role from the list.
