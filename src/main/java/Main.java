@@ -9,10 +9,13 @@ import gui_main.GUI;
 import gui_fields.GUI_Car;
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
 import static Files.FileReference.*;
+import static GameMechanics.Die.getSum;
 import static GameMechanics.textReaderClass.textRDR;
 import static TheBoard.Base.*;
 import static TheBoard.BoardCreator.JailInit;
@@ -31,7 +34,8 @@ public class Main {
         boolean game_running, answerGameOk;
         game_running = true;
         //int fieldNR = 24;
-        String[] userRoles={"Bil","Skib","Hund","Kat"};
+        ArrayList<String> userRoles = new ArrayList<>(Arrays.asList("Bil","Skib","Hund","Kat"));
+        //String[] userRoles={"Bil","Skib","Hund","Kat"};
         String[] freeUserRoles;
 
 
@@ -85,6 +89,7 @@ public class Main {
 
 
 //  Sets names for each player in a for loop and gives an adjacent car with a private color
+        int k = 3;
         for (int i = 0; i < AmountofPlayers; i++) {
             //  Sets the car of each player
             PlayerName[i] = (gui.getUserString(dialog[DialogNR]+(i+1)+"?"));
@@ -93,23 +98,16 @@ public class Main {
             PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             GameMechanics.Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i);
             //Set users role
-            PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[DialogNR+1],
-                    userRoles));
+
+            String[] RoleArray = new String[k];
+            PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[DialogNR+1], userRoles.toArray(RoleArray)));
             //Remove this role from the list.
-            for (j=0;j<userRoles.length;j++)
+            for (j=0;j<userRoles.size();j++)
             {
-                if (userRoles[j].equals(PlayerArray[i].getUserRole())) {
-                    userRoles[j] = " ";
-                    /*
-                    for (k=j;k<userRoles[j].length() -1;k++)
-                    {
-                        userRoles[k]=userRoles[k+1];
-                        freeUserRoles.
-                    }
-
-                     */
-
-
+                if (userRoles.get(j).equals(PlayerArray[i].getUserRole())) {
+                    userRoles.remove(j);
+                    k--;
+                    //userRoles[j] = userRoles[j-1];
                 }
             }
             gui.addPlayer(PlayerArray[i]);
@@ -144,13 +142,13 @@ public class Main {
         //Create the dices. Default 6 sides
         //String AmountofDice = gui.getUserButtonPressed("how many dice?", "1", "2");
             Die d1 = new Die();
-            Die d2 = new Die();
+            Die d2 = new Die(0);
 
 
         // If sides are different from 6, set the number of sides.
         if (antal_kant != 6) {
             d1.setNumberOfSides(antal_kant);
-            d2.setNumberOfSides(antal_kant);
+            //d2.setNumberOfSides(antal_kant);
         }
 
         int playingPlayer = intselect;
@@ -187,13 +185,13 @@ public class Main {
             //GameMechanics.Jail.JailRegister(selectedPlayer,AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
             d1.dice_roll();
-            d2.dice_roll();
+            //d2.dice_roll();
 
             //Inform which user is playing
             gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1], dialog[DialogNR+2]); DialogNR+=3;
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
-            int DieSum = Die.getSum(d1, d2) + 2;
+            int DieSum = getSum(d1,d2) + 1; /*, d2*/
 
             //if the game hasn't ended, continue
             int CurrentSpaceForSelectedPlayer = 0;
@@ -224,7 +222,7 @@ public class Main {
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
-                GameMechanics.textReaderClass.textRDR(DescriptionF, "12");
+                GameMechanics.textReaderClass.textRDR(DescriptionF(), "12");
                 amountOfGameLoops++;
 
                 //Fields.OwnedCheck(OwnedtrueOwnedFalse,selectedPlayer.getNumber(), CurrentSpaceForSelectedPlayer);
@@ -244,7 +242,7 @@ public class Main {
                         ].getTitle() + "\n" + Base.fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getSubText());
             Fields.displayDescriptions(fields, CurrentSpaceForSelectedPlayer+fieldNR(), amountOfGameLoops);
             //Display GameMechanics.Die on the Board
-            GameMechanics.Die.OnBoard(d1, d2, gui);
+            GameMechanics.Die.OnBoard(d1, gui);/*, d2*/
 
             //Changes currentSpaceForSelected Player to the new location
             if (CurrentSpaceForSelectedPlayer + DieSum > Base.fieldNR())

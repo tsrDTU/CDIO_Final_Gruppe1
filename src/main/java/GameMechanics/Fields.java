@@ -136,9 +136,6 @@ public class Fields {
             }
             //System.out.println(landetPaaChance.traekEtChanceKort());
             //System.out.println(" 3%3 ");     // | EMPTY NOTE |
-
-
-
             return "0";
         }
         //  Defines an owner of a given space
@@ -210,7 +207,7 @@ public class Fields {
 
     public static void displayDescriptions(GUI_Street[] fields,int currentLocation, int TimesAroundBoard) throws FileNotFoundException {
         //  Changes the color of the Discription space
-        Color NewColor = ColorSpace(Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF,String.valueOf(currentLocation+1))),
+        Color NewColor = ColorSpace(Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF(),String.valueOf(currentLocation+1))),
                 0);
         //System.out.println(textReaderClass.textRDR(FileReference.DescriptionF, String.valueOf(currentLocation+1)));
         GUI_Center.getInstance().setBGColor(NewColor);

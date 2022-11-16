@@ -19,10 +19,10 @@ public class BoardCreator{
             fields[i] = new GUI_Street(
                     textRDR(TitleF, String.valueOf(i + 1)),
                     textRDR(subtextF, String.valueOf(i + 1)),
-                    textRDR(DescriptionF, String.valueOf(i + 1)),
+                    textRDR(DescriptionF(), String.valueOf(i + 1)),
                     textRDR(rentF, String.valueOf(i + 1)),
                     //fields[i] = new GUI_Street("","","","1",
-                    Fields.ColorSpace(Integer.parseInt(textRDR(DescriptionF, String.valueOf(i + 1))), i),
+                    Fields.ColorSpace(Integer.parseInt(textRDR(DescriptionF(), String.valueOf(i + 1))), i),
                     Color.BLACK);
         } return fields;
     }
