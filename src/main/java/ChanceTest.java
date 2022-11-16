@@ -123,7 +123,7 @@ class ChanceTest {
         int[] PlayerSpaceNRexcact = new int[AmountofPlayers];
 
         //Det kort man ønsker at teste vælges
-        mjChance.setTestKortMode(11);
+        mjChance.setTestKortMode(3);
 
         gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
 

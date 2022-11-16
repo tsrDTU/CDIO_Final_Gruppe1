@@ -1,6 +1,10 @@
 package cardClasses;
+import GameMechanics.Fields;
+import TheBoard.Base;
 import gui_main.GUI;
 import player.MjPlayer;
+import gui_fields.*;
+import TheBoard.Base;
 
 
 
@@ -18,8 +22,8 @@ public  class Chance {
         chanceCards[0]=new ChanceOverdragelseskort(".Til Bil","Dette chance kort er givet til Bilen. Tag et chancekort mere Bil: På din næste tur skal du drøne frem til et hvilket som helst ledigt felt og købe det. Hvis det ikke er nogen ledige felter skal du købe et fra en anden spiller!", "Bil");
 
         chanceCards[1]=new ChanceRykFremTilFelt("Start","Du rykkes frem til start.", 0);
-        chanceCards[2]=new ChanceRyk05("Ryk05","Ryk op til 5 felter frem");
-        chanceCards[3]=new ChanceKortFarve("Ryk orange","Gratis felt. Ryk frem til et orange felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.", 3);
+        chanceCards[2]=new ChanceRyk05("Ryk05","Du Rykkes op til 5 felter frem");
+        chanceCards[3]=new ChanceKortFarve("Ryk orange","Gratis felt. Du RykKes frem til et orange felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.", 3);
         chanceCards[4]=new ChanceRyk1ElChMemere("Ryk 1 eller change mere","Ryk 1 felt frem eller tag et chancekort mere");
         chanceCards[5]=new ChanceOverdragelseskort("Til Skibet","Dette kort er givet til skibet. Tag et chancekort mere. Skib: På den næste skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Skibet");
         chanceCards[6]=new ChanceBanktrans("For meget slik","Du har spist for meget slik. Betal M2 til banken.", -2,1,0);
@@ -121,6 +125,23 @@ public  class Chance {
 
                 actPlayer.setAmnistkortHaves(true);
                 System.out.println("ChanceAmnistiFeng");
+            }
+
+            if (actKort instanceof ChanceRyk05==true)
+            {
+                bilPos+=5;
+            }
+
+            if (actKort instanceof ChanceKortFarve==true)
+            {
+
+                System.out.println("ChanceKortFarve");
+
+       //         for ( i = 0; i < Base.fieldNR(); i++) {
+
+                        System.out.println(Base.fields[bilPos+1].getDescription());
+
+
             }
 
            if (actKort instanceof ChanceRykFremTilFelt==true) {
