@@ -1,7 +1,4 @@
-import GameMechanics.Cars;
-import GameMechanics.Die;
-import GameMechanics.Fields;
-import GameMechanics.Jail;
+import GameMechanics.*;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
 import TheBoard.Language;
@@ -48,6 +45,8 @@ public class Main {
         //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
         TheBoard.BoardCreator.InitBoardFieldsGuts();
 
+        System.out.println("DescriptionSt");
+        System.out.println(DescriptionSt);
 
         //BoardCreator.SetGUItext();
         //  Sets up the background GUI (Graphical User Interface) to a plain white
@@ -184,7 +183,6 @@ public class Main {
             else selectedPlayer = PlayerArray[playingPlayer2];
 
 
-
             //if (amountOfGameLoops == 0);
             //GameMechanics.Jail.JailRegister(selectedPlayer,AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
@@ -229,6 +227,10 @@ public class Main {
                 GameMechanics.textReaderClass.textRDR(DescriptionF, "12");
                 amountOfGameLoops++;
 
+                //Fields.OwnedCheck(OwnedtrueOwnedFalse,selectedPlayer.getNumber(), CurrentSpaceForSelectedPlayer);
+                //DoubleProperty.CostCheck(CurrentSpaceForSelectedPlayer);
+                //DoubleProperty.DoubleCost(OwnedtrueOwnedFalse,selectedPlayer.getNumber(),CurrentSpaceForSelectedPlayer);
+
                 //Negative balance is not allowed
                 if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
             }
@@ -247,7 +249,6 @@ public class Main {
             //Changes currentSpaceForSelected Player to the new location
             if (CurrentSpaceForSelectedPlayer + DieSum > Base.fieldNR())
                 CurrentSpaceForSelectedPlayer = CurrentSpaceForSelectedPlayer + DieSum - Base.fieldNR();
-
 
 
             //Switch selected player
