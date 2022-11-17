@@ -2,6 +2,7 @@ import GameMechanics.Cars;
 import GameMechanics.Fields;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
+import TheBoard.Language;
 import cardClasses.*;
 import gui_fields.GUI_Car;
 import gui_main.GUI;
@@ -26,11 +27,10 @@ class ChanceTest {
         String[] freeUserRoles;
         MjPlayer selectedPlayer;
         int CurrentSpaceForSelectedPlayer = 0;
-
-
         /*
-        Chancekort kortTrukket =mjChance.traekEtChanceKort();
+        Chancekort kortTrukket = mjChance.traekEtChanceKort();
         System.out.println(kortTrukket.getClass());
+
         if (kortTrukket.getClass().equals(ChanceBanktrans.class) )
         {
             System.out.println("Afsender: "+((ChanceBanktrans) kortTrukket).getAfsender());
@@ -70,13 +70,13 @@ class ChanceTest {
          */
 
         //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
-        TheBoard.BoardCreator.InitBoardFieldsGuts();
+        BoardCreator.InitBoardFieldsGuts();
 
-        GUI gui = new GUI(Base.fields, Color.WHITE);
+        GUI gui = new GUI(fields, Color.WHITE);
         language="Dansk";
-        TheBoard.Language.initializeDialog(dialog, language);
+        Language.initializeDialog(dialog, language);
         antal_kant = 6;
-        AmountofPlayers=2;
+        AmountofPlayers=3;
 
 
         MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
@@ -93,7 +93,7 @@ class ChanceTest {
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
             PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
-            GameMechanics.Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i);
+            Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i);
             //Set users role
             PlayerArray[i].setUserRole(userRoles[i]);
 
@@ -103,7 +103,7 @@ class ChanceTest {
         }
         Cars.restart(PlayerArray,fields, AmountofPlayers,fieldNR());
 
-        int[][] OwnedtrueOwnedFalse = Base.InitializeOwnedStat(AmountofPlayers).clone();
+        int[][] OwnedtrueOwnedFalse = InitializeOwnedStat(AmountofPlayers).clone();
 
         //Initialise true false for OwnedNotOwnedFields
         //int[][] OwnedtrueOwnedFalse = new int[Base.fieldNR()][AmountofPlayers + 1];
@@ -123,21 +123,24 @@ class ChanceTest {
         int[] PlayerSpaceNRexcact = new int[AmountofPlayers];
 
 
-
+        System.out.println(PlayerArray[0].getBalance()+" Balanc3 b3fore");
+        System.out.println(PlayerArray[1].getBalance()+ " bal pl 2 bf");
+        System.out.println(selectedPlayer.getBalance()+" selected "+selectedPlayer.getNumber());
         //Det kort man ønsker at teste vælges
-        mjChance.setTestKortMode(18);
+        mjChance.setTestKortMode(6);
+
 
 
 
         gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
 
         //DiceRollSum=5 rammer chancen
-        Cars.moveCars(5, selectedPlayer, PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
+        Cars.moveCars(5, selectedPlayer, PlayerArray, fields, AmountofPlayers, fieldNR());
         //  Sets the current space for the selected player to a value
         CurrentSpaceForSelectedPlayer = 0;
 
-        for ( i = 0; i < Base.fieldNR(); i++) {
-            if (Base.fields[i].hasCar(selectedPlayer))
+        for ( i = 0; i < fieldNR(); i++) {
+            if (fields[i].hasCar(selectedPlayer))
                 CurrentSpaceForSelectedPlayer = i;
         }
 
@@ -159,7 +162,9 @@ class ChanceTest {
             selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
             //System.out.println(NewBalance);       | EMPTY NOTE |
         }
-
+        System.out.println(PlayerArray[0].getBalance()+" balanc3 after");
+        System.out.println(PlayerArray[1].getBalance()+ " bal pl 2 after");
+        System.out.println(selectedPlayer.getBalance()+" selected"+selectedPlayer.getNumber());
 
     }
 
