@@ -14,7 +14,7 @@ public class Language {
 
     public Language() throws FileNotFoundException {
     }
-private static final int DialogLineAmaount = 11;
+private static final int DialogLineAmaount = 20;
 public static String[] dialog = new String[DialogLineAmaount];
     public static void initializeDialog(String[] dialog, String sprog) throws IOException {
         //String[] dialog = new String[20];
