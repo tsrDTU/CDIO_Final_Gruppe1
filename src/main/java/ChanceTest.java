@@ -1,10 +1,34 @@
+import GameMechanics.Cars;
+import GameMechanics.Fields;
+import TheBoard.Base;
+import TheBoard.BoardCreator;
 import cardClasses.*;
+import gui_fields.GUI_Car;
+import gui_main.GUI;
+import player.MjPlayer;
+
+import java.awt.*;
+
+import static TheBoard.Base.*;
+import static TheBoard.Base.AmountofPlayers;
+import static TheBoard.BoardCreator.JailInit;
+import static TheBoard.Language.dialog;
+import java.io.*;
 
 class ChanceTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("main startet");
         Chance mjChance=new Chance();
+        String string_in, language, answer_game;
+        int antal_kant, AmountofPlayers,i,j;
+        String[] userRoles={"Bil","Skib","Hund","Kat"};
+        String[] freeUserRoles;
+        MjPlayer selectedPlayer;
+        int CurrentSpaceForSelectedPlayer = 0;
+
+
+        /*
         Chancekort kortTrukket =mjChance.traekEtChanceKort();
         System.out.println(kortTrukket.getClass());
         if (kortTrukket.getClass().equals(ChanceBanktrans.class) )
@@ -42,6 +66,100 @@ class ChanceTest {
         System.out.println(kortTrukket.getKortNavnavn());
         System.out.println(kortTrukket.getKortInfo());
         System.out.println(kortTrukket);
+
+         */
+
+        //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
+        TheBoard.BoardCreator.InitBoardFieldsGuts();
+
+        GUI gui = new GUI(Base.fields, Color.WHITE);
+        language="Dansk";
+        TheBoard.Language.initializeDialog(dialog, language);
+        antal_kant = 6;
+        AmountofPlayers=2;
+
+
+        MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
+        GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
+        String[] PlayerName = new String[AmountofPlayers];
+
+        BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
+
+//  Sets names for each player in a for loop and gives an adjacent car with a private color
+        for ( i = 0; i < AmountofPlayers; i++) {
+            //  Sets the car of each player
+       //     PlayerName[i] = (gui.getUserString(dialog[3]+(i+1)+"?"));
+            PlayerName[i] = "";
+            if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
+            playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
+            PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
+            GameMechanics.Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i);
+            //Set users role
+            PlayerArray[i].setUserRole(userRoles[i]);
+
+
+
+            gui.addPlayer(PlayerArray[i]);
+        }
+        Cars.restart(PlayerArray,fields, AmountofPlayers,fieldNR());
+
+        int[][] OwnedtrueOwnedFalse = Base.InitializeOwnedStat(AmountofPlayers).clone();
+
+        //Initialise true false for OwnedNotOwnedFields
+        //int[][] OwnedtrueOwnedFalse = new int[Base.fieldNR()][AmountofPlayers + 1];
+        /*
+        for (int n = 0; n < Base.fieldNR(); n++) {
+            OwnedtrueOwnedFalse[n][0] = n;
+            for (int i = 0; i < AmountofPlayers; i++) {
+                OwnedtrueOwnedFalse[n][i] = 0;
+            }
+        }
+
+         */
+
+        selectedPlayer = PlayerArray[1];
+
+        //  Initialising something for GameMechanics.Jail and Start field
+        int[] PlayerSpaceNRexcact = new int[AmountofPlayers];
+
+
+
+        //Det kort man ønsker at teste vælges
+        mjChance.setTestKortMode(18);
+
+
+
+        gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
+
+        //DiceRollSum=5 rammer chancen
+        Cars.moveCars(5, selectedPlayer, PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
+        //  Sets the current space for the selected player to a value
+        CurrentSpaceForSelectedPlayer = 0;
+
+        for ( i = 0; i < Base.fieldNR(); i++) {
+            if (Base.fields[i].hasCar(selectedPlayer))
+                CurrentSpaceForSelectedPlayer = i;
+        }
+
+
+
+        //  You get forced to buy the field, therefor (you want to buy)
+        boolean wanttobuyYesNo = true;
+
+
+        //  This handles the trades with rent and buying of fields - see at - src/main/java/GameMechanics.Fields
+        if (wanttobuyYesNo) {
+            String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
+                    selectedPlayer,
+                    wanttobuyYesNo,
+                    PlayerArray,
+                    CurrentSpaceForSelectedPlayer,
+                    PlayerSpaceNRexcact,
+                    JailInit(), mjChance, gui);
+            selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
+            //System.out.println(NewBalance);       | EMPTY NOTE |
+        }
+
 
     }
 
