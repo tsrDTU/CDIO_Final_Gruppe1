@@ -8,6 +8,7 @@ import gui_codebehind.GUI_Center;
 import gui_fields.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 import player.MjPlayer;
@@ -17,12 +18,20 @@ import static TheBoard.Base.fieldNR;
 //import static cardClasses.*;
 
 public class Fields {
-    public static boolean OwnedCheck(int[][] Ownedtrue, int AmountofSpaces, int PlayerNR) {
-        for (int i = 0; i < AmountofSpaces; i++) {
-            if (Ownedtrue[i][PlayerNR + 1] == 1)
-                return true;
+    public static boolean OwnedCheck(int[][] Ownedtrue, int selectedPlayersNR, int spaceNumber) {
+        int AmountofPlayerOwnedSpaces=0;
+        boolean[] ArrayofOwnership = new boolean[fieldNR()];
+        for (int i = 0; i < fieldNR(); i++) {ArrayofOwnership[i] = false;}
+        for (int i = 0; i < fieldNR(); i++)
+        {
+            if (Ownedtrue[i][selectedPlayersNR + 1] == 1){
+                AmountofPlayerOwnedSpaces++;
+                ArrayofOwnership[i] = true;
+            }
+            //System.out.println(i + " "+ ArrayofOwnership[i]);
         }
-        return false;
+        return ArrayofOwnership[spaceNumber];
+        //System.out.println("---------------");
     }
 
 
@@ -127,7 +136,6 @@ public class Fields {
             }
             //System.out.println(landetPaaChance.traekEtChanceKort());
             //System.out.println(" 3%3 ");     // | EMPTY NOTE |
-
             return "0";
         }
         //  Defines an owner of a given space
@@ -159,6 +167,7 @@ public class Fields {
                     //  Returns a string that is used to add to the amount of money for the selected player
                     //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
                     return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
+                    // OVENFOR KAN KØBSVÆRDI ÆNDRES
                 }
             }
             else return "Error"; // returns error message in case there is an error
@@ -166,9 +175,11 @@ public class Fields {
         //  Knows that someone owns the field, Pays rent and adds the rent to the SpaceOwners balance
         else {
             NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
-            //System.out.println("Payed Rent");     | EMPTY NOTE |
-
-            PlayerArray[SpaceOwner].setBalance(PlayerArray[SpaceOwner].getBalance()+BoardCreator.CostofField()[THEfieldsNR]);
+            if (DoubleProperty.DoubleCost(Ownedtrue, selectedPlayer.getNumber(),CurrentSpaceForSelectedPlayer)) {
+                NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]*2);
+                PlayerArray[SpaceOwner].setBalance(PlayerArray[SpaceOwner].getBalance()+BoardCreator.CostofField()[THEfieldsNR]*2);}
+            else {NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
+                PlayerArray[SpaceOwner].setBalance(PlayerArray[SpaceOwner].getBalance()+BoardCreator.CostofField()[THEfieldsNR]);}
             //System.out.println(-CosttoOwn[THEfieldsNR] + "   " +CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
             return NewBal;
         }
@@ -196,9 +207,9 @@ public class Fields {
 
     public static void displayDescriptions(GUI_Street[] fields,int currentLocation, int TimesAroundBoard) throws FileNotFoundException {
         //  Changes the color of the Discription space
-        Color NewColor = ColorSpace(Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF,String.valueOf(currentLocation+1))),
+        Color NewColor = ColorSpace(Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF(),String.valueOf(currentLocation+1))),
                 0);
-        System.out.println(textReaderClass.textRDR(FileReference.DescriptionF, String.valueOf(currentLocation+1)));
+        //System.out.println(textReaderClass.textRDR(FileReference.DescriptionF, String.valueOf(currentLocation+1)));
         GUI_Center.getInstance().setBGColor(NewColor);
 }
 
