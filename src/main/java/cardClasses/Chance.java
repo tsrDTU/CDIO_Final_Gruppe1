@@ -29,7 +29,7 @@ public  class Chance {
         chanceCards[6]=new ChanceBanktrans("For meget slik","Du har spist for meget slik. Betal M2 til banken.", -2,1,0);
         chanceCards[7]=new Chance2Farver("Vælg orange eller grønt felt","Gratis felt. Ryk frem til et orange eller grønt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.", 3, 8);
         chanceCards[8]=new ChanceKortFarve("Ryk lyseblåt","Gratis felt. Ryk frem til et lyseblåt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",5);
-        chanceCards[9]=new ChanceAmnistiFeng("Amnesti","Du løslades uden omkostninger. Behold dette kort til du får brug for det.");
+        chanceCards[9]=new ChanceAmnistiFeng("Amnesti","Du løslades uden omkostninger. Du har dette kort til du får brug for det.");
         chanceCards[10]=new ChanceRykFremTilFelt("ryk tilStrandpromenaden","Du Rykkes frem til Strandpromenaden.", 23);
         chanceCards[11]=new ChanceOverdragelseskort("Til Katten","Dette kort er givet til Katten. Tag et chancekort mere. Kat: På den næste skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Katten");
         chanceCards[12]=new ChanceOverdragelseskort("Til Hunden","Dette kort er givet til Hunden.Tag et chancekort mere. Hund: På den næste skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Hunden");
@@ -78,7 +78,7 @@ public  class Chance {
                 }
                 else if (chanceCards[kort_nr] instanceof ChanceAmnistiFeng)
                 {
-                    if (!((ChanceAmnistiFeng) chanceCards[kort_nr]).getAktivt()) kOk=11;
+                    if (((ChanceAmnistiFeng) chanceCards[kort_nr]).getAktivt()) kOk=11;
                 }
                 else kOk=11;
 
@@ -100,6 +100,8 @@ public  class Chance {
     {
         int i, bilPos;
         int slut=0;
+        String farvCod, modtRolle;
+        MjPlayer playModt;
 
         bilPos=actField;
         System.out.println("bilPos "+bilPos);
@@ -113,18 +115,65 @@ public  class Chance {
 
             gui.showMessage(actKort.getKortInfo());
 
+            if (actKort instanceof Chance2Farver==true)
+            {
+                String valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Orange felt", "Grønt felt");
+
+                if (valg.equals("Orange felt"))
+                {
+                    farvCod=(""+((Chance2Farver) actKort).getFarve1());
+                } else
+                {
+                    farvCod=(""+((Chance2Farver) actKort).getFarve2());
+                }
+                i=bilPos;
+                do
+                {
+                    i++;
+                    if (i>23) i=0;
+
+                }while( Base.fields[i].getDescription().equals(farvCod)==false);
+
+                bilPos=i;
+
+
+            }
+
             if (actKort instanceof ChanceOverdragelseskort==true)
             {
       //          gui.showMessage(actKort.getKortInfo());
                 actPlayer.setKortModtaget(true);
                 actPlayer.setActChancekort(actKort);
+                modtRolle=((ChanceOverdragelseskort) actKort).getModtager();
+                for (i=0;i>AmountofPlayers;i++)
+                {
+                    if (players[i].getUserRole().equals(modtRolle)==true)
+                    {
+                        players[i].setActChancekort(actKort);
+                        players[i].setKortModtaget(true);
+                    }
+                    else
+                    {
+                        System.out.println("Modtager af overdragelseskort er ikke fundet. Ingen spillere har rollen"+((ChanceOverdragelseskort) actKort).getModtager());
+                    }
+                }
                 slut=11;
                 System.out.println("ChanceOverdragelseskort eksekveret");
             }
+
+
             if (actKort instanceof ChanceAmnistiFeng==true) {
 
                 actPlayer.setAmnistkortHaves(true);
+                ((ChanceAmnistiFeng) actKort).setAktivt(true);
+                ((ChanceAmnistiFeng) actKort).setIndehaver(actPlayer.getNumber());
                 System.out.println("ChanceAmnistiFeng");
+            }
+
+
+            if (actKort instanceof ChanceBanktrans==true)
+            {
+                //Uffe: sæt din kode her.
             }
 
             if (actKort instanceof ChanceRyk05==true)
@@ -137,16 +186,22 @@ public  class Chance {
 
                 System.out.println("ChanceKortFarve");
 
-       //         for ( i = 0; i < Base.fieldNR(); i++) {
+                farvCod=(""+((ChanceKortFarve) actKort).getFarvekode());
+                i=bilPos;
+                do
+                {
+                    i++;
+                    if (i>23) i=0;
+
+                }while( Base.fields[i].getDescription().equals(farvCod)==false);
 
                         System.out.println(Base.fields[bilPos+1].getDescription());
 
-
+                bilPos=i;
             }
 
            if (actKort instanceof ChanceRykFremTilFelt==true) {
 
-                gui.showMessage(actKort.getKortInfo());
 
                 bilPos = ((ChanceRykFremTilFelt) actKort).getDestinationsFelt();
                 System.out.println("ChanceRykFremTilFelt. bilPos "+ bilPos);

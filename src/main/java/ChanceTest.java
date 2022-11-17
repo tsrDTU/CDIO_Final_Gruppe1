@@ -122,8 +122,12 @@ class ChanceTest {
         //  Initialising something for GameMechanics.Jail and Start field
         int[] PlayerSpaceNRexcact = new int[AmountofPlayers];
 
+
+
         //Det kort man ønsker at teste vælges
-        mjChance.setTestKortMode(3);
+        mjChance.setTestKortMode(14);
+
+
 
         gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
 
