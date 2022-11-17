@@ -34,12 +34,12 @@ public  class Chance {
         chanceCards[11]=new ChanceOverdragelseskort("Til Katten","Dette kort er givet til Katten. Tag et chancekort mere. Kat: På den næste skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Katten");
         chanceCards[12]=new ChanceOverdragelseskort("Til Hunden","Dette kort er givet til Hunden.Tag et chancekort mere. Hund: På den næste skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Hunden");
         chanceCards[13]=new ChanceBanktrans("Fødselsdag","Det er din fødselsdag. Alle giver dig 1 M. Tillyke med fødselsdagen",1,0,2);
-        chanceCards[14]=new Chance2Farver("Ryk til Pink eller Mørkeblåt","Gratis felt. Ryk frem til et pink eller mørkeblåt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",4,2);
+        chanceCards[14]=new Chance2Farver("Ryk til Pink eller Mørkeblåt","Gratis felt. Du Rykkes frem til et pink eller mørkeblåt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",4,2);
         chanceCards[15]=new ChanceBanktrans("Alle lektier lavet","Du har lavet alle dine lektier. Modtag 2M fra banken",2,0,1);
-        chanceCards[16]=new ChanceKortFarve("Ryk til rødt felt","Gratis felt. Ryk frem til et rødt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",1);
+        chanceCards[16]=new ChanceKortFarve("Ryk til rødt felt","Gratis felt. du rykkes Ryk frem til et rødt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",1);
         chanceCards[17]=new ChanceRykFremTilFelt("Ryk frem til Skateparken","Gratis felt. Du Rykkes frem til Skaterparken for at lave det perfekte grind. Hvis ingen ejer den, får du den gratis. Ellers skal du betale leje ejeren.",10);
-        chanceCards[18]=new Chance2Farver("Ryk frem til lyseblåt eller rødt","Gratis felt. Ryk frem til et lyseblåt eller rødt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",5,1);
-        chanceCards[19]=new Chance2Farver("Ryk frem til brunt eller gylt felt","Gratis felt. Ryk frem til et brunt eller gult felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",9,6);
+        chanceCards[18]=new Chance2Farver("Ryk frem til lyseblåt eller rødt","Gratis felt. Du Rykkes frem til et lyseblåt eller rødt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",5,1);
+        chanceCards[19]=new Chance2Farver("Ryk frem til brunt eller gult felt","Gratis felt. Du Rykkes frem til et brunt eller gult felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",9,6);
 
 
     }
@@ -98,9 +98,9 @@ public  class Chance {
     public int chanceFieldIsHit(MjPlayer actPlayer,MjPlayer[] players, int actField,
                                 int AmountofPlayers, int AmountofSpaces, GUI gui)
     {
-        int i, bilPos;
+        int i, j, bilPos;
         int slut=0;
-        String farvCod, modtRolle;
+        String farvCod, modtRolle, valg;
         MjPlayer playModt;
 
         bilPos=actField;
@@ -117,22 +117,40 @@ public  class Chance {
 
             if (actKort instanceof Chance2Farver==true)
             {
-                String valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Orange felt", "Grønt felt");
+                if (((Chance2Farver) actKort).getFarve1()== 3 && ((Chance2Farver) actKort).getFarve2()==8)
+                   valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Orange felt", "Grønt felt");
+                else if (((Chance2Farver) actKort).getFarve1()==4)
+                    valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Pink felt", "Mørkeblåt felt");
+                else if (((Chance2Farver) actKort).getFarve1()==5)
+                   valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Lyseblå felt", "Rødt felt");
+                else //if (((Chance2Farver) actKort).getFarve1()==9)
+                   valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Brunt felt", "Gult felt");
 
-                if (valg.equals("Orange felt"))
+
+                if (valg.equals("Orange felt") || valg.equals ("Pink felt") || valg.equals("Lyseblå felt")|| valg.equals("Brunt felt"))
                 {
-                    farvCod=(""+((Chance2Farver) actKort).getFarve1());
-                } else
-                {
-                    farvCod=(""+((Chance2Farver) actKort).getFarve2());
+              //      farvCod=(""+((Chance2Farver) actKort).getFarve1());
+                    farvCod=String.valueOf(((Chance2Farver) actKort).getFarve1());
+       //             System.out.println("Farve 1 valgt kode "+farvCod);
                 }
+                else if (valg.equals("Grønt felt") || valg.equals ("Mørkeblåt felt") || valg.equals("Rødt felt")|| valg.equals("Gult felt"))
+                {
+               //     farvCod=(""+((Chance2Farver) actKort).getFarve2());
+                    farvCod=String.valueOf(((Chance2Farver) actKort).getFarve2());
+      //              System.out.println("Farve 2 valgt");
+                }
+                else farvCod="Ingen farve";
                 i=bilPos;
+                j=0;
+  //              System.out.println("Brugt farve kode "+farvCod);
                 do
                 {
                     i++;
+                    j++;
                     if (i>23) i=0;
+      //              System.out.println(Base.fields[i].getDescription());
 
-                }while( Base.fields[i].getDescription().equals(farvCod)==false);
+                }while( Base.fields[i].getDescription().equals(farvCod)==false && j < 25);
 
                 bilPos=i;
 
@@ -173,7 +191,7 @@ public  class Chance {
 
             if (actKort instanceof ChanceBanktrans==true)
             {
-                //Uffe: sæt din kode her.
+                //Uffe: Du kan skrive din kode her.
             }
 
             if (actKort instanceof ChanceRyk05==true)
@@ -188,12 +206,14 @@ public  class Chance {
 
                 farvCod=(""+((ChanceKortFarve) actKort).getFarvekode());
                 i=bilPos;
+                j=0;
                 do
                 {
                     i++;
+                    j++;
                     if (i>23) i=0;
 
-                }while( Base.fields[i].getDescription().equals(farvCod)==false);
+                }while( Base.fields[i].getDescription().equals(farvCod)==false && j < 25);
 
                         System.out.println(Base.fields[bilPos+1].getDescription());
 
@@ -208,7 +228,7 @@ public  class Chance {
 
             }
             if (actKort instanceof ChanceRyk1ElChMemere==true) {
-                String valg = gui.getUserButtonPressed("Vælg", "En chance mere", "Ryk et felt frem");
+                valg = gui.getUserButtonPressed("Vælg", "En chance mere", "Ryk et felt frem");
                 if (valg.equals("En chance mere")) {
                    slut=11;
                 } else {
