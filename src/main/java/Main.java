@@ -186,13 +186,13 @@ public class Main {
             if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
                 Jail.bailOut(selectedPlayer, skipPlayer);
                 JailOn[selectedPlayer.getNumber()]=false;
-                System.out.println("Spiller skippes ikke pga. GOJF kort");
+                //System.out.println("Spiller skippes ikke pga. GOJF kort");
             } else if (JailOn[selectedPlayer.getNumber()]){
                 skipPlayer = true; JailOn[selectedPlayer.getNumber()]=false;}
             if (skipPlayer) {
                 playingPlayer++;
                 skipPlayer=false;
-                System.out.println("Player "+selectedPlayer.getNumber()+" smoked in jail");
+                //System.out.println("Player "+selectedPlayer.getNumber()+" smoked in jail");
 
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
