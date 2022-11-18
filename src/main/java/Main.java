@@ -78,7 +78,8 @@ public class Main {
             AmountofPlayers = Integer.parseInt(Players);
 
 
-
+        boolean[] JailOn = new boolean[AmountofPlayers];
+        JailInit( JailOn);
         MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
         GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
         String[] PlayerName = new String[AmountofPlayers];
@@ -159,9 +160,9 @@ public class Main {
         for (int i = 0; i < AmountofPlayers; i++) {
             PlayerSpaceNRexcact[i] =0;
         }
-        TheBoard.BoardCreator.JailInit();
-
+        //TheBoard.BoardCreator.JailInit(0);
         Chance chankort=new Chance();
+        boolean skipPlayer = false;
 
 //-------------------------------------------------------------------------------------------
 //
@@ -172,17 +173,38 @@ public class Main {
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
             DialogNR = 5;
-            if (amountOfGameLoops == AmountofPlayers)
-                amountOfGameLoops = 0;
+                if (amountOfGameLoops == AmountofPlayers)
+                    amountOfGameLoops = 0;
             if (playingPlayer == AmountofPlayers)
                 playingPlayer = 0;
+
             playingPlayer2 = playingPlayer;
             if (selection) selectedPlayer = PlayerArray[playingPlayer];
             else selectedPlayer = PlayerArray[playingPlayer2];
 
+            //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
+            if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
+                Jail.bailOut(selectedPlayer, skipPlayer);
+                JailOn[selectedPlayer.getNumber()]=false;
+                //System.out.println("Spiller skippes ikke pga. GOJF kort");
+            } else if (JailOn[selectedPlayer.getNumber()]){
+                skipPlayer = true; JailOn[selectedPlayer.getNumber()]=false;}
+            if (skipPlayer) {
+                playingPlayer++;
+                skipPlayer=false;
+                //System.out.println("Player "+selectedPlayer.getNumber()+" smoked in jail");
 
+                if (amountOfGameLoops == AmountofPlayers)
+                    amountOfGameLoops = 0;
+                if (playingPlayer == AmountofPlayers)
+                    playingPlayer = 0;
+
+                playingPlayer2 = playingPlayer;
+                if (selection) selectedPlayer = PlayerArray[playingPlayer];
+                else selectedPlayer = PlayerArray[playingPlayer2];
+            }
             //if (amountOfGameLoops == 0);
-            //GameMechanics.Jail.JailRegister(selectedPlayer,AmountofPlayers, TheBoard.Base.fieldNR(), fields);
+            //GameMechanics.Jail.JailRegister(AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
             d1.dice_roll();
             //d2.dice_roll();
@@ -206,6 +228,7 @@ public class Main {
                         CurrentSpaceForSelectedPlayer = i;
                 }
 
+
                 //  You get forced to buy the field, therefor (you want to buy)
                 boolean wanttobuyYesNo = true;
 
@@ -218,7 +241,7 @@ public class Main {
                             PlayerArray,
                             CurrentSpaceForSelectedPlayer,
                             PlayerSpaceNRexcact,
-                            JailInit(), chankort, gui);
+                            JailOn, chankort, gui);
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }

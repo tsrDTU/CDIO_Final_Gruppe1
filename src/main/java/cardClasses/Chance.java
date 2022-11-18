@@ -17,7 +17,7 @@ public  class Chance {
 
     public Chance()
     {
-        System.out.println("Chance initialiseres");
+        //System.out.println("Chance initialiseres");
 
         chanceCards[0]=new ChanceOverdragelseskort(".Til Bil","Dette chance kort er givet til Bilen. Tag et chancekort mere Bil: På din næste tur skal du drøne frem til et hvilket som helst ledigt felt og købe det. Hvis det ikke er nogen ledige felter skal du købe et fra en anden spiller!", "Bil");
 
@@ -54,15 +54,15 @@ public  class Chance {
 
             if (testKortMode==0) {
                 kort_nr = (int) (Math.random() * 20);
-                System.out.println("Normalt kort trukket");
+                //System.out.println("Normalt kort trukket");
             }
             else
             {
                 kort_nr=testKortMode;
                 testKortMode=0;
-                System.out.println("Testkort trukket");
+                //System.out.println("Testkort trukket");
             }
-            System.out.println("Chancekort nr: "+kort_nr+" trukket");
+            //System.out.println("Chancekort nr: "+kort_nr+" trukket");
 
             if (kort_nr==0|| kort_nr == 5 || kort_nr == 11 || kort_nr == 12 || kort_nr == 9)
             {
@@ -104,13 +104,13 @@ public  class Chance {
         MjPlayer playModt;
 
         bilPos=actField;
-        System.out.println("bilPos "+bilPos);
+        //System.out.println("bilPos "+bilPos);
 
         do {
 
             slut=0;
 
-            System.out.println("Chancekort trækkes");
+            //System.out.println("Chancekort trækkes");
             Chancekort actKort = traekEtChanceKort();
 
             gui.showMessage(actKort.getKortInfo());
@@ -172,11 +172,11 @@ public  class Chance {
                     }
                     else
                     {
-                        System.out.println("Modtager af overdragelseskort er ikke fundet. Ingen spillere har rollen"+((ChanceOverdragelseskort) actKort).getModtager());
+                        //System.out.println("Modtager af overdragelseskort er ikke fundet. Ingen spillere har rollen"+((ChanceOverdragelseskort) actKort).getModtager());
                     }
                 }
                 slut=11;
-                System.out.println("ChanceOverdragelseskort eksekveret");
+                //System.out.println("ChanceOverdragelseskort eksekveret");
             }
 
 
@@ -185,7 +185,7 @@ public  class Chance {
                 actPlayer.setAmnistkortHaves(true);
                 ((ChanceAmnistiFeng) actKort).setAktivt(true);
                 ((ChanceAmnistiFeng) actKort).setIndehaver(actPlayer.getNumber());
-                System.out.println("ChanceAmnistiFeng");
+                //System.out.println("ChanceAmnistiFeng");
             }
 
 
@@ -204,7 +204,8 @@ public  class Chance {
                 //  Få 2 fra banken.
                 else if (Objects.equals(actKort.getKortNavnavn(),chanceCards[15].getKortNavnavn())){
                     actPlayer.setBalance(actPlayer.getBalance()+2);
-                    System.out.println("+2 has been registered");}
+                    //System.out.println("+2 has been registered");
+                }
             }
 
             if (actKort instanceof ChanceRyk05==true)
@@ -215,7 +216,7 @@ public  class Chance {
             if (actKort instanceof ChanceKortFarve==true)
             {
 
-                System.out.println("ChanceKortFarve");
+                //System.out.println("ChanceKortFarve");
 
                 farvCod=(""+((ChanceKortFarve) actKort).getFarvekode());
                 i=bilPos;
@@ -237,7 +238,7 @@ public  class Chance {
 
 
                 bilPos = ((ChanceRykFremTilFelt) actKort).getDestinationsFelt();
-                System.out.println("ChanceRykFremTilFelt. bilPos "+ bilPos);
+                //System.out.println("ChanceRykFremTilFelt. bilPos "+ bilPos);
 
             }
             if (actKort instanceof ChanceRyk1ElChMemere==true) {
@@ -247,14 +248,14 @@ public  class Chance {
                 } else {
                     bilPos = actField + 1;
                 }
-                System.out.println("ChanceRyk1ElChMemere");
+                //System.out.println("ChanceRyk1ElChMemere");
 
 
             }
 
         }while (slut > 1);
-        System.out.println("While slut");
-        System.out.println("bilPos "+bilPos);
+        //System.out.println("While slut");
+        //System.out.println("bilPos "+bilPos);
         return bilPos;
 
     }

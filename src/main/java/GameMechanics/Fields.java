@@ -41,7 +41,7 @@ public class Fields {
                                        MjPlayer[] PlayerArray,
                                        int CurrentSpaceForSelectedPlayer,
                                        int[] PlayerSpaceNRexcact,
-                                       boolean[][] JailOn, Chance chankort, gui_main.GUI gui) throws FileNotFoundException {
+                                       boolean[] JailOn, Chance chankort, gui_main.GUI gui) throws FileNotFoundException {
         boolean wannaBuy = false;
         boolean[] Playerboughtspace = new boolean[AmountofPlayers];
         int THEfieldsNR = 0;
@@ -75,8 +75,8 @@ public class Fields {
             //  GameMechanics.Jail Register
             PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
 
-                JailOn[selectedPlayer.getNumber()][0]=true;
-                JailOn[selectedPlayer.getNumber()][1]=true;
+                JailOn[selectedPlayer.getNumber()]=true;
+            System.out.println("player "+selectedPlayer.getNumber()+ " got jailed");
                 //System.out.println("JailOn is set TRUE   Player"+(selectedPlayer.getNumber()+1)); // EMPTY NOTE
                 return "-1";  // return value to add to someones balance
 
@@ -106,16 +106,16 @@ public class Fields {
             //  sets balance according to jail status - and removes jail status for next trip around the board
             //System.out.println("BOARD PASSED");    // | EMPTY NOTE |
 
-            if (JailOn[selectedPlayer.getNumber()][1]){
+            if (JailOn[selectedPlayer.getNumber()]){
                 //System.out.println("Subtracted 2 from balance cause JAIL");       //  | EMPTY NOTE |
                 selectedPlayer.setBalance(selectedPlayer.getBalance()-2);
-                JailOn[selectedPlayer.getNumber()][1] = false;
+                JailOn[selectedPlayer.getNumber()] = false;
             }  //else System.out.println("Did not subtract 2 Player"+(selectedPlayer.getNumber()+1));
         }
         PassedGo = false;
         //  This checks if the field is even when devided by 3 twice - the location of the chance spaces
 
-        if ((THEfieldsNR%3)%3==0) {
+        if ((THEfieldsNR%3)%3==0 && THEfieldsNR!=6 && THEfieldsNR!=0 && THEfieldsNR!=12&& THEfieldsNR!=18) {
 //-----------------------------------------------------------------------------------------------------
 //
 //      HER SKAL DER STÅ HVAD DER SKER PÅ CHANCEKORT
@@ -132,6 +132,8 @@ public class Fields {
 
             if (CurrentSpaceForSelectedPlayer != ny_bilPos)
             {
+                if (CurrentSpaceForSelectedPlayer+3>fieldNR())
+                    CurrentSpaceForSelectedPlayer-=fieldNR();
                 Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, ny_bilPos);
             }
             //System.out.println(landetPaaChance.traekEtChanceKort());
