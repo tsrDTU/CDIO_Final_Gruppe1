@@ -131,6 +131,8 @@ public class Cars {
         //if boolean value of a car is true, they get put back into the space they were in
         //boolean[] JailOn = new boolean[2];
         for (int i = 0; i < AmountofPlayers; i++) {
+            if (LocationToMoveTo>Base.fieldNR())
+                LocationToMoveTo-=Base.fieldNR();
             if (PlayerNum[i])
                 Base.fields[LocationCurrent].setCar(players[i], true);
             Base.fields[LocationToMoveTo].setCar(currentplayer,true);

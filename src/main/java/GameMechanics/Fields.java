@@ -132,6 +132,8 @@ public class Fields {
 
             if (CurrentSpaceForSelectedPlayer != ny_bilPos)
             {
+                if (CurrentSpaceForSelectedPlayer+3>fieldNR())
+                    CurrentSpaceForSelectedPlayer-=fieldNR();
                 Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, ny_bilPos);
             }
             //System.out.println(landetPaaChance.traekEtChanceKort());

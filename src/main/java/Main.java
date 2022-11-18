@@ -173,9 +173,8 @@ public class Main {
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
             DialogNR = 5;
-
-            if (amountOfGameLoops == AmountofPlayers)
-                amountOfGameLoops = 0;
+                if (amountOfGameLoops == AmountofPlayers)
+                    amountOfGameLoops = 0;
             if (playingPlayer == AmountofPlayers)
                 playingPlayer = 0;
 
@@ -184,21 +183,28 @@ public class Main {
             else selectedPlayer = PlayerArray[playingPlayer2];
 
             //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
-            if (selectedPlayer.getAmnistiKortHaves()&& JailOn[selectedPlayer.getNumber()]) {
+            if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
                 Jail.bailOut(selectedPlayer, skipPlayer);
-                System.out.println("Spiller skippes ikke pga. GOJF kort");}
-            if (skipPlayer) {System.out.println("spiller skippes "+selectedPlayer.getNumber());
                 JailOn[selectedPlayer.getNumber()]=false;
-                skipPlayer=false;
+                System.out.println("Spiller skippes ikke pga. GOJF kort");
+            } else if (JailOn[selectedPlayer.getNumber()]){
+                skipPlayer = true; JailOn[selectedPlayer.getNumber()]=false;}
+            if (skipPlayer) {
                 playingPlayer++;
+                skipPlayer=false;
+                System.out.println("Player "+selectedPlayer.getNumber()+" smoked in jail");
+
+                if (amountOfGameLoops == AmountofPlayers)
+                    amountOfGameLoops = 0;
                 if (playingPlayer == AmountofPlayers)
-                    playingPlayer=0;
-                selection=false;
-                }
+                    playingPlayer = 0;
 
-
+                playingPlayer2 = playingPlayer;
+                if (selection) selectedPlayer = PlayerArray[playingPlayer];
+                else selectedPlayer = PlayerArray[playingPlayer2];
+            }
             //if (amountOfGameLoops == 0);
-            GameMechanics.Jail.JailRegister(AmountofPlayers, TheBoard.Base.fieldNR(), fields);
+            //GameMechanics.Jail.JailRegister(AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
             d1.dice_roll();
             //d2.dice_roll();
@@ -265,10 +271,6 @@ public class Main {
             if (CurrentSpaceForSelectedPlayer + DieSum > Base.fieldNR())
                 CurrentSpaceForSelectedPlayer = CurrentSpaceForSelectedPlayer + DieSum - Base.fieldNR();
 
-            if (JailOn[selectedPlayer.getNumber()]) {
-                skipPlayer=true;
-                JailOn[selectedPlayer.getNumber()]=false;
-                System.out.println(Jail.jailed(selectedPlayer, skipPlayer)+ " " + selectedPlayer.getNumber());}
 
             //Switch selected player
             if (!(Objects.equals(Base.fields[DieSum].getTitle(), "extra"))) {
