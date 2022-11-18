@@ -55,4 +55,25 @@ public class MjPlayer extends GUI_Player
     {
         return amnistiKortHaves;
     }
+
+    public int haandterChanceKortModtaget( int pos, int slagIn)
+    {
+        int slag;
+
+       slag=slagIn;
+
+
+       if (kortModtaget)
+       {
+           System.out.println(actChancekort.getKortInfo());
+       }
+       else
+       {
+           System.out.println("Chance kort er ikke modtaget");
+       }
+
+
+
+        return slag;
+    }
 }

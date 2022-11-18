@@ -76,7 +76,7 @@ class ChanceTest {
         language="Dansk";
         Language.initializeDialog(dialog, language);
         antal_kant = 6;
-        AmountofPlayers=3;
+        AmountofPlayers=4;
 
 
         MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
@@ -126,8 +126,10 @@ class ChanceTest {
         System.out.println(PlayerArray[0].getBalance()+" Balanc3 b3fore");
         System.out.println(PlayerArray[1].getBalance()+ " bal pl 2 bf");
         System.out.println(selectedPlayer.getBalance()+" selected "+selectedPlayer.getNumber());
+
+
         //Det kort man ønsker at teste vælges
-        mjChance.setTestKortMode(6);
+        mjChance.setTestKortMode(11);
 
 
 
@@ -166,6 +168,9 @@ class ChanceTest {
         System.out.println(PlayerArray[1].getBalance()+ " bal pl 2 after");
         System.out.println(selectedPlayer.getBalance()+" selected"+selectedPlayer.getNumber());
 
+        selectedPlayer = PlayerArray[3];
+
+        j=selectedPlayer.haandterChanceKortModtaget(1,5);
     }
 
 
