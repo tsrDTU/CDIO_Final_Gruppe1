@@ -78,7 +78,7 @@ class ChanceTest {
         antal_kant = 6;
         AmountofPlayers=3;
 
-
+        boolean[] JailOn = new boolean[AmountofPlayers+1];
         MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
         GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
         String[] PlayerName = new String[AmountofPlayers];
@@ -158,7 +158,7 @@ class ChanceTest {
                     PlayerArray,
                     CurrentSpaceForSelectedPlayer,
                     PlayerSpaceNRexcact,
-                    JailInit(), mjChance, gui);
+                    JailOn, mjChance, gui);
             selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
             //System.out.println(NewBalance);       | EMPTY NOTE |
         }

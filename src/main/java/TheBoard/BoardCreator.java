@@ -4,6 +4,7 @@ import GameMechanics.Fields;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
+import player.MjPlayer;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
@@ -47,14 +48,16 @@ public class BoardCreator{
                     Color.BLACK);
         }*/
     }
-    public static boolean[][] JailInit() {
-        boolean[][] JailOn = new boolean[AmountofPlayers][2];
-        for (int i = 0; i < AmountofPlayers; i++) {
-            JailOn[i][0] = false;
-            JailOn[i][1] = false;
-        }
+
+    public static boolean[] JailInit(boolean[] JailOn) {
+            for (int i = 0; i < AmountofPlayers; i++) {
+                JailOn[i] = false;
+            }
         return JailOn;
-    }
+        }
+
+
+
 
 
     public static void PersonCreator(int AmountofPlayers, GUI_Player[] PlayerArray, String[] PlayerName, GUI_Car[] playerCars) {
