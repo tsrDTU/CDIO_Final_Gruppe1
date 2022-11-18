@@ -14,12 +14,12 @@ import static Files.FileReference.*;
 public class DoubleProperty {
 
     public static int[] CostCheck(int currentFieldNR) throws FileNotFoundException {
-        int CostOCF = Integer.parseInt(textRDR(DescriptionF(), String.valueOf(currentFieldNR+1)));
+        int CostOCF = Integer.parseInt(textRDR(DescriptionF, String.valueOf(currentFieldNR+1)));
         int[] cost = new int[fieldNR()+4];
         int[] costToCheck = new int[fieldNR()+2];
         for (int i = 1; i <= fieldNR(); i++)
         {
-            costToCheck[i]=Integer.parseInt(textRDR(DescriptionF(),String.valueOf(i)));
+            costToCheck[i]=Integer.parseInt(textRDR(DescriptionF,String.valueOf(i)));
         }
         for (int i = 1; i <= fieldNR(); i++)
         {
