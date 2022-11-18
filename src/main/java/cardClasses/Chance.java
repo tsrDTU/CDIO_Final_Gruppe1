@@ -6,7 +6,7 @@ import player.MjPlayer;
 import gui_fields.*;
 import TheBoard.Base;
 
-
+import java.util.Objects;
 
 
 public  class Chance {
@@ -39,7 +39,7 @@ public  class Chance {
         chanceCards[16]=new ChanceKortFarve("Ryk til rødt felt","Gratis felt. du rykkes Ryk frem til et rødt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",1);
         chanceCards[17]=new ChanceRykFremTilFelt("Ryk frem til Skateparken","Gratis felt. Du Rykkes frem til Skaterparken for at lave det perfekte grind. Hvis ingen ejer den, får du den gratis. Ellers skal du betale leje ejeren.",10);
         chanceCards[18]=new Chance2Farver("Ryk frem til lyseblåt eller rødt","Gratis felt. Du Rykkes frem til et lyseblåt eller rødt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",5,1);
-        chanceCards[19]=new Chance2Farver("Ryk frem til brunt eller gult felt","Gratis felt. Du Rykkes frem til et brunt eller gult felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",9,6);
+        chanceCards[19]=new Chance2Farver("Ryk frem til brunt eller gult felt","Gratis felt. Du Rykkes frem til et brunt eller gult felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",7,6);
 
 
     }
@@ -191,7 +191,20 @@ public  class Chance {
 
             if (actKort instanceof ChanceBanktrans==true)
             {
-                //Uffe: Du kan skrive din kode her.
+                //  Betal 2 til banken.
+                if (Objects.equals(actKort.getKortNavnavn(),chanceCards[6].getKortNavnavn()))
+                    actPlayer.setBalance(actPlayer.getBalance()-2);
+                //  Alle Betaler til 1 person.
+                else if (Objects.equals(actKort.getKortNavnavn(),chanceCards[13].getKortNavnavn())){
+                    for (int k = 0; k < AmountofPlayers; k++)
+                        if (players[k].getUserRole()==actPlayer.getUserRole()) // Hvis spilleren er den som har kortet
+                            players[k].setBalance(players[k].getBalance()+AmountofPlayers-1);
+                        else players[k].setBalance(players[k].getBalance()-1);//    hvis spiller ikke har kortet
+                    }
+                //  Få 2 fra banken.
+                else if (Objects.equals(actKort.getKortNavnavn(),chanceCards[15].getKortNavnavn())){
+                    actPlayer.setBalance(actPlayer.getBalance()+2);
+                    System.out.println("+2 has been registered");}
             }
 
             if (actKort instanceof ChanceRyk05==true)

@@ -26,7 +26,7 @@ import player.MjPlayer;
 
 public class Main {
 
-
+// kalhauge/BoardEngine
 
     public static void main(String[] args) throws IOException {
         String string_in, language, answer_game;
@@ -49,8 +49,7 @@ public class Main {
         //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
         TheBoard.BoardCreator.InitBoardFieldsGuts();
 
-        System.out.println("DescriptionSt");
-        System.out.println(DescriptionSt);
+        System.out.println(DescriptionF);
 
         //BoardCreator.SetGUItext();
         //  Sets up the background GUI (Graphical User Interface) to a plain white
@@ -223,7 +222,7 @@ public class Main {
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
-                GameMechanics.textReaderClass.textRDR(DescriptionF(), "12");
+                GameMechanics.textReaderClass.textRDR(DescriptionF, "12");
                 amountOfGameLoops++;
 
                 //Fields.OwnedCheck(OwnedtrueOwnedFalse,selectedPlayer.getNumber(), CurrentSpaceForSelectedPlayer);

@@ -20,10 +20,13 @@ public static String[] dialog = new String[DialogLineAmaount];
         //String[] dialog = new String[20];
         //String file = "src/main/TheBoard.Language/Dansk"; // file location
         File file = new File("src/main/Language/English");
+
         if (Objects.equals(sprog, "Dansk"))
             file = new File("src/main/Language/Dansk");
+
         if (Objects.equals(sprog,"Francias"))
             file = new File("src/main/Language/French");
+
         if (Objects.equals(sprog,"German"))
             file = new File("src/main/Language/German");
 

@@ -200,14 +200,14 @@ public class Fields {
         else if (description==4) return Color.getHSBColor(0.90f,1f,1f);
         else if (description==5) return Color.CYAN;
         else if (description==6) return Color.YELLOW;
-        else if (description==7) return Color.getHSBColor(0.80f,0.77f,0.8f);
+        else if (description==7) return Color.getHSBColor(0.13f,1f,0.47f);
         else if (description==8) return Color.GREEN;
         else return Color.WHITE;    // if something goes wrong, White color is returned.
     }
 
     public static void displayDescriptions(GUI_Street[] fields,int currentLocation, int TimesAroundBoard) throws FileNotFoundException {
         //  Changes the color of the Discription space
-        Color NewColor = ColorSpace(Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF(),String.valueOf(currentLocation+1))),
+        Color NewColor = ColorSpace(Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF,String.valueOf(currentLocation+1))),
                 0);
         //System.out.println(textReaderClass.textRDR(FileReference.DescriptionF, String.valueOf(currentLocation+1)));
         GUI_Center.getInstance().setBGColor(NewColor);
