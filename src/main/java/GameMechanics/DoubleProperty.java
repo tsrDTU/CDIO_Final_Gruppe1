@@ -13,13 +13,13 @@ import static Files.FileReference.*;
 
 public class DoubleProperty {
 
-    public static int[] CostCheck(int currentFieldNR) throws FileNotFoundException {
-        int CostOCF = Integer.parseInt(textRDR(DescriptionF, String.valueOf(currentFieldNR+1)));
+    public static int[] CostCheck(int currentFieldNR, GUI_Street[] fields) throws FileNotFoundException {
+        int CostOCF = Integer.parseInt(fields[currentFieldNR].getDescription());/*Integer.parseInt(textRDR(DescriptionF, String.valueOf(currentFieldNR+1)))*/;
         int[] cost = new int[fieldNR()+4];
         int[] costToCheck = new int[fieldNR()+2];
         for (int i = 1; i <= fieldNR(); i++)
         {
-            costToCheck[i]=Integer.parseInt(textRDR(DescriptionF,String.valueOf(i)));
+            costToCheck[i]=Integer.parseInt(fields[currentFieldNR].getDescription())/*Integer.parseInt(textRDR(DescriptionF,String.valueOf(i)))*/;
         }
         for (int i = 1; i <= fieldNR(); i++)
         {
@@ -30,9 +30,9 @@ public class DoubleProperty {
         return cost;
     }
 
-    public static boolean DoubleCost(int[][] OwnedTrueOwnedFalse, int selectedPlayersNR, int spaceNumber) throws FileNotFoundException {
-        int[] InvestegationFields = CostCheck(spaceNumber);
-        int Cost = Integer.parseInt(textReaderClass.textRDR(FileReference.CostToOwnFieldF,String.valueOf(spaceNumber)));
+    public static boolean DoubleCost(int[][] OwnedTrueOwnedFalse, int selectedPlayersNR, int spaceNumber, GUI_Street[] fields) throws FileNotFoundException {
+        int[] InvestegationFields = CostCheck(spaceNumber, fields);
+        int Cost = Integer.parseInt(fields[spaceNumber].getDescription())/*Integer.parseInt(textReaderClass.textRDR(FileReference.CostToOwnFieldF,String.valueOf(spaceNumber)))*/;
         //if (Fields.OwnedCheck(OwnedTrueOwnedFalse, selectedPlayersNR, spaceNumber)&&costoffield[spaceNumber]==Cost)
         for (int j = 0; j < AmountofPlayers; j++) {
             for (int i = 1; i < fieldNR() ; i++) {

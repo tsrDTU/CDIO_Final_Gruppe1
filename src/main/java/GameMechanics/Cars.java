@@ -7,6 +7,8 @@ import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import java.awt.Color;
 
+import static TheBoard.Base.fields;
+
 public class Cars {
 //-------------------------------------------------------------------------------
 //
@@ -37,7 +39,7 @@ public class Cars {
 //
 //-------------------------------------------------------------------------------
     public static void moveCars(int DiceRollSum, GUI_Player currentplayer,
-                         GUI_Player[] players, GUI_Street[] street,
+                         GUI_Player[] players/*, GUI_Street[] street*/,
                          int AmountofPlayers, int AmountofSpaces) {
         //  Initialise Values for movement of cars on the Board
         boolean[] PlayerNum =  new boolean[AmountofPlayers];
@@ -45,7 +47,7 @@ public class Cars {
         int LocationCurrent=0;
         int Space = DiceRollSum-2;
         int LocationNEW = 0;
-
+        GUI_Street[] street = fields;
         //Checks the Location for the car that wants to move
         for (int i = 0;i<AmountofSpaces;i++){
             if (street[i].hasCar(currentplayer)) {
@@ -73,7 +75,7 @@ public class Cars {
         }
         //Moves the Player That wanted to move in the first place
         if (LocationCurrent+Space<=23)
-        street[LocationCurrent+Space].setCar(currentplayer, true);
+        /*street[LocationCurrent+Space]*/Base.fields[LocationCurrent+Space].setCar(currentplayer, true);
         else
             street[LocationNEW].setCar(currentplayer,true);
     }
@@ -97,7 +99,7 @@ public class Cars {
 //
 //-------------------------------------------------------------------------------
     // Color creation for the cars - Look up HSB colors system online to learn more
-    public static void CarColor(GUI_Car playerCars[], GUI_Player PlayerArray[], String Players, int PlayerNumber) {
+    public static void CarColor(GUI_Car playerCars[], GUI_Player PlayerArray[], String Players, int PlayerNumber, GUI_Street[] fields) {
         Color[] color = new Color[Integer.parseInt(Players)];
         for (int i =0;i<Integer.parseInt(Players);i++){
             String h = String.valueOf(i*0.18+1);
@@ -114,19 +116,19 @@ public class Cars {
 //
 //-------------------------------------------------------------------------------
     static void moveCarTo(int AmountofPlayers, GUI_Player[] players, int LocationCurrent,
-                           GUI_Player currentplayer, int LocationToMoveTo) {
+                           GUI_Player currentplayer, int LocationToMoveTo, GUI_Street[] fields) {
         //Checks if each player is on the field and attaches a boolean value
         boolean[] PlayerNum = new boolean[AmountofPlayers];
         for (int i = 0; i < AmountofPlayers; i++) {
             PlayerNum[i] = false;
         }
         for (int i = 0; i < AmountofPlayers; i++) {
-            if (Base.fields[LocationCurrent].hasCar(players[i]) && currentplayer != players[i])
+            if (fields[LocationCurrent].hasCar(players[i]) && currentplayer != players[i])
                 PlayerNum[i] = true;
             else PlayerNum[i] = false;
         }
         //Removes all cars for the space that (the car that wants to move) is in
-        Base.fields[LocationCurrent].removeAllCars();
+        fields[LocationCurrent].removeAllCars();
 
         //if boolean value of a car is true, they get put back into the space they were in
         //boolean[] JailOn = new boolean[2];
@@ -134,8 +136,8 @@ public class Cars {
             if (LocationToMoveTo>Base.fieldNR())
                 LocationToMoveTo-=Base.fieldNR();
             if (PlayerNum[i])
-                Base.fields[LocationCurrent].setCar(players[i], true);
-            Base.fields[LocationToMoveTo].setCar(currentplayer,true);
+                fields[LocationCurrent].setCar(players[i], true);
+            fields[LocationToMoveTo].setCar(currentplayer,true);
             //JailOn[0] = true;
             //JailOn[1] = true;
             }

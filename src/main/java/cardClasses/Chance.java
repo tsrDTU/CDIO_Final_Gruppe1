@@ -96,7 +96,7 @@ public  class Chance {
 
 
     public int chanceFieldIsHit(MjPlayer actPlayer,MjPlayer[] players, int actField,
-                                int AmountofPlayers, int AmountofSpaces, GUI gui)
+                                int AmountofPlayers, int AmountofSpaces, GUI gui, GUI_Street[] fields)
     {
         int i, j, bilPos;
         int slut=0;
@@ -150,7 +150,7 @@ public  class Chance {
                     if (i>23) i=0;
       //              System.out.println(Base.fields[i].getDescription());
 
-                }while( Base.fields[i].getDescription().equals(farvCod)==false && j < 25);
+                }while( fields[i].getDescription().equals(farvCod)==false && j < 25);
 
                 bilPos=i;
 
@@ -227,9 +227,9 @@ public  class Chance {
                     j++;
                     if (i>23) i=0;
 
-                }while( Base.fields[i].getDescription().equals(farvCod)==false && j < 25);
+                }while( fields[i].getDescription().equals(farvCod)==false && j < 25);
 
-                        System.out.println(Base.fields[bilPos+1].getDescription());
+                        System.out.println(fields[bilPos+1].getDescription());
 
                 bilPos=i;
             }
