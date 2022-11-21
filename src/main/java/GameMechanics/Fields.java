@@ -23,9 +23,9 @@ public class Fields {
 //            Checks if anyone owns the space you give it
 //
 //
-    public static boolean noOwnerShipCheck(int[][] Ownedtrue, int cellToCheck){
+    public static boolean noOwnerShipCheck( int cellToCheck){
         for (int i = 0; i <= AmountofPlayers; i++) {
-            if (Ownedtrue[cellToCheck][i]==1)
+            if (Base.InitializeOwnedStat(AmountofPlayers)[cellToCheck][i]==1)
                 return false;
         }
         return true;

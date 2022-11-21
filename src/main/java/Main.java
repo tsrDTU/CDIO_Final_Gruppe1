@@ -144,7 +144,7 @@ public class Main {
         //Create the dices. Default 6 sides
         //String AmountofDice = gui.getUserButtonPressed("how many dice?", "1", "2");
             Die d1 = new Die();
-            Die d2 = new Die(0);
+            //Die d2 = new Die();
 
 
         // If sides are different from 6, set the number of sides.
@@ -214,7 +214,7 @@ public class Main {
             gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1], dialog[DialogNR+2]); DialogNR+=3;
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
-            int DieSum = getSum(d1,d2) + 1; /*, d2*/
+            int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
 
             //if the game hasn't ended, continue
             int CurrentSpaceForSelectedPlayer = 0;
@@ -229,9 +229,9 @@ public class Main {
                         CurrentSpaceForSelectedPlayer = i;
                 }
 
-                //System.out.println(Fields.noOwnerShipCheck(OwnedtrueOwnedFalse,5 ));
+                //System.out.println(Fields.noOwnerShipCheck(5 ));
 
-
+                System.out.println(d1.getFaceValue()+" ");
 
 
                 //  You get forced to buy the field, therefor (you want to buy)

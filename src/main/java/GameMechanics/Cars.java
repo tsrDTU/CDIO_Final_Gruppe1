@@ -7,6 +7,7 @@ import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import java.awt.Color;
 
+import static TheBoard.Base.fieldNR;
 import static TheBoard.Base.fields;
 
 public class Cars {
@@ -45,7 +46,7 @@ public class Cars {
         boolean[] PlayerNum =  new boolean[AmountofPlayers];
         boolean[] SpaceHasCurrentPlayer = new boolean[AmountofSpaces];
         int LocationCurrent=0;
-        int Space = DiceRollSum-2;
+        int Space = DiceRollSum;
         int LocationNEW = 0;
         GUI_Street[] street = fields;
         //Checks the Location for the car that wants to move
@@ -53,7 +54,7 @@ public class Cars {
             if (street[i].hasCar(currentplayer)) {
                 SpaceHasCurrentPlayer[i] = true;
                 LocationCurrent = i;
-                LocationNEW = (LocationCurrent+Space)-24;
+                LocationNEW = (LocationCurrent+Space)-fieldNR();
             }
             else SpaceHasCurrentPlayer[i] = false;
         }

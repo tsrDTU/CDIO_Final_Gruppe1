@@ -18,11 +18,12 @@ public class FileReference {
 //                              Fields Definitions
 //
 //----------------------------------------------------------------------------------------
-    public static File DescriptionF = new File("src/main/Field Guts/description");
-    public static File TitleF = new File("src/main/Field Guts/Title");
-    public static File subtextF = new File("src/main/Field Guts/subText");
-    public static File rentF = new File("src/main/Field Guts/rent");
-    public static final String CostToOwnFieldSt = new File("src/main/Field Guts/CostToOwnField").getPath();
+    public static File DescriptionF = new File("src/main/Field_Guts/description");
+    //public static File TitleF = new File("src/main/Field_Guts/Title");
+    public static File TitleF = new File("src/main/Field_Guts/Title");
+    public static File subtextF = new File("src/main/Field_Guts/subText");
+    public static File rentF = new File("src/main/Field_Guts/rent");
+    public static final String CostToOwnFieldSt = new File("src/main/Field_Guts/CostToOwnField").getPath();
     public static File CostToOwnFieldF = new File(CostToOwnFieldSt);
 //------------------------------------------------------------------------------
 //
