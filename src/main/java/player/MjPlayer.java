@@ -1,5 +1,6 @@
 package player;
 
+import GameMechanics.Fields;
 import cardClasses.Chancekort;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Player;
@@ -66,6 +67,7 @@ public class MjPlayer extends GUI_Player
        if (kortModtaget)
        {
            System.out.println(actChancekort.getKortInfo());
+           System.out.println("Chance kort er modtaget");
        }
        else
        {
