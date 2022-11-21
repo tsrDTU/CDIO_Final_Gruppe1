@@ -229,6 +229,10 @@ public class Main {
                         CurrentSpaceForSelectedPlayer = i;
                 }
 
+                //System.out.println(Fields.noOwnerShipCheck(OwnedtrueOwnedFalse,5 ));
+
+
+
 
                 //  You get forced to buy the field, therefor (you want to buy)
                 boolean wanttobuyYesNo = true;
