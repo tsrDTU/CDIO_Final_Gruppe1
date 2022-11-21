@@ -56,8 +56,8 @@ public class BoardCreator{
         fields[19] = new GUI_Street("BOWLING",	"4M",			"7",		"4",	Fields.ColorSpace(7,19),Color.BLACK);
         fields[20] = new GUI_Street("ZOO",		"4M",			"7",		"4",	Fields.ColorSpace(7,20),Color.BLACK);
         fields[21] = new GUI_Street("CHANCE",	"CHANCE",		"0",		"0",	Fields.ColorSpace(0,21),Color.BLACK);
-        fields[22] = new GUI_Street("WATERWORLD",	"4M",			"8",		"4",	Fields.ColorSpace(8,22),Color.BLACK);
-        fields[23] = new GUI_Street("SANDMARKET",	"4M",			"8",		"4",	Fields.ColorSpace(8,23),Color.BLACK);*/
+        fields[22] = new GUI_Street("WATERWORLD",	"4M",		"8",		"4",	Fields.ColorSpace(8,22),Color.BLACK);
+        fields[23] = new GUI_Street("SANDMARKET",	"4M",		"8",		"4",	Fields.ColorSpace(8,23),Color.BLACK);*/
 //end of 24 space game
 //fields[24] = new GUI_Street(title,subtext,description,rent,BgColor,Color.BLACK)
 

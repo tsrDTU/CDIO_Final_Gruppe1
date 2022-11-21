@@ -18,19 +18,37 @@ import static TheBoard.Base.fieldNR;
 //import static cardClasses.*;
 
 public class Fields {
+//
+//
+//            Checks if anyone owns the space you give it
+//
+//
+    public static boolean noOwnerShipCheck(int[][] Ownedtrue, int cellToCheck){
+        for (int i = 0; i <= AmountofPlayers; i++) {
+            if (Ownedtrue[cellToCheck][i]==1);
+                return false;
+        }
+
+        return
+    }
+
+
+
+
     public static boolean OwnedCheck(int[][] Ownedtrue, int selectedPlayersNR, int spaceNumber) {
         int AmountofPlayerOwnedSpaces=0;
-        boolean[] ArrayofOwnership = new boolean[fieldNR()];
-        for (int i = 0; i < fieldNR(); i++) {ArrayofOwnership[i] = false;}
+        //boolean[] ArrayofOwnership = new boolean[fieldNR()];
+        int[][] ArrayofOwnership = Base.InitializeOwnedStat(AmountofPlayers);
+        for (int i = 0; i < fieldNR(); i++) {ArrayofOwnership[i][selectedPlayersNR] = 1;}
         for (int i = 0; i < fieldNR(); i++)
         {
-            if (Ownedtrue[i][selectedPlayersNR + 1] == 1){
+            if (Ownedtrue[i][selectedPlayersNR + 1] == 0){
                 AmountofPlayerOwnedSpaces++;
-                ArrayofOwnership[i] = true;
+                ArrayofOwnership[i][selectedPlayersNR] = 0;
             }
             //System.out.println(i + " "+ ArrayofOwnership[i]);
         }
-        return ArrayofOwnership[spaceNumber];
+        return ArrayofOwnership[spaceNumber][selectedPlayersNR]==1;
         //System.out.println("---------------");
     }
 

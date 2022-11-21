@@ -118,7 +118,7 @@ public class Main {
         Cars.restart(PlayerArray,fields, AmountofPlayers,fieldNR());
 
 
-        int[][] OwnedtrueOwnedFalse = Base.InitializeOwnedStat(AmountofPlayers).clone();
+        int[][] OwnedtrueOwnedFalse = Base.InitializeOwnedStat(AmountofPlayers);
 
         //Initialise true false for OwnedNotOwnedFields
         //int[][] OwnedtrueOwnedFalse = new int[Base.fieldNR()][AmountofPlayers + 1];
