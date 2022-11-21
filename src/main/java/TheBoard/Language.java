@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+import static Files.FileReference.*;
 import static GameMechanics.textReaderClass.textRDR;
 
 
@@ -19,17 +20,20 @@ public static String[] dialog = new String[DialogLineAmaount];
     public static void initializeDialog(String[] dialog, String sprog) throws IOException {
         //String[] dialog = new String[20];
         //String file = "src/main/TheBoard.Language/Dansk"; // file location
-        File file = new File("src/main/Language/English");
+//        File file = new File("src/main/Language/English");
+        File file = English;
 
         if (Objects.equals(sprog, "Dansk"))
-            file = new File("src/main/Language/Dansk");
+            //file = new File("src/main/Language/Dansk");
+            file = Dansk;
 
         if (Objects.equals(sprog,"Francias"))
-            file = new File("src/main/Language/French");
+//            file = new File("src/main/Language/French");
+            file = Francias;
 
         if (Objects.equals(sprog,"German"))
-            file = new File("src/main/Language/German");
-
+//            file = new File("src/main/Language/German");
+            file = German;
 
         for (int i = 0; i < DialogLineAmaount; i++) {
             dialog[i] = textRDR(file, String.valueOf(i));

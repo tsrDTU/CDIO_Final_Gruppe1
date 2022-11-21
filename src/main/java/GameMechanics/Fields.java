@@ -18,19 +18,36 @@ import static TheBoard.Base.fieldNR;
 //import static cardClasses.*;
 
 public class Fields {
+//
+//
+//            Checks if anyone owns the space you give it
+//
+//
+    public static boolean noOwnerShipCheck(int[][] Ownedtrue, int cellToCheck){
+        for (int i = 0; i <= AmountofPlayers; i++) {
+            if (Ownedtrue[cellToCheck][i]==1)
+                return false;
+        }
+        return true;
+    }
+
+
+
+
     public static boolean OwnedCheck(int[][] Ownedtrue, int selectedPlayersNR, int spaceNumber) {
         int AmountofPlayerOwnedSpaces=0;
-        boolean[] ArrayofOwnership = new boolean[fieldNR()];
-        for (int i = 0; i < fieldNR(); i++) {ArrayofOwnership[i] = false;}
+        //boolean[] ArrayofOwnership = new boolean[fieldNR()];
+        int[][] ArrayofOwnership = Base.InitializeOwnedStat(AmountofPlayers);
+        for (int i = 0; i < fieldNR(); i++) {ArrayofOwnership[i][selectedPlayersNR] = 1;}
         for (int i = 0; i < fieldNR(); i++)
         {
-            if (Ownedtrue[i][selectedPlayersNR + 1] == 1){
+            if (Ownedtrue[i][selectedPlayersNR + 1] == 0){
                 AmountofPlayerOwnedSpaces++;
-                ArrayofOwnership[i] = true;
+                ArrayofOwnership[i][selectedPlayersNR] = 0;
             }
             //System.out.println(i + " "+ ArrayofOwnership[i]);
         }
-        return ArrayofOwnership[spaceNumber];
+        return ArrayofOwnership[spaceNumber][selectedPlayersNR]==1;
         //System.out.println("---------------");
     }
 
@@ -41,14 +58,14 @@ public class Fields {
                                        MjPlayer[] PlayerArray,
                                        int CurrentSpaceForSelectedPlayer,
                                        int[] PlayerSpaceNRexcact,
-                                       boolean[][] JailOn, Chance chankort, gui_main.GUI gui) throws FileNotFoundException {
+                                       boolean[] JailOn, Chance chankort, gui_main.GUI gui, GUI_Street[] fields/*NEW*/) throws FileNotFoundException {
         boolean wannaBuy = false;
         boolean[] Playerboughtspace = new boolean[AmountofPlayers];
         int THEfieldsNR = 0;
         int ny_bilPos;
         String NewBal;
         for (int i = 0; i < Base.fieldNR(); i++) {
-            if (Base.fields[i].hasCar(selectedPlayer))
+            if (/*Base.fields[i].hasCar(selectedPlayer)*/fields[i].hasCar(selectedPlayer))
                 THEfieldsNR = i;
         }
 
@@ -62,21 +79,21 @@ public class Fields {
         }
 
 
-        if (Objects.equals(Base.fields[THEfieldsNR].getTitle(), "JAIL")){
+        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL")){
             //System.out.println("GameMechanics.Jail space reached");    // | EMPTY NOTE |
             //  Finds the Space with JailVisit
             int JailVisitSpace=0;
             for (int i = 0; i < Base.fieldNR(); i++) {
-                if (Base.fields[i] == Base.fields[6])
+                if (fields[i] == fields[6])
                     JailVisitSpace = i;
             }
             //  Moves car to JailVisitSpace
-            Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, JailVisitSpace);
+            Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, JailVisitSpace, fields);
             //  GameMechanics.Jail Register
             PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
 
-                JailOn[selectedPlayer.getNumber()][0]=true;
-                JailOn[selectedPlayer.getNumber()][1]=true;
+                JailOn[selectedPlayer.getNumber()]=true;
+            System.out.println("player "+selectedPlayer.getNumber()+ " got jailed");
                 //System.out.println("JailOn is set TRUE   Player"+(selectedPlayer.getNumber()+1)); // EMPTY NOTE
                 return "-1";  // return value to add to someones balance
 
@@ -93,7 +110,7 @@ public class Fields {
 //-----------------------------------------------------------------------------------------------------
 
         }
-        if (Objects.equals(Base.fields[THEfieldsNR].getTitle(), "JAIL VISIT"))
+        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL VISIT"))
 //-----------------------------------------------------------------------------------------------------
 //
 //      HER SKAL DER STÅ HVAD DER SKER PÅ JAILVISIT     (intet skal ske)
@@ -106,16 +123,16 @@ public class Fields {
             //  sets balance according to jail status - and removes jail status for next trip around the board
             //System.out.println("BOARD PASSED");    // | EMPTY NOTE |
 
-            if (JailOn[selectedPlayer.getNumber()][1]){
+            if (JailOn[selectedPlayer.getNumber()]){
                 //System.out.println("Subtracted 2 from balance cause JAIL");       //  | EMPTY NOTE |
                 selectedPlayer.setBalance(selectedPlayer.getBalance()-2);
-                JailOn[selectedPlayer.getNumber()][1] = false;
+                JailOn[selectedPlayer.getNumber()] = false;
             }  //else System.out.println("Did not subtract 2 Player"+(selectedPlayer.getNumber()+1));
         }
         PassedGo = false;
         //  This checks if the field is even when devided by 3 twice - the location of the chance spaces
 
-        if ((THEfieldsNR%3)%3==0) {
+        if ((THEfieldsNR%3)%3==0 && THEfieldsNR!=6 && THEfieldsNR!=0 && THEfieldsNR!=12&& THEfieldsNR!=18) {
 //-----------------------------------------------------------------------------------------------------
 //
 //      HER SKAL DER STÅ HVAD DER SKER PÅ CHANCEKORT
@@ -128,11 +145,13 @@ public class Fields {
 
 
             //bilen har muligvis fået ny positon efter chancekortet er eksekveret
-            ny_bilPos=chankort.chanceFieldIsHit(selectedPlayer, PlayerArray,CurrentSpaceForSelectedPlayer, AmountofPlayers,3,gui);
+            ny_bilPos=chankort.chanceFieldIsHit(selectedPlayer, PlayerArray,CurrentSpaceForSelectedPlayer, AmountofPlayers,3,gui,fields);
 
             if (CurrentSpaceForSelectedPlayer != ny_bilPos)
             {
-                Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, ny_bilPos);
+                if (CurrentSpaceForSelectedPlayer+3>fieldNR())
+                    CurrentSpaceForSelectedPlayer-=fieldNR();
+                Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, ny_bilPos, fields);
             }
             //System.out.println(landetPaaChance.traekEtChanceKort());
             //System.out.println(" 3%3 ");     // | EMPTY NOTE |
@@ -163,7 +182,7 @@ public class Fields {
                     //System.out.println("you bought the space");   | EMPTY NOTE |
                     Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] = 1;
                     //  Puts the name of the player who bought the space onto the title of the field
-                    Base.fields[THEfieldsNR].setTitle(Base.fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
+                    fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
                     //  Returns a string that is used to add to the amount of money for the selected player
                     //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
                     return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
@@ -175,7 +194,7 @@ public class Fields {
         //  Knows that someone owns the field, Pays rent and adds the rent to the SpaceOwners balance
         else {
             NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
-            if (DoubleProperty.DoubleCost(Ownedtrue, selectedPlayer.getNumber(),CurrentSpaceForSelectedPlayer)) {
+            if (DoubleProperty.DoubleCost(Ownedtrue, selectedPlayer.getNumber(),CurrentSpaceForSelectedPlayer, fields)) {
                 NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]*2);
                 PlayerArray[SpaceOwner].setBalance(PlayerArray[SpaceOwner].getBalance()+BoardCreator.CostofField()[THEfieldsNR]*2);}
             else {NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
@@ -190,8 +209,8 @@ public class Fields {
 
     public static Color ColorSpace(int description, int SpecificSpace){
         //  if the description returns a value above the amount of colors 9 is subtracted to not return an error
-        //if (SpecificSpace==9)
-        //    description = description-9;
+        if (SpecificSpace==9)
+            description = description-9;
         //  Defines all colors based off a value from 0-9
         if (description==0) return Color.WHITE;
         else if (description==1) return Color.RED;
@@ -207,18 +226,21 @@ public class Fields {
 
     public static void displayDescriptions(GUI_Street[] fields,int currentLocation, int TimesAroundBoard) throws FileNotFoundException {
         //  Changes the color of the Discription space
-        Color NewColor = ColorSpace(Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF,String.valueOf(currentLocation+1))),
-                0);
+        Color NewColor = ColorSpace(Integer.parseInt(fields[currentLocation].getDescription())/*Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF*/, Integer.parseInt(String.valueOf(currentLocation+1)));
         //System.out.println(textReaderClass.textRDR(FileReference.DescriptionF, String.valueOf(currentLocation+1)));
         GUI_Center.getInstance().setBGColor(NewColor);
 }
 
 
-    public static void RestartFieldTitles(File file, int AmountofSpaces, GUI_Street[] fields) throws FileNotFoundException {
+    public static void RestartFieldTitles(/*GUI_Street[]*/File file, int AmountofSpaces, GUI_Street[] fields) throws FileNotFoundException {
         //  Resets all titles
         for (int i=0;i<AmountofSpaces;i++){
             fields[i].setTitle(textReaderClass.textRDR(file, String.valueOf(i+1)));
         }
+        // Backup -
+        /*for (int i = 0; i < fieldNR(); i++) {
+            fields[i].setTitle(String.valueOf(file));
+        }*/
     }
 
     public static void RestartOwnStatus(int[][] OwnedtrueOwnedFalse, int fieldNR, int AmountofPlayers) {

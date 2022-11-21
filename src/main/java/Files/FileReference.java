@@ -9,26 +9,28 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
-//  *This class sets up the path to txt files in the
+//  *This class sets up the path to txt files in the Language and BoardCreator classes
 public class FileReference {
-//------------------------------------------------------------------------------------------
-//      Field Descriptions
-//------------------------------------------------------------------------------------------
 //public static String TitleF = new File("src/main/Field Guts/Title");
     //public static File DescriptionF = new File("src/main/Field Guts/description");
+//----------------------------------------------------------------------------------------
+//
+//                              Fields Definitions
+//
+//----------------------------------------------------------------------------------------
     public static File DescriptionF = new File("src/main/Field Guts/description");
     public static File TitleF = new File("src/main/Field Guts/Title");
-
     public static File subtextF = new File("src/main/Field Guts/subText");
-
     public static File rentF = new File("src/main/Field Guts/rent");
-
     public static final String CostToOwnFieldSt = new File("src/main/Field Guts/CostToOwnField").getPath();
     public static File CostToOwnFieldF = new File(CostToOwnFieldSt);
-
-
-//------------------------------------------------------------------------------------------
-//      Languages for
-//------------------------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
+//
+//                                  Language
+//
+//------------------------------------------------------------------------------
+    public static File Dansk = new File("src/main/Language/Dansk");
+    public static File Francias = new File("src/main/Language/French");
+    public static File German = new File("src/main/Language/German");
+    public static File English = new File("src/main/Language/English");
 }

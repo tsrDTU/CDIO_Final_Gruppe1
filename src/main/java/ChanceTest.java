@@ -78,7 +78,7 @@ class ChanceTest {
         antal_kant = 6;
         AmountofPlayers=4;
 
-
+        boolean[] JailOn = new boolean[AmountofPlayers+1];
         MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
         GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
         String[] PlayerName = new String[AmountofPlayers];
@@ -93,7 +93,7 @@ class ChanceTest {
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
             PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
-            Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i);
+            Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
             //Set users role
             PlayerArray[i].setUserRole(userRoles[i]);
 
@@ -137,7 +137,7 @@ class ChanceTest {
         gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
 
         //DiceRollSum=5 rammer chancen
-        Cars.moveCars(5, selectedPlayer, PlayerArray, fields, AmountofPlayers, fieldNR());
+        Cars.moveCars(5, selectedPlayer, PlayerArray, AmountofPlayers, fieldNR());
         //  Sets the current space for the selected player to a value
         CurrentSpaceForSelectedPlayer = 0;
 
@@ -160,7 +160,7 @@ class ChanceTest {
                     PlayerArray,
                     CurrentSpaceForSelectedPlayer,
                     PlayerSpaceNRexcact,
-                    JailInit(), mjChance, gui);
+                    JailOn, mjChance, gui, fields);
             selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
             //System.out.println(NewBalance);       | EMPTY NOTE |
         }
