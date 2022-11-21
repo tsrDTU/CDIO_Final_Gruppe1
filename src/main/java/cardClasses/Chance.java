@@ -174,11 +174,14 @@ public  class Chance {
                         players[i].setKortModtaget(true);
                         System.out.println("Chancekort er overdraget til spiller nr. "+i);
                     }
+                    /*
                     else
                     {
                         System.out.println("Modtager af overdragelseskort er ikke fundet. Ingen spillere har rollen "+((ChanceOverdragelseskort) actKort).getModtager());
                         //System.out.println("Modtager af overdragelseskort er ikke fundet. Ingen spillere har rollen"+((ChanceOverdragelseskort) actKort).getModtager());
                     }
+
+                     */
                 }
                 slut=11;
                 //System.out.println("ChanceOverdragelseskort eksekveret");

@@ -5,6 +5,7 @@ import cardClasses.Chancekort;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
+import gui_main.GUI;
 
 public class MjPlayer extends GUI_Player
 {
@@ -58,11 +59,12 @@ public class MjPlayer extends GUI_Player
         return amnistiKortHaves;
     }
 
-    public int haandterChanceKortModtaget(int pos, int slagIn, GUI_Street[] fields,int[][] Ownedtrue)
+    public int haandterChanceKortModtaget(int pos, int slagIn, GUI_Street[] fields, int[][] Ownedtrue, GUI gui)
     {
         int slag;
-
-       slag=slagIn;
+        // 2 trækkes fra slaget. Arvet fra sidste spil
+       slag=slagIn-2;
+       if (slag<0) slag=0;
 
 
        if (kortModtaget)
@@ -71,12 +73,13 @@ public class MjPlayer extends GUI_Player
            boolean notOwned_FieldFound;
            System.out.println(actChancekort.getKortInfo());
            System.out.println("Chance kort er modtaget");
+           gui.showMessage("Du har modtaget et chance kort som flytter dig til nærmeste ikke ejede felt, som du køber.");
            n=pos;
            if (n>23)
            {
                System.out.println("Pos > 23 modtaget. Pos: "+pos);
-               // 2 trækkes fra slaget. Arvet fra sidste spil.
-               n=3;
+
+               n=0;
            }
            nr_fields=0;
            do
@@ -85,8 +88,8 @@ public class MjPlayer extends GUI_Player
                if (notOwned_FieldFound)
                {
 
-                   //Flytter bilen til det første ledige felt.
-                   slag=n;
+                   //Flytter bilen til det første ledige felt. +1 fordi spilleren skal flytt
+                   slag=n+1;
                    System.out.println("Not owned field found, slag: "+slag+" Pos: "+pos);
                }
                else
@@ -98,13 +101,16 @@ public class MjPlayer extends GUI_Player
            }while (nr_fields<23 && notOwned_FieldFound==false);
 
        }
+       /*
        else
        {
            System.out.println("Chance kort er ikke modtaget");
        }
 
+        */
 
 
-        return slag;
+
+        return slag+2;
     }
 }
