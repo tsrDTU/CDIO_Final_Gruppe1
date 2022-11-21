@@ -170,7 +170,7 @@ class ChanceTest {
 
         selectedPlayer = PlayerArray[3];
 
-        j=selectedPlayer.haandterChanceKortModtaget(1,5);
+        j=selectedPlayer.haandterChanceKortModtaget(1,5, fields,OwnedtrueOwnedFalse);
     }
 
 

@@ -4,6 +4,7 @@ import GameMechanics.Fields;
 import cardClasses.Chancekort;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Player;
+import gui_fields.GUI_Street;
 
 public class MjPlayer extends GUI_Player
 {
@@ -57,7 +58,7 @@ public class MjPlayer extends GUI_Player
         return amnistiKortHaves;
     }
 
-    public int haandterChanceKortModtaget( int pos, int slagIn)
+    public int haandterChanceKortModtaget(int pos, int slagIn, GUI_Street[] fields,int[][] Ownedtrue)
     {
         int slag;
 
@@ -66,8 +67,36 @@ public class MjPlayer extends GUI_Player
 
        if (kortModtaget)
        {
+           int n, nr_fields;
+           boolean notOwned_FieldFound;
            System.out.println(actChancekort.getKortInfo());
            System.out.println("Chance kort er modtaget");
+           n=pos;
+           if (n>23)
+           {
+               System.out.println("Pos > 23 modtaget. Pos: "+pos);
+               // 2 trækkes fra slaget. Arvet fra sidste spil.
+               n=3;
+           }
+           nr_fields=0;
+           do
+           {
+               notOwned_FieldFound=Fields.noOwnerShipCheck(Ownedtrue,n);
+               if (notOwned_FieldFound)
+               {
+
+                   //Flytter bilen til det første ledige felt.
+                   slag=n;
+                   System.out.println("Not owned field found, slag: "+slag+" Pos: "+pos);
+               }
+               else
+               {
+                   n++;
+                   if (n > 23) n = 0;
+                   nr_fields++;
+               }
+           }while (nr_fields<23 && notOwned_FieldFound==false);
+
        }
        else
        {

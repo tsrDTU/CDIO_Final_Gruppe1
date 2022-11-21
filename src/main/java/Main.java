@@ -217,7 +217,7 @@ public class Main {
             int DieSum = getSum(d1,d2) + 1; /*, d2*/
 
             // Check om chancekort er modtaget
-            DieSum=selectedPlayer.haandterChanceKortModtaget(Base.fieldNR(),DieSum);
+            DieSum=selectedPlayer.haandterChanceKortModtaget(Base.fieldNR(),DieSum, fields,OwnedtrueOwnedFalse);
             //if the game hasn't ended, continue
             int CurrentSpaceForSelectedPlayer = 0;
             if (!gameEnd) {
