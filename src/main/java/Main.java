@@ -215,9 +215,19 @@ public class Main {
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
             int DieSum = getSum(d1,d2) + 1; /*, d2*/
+            //  Sets the current space for the selected player to a value
 
-            //if the game hasn't ended, continue
             int CurrentSpaceForSelectedPlayer = 0;
+            CurrentSpaceForSelectedPlayer = 0;
+            for (int i = 0; i < Base.fieldNR(); i++) {
+                if (Base.fields[i].hasCar(selectedPlayer)/*fields[i].hasCar(selectedPlayer)*/)
+                    CurrentSpaceForSelectedPlayer = i;
+            }
+
+            // Check om chancekort er modtaget
+            DieSum=selectedPlayer.haandterChanceKortModtaget(CurrentSpaceForSelectedPlayer,DieSum, fields,OwnedtrueOwnedFalse,gui);
+            //if the game hasn't ended, continue
+
             if (!gameEnd) {
                 // Moves the cars around the field and gives consequence- see the GameMechanics.Cars Class under - src/main/java/GameMechanics.Cars
                 Cars.moveCars(DieSum, selectedPlayer, PlayerArray, /*fields*/ AmountofPlayers, Base.fieldNR());
@@ -276,6 +286,9 @@ public class Main {
             if (CurrentSpaceForSelectedPlayer + DieSum > Base.fieldNR())
                 CurrentSpaceForSelectedPlayer = CurrentSpaceForSelectedPlayer + DieSum - Base.fieldNR();
 
+            // Jeg kan ikke overskue hvorfor, men Diesum kan ramme udenfor arrayet efter den er lavet med haandterChanceKortModtaget
+            if (DieSum>=Base.fieldNR()) DieSum-= 23;
+            if (DieSum<0) DieSum= 0;
 
             //Switch selected player
             if (!(Objects.equals(fields[DieSum].getTitle(), "extra"))) {
