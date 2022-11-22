@@ -1,5 +1,6 @@
 package TheBoard;
 import Files.FileReference;
+import GameMechanics.Colors;
 import GameMechanics.Fields;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Player;
@@ -23,7 +24,7 @@ public class BoardCreator{
                     textRDR(DescriptionF, String.valueOf(i + 1)),
                     textRDR(rentF, String.valueOf(i + 1)),
                     //fields[i] = new GUI_Street("","","","1",
-                    Fields.ColorSpace(Integer.parseInt(textRDR(DescriptionF, String.valueOf(i + 1))), i),
+                    Colors.ColorSpace(Integer.parseInt(textRDR(DescriptionF, String.valueOf(i + 1))), i),
                     Color.BLACK);
             //fields[2] = new GUI_Street(title,subtext,description,rent,BgColor,Color.BLACK)
         }
@@ -87,7 +88,7 @@ public class BoardCreator{
                     textRDR(DescriptionF, String.valueOf(i + 1)),
                     textRDR(rentF, String.valueOf(i + 1)),
                     //fields[i] = new GUI_Street("","","","1",
-                    Fields.ColorSpace(Integer.parseInt(textRDR(DescriptionF, String.valueOf(i + 1))), i),
+                    Colors.ColorSpace(Integer.parseInt(textRDR(DescriptionF, String.valueOf(i + 1))), i),
                     Color.BLACK);
         }
     }

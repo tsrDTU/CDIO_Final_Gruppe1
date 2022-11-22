@@ -85,7 +85,7 @@ public class MjPlayer extends GUI_Player
            nr_fields=0;
            do
            {
-               notOwned_FieldFound=Fields.noOwnerShipCheck(Ownedtrue,n);
+               notOwned_FieldFound=Fields.noOwnerShipCheck(n);
                if (notOwned_FieldFound)
                {
 

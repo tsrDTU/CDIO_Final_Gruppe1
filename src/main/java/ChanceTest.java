@@ -1,4 +1,5 @@
 import GameMechanics.Cars;
+import GameMechanics.Colors;
 import GameMechanics.Fields;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
@@ -93,7 +94,7 @@ class ChanceTest {
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
             PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
-            Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
+            Colors.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
             //Set users role
             PlayerArray[i].setUserRole(userRoles[i]);
 

@@ -94,21 +94,6 @@ public class Cars {
             fields[0].setCar(PlayerArray[i], true);
         }
     }
-//-------------------------------------------------------------------------------
-//
-//         Makes colors based off the HSB color system
-//
-//-------------------------------------------------------------------------------
-    // Color creation for the cars - Look up HSB colors system online to learn more
-    public static void CarColor(GUI_Car playerCars[], GUI_Player PlayerArray[], String Players, int PlayerNumber, GUI_Street[] fields) {
-        Color[] color = new Color[Integer.parseInt(Players)];
-        for (int i =0;i<Integer.parseInt(Players);i++){
-            String h = String.valueOf(i*0.18+1);
-            color[i] = Color.getHSBColor(Float.parseFloat(h), 1f, 1f);
-            PlayerArray[PlayerNumber].getCar().setPrimaryColor(color[PlayerNumber]);
-        }
-
-    }
 
 
 //-------------------------------------------------------------------------------

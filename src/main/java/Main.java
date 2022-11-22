@@ -85,7 +85,7 @@ public class Main {
         GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
         String[] PlayerName = new String[AmountofPlayers];
 
-        BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
+        //BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
 
 
 
@@ -97,7 +97,7 @@ public class Main {
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
             PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
-            GameMechanics.Cars.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
+            GameMechanics.Colors.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
             //Set users role
             int first = 0; for (int l = 0; l < AmountofPlayers; l++) {if (userRoles.size()>AmountofPlayers)
                 userRoles.remove(first); first++;}
@@ -286,11 +286,11 @@ public class Main {
                 CurrentSpaceForSelectedPlayer = CurrentSpaceForSelectedPlayer + DieSum - Base.fieldNR();
 
             // Jeg kan ikke overskue hvorfor, men Diesum kan ramme udenfor arrayet efter den er lavet med haandterChanceKortModtaget
-            if (DieSum>=Base.fieldNR()) DieSum-= 23;
-            if (DieSum<0) DieSum= 0;
+//            if (DieSum>=Base.fieldNR()) DieSum-= 23;
+//            if (DieSum<0) DieSum= 0;
 
             //Switch selected player
-            if (!(Objects.equals(fields[DieSum].getTitle(), "extra"))) {
+            if (!(Objects.equals(fields[DieSum%Base.fieldNR()].getTitle(), "extra"))) {
                 selection = !selection;
                 playingPlayer++;
             }

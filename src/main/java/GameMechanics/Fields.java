@@ -207,26 +207,10 @@ public class Fields {
         return "0";
     }
 
-    public static Color ColorSpace(int description, int SpecificSpace){
-        //  if the description returns a value above the amount of colors 9 is subtracted to not return an error
-        if (SpecificSpace==9)
-            description = description-9;
-        //  Defines all colors based off a value from 0-9
-        if (description==0) return Color.WHITE;
-        else if (description==1) return Color.RED;
-        else if (description==2) return Color.BLUE;
-        else if (description==3) return Color.getHSBColor(0.10f,1f,1f);
-        else if (description==4) return Color.getHSBColor(0.90f,1f,1f);
-        else if (description==5) return Color.CYAN;
-        else if (description==6) return Color.YELLOW;
-        else if (description==7) return Color.getHSBColor(0.13f,1f,0.47f);
-        else if (description==8) return Color.GREEN;
-        else return Color.WHITE;    // if something goes wrong, White color is returned.
-    }
 
     public static void displayDescriptions(GUI_Street[] fields,int currentLocation, int TimesAroundBoard) throws FileNotFoundException {
         //  Changes the color of the Discription space
-        Color NewColor = ColorSpace(Integer.parseInt(fields[currentLocation].getDescription())/*Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF*/, Integer.parseInt(String.valueOf(currentLocation+1)));
+        Color NewColor = Colors.ColorSpace(Integer.parseInt(fields[currentLocation].getDescription())/*Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF*/, Integer.parseInt(String.valueOf(currentLocation+1)));
         //System.out.println(textReaderClass.textRDR(FileReference.DescriptionF, String.valueOf(currentLocation+1)));
         GUI_Center.getInstance().setBGColor(NewColor);
 }
