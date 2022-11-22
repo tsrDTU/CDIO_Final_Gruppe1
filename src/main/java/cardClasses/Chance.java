@@ -164,13 +164,13 @@ public  class Chance {
       //          actPlayer.setActChancekort(actKort);
                 modtRolle=((ChanceOverdragelseskort) actKort).getModtager();
                 System.out.println("Chanceoverdragelse. Modtager: "+modtRolle+"Amount of players"+AmountofPlayers);
-     //           for (i=0;i<Base.AmountofPlayers;i++)
-                for (i=0;i<4;i++)
+                for (i=0;i<Base.AmountofPlayers;i++)
+     //           for (i=0;i<4;i++)
                 {
                     System.out.println("Test player "+players[i].getUserRole());
                     if (players[i].getUserRole().equals(((ChanceOverdragelseskort) actKort).getModtager()))
                     {
-                        players[i].setActChancekort(actKort);
+                        players[i].setActChancekort((ChanceOverdragelseskort) actKort);
                         players[i].setKortModtaget(true);
                         System.out.println("Chancekort er overdraget til spiller nr. "+i);
                     }

@@ -286,8 +286,8 @@ public class Main {
             if (CurrentSpaceForSelectedPlayer + DieSum > Base.fieldNR())
                 CurrentSpaceForSelectedPlayer = CurrentSpaceForSelectedPlayer + DieSum - Base.fieldNR();
 
-            // Jeg kan ikke overskue hvorfor, men Diesum kan blive for efter den er lavet med haandterChanceKortModtaget
-            if (DieSum>Base.fieldNR()) DieSum-= 23;
+            // Jeg kan ikke overskue hvorfor, men Diesum kan ramme udenfor arrayet efter den er lavet med haandterChanceKortModtaget
+            if (DieSum>=Base.fieldNR()) DieSum-= 23;
             if (DieSum<0) DieSum= 0;
 
             //Switch selected player

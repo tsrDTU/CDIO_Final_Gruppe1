@@ -1,6 +1,7 @@
 package player;
 
 import GameMechanics.Fields;
+import cardClasses.ChanceOverdragelseskort;
 import cardClasses.Chancekort;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Player;
@@ -11,7 +12,7 @@ public class MjPlayer extends GUI_Player
 {
     private String userRole;
     private boolean kortModtaget;
-    private Chancekort actChancekort;
+    private ChanceOverdragelseskort actChancekort;
 
     private boolean amnistiKortHaves;
 
@@ -45,7 +46,7 @@ public class MjPlayer extends GUI_Player
         kortModtaget=kortModt;
     }
 
-    public void setActChancekort(Chancekort actChancekort) {
+    public void setActChancekort(ChanceOverdragelseskort actChancekort) {
         this.actChancekort = actChancekort;
     }
 
@@ -91,6 +92,12 @@ public class MjPlayer extends GUI_Player
                    //Flytter bilen til det første ledige felt. +1 fordi spilleren skal flytt
                    slag=n+1;
                    System.out.println("Not owned field found, slag: "+slag+" Pos: "+pos);
+                   // Frigiv kortet så det kan bruges igen
+                    actChancekort.setAktivt(false);
+                   actChancekort.setModtager(null);
+                   // Fjern kortet fra spilleren
+                   setKortModtaget(false);
+                   setActChancekort(null);
                }
                else
                {
