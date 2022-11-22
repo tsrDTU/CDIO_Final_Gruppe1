@@ -1,5 +1,8 @@
 package cardClasses;
 
+/**
+ * Chancekortet, som giver amnisti hvis som har det havner i fængsel
+ */
 public class ChanceAmnistiFeng extends Chancekort
 {
     private boolean aktivt;

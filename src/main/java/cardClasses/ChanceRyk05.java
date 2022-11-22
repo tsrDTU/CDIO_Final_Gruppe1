@@ -1,5 +1,8 @@
 package cardClasses;
 
+/**
+ * Dette chancekort bestemmer at spilleren rykkes 5 felter frem
+ */
 public class ChanceRyk05 extends Chancekort
 {
     @Override

@@ -1,5 +1,8 @@
 package cardClasses;
 
+/**
+ * Dette chancekort giver spilleren et valg mellem at rykke et felt eller tage et chancekort mere
+ */
 public class ChanceRyk1ElChMemere extends Chancekort
 {
     @Override

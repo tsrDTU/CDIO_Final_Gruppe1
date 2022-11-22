@@ -13,7 +13,9 @@ public  class Chance {
     private static Chancekort[] chanceCards=new Chancekort[20];
     int testKortMode=0;
 
-
+    /**
+     * Initialisering af chancekort
+     */
 
     public Chance()
     {
@@ -44,6 +46,10 @@ public  class Chance {
 
     }
 
+    /**
+     * Træk et chancekort.
+     * @return
+     */
     public Chancekort traekEtChanceKort()
     {
         int kort_nr;
@@ -58,6 +64,7 @@ public  class Chance {
             }
             else
             {
+                //Et specifikt chancekort skal trækkes for teste dette
                 kort_nr=testKortMode;
                 testKortMode=0;
                 //System.out.println("Testkort trukket");
@@ -72,12 +79,14 @@ public  class Chance {
                 {
                     if (chanceCards[kort_nr] instanceof ChanceOverdragelseskort==true)
                     {
+                        // Hvis kortet allede er trukket og en anden spiller har det, skal dette træk ignoreres og et nyt kort skal trækkes
                         if(((ChanceOverdragelseskort) chanceCards[kort_nr]).getAktivt()) kOk=11;
                     }
 
                 }
                 else if (chanceCards[kort_nr] instanceof ChanceAmnistiFeng)
                 {
+                    // Hvis kortet allede er trukket og en anden spiller har det, skal dette træk ignoreres og et nyt kort skal trækkes
                     if (((ChanceAmnistiFeng) chanceCards[kort_nr]).getAktivt()) kOk=11;
                 }
                 else kOk=11;
@@ -94,7 +103,17 @@ public  class Chance {
 
     }
 
-
+    /**
+     * Spilleren har lige slået og ramt et chancefelt. Et chancekort skal trækkes
+     * @param actPlayer: Spillr som har slået.
+     * @param players: Spillerliste
+     * @param actField: Spillerens position på brættet
+     * @param AmountofPlayers: Antallet af spillere
+     * @param AmountofSpaces
+     * @param gui: GUI
+     * @param fields: Liste over felter
+     * @return: Bilens position på brættet efter at chancekort er håndteret. det kan samme position som eller en anden.
+     */
     public int chanceFieldIsHit(MjPlayer actPlayer,MjPlayer[] players, int actField,
                                 int AmountofPlayers, int AmountofSpaces, GUI gui, GUI_Street[] fields)
     {
@@ -268,6 +287,10 @@ public  class Chance {
 
     }
 
+    /**
+     * Sætter er specifikt chancekort, som skal trækkes næste gang. Bruges til testformål.
+     * @param testNr: chancekortnummer
+     */
     public void setTestKortMode(int testNr)
     {
         testKortMode=testNr;

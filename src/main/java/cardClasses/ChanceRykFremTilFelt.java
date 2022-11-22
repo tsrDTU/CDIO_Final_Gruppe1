@@ -1,5 +1,8 @@
 package cardClasses;
 
+/**
+ * Dette chancekort bestemmer at spilleren rykkes frem til et bestemt felt
+ */
 public class ChanceRykFremTilFelt extends Chancekort
 {
     private int destinationsFelt;
