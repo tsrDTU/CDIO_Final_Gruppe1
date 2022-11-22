@@ -3,6 +3,7 @@ package TheBoard;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
+import player.MjPlayer;
 
 import static TheBoard.Language.dialog;
 
@@ -27,6 +28,7 @@ public class Base {
 
 
 
+
     static int[] CosttoOwn = new int[Base.fieldNR()];
     //  defines the cost to own a field array (list)
 
@@ -38,7 +40,12 @@ public class Base {
     //  This makes the class for all the Streets based off the fieldNR
 
 
+    public static MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
+    public static boolean[] JailOn = new boolean[AmountofPlayers];
+    public static MjPlayer[] PlayerArray(){return PlayerArray;}// = new MjPlayer[AmountofPlayers];
+    public static boolean[] JailOn(){return JailOn;}
 
+//    public static boolean[] JailOn(){return new boolean[AmountofPlayers];}
 
 
 }

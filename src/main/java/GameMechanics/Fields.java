@@ -25,7 +25,7 @@ public class Fields {
 //
     public static boolean noOwnerShipCheck( int cellToCheck){
         for (int i = 0; i <= AmountofPlayers; i++) {
-            if (Base.InitializeOwnedStat(AmountofPlayers)[cellToCheck][i]==1)
+            if (Base.InitializeOwnedStat(AmountofPlayers)[cellToCheck][i]==1  &&  i!=i%3)
                 return false;
         }
         return true;
@@ -54,7 +54,7 @@ public class Fields {
 
     public static String wannaBuyDoYou(int[][] Ownedtrue,
                                        MjPlayer selectedPlayer,
-                                       boolean boolforBUY,
+                                       //boolean boolforBUY,
                                        MjPlayer[] PlayerArray,
                                        int CurrentSpaceForSelectedPlayer,
                                        int[] PlayerSpaceNRexcact,
@@ -176,7 +176,7 @@ public class Fields {
         //  This checks if the field is owned, and continues if it is not
         if (GoOn)
             //  This is a check for if the player wants to buy, ((It does not function because the player is forced to buy))
-            if (boolforBUY) {
+            ///if (boolforBUY) {
                 //  This checks if the selected player has enough money, And buys the space if it does.
                 if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= BoardCreator.CostofField()[THEfieldsNR] && GoOn) {
                     //System.out.println("you bought the space");   | EMPTY NOTE |
@@ -187,7 +187,7 @@ public class Fields {
                     //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
                     return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
                     // OVENFOR KAN KØBSVÆRDI ÆNDRES
-                }
+                ///}
             }
             else return "Error"; // returns error message in case there is an error
 
@@ -204,7 +204,7 @@ public class Fields {
         }
         //  The selected player has landed on their own field and 0 is added to their account
         //System.out.println("    0");      | EMPTY NOTE |
-        return "0";
+        //return "0";
     }
 
 

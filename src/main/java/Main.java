@@ -78,15 +78,18 @@ public class Main {
             String Players = gui.getUserButtonPressed(dialog[DialogNR], "2", "3", "4"); DialogNR++;
             AmountofPlayers = Integer.parseInt(Players);
 
-
+//        JailInit(JailOn);
+//        boolean[] JailOn = Base.JailOn();
         boolean[] JailOn = new boolean[AmountofPlayers];
-        JailInit( JailOn);
+        BoardCreator.JailInit(JailOn);
+//        MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
         MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
+        System.out.println(PlayerArray.length);
         GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
         String[] PlayerName = new String[AmountofPlayers];
 
         //BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
-
+        System.out.println(JailOn.length);
 
 
 //  Sets names for each player in a for loop and gives an adjacent car with a private color
@@ -251,7 +254,7 @@ public class Main {
                 if (wanttobuyYesNo) {
                     String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
                             selectedPlayer,
-                            wanttobuyYesNo,
+                            //wanttobuyYesNo,
                             PlayerArray,
                             CurrentSpaceForSelectedPlayer,
                             PlayerSpaceNRexcact,

@@ -128,7 +128,7 @@ class ChanceTest {
         System.out.println(PlayerArray[1].getBalance()+ " bal pl 2 bf");
         System.out.println(selectedPlayer.getBalance()+" selected "+selectedPlayer.getNumber());
         //Det kort man ønsker at teste vælges
-        mjChance.setTestKortMode(6);
+        mjChance.setTestKortMode(5);
 
 
 
@@ -155,7 +155,7 @@ class ChanceTest {
         if (wanttobuyYesNo) {
             String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
                     selectedPlayer,
-                    wanttobuyYesNo,
+                    //wanttobuyYesNo,
                     PlayerArray,
                     CurrentSpaceForSelectedPlayer,
                     PlayerSpaceNRexcact,

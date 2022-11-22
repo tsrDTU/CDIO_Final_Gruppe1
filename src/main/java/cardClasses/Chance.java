@@ -108,71 +108,63 @@ public  class Chance {
 
         do {
 
-            slut=0;
+            slut = 0;
 
             //System.out.println("Chancekort trækkes");
             Chancekort actKort = traekEtChanceKort();
 
             gui.showMessage(actKort.getKortInfo());
 
-            if (actKort instanceof Chance2Farver==true)
-            {
-                if (((Chance2Farver) actKort).getFarve1()== 3 && ((Chance2Farver) actKort).getFarve2()==8)
-                   valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Orange felt", "Grønt felt");
-                else if (((Chance2Farver) actKort).getFarve1()==4)
+            if (actKort instanceof Chance2Farver == true) {
+                if (((Chance2Farver) actKort).getFarve1() == 3 && ((Chance2Farver) actKort).getFarve2() == 8)
+                    valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Orange felt", "Grønt felt");
+                else if (((Chance2Farver) actKort).getFarve1() == 4)
                     valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Pink felt", "Mørkeblåt felt");
-                else if (((Chance2Farver) actKort).getFarve1()==5)
-                   valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Lyseblå felt", "Rødt felt");
+                else if (((Chance2Farver) actKort).getFarve1() == 5)
+                    valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Lyseblå felt", "Rødt felt");
                 else //if (((Chance2Farver) actKort).getFarve1()==9)
-                   valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Brunt felt", "Gult felt");
+                    valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Brunt felt", "Gult felt");
 
 
-                if (valg.equals("Orange felt") || valg.equals ("Pink felt") || valg.equals("Lyseblå felt")|| valg.equals("Brunt felt"))
-                {
-              //      farvCod=(""+((Chance2Farver) actKort).getFarve1());
-                    farvCod=String.valueOf(((Chance2Farver) actKort).getFarve1());
-       //             System.out.println("Farve 1 valgt kode "+farvCod);
-                }
-                else if (valg.equals("Grønt felt") || valg.equals ("Mørkeblåt felt") || valg.equals("Rødt felt")|| valg.equals("Gult felt"))
-                {
-               //     farvCod=(""+((Chance2Farver) actKort).getFarve2());
-                    farvCod=String.valueOf(((Chance2Farver) actKort).getFarve2());
-      //              System.out.println("Farve 2 valgt");
-                }
-                else farvCod="Ingen farve";
-                i=bilPos;
-                j=0;
-  //              System.out.println("Brugt farve kode "+farvCod);
-                do
-                {
+                if (valg.equals("Orange felt") || valg.equals("Pink felt") || valg.equals("Lyseblå felt") || valg.equals("Brunt felt")) {
+                    //      farvCod=(""+((Chance2Farver) actKort).getFarve1());
+                    farvCod = String.valueOf(((Chance2Farver) actKort).getFarve1());
+                    //             System.out.println("Farve 1 valgt kode "+farvCod);
+                } else if (valg.equals("Grønt felt") || valg.equals("Mørkeblåt felt") || valg.equals("Rødt felt") || valg.equals("Gult felt")) {
+                    //     farvCod=(""+((Chance2Farver) actKort).getFarve2());
+                    farvCod = String.valueOf(((Chance2Farver) actKort).getFarve2());
+                    //              System.out.println("Farve 2 valgt");
+                } else farvCod = "Ingen farve";
+                i = bilPos;
+                j = 0;
+                //              System.out.println("Brugt farve kode "+farvCod);
+                do {
                     i++;
                     j++;
-                    if (i>23) i=0;
-      //              System.out.println(Base.fields[i].getDescription());
+                    if (i > 23) i = 0;
+                    //              System.out.println(Base.fields[i].getDescription());
 
-                }while( fields[i].getDescription().equals(farvCod)==false && j < 25);
+                } while (fields[i].getDescription().equals(farvCod) == false && j < 25);
 
-                bilPos=i;
+                bilPos = i;
 
 
             }
 
-            if (actKort instanceof ChanceOverdragelseskort==true)
-            {
-      //          gui.showMessage(actKort.getKortInfo());
-     //           actPlayer.setKortModtaget(true);
-      //          actPlayer.setActChancekort(actKort);
-                modtRolle=((ChanceOverdragelseskort) actKort).getModtager();
-                System.out.println("Chanceoverdragelse. Modtager: "+modtRolle+"Amount of players"+AmountofPlayers);
-                for (i=0;i<Base.AmountofPlayers;i++)
-     //           for (i=0;i<4;i++)
+            if (actKort instanceof ChanceOverdragelseskort == true) {
+                //          gui.showMessage(actKort.getKortInfo());
+                //           actPlayer.setKortModtaget(true);
+                //          actPlayer.setActChancekort(actKort);
+                modtRolle = ((ChanceOverdragelseskort) actKort).getModtager();
+                System.out.println("Chanceoverdragelse. Modtager: " + modtRolle + "Amount of players" + AmountofPlayers);
+                for (i = 0; i < Base.AmountofPlayers; i++)
+                //           for (i=0;i<4;i++)
                 {
-                    System.out.println("Test player "+players[i].getUserRole());
-                    if (players[i].getUserRole().equals(((ChanceOverdragelseskort) actKort).getModtager()))
-                    {
+                    System.out.println("Test player " + players[i].getUserRole());
+                    if (players[i].getUserRole().equals(((ChanceOverdragelseskort) actKort).getModtager())) {
                         players[i].setActChancekort((ChanceOverdragelseskort) actKort);
                         players[i].setKortModtaget(true);
-                        System.out.println("Chancekort er overdraget til spiller nr. "+i);
+                        System.out.println("Chancekort er overdraget til spiller nr. " + i);
                     }
                     /*
                     else
@@ -183,12 +175,12 @@ public  class Chance {
 
                      */
                 }
-                slut=11;
+                slut = 11;
                 //System.out.println("ChanceOverdragelseskort eksekveret");
             }
 
 
-            if (actKort instanceof ChanceAmnistiFeng==true) {
+            if (actKort instanceof ChanceAmnistiFeng == true) {
 
                 actPlayer.setAmnistkortHaves(true);
                 ((ChanceAmnistiFeng) actKort).setAktivt(true);
