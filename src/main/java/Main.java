@@ -144,7 +144,7 @@ public class Main {
         //Create the dices. Default 6 sides
         //String AmountofDice = gui.getUserButtonPressed("how many dice?", "1", "2");
             Die d1 = new Die();
-            //Die d2 = new Die();
+            Die d2 = new Die(0);
 
 
         // If sides are different from 6, set the number of sides.
@@ -216,8 +216,17 @@ public class Main {
 
             int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
 
-            //if the game hasn't ended, continue
             int CurrentSpaceForSelectedPlayer = 0;
+            CurrentSpaceForSelectedPlayer = 0;
+            for (int i = 0; i < Base.fieldNR(); i++) {
+                if (Base.fields[i].hasCar(selectedPlayer)/*fields[i].hasCar(selectedPlayer)*/)
+                    CurrentSpaceForSelectedPlayer = i;
+            }
+
+            // Check om chancekort er modtaget
+            DieSum=selectedPlayer.haandterChanceKortModtaget(CurrentSpaceForSelectedPlayer,DieSum, fields,OwnedtrueOwnedFalse,gui);
+            //if the game hasn't ended, continue
+
             if (!gameEnd) {
                 // Moves the cars around the field and gives consequence- see the GameMechanics.Cars Class under - src/main/java/GameMechanics.Cars
                 Cars.moveCars(DieSum, selectedPlayer, PlayerArray, /*fields*/ AmountofPlayers, Base.fieldNR());
@@ -276,6 +285,9 @@ public class Main {
             if (CurrentSpaceForSelectedPlayer + DieSum > Base.fieldNR())
                 CurrentSpaceForSelectedPlayer = CurrentSpaceForSelectedPlayer + DieSum - Base.fieldNR();
 
+            // Jeg kan ikke overskue hvorfor, men Diesum kan ramme udenfor arrayet efter den er lavet med haandterChanceKortModtaget
+            if (DieSum>=Base.fieldNR()) DieSum-= 23;
+            if (DieSum<0) DieSum= 0;
 
             //Switch selected player
             if (!(Objects.equals(fields[DieSum].getTitle(), "extra"))) {
