@@ -272,7 +272,7 @@ public class Main {
             }
 
             //Shows description of the space you land on, and changes color
-            //Skal flyttes til Chance. Min mening Torben
+
            if (fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "CHANCE") {
             //    gui.displayChanceCard(Chance.chanceCards[DieSum - 5].getKortNavnavn());
             } else

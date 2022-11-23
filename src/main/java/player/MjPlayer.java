@@ -85,7 +85,7 @@ public class MjPlayer extends GUI_Player
            int n, nr_fields;
            boolean notOwned_FieldFound;
            System.out.println(actChancekort.getKortInfo());
-           System.out.println("Chance kort er modtaget");
+           System.out.println("MjPlayer: "+userRole+".Chance kort er modtaget");
            gui.showMessage("Du har modtaget et chance kort som flytter dig til nærmeste ikke ejede felt, som du køber.");
            n=pos;
            if (n>23)

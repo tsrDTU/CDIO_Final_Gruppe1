@@ -11,7 +11,7 @@ import player.MjPlayer;
 import java.awt.*;
 
 import static TheBoard.Base.*;
-import static TheBoard.Base.AmountofPlayers;
+
 import static TheBoard.BoardCreator.JailInit;
 import static TheBoard.Language.dialog;
 import java.io.*;
@@ -22,7 +22,7 @@ class ChanceTest {
         System.out.println("main startet");
         Chance mjChance=new Chance();
         String string_in, language, answer_game;
-        int antal_kant, AmountofPlayers,i,j;
+        int antal_kant, i,j;
         String[] userRoles={"Bil","Skib","Hund","Kat"};
         String[] freeUserRoles;
         MjPlayer selectedPlayer;
