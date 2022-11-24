@@ -129,7 +129,7 @@ class ChanceTest {
 
 
         //Det kort man ønsker at teste vælges
-        mjChance.setTestKortMode(11);
+        mjChance.setTestKortMode(3);
 
 
 
