@@ -1,5 +1,8 @@
 package cardClasses;
 
+/**
+ * Forældreklassen til chancekort. Er abstract
+ */
 public abstract class Chancekort
 {
     private String kortNavn;

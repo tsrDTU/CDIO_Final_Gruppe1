@@ -1,5 +1,8 @@
 package cardClasses;
 
+/**
+ * Håndterer chancekort som bestemmer at spilleren kan flytte til et felt, som har en af de to farver
+ */
 public class Chance2Farver extends Chancekort
 {
     private int farve1, farve2;

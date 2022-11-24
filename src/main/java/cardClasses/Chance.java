@@ -13,7 +13,9 @@ public  class Chance {
     private static Chancekort[] chanceCards=new Chancekort[20];
     int testKortMode=0;
 
-
+    /**
+     * Initialisering af chancekort
+     */
 
     public Chance()
     {
@@ -37,13 +39,17 @@ public  class Chance {
         chanceCards[14]=new Chance2Farver("Ryk til Pink eller Mørkeblåt","Gratis felt. Du Rykkes frem til et pink eller mørkeblåt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",4,2);
         chanceCards[15]=new ChanceBanktrans("Alle lektier lavet","Du har lavet alle dine lektier. Modtag 2M fra banken",2,0,1);
         chanceCards[16]=new ChanceKortFarve("Ryk til rødt felt","Gratis felt. du rykkes Ryk frem til et rødt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",1);
-        chanceCards[17]=new ChanceRykFremTilFelt("Ryk frem til Skateparken","Gratis felt. Du Rykkes frem til Skaterparken for at lave det perfekte grind. Hvis ingen ejer den, får du den gratis. Ellers skal du betale leje ejeren.",10);
+        chanceCards[17]=new ChanceRykFremTilFelt("Ryk frem til Skaterparken","Gratis felt. Du Rykkes frem til Skaterparken for at lave det perfekte grind. Hvis ingen ejer den, får du den gratis. Ellers skal du betale leje ejeren.",10);
         chanceCards[18]=new Chance2Farver("Ryk frem til lyseblåt eller rødt","Gratis felt. Du Rykkes frem til et lyseblåt eller rødt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",5,1);
         chanceCards[19]=new Chance2Farver("Ryk frem til brunt eller gult felt","Gratis felt. Du Rykkes frem til et brunt eller gult felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",7,6);
 
 
     }
 
+    /**
+     * Træk et chancekort.
+     * @return
+     */
     public Chancekort traekEtChanceKort()
     {
         int kort_nr;
@@ -58,6 +64,7 @@ public  class Chance {
             }
             else
             {
+                //Et specifikt chancekort skal trækkes for teste dette
                 kort_nr=testKortMode;
                 testKortMode=0;
                 //System.out.println("Testkort trukket");
@@ -72,12 +79,14 @@ public  class Chance {
                 {
                     if (chanceCards[kort_nr] instanceof ChanceOverdragelseskort==true)
                     {
+                        // Hvis kortet allede er trukket og en anden spiller har det, skal dette træk ignoreres og et nyt kort skal trækkes
                         if(((ChanceOverdragelseskort) chanceCards[kort_nr]).getAktivt()) kOk=11;
                     }
 
                 }
                 else if (chanceCards[kort_nr] instanceof ChanceAmnistiFeng)
                 {
+                    // Hvis kortet allede er trukket og en anden spiller har det, skal dette træk ignoreres og et nyt kort skal trækkes
                     if (((ChanceAmnistiFeng) chanceCards[kort_nr]).getAktivt()) kOk=11;
                 }
                 else kOk=11;
@@ -94,7 +103,17 @@ public  class Chance {
 
     }
 
-
+    /**
+     * Spilleren har lige slået og ramt et chancefelt. Et chancekort skal trækkes
+     * @param actPlayer: Spillr som har slået.
+     * @param players: Spillerliste
+     * @param actField: Spillerens position på brættet
+     * @param AmountofPlayers: Antallet af spillere
+     * @param AmountofSpaces
+     * @param gui: GUI
+     * @param fields: Liste over felter
+     * @return: Bilens position på brættet efter at chancekort er håndteret. det kan samme position som eller en anden.
+     */
     public int chanceFieldIsHit(MjPlayer actPlayer,MjPlayer[] players, int actField,
                                 int AmountofPlayers, int AmountofSpaces, GUI gui, GUI_Street[] fields)
     {
@@ -108,63 +127,72 @@ public  class Chance {
 
         do {
 
-            slut = 0;
+            slut=0;
 
             //System.out.println("Chancekort trækkes");
             Chancekort actKort = traekEtChanceKort();
 
             gui.showMessage(actKort.getKortInfo());
 
-            if (actKort instanceof Chance2Farver == true) {
-                if (((Chance2Farver) actKort).getFarve1() == 3 && ((Chance2Farver) actKort).getFarve2() == 8)
-                    valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Orange felt", "Grønt felt");
-                else if (((Chance2Farver) actKort).getFarve1() == 4)
+            if (actKort instanceof Chance2Farver==true)
+            {
+                if (((Chance2Farver) actKort).getFarve1()== 3 && ((Chance2Farver) actKort).getFarve2()==8)
+                   valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Orange felt", "Grønt felt");
+                else if (((Chance2Farver) actKort).getFarve1()==4)
                     valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Pink felt", "Mørkeblåt felt");
-                else if (((Chance2Farver) actKort).getFarve1() == 5)
-                    valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Lyseblå felt", "Rødt felt");
+                else if (((Chance2Farver) actKort).getFarve1()==5)
+                   valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Lyseblå felt", "Rødt felt");
                 else //if (((Chance2Farver) actKort).getFarve1()==9)
-                    valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Brunt felt", "Gult felt");
+                   valg = gui.getUserButtonPressed("Vælg om du vil rykke til", "Brunt felt", "Gult felt");
 
 
-                if (valg.equals("Orange felt") || valg.equals("Pink felt") || valg.equals("Lyseblå felt") || valg.equals("Brunt felt")) {
-                    //      farvCod=(""+((Chance2Farver) actKort).getFarve1());
-                    farvCod = String.valueOf(((Chance2Farver) actKort).getFarve1());
-                    //             System.out.println("Farve 1 valgt kode "+farvCod);
-                } else if (valg.equals("Grønt felt") || valg.equals("Mørkeblåt felt") || valg.equals("Rødt felt") || valg.equals("Gult felt")) {
-                    //     farvCod=(""+((Chance2Farver) actKort).getFarve2());
-                    farvCod = String.valueOf(((Chance2Farver) actKort).getFarve2());
-                    //              System.out.println("Farve 2 valgt");
-                } else farvCod = "Ingen farve";
-                i = bilPos;
-                j = 0;
-                //              System.out.println("Brugt farve kode "+farvCod);
-                do {
+                if (valg.equals("Orange felt") || valg.equals ("Pink felt") || valg.equals("Lyseblå felt")|| valg.equals("Brunt felt"))
+                {
+              //      farvCod=(""+((Chance2Farver) actKort).getFarve1());
+                    farvCod=String.valueOf(((Chance2Farver) actKort).getFarve1());
+       //             System.out.println("Farve 1 valgt kode "+farvCod);
+                }
+                else if (valg.equals("Grønt felt") || valg.equals ("Mørkeblåt felt") || valg.equals("Rødt felt")|| valg.equals("Gult felt"))
+                {
+               //     farvCod=(""+((Chance2Farver) actKort).getFarve2());
+                    farvCod=String.valueOf(((Chance2Farver) actKort).getFarve2());
+      //              System.out.println("Farve 2 valgt");
+                }
+                else farvCod="Ingen farve";
+                i=bilPos;
+                j=0;
+  //              System.out.println("Brugt farve kode "+farvCod);
+                do
+                {
                     i++;
                     j++;
-                    if (i > 23) i = 0;
-                    //              System.out.println(Base.fields[i].getDescription());
+                    if (i>23) i=0;
+      //              System.out.println(Base.fields[i].getDescription());
 
-                } while (fields[i].getDescription().equals(farvCod) == false && j < 25);
+                }while( fields[i].getDescription().equals(farvCod)==false && j < 25);
 
-                bilPos = i;
+                bilPos=i;
 
 
             }
 
-            if (actKort instanceof ChanceOverdragelseskort == true) {
-                //          gui.showMessage(actKort.getKortInfo());
-                //           actPlayer.setKortModtaget(true);
-                //          actPlayer.setActChancekort(actKort);
-                modtRolle = ((ChanceOverdragelseskort) actKort).getModtager();
-                System.out.println("Chanceoverdragelse. Modtager: " + modtRolle + "Amount of players" + AmountofPlayers);
-                for (i = 0; i < Base.AmountofPlayers; i++)
-                //           for (i=0;i<4;i++)
+            if (actKort instanceof ChanceOverdragelseskort==true)
+            {
+      //          gui.showMessage(actKort.getKortInfo());
+     //           actPlayer.setKortModtaget(true);
+      //          actPlayer.setActChancekort(actKort);
+                modtRolle=((ChanceOverdragelseskort) actKort).getModtager();
+      //          System.out.println("Chanceoverdragelse. Modtager: "+modtRolle+" Amount of players: "+AmountofPlayers);
+                for (i=0;i<AmountofPlayers;i++)
+     //               for (i=0;i<Base.AmountofPlayers;i++)
+     //           for (i=0;i<4;i++)
                 {
-                    System.out.println("Test player " + players[i].getUserRole());
-                    if (players[i].getUserRole().equals(((ChanceOverdragelseskort) actKort).getModtager())) {
+      //              System.out.println("Test player "+players[i].getUserRole());
+                    if (players[i].getUserRole().equals(((ChanceOverdragelseskort) actKort).getModtager()))
+                    {
                         players[i].setActChancekort((ChanceOverdragelseskort) actKort);
                         players[i].setKortModtaget(true);
-                        System.out.println("Chancekort er overdraget til spiller nr. " + i);
+                        System.out.println("Chancekort er overdraget til spiller nr. "+i+". Role: "+ players[i].getUserRole());
                     }
                     /*
                     else
@@ -260,6 +288,10 @@ public  class Chance {
 
     }
 
+    /**
+     * Sætter er specifikt chancekort, som skal trækkes næste gang. Bruges til testformål.
+     * @param testNr: chancekortnummer
+     */
     public void setTestKortMode(int testNr)
     {
         testKortMode=testNr;

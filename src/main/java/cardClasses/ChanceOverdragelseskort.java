@@ -1,5 +1,8 @@
 package cardClasses;
 
+/**
+ * Denne type chancekort overdrages til en anden spiller af den som trak det. Den anden spiller skal følge instruktionerne når det bliver denne spillers tur
+ */
 public class ChanceOverdragelseskort extends Chancekort
 {
     private String modtager;
