@@ -203,12 +203,12 @@ public  class Chance {
 
                      */
                 }
-                slut = 11;
+                slut=11;
                 //System.out.println("ChanceOverdragelseskort eksekveret");
             }
 
 
-            if (actKort instanceof ChanceAmnistiFeng == true) {
+            if (actKort instanceof ChanceAmnistiFeng==true) {
 
                 actPlayer.setAmnistkortHaves(true);
                 ((ChanceAmnistiFeng) actKort).setAktivt(true);
