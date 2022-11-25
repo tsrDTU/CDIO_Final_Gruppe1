@@ -202,7 +202,7 @@ public class Fields {
                     // OVENFOR KAN KØBSVÆRDI ÆNDRES
                 ///}
             }
-            else return "Error"; // returns error message in case there is an error
+            else return "0"; // returns error message in case there is an error
 
         //  Knows that someone owns the field, Pays rent and adds the rent to the SpaceOwners balance
         else {
