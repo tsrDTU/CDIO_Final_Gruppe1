@@ -21,6 +21,22 @@ public  class Chance {
     {
         //System.out.println("Chance initialiseres");
 
+        chanceCards[0]=new ChanceBetalbankenHusHotel("Oliepriserne","Oliepriserne er steget, og De skal betale kr 500 pr hus og kr 2000 pr hotel", 500, 2000);
+        chanceCards[1]=new ChanceBetalbankenHusHotel("Ejendomsskat","Ejendomsskatten er steget. Ekstraudgifterne er: 800 kr pr hus, 2300 kr pr hotel.",800,2300);
+        chanceCards[2]=new ChanceBetalBanken("Fuldt stop", "De har kørt frem for “fuldt stop”, Betal 1000 kroner i bøde", 1000);
+        chanceCards[3]=new ChanceBetalBanken("Vognvask og smøring", "Betal for vognvask og smøring kr 300", 300);
+        chanceCards[4]=new ChanceBetalBanken("2 kasser øl","Betal kr 200 for levering af 2 kasser øl", 200);
+        chanceCards[5]=new ChanceBetalBanken("Reparation1 af deres vogn", "Betal 3000 for reparation af deres vogn", 3000);
+        chanceCards[6]=new ChanceBetalBanken("Reparation2 af deres vogn", "Betal 3000 for reparation af deres vogn", 3000);
+        chanceCards[7]=new ChanceBetalBanken("4 nye dæk", "De har købt 4 nye dæk til Deres vogn, betal kr 1000", 1000);
+        chanceCards[8]=new ChanceBetalBanken("Parkeringsbøde", "De har fået en parkeringsbøde, betal kr 200 i bøde", 200);
+        chanceCards[9]=new ChanceBetalBanken("bilforsikring", "Betal deres bilforsikring, kr 1000", 1000);
+        chanceCards[10]=new ChanceBetalBanken("Smøger", "De har været udenlands og købt for mange smøger, betal kr 200 i told.");
+        chanceCards[11]=new ChanceBetalBanken("Tandlægeregning", "Tandlægeregning, betal kr 2000.", 2000);
+
+/*
+
+
         chanceCards[0]=new ChanceOverdragelseskort(".Til Bil","Dette chance kort er givet til Bilen. Tag et chancekort mere Bil: På din næste tur skal du drøne frem til et hvilket som helst ledigt felt og købe det. Hvis det ikke er nogen ledige felter skal du købe et fra en anden spiller!", "Bil");
 
         chanceCards[1]=new ChanceRykFremTilFelt("Start","Du rykkes frem til start.", 0);
@@ -44,6 +60,8 @@ public  class Chance {
         chanceCards[19]=new Chance2Farver("Ryk frem til brunt eller gult felt","Gratis felt. Du Rykkes frem til et brunt eller gult felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",7,6);
 
 
+
+ */
     }
 
     /**
