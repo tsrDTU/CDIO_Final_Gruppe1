@@ -33,6 +33,20 @@ public  class Chance {
         chanceCards[9]=new ChanceBetalBanken("bilforsikring", "Betal deres bilforsikring, kr 1000", 1000);
         chanceCards[10]=new ChanceBetalBanken("Smøger", "De har været udenlands og købt for mange smøger, betal kr 200 i told.");
         chanceCards[11]=new ChanceBetalBanken("Tandlægeregning", "Tandlægeregning, betal kr 2000.", 2000);
+        chanceCards[12]=new ChanceModtagFraBanken("klasselotteriet1", "De har vundet i klasselotteriet. Modtag 500 kr.", 500);
+        chanceCards[13]=new ChanceModtagFraBanken("klasselotteriet2", "De har vundet i klasselotteriet. Modtag 500 kr.", 500);
+        chanceCards[14]=new ChanceModtagFraBanken("Aktieudbytte1", "De modtager Deres aktieudbytte. Modtag kr 1000 af banken", 1000);
+        chanceCards[15]=new ChanceModtagFraBanken("Aktieudbytte2", "De modtager Deres aktieudbytte. Modtag kr 1000 af banken", 1000);
+        chanceCards[16]=new ChanceModtagFraBanken("Aktieudbytte3", "De modtager Deres aktieudbytte. Modtag kr 1000 af banken", 1000);
+        chanceCards[17]=new ChanceModtagFraBanken("Eftergivet skat", "Kommunen har eftergivet et kvartals skat. Hæv i banken 3000 kr.", 3000);
+        chanceCards[18]=new ChanceModtagFraBanken("Elleve rigtige", "De have en række med elleve rigtige i tipning, modtag kl 1000", 1000);
+        chanceCards[19]=new ChanceModtagFraBanken("Gageforhøjelse", "Grundet dyrtiden har De fået gageforhøjelse, modtag kr 1000.", 1000);
+        chanceCards[20]=new ChanceModtagFraBanken("Præmieobligation1", "Deres præmieobligation er udtrykket. De modtager 1000 kr af banken.", 1000);
+        chanceCards[21]=new ChanceModtagFraBanken("Præmieobligation2", "Deres præmieobligation er udtrykket. De modtager 1000 kr af banken.", 1000);
+        chanceCards[22]=new ChanceModtagFraBanken("Gamle møbler", "De har solg nogle gamle møbler på auktion. Modtag 1000 kr af banken.", 1000);
+        chanceCards[23]=new ChanceModtagFraBanken("Nyttehaven", "Værdien af egen avl fra nyttehaven udgør 200 som de modtager af banken", 200);
+        chanceCards[24]=new ChanceMatadorLegat();
+
 
 /*
 
