@@ -57,8 +57,16 @@ public  class Chance {
         chanceCards[33]=new ChanceRykFremTilFelt("Frederiksberg Allé", "Ryk frem til Frederiksberg Allé. Hvis De passere START, indkasser da 4000 kr.", 11);
         chanceCards[34]=new ChanceRykNaermRederi("Nærmeste rederi 1", "Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.");
         chanceCards[35]=new ChanceRykNaermRederi("Nærmeste rederi 2", "Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.");
-
-
+        chanceCards[36]=new ChanceRykFremTilFelt("Mols-Linien", "Tag med Mols-Linien, flyt brikken frem og hvis De passerer START indkassér da kr 4000.", 15);
+        chanceCards[37]=new ChanceRykFremTilFelt("Grønningen", "Ryk frem til Grønningen, hvis De passerer start indkasser da kr 4000", 24);
+        chanceCards[38]=new ChanceRykFremTilFelt("Vimmelskaftet", "Ryk frem til Vimmelskaftet, hvis de passerer start indkasser da kr 4000", 32);
+        chanceCards[39]=new ChanceRykNaermRederi("Nærmeste færge", "Tag med den nærmeste færge, hvis de passerer start indkasser da kr 4000");
+        chanceCards[40]=new ChanceRykFremTilFelt("Strandvejen", "Ryk frem til Strandvejen. Hvis De passere START, indkasser da 4000 kr.", 19);
+        chanceCards[41]=new ChanceRykFremTilFelt("Rådhuspladsen", "Tag til Rådhuspladsen", 39);
+        chanceCards[42]=new ChanceAmnistiFeng("kongens fødselsdag 1","I anledning af kongens fødselsdag benådes De herved for fængsel. Dette kort kan opbevares indtil De får brug for det, eller De kan sælge det.");
+        chanceCards[43]=new ChanceAmnistiFeng("kongens fødselsdag 2","I anledning af kongens fødselsdag benådes De herved for fængsel. Dette kort kan opbevares indtil De får brug for det, eller De kan sælge det.");
+        chanceCards[44]=new ChanceGaaIFaengsel("Fængsel", "Gå i fængsel, De indkasserer ikke 4000 kr for at passere start.");
+        chanceCards[45]=new ChanceGaaIFaengsel("Fængsel", "Gå i fængsel, De indkasserer ikke 4000 kr for at passere start.");
 
 
 /*
