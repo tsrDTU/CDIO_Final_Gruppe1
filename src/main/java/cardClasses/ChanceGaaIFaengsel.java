@@ -1,6 +1,9 @@
 package cardClasses;
 
-public class ChanceGaaIFaengsel extends Chance
+/**
+ * Spilleren skal gå i fængsel
+ */
+public class ChanceGaaIFaengsel extends Chancekort
 {
     private final int feltNr=30;
 
@@ -11,6 +14,6 @@ public class ChanceGaaIFaengsel extends Chance
 
     public int getFeltNr()
     {
-        return feltNr
+        return feltNr;
     }
 }

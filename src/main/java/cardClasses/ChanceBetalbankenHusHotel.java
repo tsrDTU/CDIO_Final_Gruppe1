@@ -1,6 +1,9 @@
 package cardClasses;
 
-public class ChanceBetalbankenHusHotel extends Chance
+/**
+ * Spillerens betaling til banken, hvor den er afhængig af hvor mange huse og hoteller spilleren ejer
+ */
+public class ChanceBetalbankenHusHotel extends Chancekort
 {
     private int beloebHus, beloebHotel;
 

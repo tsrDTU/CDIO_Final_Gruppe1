@@ -1,6 +1,9 @@
 package cardClasses;
 
-public class ChanceBetalBanken extends Chance
+/**
+ * Betaling fra spilleren til banken
+ */
+public class ChanceBetalBanken extends Chancekort
 {
     private int beloeb;
 

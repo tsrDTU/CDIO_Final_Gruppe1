@@ -1,6 +1,9 @@
 package cardClasses;
 
-public class ChanceModtagFraHverSpiller extends Chance
+/**
+ * Spilleren modtager penge fra alle de andre spillere
+ */
+public class ChanceModtagFraHverSpiller extends Chancekort
 {
     private int beloeb;
 

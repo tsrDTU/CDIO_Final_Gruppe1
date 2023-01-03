@@ -10,7 +10,7 @@ import java.util.Objects;
 
 
 public  class Chance {
-    private static Chancekort[] chanceCards=new Chancekort[20];
+    private static Chancekort[] chanceCards=new Chancekort[46];
     int testKortMode=0;
 
     /**
@@ -31,7 +31,7 @@ public  class Chance {
         chanceCards[7]=new ChanceBetalBanken("4 nye dæk", "De har købt 4 nye dæk til Deres vogn, betal kr 1000", 1000);
         chanceCards[8]=new ChanceBetalBanken("Parkeringsbøde", "De har fået en parkeringsbøde, betal kr 200 i bøde", 200);
         chanceCards[9]=new ChanceBetalBanken("bilforsikring", "Betal deres bilforsikring, kr 1000", 1000);
-        chanceCards[10]=new ChanceBetalBanken("Smøger", "De har været udenlands og købt for mange smøger, betal kr 200 i told.");
+        chanceCards[10]=new ChanceBetalBanken("Smøger", "De har været udenlands og købt for mange smøger, betal kr 200 i told.", 200);
         chanceCards[11]=new ChanceBetalBanken("Tandlægeregning", "Tandlægeregning, betal kr 2000.", 2000);
         chanceCards[12]=new ChanceModtagFraBanken("klasselotteriet1", "De har vundet i klasselotteriet. Modtag 500 kr.", 500);
         chanceCards[13]=new ChanceModtagFraBanken("klasselotteriet2", "De har vundet i klasselotteriet. Modtag 500 kr.", 500);
@@ -112,7 +112,7 @@ public  class Chance {
             kOk=0;
 
             if (testKortMode==0) {
-                kort_nr = (int) (Math.random() * 20);
+                kort_nr = (int) (Math.random() * 46);
                 //System.out.println("Normalt kort trukket");
             }
             else
@@ -123,7 +123,7 @@ public  class Chance {
                 //System.out.println("Testkort trukket");
             }
             //System.out.println("Chancekort nr: "+kort_nr+" trukket");
-
+/*
             if (kort_nr==0|| kort_nr == 5 || kort_nr == 11 || kort_nr == 12 || kort_nr == 9)
             {
 
@@ -148,7 +148,11 @@ public  class Chance {
 
             }
 
+ */
+
         } while (kOk > 0);
+
+
 
         return chanceCards[kort_nr];
 

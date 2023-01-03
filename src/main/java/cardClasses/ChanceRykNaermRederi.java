@@ -1,6 +1,9 @@
 package cardClasses;
 
-public class ChanceRykNaermRederi extends Chance
+/**
+ * Ryk spillerens bil til nærmeste rederi (det samme som færge)
+ */
+public class ChanceRykNaermRederi extends Chancekort
 {
     private String felt="Rederi";
 

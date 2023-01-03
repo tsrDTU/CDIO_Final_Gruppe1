@@ -1,6 +1,9 @@
 package cardClasses;
 
-public class ChanceMatadorLegat extends Chance
+/**
+ * Matador legatet
+ */
+public class ChanceMatadorLegat extends Chancekort
 {
     private final int legat=40000, vaerdigraense=15000;
 
@@ -11,7 +14,7 @@ public class ChanceMatadorLegat extends Chance
 
     public int getLegat()
     {
-        return legat
+        return legat;
     }
 
     public int getVaerdigraense()
