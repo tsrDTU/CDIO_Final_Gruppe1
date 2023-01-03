@@ -45,7 +45,20 @@ public  class Chance {
         chanceCards[21]=new ChanceModtagFraBanken("Præmieobligation2", "Deres præmieobligation er udtrykket. De modtager 1000 kr af banken.", 1000);
         chanceCards[22]=new ChanceModtagFraBanken("Gamle møbler", "De har solg nogle gamle møbler på auktion. Modtag 1000 kr af banken.", 1000);
         chanceCards[23]=new ChanceModtagFraBanken("Nyttehaven", "Værdien af egen avl fra nyttehaven udgør 200 som de modtager af banken", 200);
-        chanceCards[24]=new ChanceMatadorLegat();
+        chanceCards[24]=new ChanceMatadorLegat("Matador-legatet", "De modtager “Matador-legatet” på kr 40.000, men kun hvis værdier ikke overstiger 15.000 kr");
+        chanceCards[25]=new ChanceModtagFraHverSpiller("Fødselsdag", "Det er deres fødselsdag. Modtag af hver medspiller 200 kr.", 200);
+        chanceCards[26]=new ChanceModtagFraHverSpiller("Sammenskudsgilde", "De har lagt penge ud til et sammenskudsgilde. Mærkværdigvis betaler alle straks. Modtag fra hver medspiller 500 kr.", 500);
+        chanceCards[27]=new ChanceModtagFraHverSpiller("Familiefest", "De skal holde familiefest og får et tilskud fra hver medspiller på 500 kr.", 500);
+        chanceCards[28]=new ChanceRykFremTilFelt("START1", "Ryk frem til START", 0);
+        chanceCards[29]=new ChanceRykFremTilFelt("START2", "Ryk frem til START", 0);
+        chanceCards[30]=new ChanceRykFelter("Tre frem", "Ryk tre felter frem", 3);
+        chanceCards[31]=new ChanceRykFelter("Tre tilbage 1", "Ryk tre felter tilbage", -3);
+        chanceCards[32]=new ChanceRykFelter("Tre tilbage 2", "Ryk tre felter tilbage", -3);
+        chanceCards[33]=new ChanceRykFremTilFelt("Frederiksberg Allé", "Ryk frem til Frederiksberg Allé. Hvis De passere START, indkasser da 4000 kr.", 11);
+        chanceCards[34]=new ChanceRykNaermRederi("Nærmeste rederi 1", "Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.");
+        chanceCards[35]=new ChanceRykNaermRederi("Nærmeste rederi 2", "Ryk frem til det nærmeste rederi og betal ejeren to gange den leje han ellers er berettiget til, hvis selskabet ikke ejes af nogen kan De købe det af banken.");
+
+
 
 
 /*
@@ -288,6 +301,7 @@ public  class Chance {
                     if (i>23) i=0;
 
                 }while( fields[i].getDescription().equals(farvCod)==false && j < 25);
+
 
                         System.out.println(fields[bilPos+1].getDescription());
 
