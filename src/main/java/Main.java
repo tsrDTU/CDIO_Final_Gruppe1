@@ -18,6 +18,7 @@ import static Files.FileReference.*;
 import static GameMechanics.Die.getSum;
 import static GameMechanics.textReaderClass.textRDR;
 import static TheBoard.Base.*;
+import static TheBoard.Base.WinnerMoney;
 import static TheBoard.BoardCreator.JailInit;
 import static TheBoard.Language.dialog;
 import player.MjPlayer;
@@ -37,7 +38,8 @@ public class Main {
         ArrayList<String> userRoles = new ArrayList<>(Arrays.asList("Bil","Skib","Hund","Kat"));
         //String[] userRoles={"Bil","Skib","Hund","Kat"};
         String[] freeUserRoles;
-
+        //hej
+        //hej2
 
 //-------------------------------------------------------------------------------------------
 //
@@ -315,29 +317,13 @@ public class Main {
             //  if someone loses, the game ends and a winner/ winners are decided
             if (selectedPlayer.getBalance() < 1) {
 
-                //  Makes an array of potential winners
-                String[] Winners = new String[AmountofPlayers];
                 //  Sets the winner to player1
-                Winners[0] = PlayerArray[0].getName();
-                WinnerMoney = PlayerArray[0].getBalance();
-                for (int i = 1; i < AmountofPlayers; i++) {
-                    //  if the player has more money, set it as the new winner, by resetting the array and putting the new value in
-                    if (PlayerArray[i].getBalance() > WinnerMoney) {
-                        for (int b = 0; b < AmountofPlayers; b++) {
-                            Winners[b] = " ";
-                        }
-                        Winners[i] = PlayerArray[i].getName();
-                        WinnerMoney = PlayerArray[i].getBalance();
-                        WinnerInt = i;
-                    }
-                    // if the next player has the same balance as previous player, set both as winners
-                    else if (PlayerArray[i].getBalance() == WinnerMoney)
-                        for (int l = 1; l < AmountofPlayers; l++) {
-                            Winners[i] = (Winners[i - 1] + " " + PlayerArray[i].getName());
-                        }
-                }
+                String Winners = new String();
+
+                Winners = GameMechanics.Winner.Values(PlayerArray,selectedPlayer);
+                WinnerMoney = GameMechanics.Winner.Money(PlayerArray,selectedPlayer);
                 //  Displaying the Winners
-                gui.showMessage(Winners[WinnerInt] + dialog[DialogNR] + WinnerMoney); DialogNR++;
+                gui.showMessage(Winners + dialog[DialogNR] + WinnerMoney); DialogNR++;
 //-------------------------------------------------------------------------------------------
 //
 //          Game End
