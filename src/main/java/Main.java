@@ -297,7 +297,7 @@ public class Main {
                 selection = !selection;
                 playingPlayer++;
             }
-            //Extra tour
+            //Extra tur
             else if ((selectedPlayer.getBalance() <= -1)) {
                 gui.showMessage(selectedPlayer.getName() + dialog[DialogNR]); DialogNR++;
             }
