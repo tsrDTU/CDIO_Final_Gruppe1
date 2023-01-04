@@ -361,6 +361,7 @@ public class Main {
                         }
                     }
                 }
+                //more
                 while (!answerGameOk);
             }
             //end game if last selection to (wanna keep playing?) is no
