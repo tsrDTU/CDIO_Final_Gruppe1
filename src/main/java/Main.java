@@ -54,7 +54,7 @@ public class Main {
         //BoardCreator.SetGUItext();
         //  Sets up the background GUI (Graphical User Interface) to a plain white
 //        GUI gui = new GUI(Base.fields, Color.WHITE);
-        GUI gui = new GUI(fields, Color.WHITE);
+        GUI gui = new GUI(fields, Color.BLACK);
 
         //  Asks if the language has been initialised and makes a button for user to select language
             language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
@@ -302,6 +302,13 @@ public class Main {
                 gui.showMessage(selectedPlayer.getName() + dialog[DialogNR]); DialogNR++;
             }
             answerGameOk = false;
+
+
+            GameMechanics.Fields.RestartOnePlayerOwnStatus(selectedPlayer,OwnedtrueOwnedFalse);
+
+
+
+
 //-------------------------------------------------------------------------------------------
 //
 //          Game Winner display
@@ -311,16 +318,8 @@ public class Main {
 
             //  if someone loses, the game ends and a winner/ winners are decided
             if (selectedPlayer.getBalance() < 1) {
-//                String Winner = " ";
-//                int WinnerMoney = 0;
-                //int WinnerInt = 0;
-                //  Makes an array of potential winners
-                String Winners = new String();
-                //  Sets the winner to player1
-                // - Winners[0] = PlayerArray[0].getName();
-                // - WinnerMoney = PlayerArray[0].getBalance();
 
-                //NEW CODE
+                String Winners = new String();
 
                 Winners = GameMechanics.Winner.Values(PlayerArray,selectedPlayer);
                 WinnerMoney = GameMechanics.Winner.Money(PlayerArray,selectedPlayer);
@@ -354,22 +353,30 @@ public class Main {
 //
 //-------------------------------------------------------------------------------------------
                 do {
+
                     //  Ask for new game
                     answer_game = gui.getUserButtonPressed(dialog[DialogNR], dialog[DialogNR+1], dialog[DialogNR+2]);
                     //  if anwser to "a new game" is no - stop the game
-                    if (answer_game.equals(dialog[DialogNR+2])) {
-                        game_running = false;
-                        answerGameOk = true;
-                    }   //  else restart the game
-                    else {
-                        answerGameOk = true;
-                        GameMechanics.Cars.restart(PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
-                        GameMechanics.Fields.RestartFieldTitles(/*fields*/TitleF, Base.fieldNR(), Base.fields);
-                        GameMechanics.Fields.RestartOwnStatus(OwnedtrueOwnedFalse, Base.fieldNR(), AmountofPlayers);
-                        for (int i = 0; i < AmountofPlayers; i++) {
-                            PlayerSpaceNRexcact[i] = 0;
-                        }
-                    }
+
+                    EndGameQuestionController.AskEndQuestion(answer_game,game_running,answerGameOk
+                    ,OwnedtrueOwnedFalse,DialogNR,PlayerSpaceNRexcact);
+
+//                    if (answer_game.equals(dialog[DialogNR+2])) {
+//                        game_running = false;
+//                        answerGameOk = true;
+//                    }   //  else restart the game
+//                    else {
+//                        answerGameOk = true;
+//                        GameMechanics.Cars.restart(PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
+//                        GameMechanics.Fields.RestartFieldTitles(/*fields*/TitleF, Base.fieldNR(), Base.fields);
+//                        GameMechanics.Fields.RestartOwnStatus(OwnedtrueOwnedFalse, Base.fieldNR(), AmountofPlayers);
+//                        for (int i = 0; i < AmountofPlayers; i++) {
+//                            PlayerSpaceNRexcact[i] = 0;
+//                        }
+//                    }
+
+
+
                 }
                 while (!answerGameOk);
             }
