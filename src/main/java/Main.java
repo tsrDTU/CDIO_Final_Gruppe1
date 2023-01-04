@@ -54,7 +54,7 @@ public class Main {
         //BoardCreator.SetGUItext();
         //  Sets up the background GUI (Graphical User Interface) to a plain white
 //        GUI gui = new GUI(Base.fields, Color.WHITE);
-        GUI gui = new GUI(fields, Color.WHITE);
+        GUI gui = new GUI(fields, Color.BLACK);
 
         //  Asks if the language has been initialised and makes a button for user to select language
             language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog

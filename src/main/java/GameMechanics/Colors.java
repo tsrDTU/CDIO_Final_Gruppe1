@@ -27,14 +27,14 @@ public class Colors {
             description = description-9;
         //  Defines all colors based off a value from 0-9
         if (description==0) return Color.WHITE;
-        else if (description==1) return Color.RED;
-        else if (description==2) return Color.BLUE;
+        else if (description==1) return Color.getHSBColor(0f,0.8f,0.8f);
+        else if (description==2) return Color.getHSBColor(0.10f,1f,1f);
         else if (description==3) return Color.getHSBColor(0.10f,1f,1f);
         else if (description==4) return Color.getHSBColor(0.90f,1f,1f);
-        else if (description==5) return Color.CYAN;
-        else if (description==6) return Color.YELLOW;
+        else if (description==5) return Color.getHSBColor(0.10f,1f,1f);
+        else if (description==6) return Color.getHSBColor(0.10f,1f,1f);
         else if (description==7) return Color.getHSBColor(0.13f,1f,0.47f);
-        else if (description==8) return Color.GREEN;
+        else if (description==8) return Color.getHSBColor(0.10f,1f,1f);
         else return Color.WHITE;    // if something goes wrong, White color is returned.
     }
 
