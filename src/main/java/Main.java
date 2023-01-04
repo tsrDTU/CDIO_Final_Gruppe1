@@ -308,18 +308,25 @@ public class Main {
 //
 //-------------------------------------------------------------------------------------------
             //  Initialises values for displaying a winner
-            String Winner = " ";
-            int WinnerMoney = 0;
-            int WinnerInt = 0;
 
             //  if someone loses, the game ends and a winner/ winners are decided
             if (selectedPlayer.getBalance() < 1) {
-
+//                String Winner = " ";
+//                int WinnerMoney = 0;
+                //int WinnerInt = 0;
                 //  Makes an array of potential winners
-                String[] Winners = new String[AmountofPlayers];
+                String Winners = new String();
                 //  Sets the winner to player1
-                Winners[0] = PlayerArray[0].getName();
-                WinnerMoney = PlayerArray[0].getBalance();
+                // - Winners[0] = PlayerArray[0].getName();
+                // - WinnerMoney = PlayerArray[0].getBalance();
+
+                //NEW CODE
+
+                Winners = GameMechanics.Winner.Values(PlayerArray,selectedPlayer);
+                WinnerMoney = GameMechanics.Winner.Money(PlayerArray,selectedPlayer);
+
+                /*
+
                 for (int i = 1; i < AmountofPlayers; i++) {
                     //  if the player has more money, set it as the new winner, by resetting the array and putting the new value in
                     if (PlayerArray[i].getBalance() > WinnerMoney) {
@@ -336,8 +343,11 @@ public class Main {
                             Winners[i] = (Winners[i - 1] + " " + PlayerArray[i].getName());
                         }
                 }
+
+                */
+
                 //  Displaying the Winners
-                gui.showMessage(Winners[WinnerInt] + dialog[DialogNR] + WinnerMoney); DialogNR++;
+                gui.showMessage(Winners + dialog[DialogNR] + WinnerMoney); DialogNR++;
 //-------------------------------------------------------------------------------------------
 //
 //          Game End

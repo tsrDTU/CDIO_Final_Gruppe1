@@ -197,8 +197,8 @@ public class Fields {
                     //  Returns a string that is used to add to the amount of money for the selected player
                     //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
                     if (fields[THEfieldsNR].getSubText().substring(1,2).equals("M"))
-                      gui.showMessage("Du er landet på "+fields[THEfieldsNR].getTitle() +" som er du køber. Det koster "+fields[THEfieldsNR].getSubText()+" som bliver trukket på din konto");
-                    return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
+                      gui.showMessage("Du er landet på "+fields[THEfieldsNR].getTitle() +" som du køber. Det koster "+fields[THEfieldsNR].getSubText()+" som bliver trukket på din konto");
+                    return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]-2000);
                     // OVENFOR KAN KØBSVÆRDI ÆNDRES
                 ///}
             }
