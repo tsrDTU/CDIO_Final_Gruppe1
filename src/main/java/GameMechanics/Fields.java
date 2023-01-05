@@ -52,16 +52,40 @@ public class Fields {
     }
     public static String MoveInJail(GUI_Street[] fields,MjPlayer[] PlayerArray,int CurrentSpaceForSelectedPlayer
             , GUI_Player selectedPlayer, int THEfieldsNR, boolean[] JailOn, int[] PlayerSpaceNRexcact){
-            //  Finds the Space with JailVisit
             int JailVisitSpace=Base.JailLocationOnBoard;
-            //  Moves car to JailVisitSpace
             Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, JailVisitSpace, fields);
-            //  Changes PlayerSpace Info to new location and activates the JailOn Array
             PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
             JailOn[selectedPlayer.getNumber()]=true;
             // System.out.println("player "+selectedPlayer.getNumber()+ " got jailed");  //Jail TestLine
             return "-1";  // return value to add to someones balance
 
+    }
+
+    public static int Find_THEfieldsNR(GUI_Street[] fields, MjPlayer selectedPlayer){
+        int THEfieldsNR = 0;
+        for (int i = 0; i < Base.fieldNR(); i++)
+        {
+            if (fields[i].hasCar(selectedPlayer))
+                THEfieldsNR = i;
+        }
+        return THEfieldsNR;
+    }
+
+    public static String BuyCurrentProperty(MjPlayer[] PlayerArray, MjPlayer selectedPlayer, GUI_Street[] fields,
+                                         int THEfieldsNR,boolean GoOn, int[][] Ownedtrue, int CurrentSpaceForSelectedPlayer)
+                                        throws FileNotFoundException {
+        if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= BoardCreator.CostofField()[THEfieldsNR] && GoOn) {
+            //System.out.println("you bought the space");   | EMPTY NOTE |
+            Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] = 1;
+            //  Puts the name of the player who bought the space onto the title of the field
+            fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
+            //  Returns a string that is used to add to the amount of money for the selected player
+            //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
+            return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
+            // OVENFOR KAN KØBSVÆRDI ÆNDRES
+            ///}
+        }
+        else return "0  - something went wrong when trying to buy a field - purchase failed";
     }
 
     public static String wannaBuyDoYou(int[][] Ownedtrue,
@@ -73,13 +97,14 @@ public class Fields {
                                        boolean[] JailOn, Chance chankort, gui_main.GUI gui, GUI_Street[] fields/*NEW*/) throws FileNotFoundException {
         boolean wannaBuy = false;
         boolean[] Playerboughtspace = new boolean[AmountofPlayers];
-        int THEfieldsNR = 0;
+//        int THEfieldsNR = 0;
         int ny_bilPos;
         String NewBal;
-        for (int i = 0; i < Base.fieldNR(); i++) {
-            if (/*Base.fields[i].hasCar(selectedPlayer)*/fields[i].hasCar(selectedPlayer))
-                THEfieldsNR = i;
-        }
+        int THEfieldsNR = Find_THEfieldsNR(fields,selectedPlayer);
+//        for (int i = 0; i < Base.fieldNR(); i++) {
+//            if (fields[i].hasCar(selectedPlayer))
+//                THEfieldsNR = i;
+//        }
 
         boolean PassedGo = false;
         //  defines the exact locations for each player (used for the jail and Go spaces)
@@ -172,18 +197,22 @@ public class Fields {
             //  This is a check for if the player wants to buy, ((It does not function because the player is forced to buy))
             ///if (boolforBUY) {
             //  This checks if the selected player has enough money, And buys the space if it does.
-            if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= BoardCreator.CostofField()[THEfieldsNR] && GoOn) {
-                //System.out.println("you bought the space");   | EMPTY NOTE |
-                Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] = 1;
-                //  Puts the name of the player who bought the space onto the title of the field
-                fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
-                //  Returns a string that is used to add to the amount of money for the selected player
-                //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
-                return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
-                // OVENFOR KAN KØBSVÆRDI ÆNDRES
-                ///}
-            }
-            else return "Error on line 175 in Fields"; // returns error message in case there is an error
+
+            return BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
+                    CurrentSpaceForSelectedPlayer);
+
+            //            if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= BoardCreator.CostofField()[THEfieldsNR] && GoOn) {
+//                //System.out.println("you bought the space");   | EMPTY NOTE |
+//                Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] = 1;
+//                //  Puts the name of the player who bought the space onto the title of the field
+//                fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
+//                //  Returns a string that is used to add to the amount of money for the selected player
+//                //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
+//                return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
+//                // OVENFOR KAN KØBSVÆRDI ÆNDRES
+//                ///}
+//            }
+//            else return "Missing code in fields line 196 on saying no to buying a field"; // returns error message in case there is an error
 
 //  Knows that someone owns the field, Pays rent and adds the rent to the SpaceOwners balance
         else {
