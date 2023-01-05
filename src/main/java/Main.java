@@ -147,7 +147,7 @@ public class Main {
         //Create the dices. Default 6 sides
         //String AmountofDice = gui.getUserButtonPressed("how many dice?", "1", "2");
             Die d1 = new Die();
-            Die d2 = new Die(0);
+            Die d2 = new Die();
 
 
         // If sides are different from 6, set the number of sides.
@@ -211,13 +211,14 @@ public class Main {
             //GameMechanics.Jail.JailRegister(AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
             d1.dice_roll();
-            //d2.dice_roll();
+            d2.dice_roll();
 
             //Inform which user is playing
             gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1]+" "+ selectedPlayer.getUserRole(), dialog[DialogNR+2]); DialogNR+=3;
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
-            int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
+            //int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
+            int DieSum = getSum(d1,d2);
 
             int CurrentSpaceForSelectedPlayer = 0;
             CurrentSpaceForSelectedPlayer = 0;
@@ -282,7 +283,7 @@ public class Main {
                         ].getTitle() + "\n" + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getSubText());
             Fields.displayDescriptions(fields, CurrentSpaceForSelectedPlayer, amountOfGameLoops);
             //Display GameMechanics.Die on the Board
-            GameMechanics.Die.OnBoard(d1, gui);/*, d2*/
+            GameMechanics.Die.OnBoard(d1, d2, gui);/*, d2*/
 
             //Changes currentSpaceForSelected Player to the new location
             if (CurrentSpaceForSelectedPlayer + DieSum > Base.fieldNR())
@@ -358,9 +359,9 @@ public class Main {
                     answer_game = gui.getUserButtonPressed(dialog[DialogNR], dialog[DialogNR+1], dialog[DialogNR+2]);
                     //  if anwser to "a new game" is no - stop the game
 
-                    EndGameQuestionController.AskEndQuestion(answer_game,game_running,answerGameOk
-                    ,OwnedtrueOwnedFalse,DialogNR,PlayerSpaceNRexcact);
-
+                    game_running = EndGameQuestionController.AskEndQuestion(answer_game,game_running,answerGameOk
+                    ,OwnedtrueOwnedFalse,DialogNR,PlayerSpaceNRexcact, PlayerArray);
+                    answerGameOk = true;
 //                    if (answer_game.equals(dialog[DialogNR+2])) {
 //                        game_running = false;
 //                        answerGameOk = true;

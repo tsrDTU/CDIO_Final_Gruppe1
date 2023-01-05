@@ -1,6 +1,7 @@
 package GameMechanics;
 
 import TheBoard.Base;
+import gui_fields.GUI_Player;
 
 import java.io.FileNotFoundException;
 
@@ -10,8 +11,9 @@ import static TheBoard.Base.PlayerArray;
 import static TheBoard.Language.dialog;
 
 public class EndGameQuestionController {
-    public static boolean AskEndQuestion(String answer_game,boolean game_running
-            ,boolean answerGameOk,int[][] OwnedtrueOwnedFalse, int DialogNR, int[] PlayerSpaceNRexcact)
+    public static boolean AskEndQuestion(String answer_game, boolean game_running
+            , boolean answerGameOk, int[][] OwnedtrueOwnedFalse, int DialogNR, int[] PlayerSpaceNRexcact
+            , GUI_Player[] PlayerArray)
             throws FileNotFoundException {
         if (answer_game.equals(dialog[DialogNR+2])) {
             game_running = false;
@@ -26,7 +28,7 @@ public class EndGameQuestionController {
                 PlayerSpaceNRexcact[i] = 0;
             }
         }
-        return true;
+        return game_running;
     }
 
 }

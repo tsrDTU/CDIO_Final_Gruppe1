@@ -83,9 +83,8 @@ public class Fields {
             //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
             return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
             // OVENFOR KAN KØBSVÆRDI ÆNDRES
-            ///}
         }
-        else return "0  - something went wrong when trying to buy a field - purchase failed";
+        else return "0";// this makes sure you don't pay the bank when landing on your own property
     }
 
     public static String wannaBuyDoYou(int[][] Ownedtrue,
@@ -166,7 +165,7 @@ public class Fields {
 
             if (CurrentSpaceForSelectedPlayer != ny_bilPos)
             {
-                if (CurrentSpaceForSelectedPlayer+3>fieldNR())
+                if (CurrentSpaceForSelectedPlayer+1>fieldNR())
                     CurrentSpaceForSelectedPlayer-=fieldNR();
                 Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, ny_bilPos, fields);
             }
