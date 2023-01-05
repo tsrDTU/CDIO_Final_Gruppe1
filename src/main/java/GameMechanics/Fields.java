@@ -50,7 +50,19 @@ public class Fields {
         return ArrayofOwnership[spaceNumber][selectedPlayersNR]==1;
         //System.out.println("---------------");
     }
+    public static String MoveInJail(GUI_Street[] fields,MjPlayer[] PlayerArray,int CurrentSpaceForSelectedPlayer
+            , GUI_Player selectedPlayer, int THEfieldsNR, boolean[] JailOn, int[] PlayerSpaceNRexcact){
+            //  Finds the Space with JailVisit
+            int JailVisitSpace=Base.JailLocationOnBoard;
+            //  Moves car to JailVisitSpace
+            Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, JailVisitSpace, fields);
+            //  Changes PlayerSpace Info to new location and activates the JailOn Array
+            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
+            JailOn[selectedPlayer.getNumber()]=true;
+            // System.out.println("player "+selectedPlayer.getNumber()+ " got jailed");  //Jail TestLine
+            return "-1";  // return value to add to someones balance
 
+    }
 
     public static String wannaBuyDoYou(int[][] Ownedtrue,
                                        MjPlayer selectedPlayer,
@@ -80,15 +92,17 @@ public class Fields {
 
 // WHERE JAIL IS LOCATED
         if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL")){
-            //  Finds the Space with JailVisit
-            int JailVisitSpace=7;
-            //  Moves car to JailVisitSpace
-            Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, JailVisitSpace, fields);
-            //  Changes PlayerSpace Info to new location and activates the JailOn Array
-            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
-            JailOn[selectedPlayer.getNumber()]=true;
-            // System.out.println("player "+selectedPlayer.getNumber()+ " got jailed");  //Jail TestLine
-            return "-1";  // return value to add to someones balance
+            MoveInJail(fields, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, THEfieldsNR,
+                    JailOn, PlayerSpaceNRexcact);
+//            //  Finds the Space with JailVisit
+//            int JailVisitSpace=7;
+//            //  Moves car to JailVisitSpace
+//            Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, JailVisitSpace, fields);
+//            //  Changes PlayerSpace Info to new location and activates the JailOn Array
+//            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
+//            JailOn[selectedPlayer.getNumber()]=true;
+//            // System.out.println("player "+selectedPlayer.getNumber()+ " got jailed");  //Jail TestLine
+//            return "-1";  // return value to add to someones balance
         }
 
 // What happenes on jailvisit landing
