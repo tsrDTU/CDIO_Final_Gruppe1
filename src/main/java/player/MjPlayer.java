@@ -8,6 +8,9 @@ import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
 
+/**
+ * MjPlayer arver fra GUI_Player og har selv en brugerrolle og funktioner til at håndtere at modtage et ChanceOverdragelseskort og et amnistiKort
+ */
 public class MjPlayer extends GUI_Player
 {
     private String userRole;
@@ -60,6 +63,15 @@ public class MjPlayer extends GUI_Player
         return amnistiKortHaves;
     }
 
+    /**
+     * Checker om et chancekort er modtaget og håndterer i så fald dette
+     * @param pos: Spillerens position på brættet
+     * @param slagIn:Det antal spilleren har slået lige inden funktionen kaldes.
+     * @param fields: Liste over felter
+     * @param Ownedtrue:Liste over ejere
+     * @param gui:GUI
+     * @return: Evt ændret slag for brugeren. I tilfælde af at et chancekort har ændret positionen er slaget tilsvarende ændret
+     */
     public int haandterChanceKortModtaget(int pos, int slagIn, GUI_Street[] fields, int[][] Ownedtrue, GUI gui)
     {
         int slag;
@@ -73,7 +85,7 @@ public class MjPlayer extends GUI_Player
            int n, nr_fields;
            boolean notOwned_FieldFound;
            System.out.println(actChancekort.getKortInfo());
-           System.out.println("Chance kort er modtaget");
+           System.out.println("MjPlayer: "+userRole+".Chance kort er modtaget");
            gui.showMessage("Du har modtaget et chance kort som flytter dig til nærmeste ikke ejede felt, som du køber.");
            n=pos;
            if (n>23)

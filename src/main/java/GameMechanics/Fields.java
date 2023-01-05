@@ -152,10 +152,21 @@ public class Fields {
                 if (CurrentSpaceForSelectedPlayer+3>fieldNR())
                     CurrentSpaceForSelectedPlayer-=fieldNR();
                 Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, ny_bilPos, fields);
+                CurrentSpaceForSelectedPlayer=ny_bilPos;
+
+                 THEfieldsNR = 0;
+
+                for (int i = 0; i < Base.fieldNR(); i++) {
+                    if (/*Base.fields[i].hasCar(selectedPlayer)*/fields[i].hasCar(selectedPlayer))
+                        THEfieldsNR = i;
+                }
+
             }
-            //System.out.println(landetPaaChance.traekEtChanceKort());
-            //System.out.println(" 3%3 ");     // | EMPTY NOTE |
-            return "0";
+            else {
+                //System.out.println(landetPaaChance.traekEtChanceKort());
+                //System.out.println(" 3%3 ");     // | EMPTY NOTE |
+                return "0";
+            }
         }
         //  Defines an owner of a given space
         int SpaceOwner = 0;
@@ -185,11 +196,13 @@ public class Fields {
                     fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
                     //  Returns a string that is used to add to the amount of money for the selected player
                     //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
+                    if (fields[THEfieldsNR].getSubText().substring(1,2).equals("M"))
+                      gui.showMessage("Du er landet på "+fields[THEfieldsNR].getTitle() +" som er du køber. Det koster "+fields[THEfieldsNR].getSubText()+" som bliver trukket på din konto");
                     return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
                     // OVENFOR KAN KØBSVÆRDI ÆNDRES
                 ///}
             }
-            else return "Error"; // returns error message in case there is an error
+            else return "0"; // returns error message in case there is an error
 
         //  Knows that someone owns the field, Pays rent and adds the rent to the SpaceOwners balance
         else {
@@ -200,6 +213,7 @@ public class Fields {
             else {NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
                 PlayerArray[SpaceOwner].setBalance(PlayerArray[SpaceOwner].getBalance()+BoardCreator.CostofField()[THEfieldsNR]);}
             //System.out.println(-CosttoOwn[THEfieldsNR] + "   " +CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
+           gui.showMessage("Du er landet på "+fields[THEfieldsNR].getTitle() +" som er ejet af "+PlayerArray[SpaceOwner].getName()+ ". Det koster "+NewBal+"M som bliver trukket på din konto");
             return NewBal;
         }
         //  The selected player has landed on their own field and 0 is added to their account

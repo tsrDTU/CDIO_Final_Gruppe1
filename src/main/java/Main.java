@@ -214,7 +214,7 @@ public class Main {
             //d2.dice_roll();
 
             //Inform which user is playing
-            gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1], dialog[DialogNR+2]); DialogNR+=3;
+            gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1]+" "+ selectedPlayer.getUserRole(), dialog[DialogNR+2]); DialogNR+=3;
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
             int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
@@ -274,7 +274,7 @@ public class Main {
             }
 
             //Shows description of the space you land on, and changes color
-            //Skal flyttes til Chance. Min mening Torben
+
            if (fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "CHANCE") {
             //    gui.displayChanceCard(Chance.chanceCards[DieSum - 5].getKortNavnavn());
             } else
