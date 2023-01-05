@@ -255,9 +255,9 @@ public  class Chance {
                     j++;
                     if (i>23) i=0;
 
-                }while( fields[i].getDescription().equals(farvCod)==false && j < 25);
+                }while( fields[i].getDescription().equals(farvCod)==false && j < Base.fieldNR()+1);
 
-                        System.out.println(fields[bilPos+1].getDescription());
+                        System.out.println(fields[bilPos].getDescription());
 
                 bilPos=i;
             }

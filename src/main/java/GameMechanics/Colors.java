@@ -29,7 +29,7 @@ public class Colors {
         if (description==0) return Color.WHITE;
         else if (description==1) return Color.RED;
         else if (description==2) return Color.BLUE;
-        else if (description==3) return Color.getHSBColor(0.10f,1f,1f);
+        else if (description==3) return Color.getHSBColor(0.35f,0.33f,0.56f);
         else if (description==4) return Color.getHSBColor(0.90f,1f,1f);
         else if (description==5) return Color.CYAN;
         else if (description==6) return Color.YELLOW;
