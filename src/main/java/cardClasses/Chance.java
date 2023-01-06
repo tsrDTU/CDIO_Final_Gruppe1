@@ -1,10 +1,8 @@
 package cardClasses;
-import GameMechanics.Fields;
-import TheBoard.Base;
+import EgneGuiKlasser.MGUI;
 import gui_main.GUI;
 import player.MjPlayer;
 import gui_fields.*;
-import TheBoard.Base;
 
 import java.util.Objects;
 
@@ -198,8 +196,8 @@ public  class Chance {
      * @param fields: Liste over felter
      * @return: Bilens position på brættet efter at chancekort er håndteret. det kan samme position som eller en anden.
      */
-    public int chanceFieldIsHit(MjPlayer actPlayer,MjPlayer[] players, int actField,
-                                int AmountofPlayers, int AmountofSpaces, GUI gui, GUI_Street[] fields)
+    public int chanceFieldIsHit(MjPlayer actPlayer, MjPlayer[] players, int actField,
+                                int AmountofPlayers, int AmountofSpaces, MGUI gui, GUI_Street[] fields)
     {
         int i, j, bilPos;
         int slut=0;

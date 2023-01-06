@@ -1,7 +1,7 @@
+import EgneGuiKlasser.MGUI;
 import GameMechanics.Cars;
 import GameMechanics.Colors;
 import GameMechanics.Fields;
-import TheBoard.Base;
 import TheBoard.BoardCreator;
 import TheBoard.Language;
 import cardClasses.*;
@@ -12,8 +12,6 @@ import player.MjPlayer;
 import java.awt.*;
 
 import static TheBoard.Base.*;
-import static TheBoard.Base.AmountofPlayers;
-import static TheBoard.BoardCreator.JailInit;
 import static TheBoard.Language.dialog;
 import java.io.*;
 
@@ -73,7 +71,7 @@ class ChanceTest {
         //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
         BoardCreator.InitBoardFieldsGuts();
 
-        GUI gui = new GUI(fields, Color.WHITE);
+        MGUI gui = new MGUI(fields, Color.WHITE);
         language="Dansk";
         Language.initializeDialog(dialog, language);
         antal_kant = 6;

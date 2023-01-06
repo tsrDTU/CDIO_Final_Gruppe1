@@ -1,8 +1,8 @@
 package player;
 
+import EgneGuiKlasser.MGUI;
 import GameMechanics.Fields;
 import cardClasses.ChanceOverdragelseskort;
-import cardClasses.Chancekort;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
@@ -72,7 +72,7 @@ public class MjPlayer extends GUI_Player
      * @param gui:GUI
      * @return: Evt ændret slag for brugeren. I tilfælde af at et chancekort har ændret positionen er slaget tilsvarende ændret
      */
-    public int haandterChanceKortModtaget(int pos, int slagIn, GUI_Street[] fields, int[][] Ownedtrue, GUI gui)
+    public int haandterChanceKortModtaget(int pos, int slagIn, GUI_Street[] fields, int[][] Ownedtrue, MGUI gui)
     {
         int slag;
         // 2 trækkes fra slaget. Arvet fra sidste spil

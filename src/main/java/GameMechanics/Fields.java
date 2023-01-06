@@ -1,16 +1,16 @@
 package GameMechanics;
-import Files.FileReference;
+import EgneGuiKlasser.MGUI;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
 import cardClasses.Chance;
-import cardClasses.Chancekort;
 import gui_codebehind.GUI_Center;
 import gui_fields.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Objects;
+
+import gui_main.GUI;
 import player.MjPlayer;
 
 import static TheBoard.Base.AmountofPlayers;
@@ -93,7 +93,7 @@ public class Fields {
                                        MjPlayer[] PlayerArray,
                                        int CurrentSpaceForSelectedPlayer,
                                        int[] PlayerSpaceNRexcact,
-                                       boolean[] JailOn, Chance chankort, gui_main.GUI gui, GUI_Street[] fields/*NEW*/) throws FileNotFoundException {
+                                       boolean[] JailOn, Chance chankort, MGUI gui, GUI_Street[] fields/*NEW*/) throws FileNotFoundException {
         boolean wannaBuy = false;
         boolean[] Playerboughtspace = new boolean[AmountofPlayers];
 //        int THEfieldsNR = 0;

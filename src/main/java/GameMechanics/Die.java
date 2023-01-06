@@ -1,5 +1,6 @@
 package GameMechanics;
 
+import EgneGuiKlasser.MGUI;
 import gui_main.GUI;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -19,7 +20,7 @@ public class Die {
     }
 
     //Displays Dice on the Board:
-    public static void OnBoard(Die d1, Die d2, GUI gui) {/* Die d2,*/
+    public static void OnBoard(Die d1, Die d2, MGUI gui) {/* Die d2,*/
     int random_numx = ThreadLocalRandom.current().nextInt(4, 6);
     int random_numy = ThreadLocalRandom.current().nextInt(5, 7);
     int random_numz = ThreadLocalRandom.current().nextInt(5, 7);

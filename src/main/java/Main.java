@@ -1,9 +1,8 @@
+import EgneGuiKlasser.MGUI;
 import GameMechanics.*;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
-import TheBoard.Language;
 import cardClasses.Chance;
-import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
 import gui_fields.GUI_Car;
@@ -14,11 +13,8 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static Files.FileReference.*;
 import static GameMechanics.Die.getSum;
-import static GameMechanics.textReaderClass.textRDR;
 import static TheBoard.Base.*;
-import static TheBoard.BoardCreator.JailInit;
 import static TheBoard.Language.dialog;
 import player.MjPlayer;
 
@@ -53,8 +49,8 @@ public class Main {
 
         //BoardCreator.SetGUItext();
         //  Sets up the background GUI (Graphical User Interface) to a plain white
-//        GUI gui = new GUI(Base.fields, Color.WHITE);
-        GUI gui = new GUI(fields, Color.LIGHT_GRAY);
+//        MGUI gui = new MGUI(Base.fields, Color.WHITE);
+        MGUI gui = new MGUI(fields, Color.LIGHT_GRAY);
 
         //  Asks if the language has been initialised and makes a button for user to select language
             language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
