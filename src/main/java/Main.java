@@ -21,7 +21,7 @@ import static TheBoard.Base.*;
 import static TheBoard.BoardCreator.JailInit;
 import static TheBoard.Language.dialog;
 import player.MjPlayer;
-
+//hej
 //v1.2
 
 public class Main {
