@@ -21,6 +21,31 @@ public  class Chance {
     {
         //System.out.println("Chance initialiseres");
 
+        chanceCards[0]=new ChanceBetalBanken("Fuldt stop", "De har kørt frem for “fuldt stop”, Betal 1000 kroner i bøde", 1000);
+        chanceCards[1]=new ChanceBetalBanken("Vognvask og smøring", "Betal for vognvask og smøring kr 300", 300);
+        chanceCards[2]=new ChanceBetalBanken("2 kasser øl","Betal kr 200 for levering af 2 kasser øl", 200);
+        chanceCards[3]=new ChanceBetalBanken("Reparation1 af deres vogn", "Betal 3000 for reparation af deres vogn", 3000);
+        chanceCards[4]=new ChanceBetalBanken("Reparation2 af deres vogn", "Betal 3000 for reparation af deres vogn", 3000);
+        chanceCards[5]=new ChanceBetalBanken("4 nye dæk", "De har købt 4 nye dæk til Deres vogn, betal kr 1000", 1000);
+        chanceCards[6]=new ChanceBetalBanken("Parkeringsbøde", "De har fået en parkeringsbøde, betal kr 200 i bøde", 200);
+        chanceCards[7]=new ChanceBetalBanken("bilforsikring", "Betal deres bilforsikring, kr 1000", 1000);
+        chanceCards[8]=new ChanceBetalBanken("Smøger", "De har været udenlands og købt for mange smøger, betal kr 200 i told.", 200);
+        chanceCards[9]=new ChanceBetalBanken("Tandlægeregning", "Tandlægeregning, betal kr 2000.", 2000);
+        chanceCards[10]=new ChanceModtagFraBanken("klasselotteriet1", "De har vundet i klasselotteriet. Modtag 500 kr.", 500);
+        chanceCards[11]=new ChanceModtagFraBanken("klasselotteriet2", "De har vundet i klasselotteriet. Modtag 500 kr.", 500);
+        chanceCards[12]=new ChanceModtagFraBanken("Aktieudbytte1", "De modtager Deres aktieudbytte. Modtag kr 1000 af banken", 1000);
+        chanceCards[13]=new ChanceModtagFraBanken("Aktieudbytte2", "De modtager Deres aktieudbytte. Modtag kr 1000 af banken", 1000);
+        chanceCards[14]=new ChanceModtagFraBanken("Aktieudbytte3", "De modtager Deres aktieudbytte. Modtag kr 1000 af banken", 1000);
+        chanceCards[15]=new ChanceModtagFraBanken("Eftergivet skat", "Kommunen har eftergivet et kvartals skat. Hæv i banken 3000 kr.", 3000);
+        chanceCards[16]=new ChanceModtagFraBanken("Elleve rigtige", "De have en række med elleve rigtige i tipning, modtag kl 1000", 1000);
+        chanceCards[17]=new ChanceModtagFraBanken("Gageforhøjelse", "Grundet dyrtiden har De fået gageforhøjelse, modtag kr 1000.", 1000);
+        chanceCards[18]=new ChanceModtagFraBanken("Præmieobligation1", "Deres præmieobligation er udtrykket. De modtager 1000 kr af banken.", 1000);
+        chanceCards[19]=new ChanceModtagFraBanken("Præmieobligation2", "Deres præmieobligation er udtrykket. De modtager 1000 kr af banken.", 1000);
+        chanceCards[20]=new ChanceModtagFraBanken("Gamle møbler", "De har solg nogle gamle møbler på auktion. Modtag 1000 kr af banken.", 1000);
+        chanceCards[21]=new ChanceModtagFraBanken("Nyttehaven", "Værdien af egen avl fra nyttehaven udgør 200 som de modtager af banken", 200);
+
+
+        /*
         chanceCards[0]=new ChanceBetalbankenHusHotel("Oliepriserne","Oliepriserne er steget, og De skal betale kr 500 pr hus og kr 2000 pr hotel", 500, 2000);
         chanceCards[1]=new ChanceBetalbankenHusHotel("Ejendomsskat","Ejendomsskatten er steget. Ekstraudgifterne er: 800 kr pr hus, 2300 kr pr hotel.",800,2300);
         chanceCards[2]=new ChanceBetalBanken("Fuldt stop", "De har kørt frem for “fuldt stop”, Betal 1000 kroner i bøde", 1000);
@@ -69,6 +94,8 @@ public  class Chance {
         chanceCards[45]=new ChanceGaaIFaengsel("Fængsel", "Gå i fængsel, De indkasserer ikke 4000 kr for at passere start.");
 
 
+
+         */
 /*
 
 
@@ -112,7 +139,7 @@ public  class Chance {
             kOk=0;
 
             if (testKortMode==0) {
-                kort_nr = (int) (Math.random() * 46);
+                kort_nr = (int) (Math.random() * 22);
                 //System.out.println("Normalt kort trukket");
             }
             else

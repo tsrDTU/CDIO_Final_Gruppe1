@@ -54,7 +54,7 @@ public class Main {
         //BoardCreator.SetGUItext();
         //  Sets up the background GUI (Graphical User Interface) to a plain white
 //        GUI gui = new GUI(Base.fields, Color.WHITE);
-        GUI gui = new GUI(fields, Color.WHITE);
+        GUI gui = new GUI(fields, Color.LIGHT_GRAY);
 
         //  Asks if the language has been initialised and makes a button for user to select language
             language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
@@ -147,7 +147,7 @@ public class Main {
         //Create the dices. Default 6 sides
         //String AmountofDice = gui.getUserButtonPressed("how many dice?", "1", "2");
             Die d1 = new Die();
-            Die d2 = new Die(0);
+            Die d2 = new Die();
 
 
         // If sides are different from 6, set the number of sides.
@@ -211,13 +211,14 @@ public class Main {
             //GameMechanics.Jail.JailRegister(AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
             d1.dice_roll();
-            //d2.dice_roll();
+            d2.dice_roll();
 
             //Inform which user is playing
             gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1]+" "+ selectedPlayer.getUserRole(), dialog[DialogNR+2]); DialogNR+=3;
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
-            int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
+            //int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
+            int DieSum = getSum(d1,d2);
 
             int CurrentSpaceForSelectedPlayer = 0;
             CurrentSpaceForSelectedPlayer = 0;
@@ -282,7 +283,7 @@ public class Main {
                         ].getTitle() + "\n" + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getSubText());
             Fields.displayDescriptions(fields, CurrentSpaceForSelectedPlayer, amountOfGameLoops);
             //Display GameMechanics.Die on the Board
-            GameMechanics.Die.OnBoard(d1, gui);/*, d2*/
+            GameMechanics.Die.OnBoard(d1, d2, gui);/*, d2*/
 
             //Changes currentSpaceForSelected Player to the new location
             if (CurrentSpaceForSelectedPlayer + DieSum > Base.fieldNR())
@@ -302,24 +303,30 @@ public class Main {
                 gui.showMessage(selectedPlayer.getName() + dialog[DialogNR]); DialogNR++;
             }
             answerGameOk = false;
+
+
+            GameMechanics.Fields.RestartOnePlayerOwnStatus(selectedPlayer,OwnedtrueOwnedFalse);
+
+
+
+
 //-------------------------------------------------------------------------------------------
 //
 //          Game Winner display
 //
 //-------------------------------------------------------------------------------------------
             //  Initialises values for displaying a winner
-            String Winner = " ";
-            int WinnerMoney = 0;
-            int WinnerInt = 0;
 
             //  if someone loses, the game ends and a winner/ winners are decided
             if (selectedPlayer.getBalance() < 1) {
 
-                //  Makes an array of potential winners
-                String[] Winners = new String[AmountofPlayers];
-                //  Sets the winner to player1
-                Winners[0] = PlayerArray[0].getName();
-                WinnerMoney = PlayerArray[0].getBalance();
+                String Winners = new String();
+
+                Winners = GameMechanics.Winner.Values(PlayerArray,selectedPlayer);
+                WinnerMoney = GameMechanics.Winner.Money(PlayerArray,selectedPlayer);
+
+                /*
+
                 for (int i = 1; i < AmountofPlayers; i++) {
                     //  if the player has more money, set it as the new winner, by resetting the array and putting the new value in
                     if (PlayerArray[i].getBalance() > WinnerMoney) {
@@ -336,31 +343,43 @@ public class Main {
                             Winners[i] = (Winners[i - 1] + " " + PlayerArray[i].getName());
                         }
                 }
+
+                */
+
                 //  Displaying the Winners
-                gui.showMessage(Winners[WinnerInt] + dialog[DialogNR] + WinnerMoney); DialogNR++;
+                gui.showMessage(Winners + dialog[DialogNR] + WinnerMoney); DialogNR++;
 //-------------------------------------------------------------------------------------------
 //
 //          Game End
 //
 //-------------------------------------------------------------------------------------------
                 do {
+
                     //  Ask for new game
                     answer_game = gui.getUserButtonPressed(dialog[DialogNR], dialog[DialogNR+1], dialog[DialogNR+2]);
                     //  if anwser to "a new game" is no - stop the game
-                    if (answer_game.equals(dialog[DialogNR+2])) {
-                        game_running = false;
-                        answerGameOk = true;
-                    }   //  else restart the game
-                    else {
-                        answerGameOk = true;
-                        GameMechanics.Cars.restart(PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
-                        GameMechanics.Fields.RestartFieldTitles(/*fields*/TitleF, Base.fieldNR(), Base.fields);
-                        GameMechanics.Fields.RestartOwnStatus(OwnedtrueOwnedFalse, Base.fieldNR(), AmountofPlayers);
-                        for (int i = 0; i < AmountofPlayers; i++) {
-                            PlayerSpaceNRexcact[i] = 0;
-                        }
-                    }
+
+                    game_running = EndGameQuestionController.AskEndQuestion(answer_game,game_running,answerGameOk
+                    ,OwnedtrueOwnedFalse,DialogNR,PlayerSpaceNRexcact, PlayerArray);
+                    answerGameOk = true;
+//                    if (answer_game.equals(dialog[DialogNR+2])) {
+//                        game_running = false;
+//                        answerGameOk = true;
+//                    }   //  else restart the game
+//                    else {
+//                        answerGameOk = true;
+//                        GameMechanics.Cars.restart(PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
+//                        GameMechanics.Fields.RestartFieldTitles(/*fields*/TitleF, Base.fieldNR(), Base.fields);
+//                        GameMechanics.Fields.RestartOwnStatus(OwnedtrueOwnedFalse, Base.fieldNR(), AmountofPlayers);
+//                        for (int i = 0; i < AmountofPlayers; i++) {
+//                            PlayerSpaceNRexcact[i] = 0;
+//                        }
+//                    }
+
+
+
                 }
+                //more
                 while (!answerGameOk);
             }
             //end game if last selection to (wanna keep playing?) is no
