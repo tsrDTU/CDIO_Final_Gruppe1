@@ -262,13 +262,7 @@ public class Fields {
         }
     }
 
-    public static void RestartOnePlayerOwnStatus(GUI_Player selectedplayer, int[][] OwnedtrueOwnedFalse){
-        for (int n = 0; n < Base.fieldNR(); n++) {
-            //OwnedtrueOwnedFalse[n][0] = n;
-            if (selectedplayer.getNumber()+1==1)
-                OwnedtrueOwnedFalse[n][selectedplayer.getNumber()+1] = 0;
-        }
-    }
+
 
 }
 /*
