@@ -75,7 +75,7 @@ public class Cars {
                 street[LocationCurrent].setCar(players[i], true);
         }
         //Moves the Player That wanted to move in the first place
-        if (LocationCurrent+Space<=23)
+        if (LocationCurrent+Space<=AmountofSpaces-1)
         /*street[LocationCurrent+Space]*/Base.fields[LocationCurrent+Space].setCar(currentplayer, true);
         else
             street[LocationNEW].setCar(currentplayer,true);
@@ -87,7 +87,7 @@ public class Cars {
 //
 //-------------------------------------------------------------------------------
     //  Resets the GUI_Player
-    public static void restart(GUI_Player PlayerArray[], GUI_Field[] fields, int AmountofPlayers, int AmountofSpaces) {
+    public static void restart(GUI_Player[] PlayerArray, GUI_Field[] fields, int AmountofPlayers, int AmountofSpaces) {
         for (int i = 0; i < AmountofSpaces; i++) fields[i].removeAllCars();
         for (int i=0;i<AmountofPlayers;i++){
             PlayerArray[i].setBalance(20-(AmountofPlayers-2)*(2));
