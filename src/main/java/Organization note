@@ -1,0 +1,15 @@
+Organiserings note og hvad der vil være hensigtsmessigt at rette op på
+
+WannaBuy Method in Fields under GameMechanics - make smaller methods into one big method instead of 1 big as of now
+-
+
+Review Move-car-to method under Cars in GameMechanics
+-
+
+Main seperated into classes - suggestion:
+Game_Operations
+-
+Winners
+-   Partially fixed , shows right name but doesn't show multiple winners. 1/2
+GameEndScreen
+-
