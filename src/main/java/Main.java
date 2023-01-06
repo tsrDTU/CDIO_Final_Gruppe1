@@ -25,7 +25,7 @@ import player.MjPlayer;
 //v1.2
 
 public class Main {
-
+// hel
 // kalhauge/BoardEngine
 
     public static void main(String[] args) throws IOException {
