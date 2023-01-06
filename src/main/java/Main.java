@@ -1,3 +1,4 @@
+import GUI_Beskeder.Help;
 import GameMechanics.*;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
@@ -56,6 +57,7 @@ public class Main {
 //        GUI gui = new GUI(Base.fields, Color.WHITE);
         GUI gui = new GUI(fields, Color.WHITE);
 
+        Help help=new Help(gui);
         //  Asks if the language has been initialised and makes a button for user to select language
             language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
 
@@ -148,6 +150,7 @@ public class Main {
         //String AmountofDice = gui.getUserButtonPressed("how many dice?", "1", "2");
             Die d1 = new Die();
             Die d2 = new Die(0);
+
 
 
         // If sides are different from 6, set the number of sides.
