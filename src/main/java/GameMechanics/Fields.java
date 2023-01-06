@@ -265,7 +265,7 @@ public class Fields {
     public static void ResetOnePlayerOwnStatus(GUI_Player selectedplayer, int[][] OwnedtrueOwnedFalse){
         //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < Base.fieldNR(); n++) {
-//OwnedtrueOwnedFalse[n][0] = n;
+//OwnedtrueOwnedFalse[n][0] = n;1
             if (selectedplayer.getNumber()+1==1) {
                 OwnedtrueOwnedFalse[n][selectedplayer.getNumber()+1] = 0;
             }
