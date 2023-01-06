@@ -81,7 +81,7 @@ public class Fields {
             fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
             //  Returns a string that is used to add to the amount of money for the selected player
             //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
-            return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
+            return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]-200);
             // OVENFOR KAN KØBSVÆRDI ÆNDRES
         }
         else return "0";// this makes sure you don't pay the bank when landing on your own property
@@ -262,13 +262,7 @@ public class Fields {
         }
     }
 
-    public static void RestartOnePlayerOwnStatus(GUI_Player selectedplayer, int[][] OwnedtrueOwnedFalse){
-        for (int n = 0; n < Base.fieldNR(); n++) {
-            //OwnedtrueOwnedFalse[n][0] = n;
-            if (selectedplayer.getNumber()+1==1)
-                OwnedtrueOwnedFalse[n][selectedplayer.getNumber()+1] = 0;
-        }
-    }
+
 
 }
 /*

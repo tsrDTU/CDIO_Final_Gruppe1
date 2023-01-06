@@ -28,6 +28,7 @@ public class Main {
 // hel
 // kalhauge/BoardEngine
 
+
     public static void main(String[] args) throws IOException {
         String string_in, language, answer_game;
         int antal_kant, j, DialogNR=2;
@@ -37,6 +38,10 @@ public class Main {
         ArrayList<String> userRoles = new ArrayList<>(Arrays.asList("Bil","Skib","Hund","Kat"));
         //String[] userRoles={"Bil","Skib","Hund","Kat"};
         String[] freeUserRoles;
+
+        //NEWTEST//NEWTEST//NEWTEST//NEWTEST//NEWTEST//NEWTEST//
+
+
 
 
 //-------------------------------------------------------------------------------------------
@@ -143,6 +148,11 @@ public class Main {
         //Create a selected player that will point at active player
         MjPlayer selectedPlayer;
         boolean gameEnd = false; //, lastMax = false;
+
+
+
+
+
 
         //Create the dices. Default 6 sides
         //String AmountofDice = gui.getUserButtonPressed("how many dice?", "1", "2");
