@@ -27,6 +27,7 @@ public class BoardCreator{
                     Colors.ColorSpace(Integer.parseInt(textRDR(DescriptionF, String.valueOf(i + 1))), i),
                     Color.BLACK);
             //fields[2] = new GUI_Street(title,subtext,description,rent,BgColor,Color.BLACK)
+            System.out.println(fields[i]);
         }
 //--------------------------------------------------------------------------
 //
