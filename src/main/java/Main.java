@@ -305,7 +305,7 @@ public class Main {
             answerGameOk = false;
 
 
-            GameMechanics.Fields.RestartOnePlayerOwnStatus(selectedPlayer,OwnedtrueOwnedFalse);
+//            GameMechanics.Fields.RestartOnePlayerOwnStatus(selectedPlayer,OwnedtrueOwnedFalse);
 
 
 
