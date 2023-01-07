@@ -16,7 +16,11 @@ import java.util.Scanner;
 import static GameMechanics.Die.getSum;
 import static TheBoard.Base.*;
 import static TheBoard.Language.dialog;
-import player.MjPlayer;
+
+
+import EgneGuiKlasser.MGUI_Street;
+import EgneGuiKlasser.MGUI_Player;
+import EgneGuiKlasser.MGUI_Car;
 
 //v1.2
 
@@ -44,7 +48,7 @@ public class Main {
 
         //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
         //TheBoard.BoardCreator.InitBoardFieldsGuts();
-    GUI_Street[] fields = TheBoard.BoardCreator.InitBoardFieldsGuts();
+    MGUI_Street[] fields = TheBoard.BoardCreator.InitBoardFieldsGuts();
         //System.out.println(DescriptionF);
 
         //BoardCreator.SetGUItext();
@@ -78,10 +82,10 @@ public class Main {
 //        boolean[] JailOn = Base.JailOn();
         boolean[] JailOn = new boolean[AmountofPlayers];
         BoardCreator.JailInit(JailOn);
-//        MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
-        MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
+//        MGUI_Player [] PlayerArray = new MGUI_Player[AmountofPlayers];
+        MGUI_Player[] PlayerArray = new MGUI_Player[AmountofPlayers];
         System.out.println(PlayerArray.length);
-        GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
+        MGUI_Car[] playerCars = new MGUI_Car[AmountofPlayers];
         String[] PlayerName = new String[AmountofPlayers];
 
         //BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
@@ -94,8 +98,8 @@ public class Main {
             //  Sets the car of each player
             PlayerName[i] = (gui.getUserString(dialog[DialogNR]+(i+1)+"?"));
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
-            playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
-            PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
+            playerCars[i] = new MGUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), MGUI_Car.Pattern.FILL);
+            PlayerArray[i] = new MGUI_Player(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             GameMechanics.Colors.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
             //Set users role
             int first = 0; for (int l = 0; l < AmountofPlayers; l++) {if (userRoles.size()>AmountofPlayers)
@@ -137,7 +141,7 @@ public class Main {
 
         int intselect = 0;
         //Create a selected player that will point at active player
-        MjPlayer selectedPlayer;
+        MGUI_Player selectedPlayer;
         boolean gameEnd = false; //, lastMax = false;
 
         //Create the dices. Default 6 sides

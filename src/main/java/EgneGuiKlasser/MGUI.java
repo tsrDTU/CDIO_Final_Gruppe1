@@ -6,8 +6,8 @@ package EgneGuiKlasser;
 import java.awt.Color;
 import gui_codebehind.GUI_BoardController;
 import gui_codebehind.GUI_FieldFactory;
-import gui_fields.GUI_Field;
-import gui_fields.GUI_Player;
+import EgneGuiKlasser.*;
+
 
 import gui_main.GUI;
 
@@ -38,13 +38,17 @@ public class MGUI
          *  Starts the GUI, opening a GUI window, with the default Monpoly fields.
          *  Use {@link gui_main.GUI#GUI(GUI_Field[])} constructor if you want to use custom fields.
          */
+        /*
         public MGUI(){
-            GUI_Field[] fields = GUI_FieldFactory.makeFields();
+            MGUI_Field[] fields = GUI_FieldFactory.makeFields();
             for(int i = 0; i < fields.length; i++){
                 fields[i] = fields[i];
+                System.out.println("MGUI created");
             }
             boardController = new MGUI_BoardController(fields);
         }
+
+         */
 
 
         /**
@@ -57,7 +61,8 @@ public class MGUI
          * @throws NullPointerException  If {@link gui_main.GUI#null_fields_allowed} is false (hasn't be set to true using {@link gui_main.GUI#setNull_fields_allowed(boolean)}
          *                                  and the 'fields' param contains null values.
          */
-        public MGUI(GUI_Field[] fields) {
+       /*
+        public MGUI(MGUI_Field[] fields) {
             checkNullArray(fields);
             if(!EgneGuiKlasser.MGUI.null_fields_allowed){
                 check_for_null_fields(fields);
@@ -67,6 +72,8 @@ public class MGUI
             boardController = new MGUI_BoardController(fields);
         }
 
+
+        */
 
         /**
          *  Constructor for GUI. Accepts an an array of GUI fields. Order of fields in array determine order of fields.
@@ -79,10 +86,11 @@ public class MGUI
          * @throws NullPointerException  If {@link EgneGuiKlasser.MGUI#null_fields_allowed} is false (hasn't be set to true using {@link gui_main.GUI#setNull_fields_allowed(boolean)}
          *                                  and the 'fields' param contains null values.
          */
-        public MGUI(GUI_Field[] fields, Color backGroundColor){
+        public MGUI(MGUI_Field[] fields, Color backGroundColor){
             checkNullArray(fields);
             if(!EgneGuiKlasser.MGUI.null_fields_allowed){
                 check_for_null_fields(fields);
+                System.out.println("MGUI created");
             }
             this.boardController = new MGUI_BoardController(fields, backGroundColor);
         }
@@ -90,7 +98,7 @@ public class MGUI
 
 
 
-        private void checkNullArray(GUI_Field[] fields) {
+        private void checkNullArray(MGUI_Field[] fields) {
             if (fields==null){
                 throw new NullPointerException("GUI_Field[] fields is null - pass array with fields or use default constructor");
             }
@@ -99,12 +107,12 @@ public class MGUI
 
 
 
-        private void check_for_null_fields(GUI_Field[] fields) {
+        private void check_for_null_fields(MGUI_Field[] fields) {
             String msg = "Null fields!\nNull fields are not recommended! the following indices are null: ";
             String str = "{";
             String howTo = "Disable this Exception by calling the static method GUI.setNull_fields_allowed(true);";
             for(int i = 0; i < fields.length; i++){
-                GUI_Field f = fields[i];
+                MGUI_Field f = fields[i];
                 if(f == null){
                     str += i+", ";
                 }
@@ -220,13 +228,13 @@ public class MGUI
 
 
         /**
-         * Adds a player to the board, using an object of {@link GUI_Player}.
+         * Adds a player to the board, using an object of {@link MGUI_Player}.
          * The GUI may only have {@link gui_fields.GUI_Board#MAX_PLAYER_COUNT} number of players.
          *
          * @param player The player to add
          * @return True if the player is added, otherwise false (i.e. too many players)
          */
-        public boolean addPlayer(GUI_Player player) {
+        public boolean addPlayer(MGUI_Player player) {
             return boardController.addPlayer(player);
         }
 
@@ -349,7 +357,7 @@ public class MGUI
         }
 
 
-        public GUI_Field[] getFields(){
+        public MGUI_Field[] getFields(){
             return boardController.getFields();
         }
 

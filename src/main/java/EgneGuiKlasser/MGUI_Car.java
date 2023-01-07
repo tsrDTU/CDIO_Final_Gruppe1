@@ -120,7 +120,7 @@ public final class MGUI_Car extends Observable {
         }
     }
 
-    protected BufferedImage getImage() {
+    public BufferedImage getImage() {
         return this.image;
     }
     public Color getPrimaryColor() {
@@ -149,10 +149,10 @@ public final class MGUI_Car extends Observable {
     private static final Color[] COLORS = { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.BLACK, Color.WHITE };
     private static final Map<EgneGuiKlasser.MGUI_Car.Pattern, String> patternImages = new HashMap<EgneGuiKlasser.MGUI_Car.Pattern, String>();
     static {
-        patternImages.put(EgneGuiKlasser.MGUI_Car.Pattern.DIAGONAL_DUAL_COLOR, Attrs.getImagePath("MGUI_Car.Image.Pattern.Diagonal_Dual_Color"));
-        patternImages.put(EgneGuiKlasser.MGUI_Car.Pattern.DOTTED, Attrs.getImagePath("MGUI_Car.Image.Pattern.Dotted"));
-        patternImages.put(EgneGuiKlasser.MGUI_Car.Pattern.CHECKERED, Attrs.getImagePath("MGUI_Car.Image.Pattern.Checkered"));
-        patternImages.put(EgneGuiKlasser.MGUI_Car.Pattern.ZEBRA, Attrs.getImagePath("MGUI_Car.Image.Pattern.Zebra"));
+        patternImages.put(EgneGuiKlasser.MGUI_Car.Pattern.DIAGONAL_DUAL_COLOR, Attrs.getImagePath("GUI_Car.Image.Pattern.Diagonal_Dual_Color"));
+        patternImages.put(EgneGuiKlasser.MGUI_Car.Pattern.DOTTED, Attrs.getImagePath("GUI_Car.Image.Pattern.Dotted"));
+        patternImages.put(EgneGuiKlasser.MGUI_Car.Pattern.CHECKERED, Attrs.getImagePath("GUI_Car.Image.Pattern.Checkered"));
+        patternImages.put(EgneGuiKlasser.MGUI_Car.Pattern.ZEBRA, Attrs.getImagePath("GUI_Car.Image.Pattern.Zebra"));
     }
 
 

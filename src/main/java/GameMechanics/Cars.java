@@ -1,7 +1,7 @@
 package GameMechanics;
 
 import TheBoard.Base;
-import gui_fields.GUI_Car;
+//import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
@@ -10,18 +10,21 @@ import java.awt.Color;
 import static TheBoard.Base.fieldNR;
 import static TheBoard.Base.fields;
 
+import EgneGuiKlasser.*;
+
+
 public class Cars {
 //-------------------------------------------------------------------------------
 //
 //      Car Type Distributor
 //
 //-------------------------------------------------------------------------------
-    private static GUI_Car.Type T1 = GUI_Car.Type.CAR;
-    private static GUI_Car.Type T2 = GUI_Car.Type.RACECAR;
-    private static GUI_Car.Type T3 = GUI_Car.Type.UFO;
-    private static GUI_Car.Type T4 = GUI_Car.Type.TRACTOR;
+    private static MGUI_Car.Type T1 = MGUI_Car.Type.CAR;
+    private static MGUI_Car.Type T2 = MGUI_Car.Type.RACECAR;
+    private static MGUI_Car.Type T3 = MGUI_Car.Type.UFO;
+    private static MGUI_Car.Type T4 = MGUI_Car.Type.TRACTOR;
 
-    public static GUI_Car.Type setCarType(int i) {
+    public static MGUI_Car.Type setCarType(int i) {
         if (i==1) return T1;
         if (i==2) return T2;
         if (i==3) return T3;
@@ -39,8 +42,8 @@ public class Cars {
 //          Moves car based off dice roll
 //
 //-------------------------------------------------------------------------------
-    public static void moveCars(int DiceRollSum, GUI_Player currentplayer,
-                         GUI_Player[] players/*, GUI_Street[] street*/,
+    public static void moveCars(int DiceRollSum, MGUI_Player currentplayer,
+                         MGUI_Player[] players/*, GUI_Street[] street*/,
                          int AmountofPlayers, int AmountofSpaces) {
         //  Initialise Values for movement of cars on the Board
         boolean[] PlayerNum =  new boolean[AmountofPlayers];
@@ -48,7 +51,7 @@ public class Cars {
         int LocationCurrent=0;
         int Space = DiceRollSum;
         int LocationNEW = 0;
-        GUI_Street[] street = fields;
+        MGUI_Street[] street = fields;
         //Checks the Location for the car that wants to move
         for (int i = 0;i<AmountofSpaces;i++){
             if (street[i].hasCar(currentplayer)) {
@@ -87,7 +90,7 @@ public class Cars {
 //
 //-------------------------------------------------------------------------------
     //  Resets the GUI_Player
-    public static void restart(GUI_Player[] PlayerArray, GUI_Field[] fields, int AmountofPlayers, int AmountofSpaces) {
+    public static void restart(MGUI_Player[] PlayerArray, MGUI_Field[] fields, int AmountofPlayers, int AmountofSpaces) {
         for (int i = 0; i < AmountofSpaces; i++) fields[i].removeAllCars();
         for (int i=0;i<AmountofPlayers;i++){
             PlayerArray[i].setBalance(20-(AmountofPlayers-2)*(2));
@@ -101,8 +104,8 @@ public class Cars {
 //          Moves a specific car to a specific location
 //
 //-------------------------------------------------------------------------------
-    static void moveCarTo(int AmountofPlayers, GUI_Player[] players, int LocationCurrent,
-                           GUI_Player currentplayer, int LocationToMoveTo, GUI_Street[] fields) {
+    static void moveCarTo(int AmountofPlayers, MGUI_Player[] players, int LocationCurrent,
+                           MGUI_Player currentplayer, int LocationToMoveTo, MGUI_Street[] fields) {
         //Checks if each player is on the field and attaches a boolean value
         boolean[] PlayerNum = new boolean[AmountofPlayers];
         for (int i = 0; i < AmountofPlayers; i++) {

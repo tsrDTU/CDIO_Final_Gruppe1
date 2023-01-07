@@ -1,19 +1,22 @@
 import EgneGuiKlasser.MGUI;
+import EgneGuiKlasser.MGUI_Street;
 import GameMechanics.Cars;
 import GameMechanics.Colors;
 import GameMechanics.Fields;
 import TheBoard.BoardCreator;
 import TheBoard.Language;
 import cardClasses.*;
-import gui_fields.GUI_Car;
+import EgneGuiKlasser.MGUI_Car;
 import gui_main.GUI;
-import player.MjPlayer;
+
 
 import java.awt.*;
 
 import static TheBoard.Base.*;
 import static TheBoard.Language.dialog;
 import java.io.*;
+
+import EgneGuiKlasser.MGUI_Player;
 
 class ChanceTest {
 
@@ -24,7 +27,7 @@ class ChanceTest {
         int antal_kant, AmountofPlayers,i,j;
         String[] userRoles={"Bil","Skib","Hund","Kat"};
         String[] freeUserRoles;
-        MjPlayer selectedPlayer;
+        MGUI_Player selectedPlayer;
         int CurrentSpaceForSelectedPlayer = 0;
         /*
         Chancekort kortTrukket = mjChance.traekEtChanceKort();
@@ -69,6 +72,7 @@ class ChanceTest {
          */
 
         //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
+        MGUI_Street[] fields = TheBoard.BoardCreator.InitBoardFieldsGuts();
         BoardCreator.InitBoardFieldsGuts();
 
         MGUI gui = new MGUI(fields, Color.WHITE);
@@ -78,8 +82,8 @@ class ChanceTest {
         AmountofPlayers=3;
 
         boolean[] JailOn = new boolean[AmountofPlayers+1];
-        MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
-        GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
+        MGUI_Player[] PlayerArray = new MGUI_Player[AmountofPlayers];
+        MGUI_Car[] playerCars = new MGUI_Car[AmountofPlayers];
         String[] PlayerName = new String[AmountofPlayers];
 
         BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
@@ -90,8 +94,8 @@ class ChanceTest {
        //     PlayerName[i] = (gui.getUserString(dialog[3]+(i+1)+"?"));
             PlayerName[i] = "";
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
-            playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
-            PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
+            playerCars[i] = new MGUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), MGUI_Car.Pattern.FILL);
+            PlayerArray[i] = new MGUI_Player(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             Colors.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
             //Set users role
             PlayerArray[i].setUserRole(userRoles[i]);

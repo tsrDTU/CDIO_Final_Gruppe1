@@ -1,17 +1,33 @@
 package player;
 
+
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import gui_codebehind.Observable;
+import gui_resources.Attrs;
+
 import EgneGuiKlasser.MGUI;
 import GameMechanics.Fields;
 import cardClasses.ChanceOverdragelseskort;
+import gui_codebehind.Observable;
 import gui_fields.GUI_Car;
+import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
 
+import EgneGuiKlasser.MGUI_Car;
+import EgneGuiKlasser.MGUI_Street;
+import gui_resources.Attrs;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 /**
  * MjPlayer arver fra GUI_Player og har selv en brugerrolle og funktioner til at håndtere at modtage et ChanceOverdragelseskort og et amnistiKort
  */
-public class MjPlayer extends GUI_Player
+/*
+public class MjPlayer extends Observable
 {
     private String userRole;
     private boolean kortModtaget;
@@ -19,23 +35,180 @@ public class MjPlayer extends GUI_Player
 
     private boolean amnistiKortHaves;
 
+    /*
     public MjPlayer(String name)
     {
         super(name);
     }
 
 
-
-    public MjPlayer(String name, int balance){
-        super(name, balance, new GUI_Car());
-    }
+     */
 
 
+/*
 
+    /**
+     * Class which represents the player object, and the information displayed on the
+     * GUI regarding the player. This includes:
+     *
+     *  - Name (displayed on the board)
+     *  - Balance (displayed on the board)
+     *  - Car (position and color is determined by the car object, not the player)
+     *
+     * Once an object of this class is constructed (a player is created), it should be
+     * added to the GUI using the {@link gui_main.GUI#addPlayer(gui_fields.GUI_Player)} method.
+     *
+     * Updating the GUI_Player object using the set methods, will also update the information
+     * displayed on within the GUI.
+     *
+     * The position of the player (the player's car to be exact) is set  using the
+     * {@link GUI_Field#setCar(gui_fields.GUI_Player, boolean)} method on the particular Field object.
+     *
+     * @author Ronnie
+     */
+/*
+        private int number = -1;
+        private String name;
+        private int balance;
+        private MGUI_Car car;
+        private static int nextId = 0;
+        private int id;
+
+        public static final int ICON_WIDTH = 41;
+        public static final int ICON_HEIGHT = 22;
+/*
+
+        // TODO: Remove this constructor, as it implements game logic
+        /**
+         * Constructs a new GUI_Player with a given name,
+         * default balance of 1000 and a car with a random color.
+         *
+         * @param name Name of the player to be displayed on the board.
+         */
+/*
+        public MGUI_Player(String name){
+            this(name, 1000, new MGUI_Car());
+        }
+
+
+        /**
+         * Constructs a new GUI_Player with a given name and balance,
+         * and a car with a random color.
+         *
+         * @param name Name of the player to be displayed on the board
+         * @param balance Balance of the player to be displayed on the board
+         */
+        /*
+        public MjPlayer(String name, int balance){
+            this(name, balance, new MGUI_Car());
+        }
+
+
+        /**
+         * Constructs a new GUI_Player with a given name, balance and
+         * custom car object.
+         *
+         * @param name Name of the player to be displayed on the board
+         * @param balance Balance of the player to be displayed on the board
+         * @param car Car object for to use
+         */
+/*
+        public MjPlayer(String name, int balance, MGUI_Car car){
+            this.name = name;
+            this.balance = balance;
+            this.car = car;
+            this.id = nextId++;
+        }
+
+
+        //Getters
+        public int getNumber(){ return this.number; }
+        public String getName(){ return this.name; }
+        public int getBalance(){ return this.balance; }
+        public Color getPrimaryColor(){ return this.car.getPrimaryColor(); }
+        public Color getSecondaryColor(){ return this.car.getSecondaryColor(); }
+        protected BufferedImage getImage() { return this.car.getImage(); }
+        public MGUI_Car getCar() { return car; }
+        protected int getId(){ return id; }
+
+        //Setters
+        protected void setNumber(int number) { this.number = number; }
+        public boolean setName(String name){
+            if(validator == null) return false;
+            if(!validator.checkName(name)) {
+                System.err.println(Attrs.getString("Error.Conflict.PlayerName", name));
+                return false;
+            }
+            this.name = name;
+            notifyObservers();
+            return true;
+        }
+        public void setBalance(int balance){
+            this.balance = balance;
+            notifyObservers();
+        }
+
+
+        // Mandatory
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result
+                    + ((this.name == null) ? 0 : this.name.hashCode());
+            return result;
+        }
+
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (!(obj instanceof gui_fields.GUI_Player)) {
+                return false;
+            }
+            EgneGuiKlasser.MGUI_Player other = (gui_fields.GUI_Player) obj;
+            if (this.name == null) {
+                if(other.name != null) {
+                    return false;
+                }
+            } else if (!this.name.equals(other.name)) {
+                return false;
+            }
+            return true;
+        }
+
+
+        public interface IPlayerNameValidator {
+            boolean checkName(String name);
+        }
+
+        private gui_fields.GUI_Player.IPlayerNameValidator validator = null;
+
+        protected void setValidator(gui_fields.GUI_Player.IPlayerNameValidator validator){
+            this.validator = validator;
+        }
+
+
+        @Override
+        public String toString() {
+            return "GUI_Player [number=" + number + ", name=" + name + ", balance="
+                    + balance + ", car=" + car + "]";
+        }
+
+
+
+/*
     public MjPlayer(String name, int balance, GUI_Car car){
       super(name,balance,car);
     }
 
+ */
+/*
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
@@ -72,7 +245,8 @@ public class MjPlayer extends GUI_Player
      * @param gui:GUI
      * @return: Evt ændret slag for brugeren. I tilfælde af at et chancekort har ændret positionen er slaget tilsvarende ændret
      */
-    public int haandterChanceKortModtaget(int pos, int slagIn, GUI_Street[] fields, int[][] Ownedtrue, MGUI gui)
+/*
+    public int haandterChanceKortModtaget(int pos, int slagIn, MGUI_Street[] fields, int[][] Ownedtrue, MGUI gui)
     {
         int slag;
         // 2 trækkes fra slaget. Arvet fra sidste spil
@@ -128,8 +302,10 @@ public class MjPlayer extends GUI_Player
 
         */
 
-
+/*
 
         return slag+2;
     }
 }
+
+ */

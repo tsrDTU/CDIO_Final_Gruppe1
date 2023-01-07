@@ -20,8 +20,8 @@ import gui_codebehind.JLabelRotatable;
 import gui_codebehind.Observer;
 import gui_codebehind.SwingComponentFactory;
 import gui_fields.FieldMouseListener;
-import gui_fields.GUI_Field;
-import gui_fields.GUI_Player;
+//import gui_fields.GUI_Field;
+//import gui_fields.GUI_Player;
 import EgneGuiKlasser.MGUI_Player.IPlayerNameValidator;
 import gui_resources.Attrs;
 import EgneGuiKlasser.MGUI_Field;
@@ -64,17 +64,18 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
         points = new Point[sideLength*4];
         int i = 0;
         for(int x=sideLength; x > 0; x--){
-            gui_fields.GUI_Board.points[i++] = new Point(x+offSet, sideLength+offSet);
+            EgneGuiKlasser.MGUI_Board.points[i++] = new Point(x+offSet, sideLength+offSet);
         }
         for(int y=sideLength; y > 0; y--){
-            gui_fields.GUI_Board.points[i++] = new Point(0+offSet, y+offSet);
+            EgneGuiKlasser.MGUI_Board.points[i++] = new Point(0+offSet, y+offSet);
         }
         for(int x=0; x < sideLength; x++){
-            gui_fields.GUI_Board.points[i++] = new Point(x+offSet, 0+offSet);
+            EgneGuiKlasser.MGUI_Board.points[i++] = new Point(x+offSet, 0+offSet);
         }
         for(int y=0; y < sideLength; y++){
-            gui_fields.GUI_Board.points[i++] = new Point(sideLength+offSet, y+offSet);
+            EgneGuiKlasser.MGUI_Board.points[i++] = new Point(sideLength+offSet, y+offSet);
         }
+        System.out.println("SquareBoard generated");
     }
 
     public MGUI_Board(MGUI_Field[] fields){
@@ -93,6 +94,7 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
         generateSquareBoard(sideLength);
         this.fields = fields;
         nextPoint = 0;
+        System.out.println(sideLength);
 
         int year = Calendar.getInstance().get(Calendar.YEAR);
         this.setTitle(Attrs.getString("GUI_Board.Title")+(year%100));
@@ -117,6 +119,7 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
 
         playerList = new MGUI_Player[MAX_PLAYER_COUNT];
         this.setVisible(true);
+        System.out.println("GUI Board created");
     }
 
     /**
@@ -215,7 +218,7 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
                 int y = point.y;
 
                 JLayeredPane layered = new JLayeredPane();
-                this.factory.setSize(layered, GUI_Field.FIELDWIDTH, GUI_Field.FIELDHEIGHT);
+                this.factory.setSize(layered, MGUI_Field.FIELDWIDTH, MGUI_Field.FIELDHEIGHT);
                 this.carPanes[x][y] = layered;
                 layered.setOpaque(false);
 
@@ -224,8 +227,8 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
                     JLabel label = new JLabel();
                     cars[i] = label;
                     label.setOpaque(false);
-                    this.factory.setSize(label, GUI_Field.FIELDWIDTH, GUI_Field.FIELDHEIGHT);
-                    label.setBounds(3 * i + 3, 6 * i + 1, GUI_Player.ICON_WIDTH, GUI_Player.ICON_HEIGHT);
+                    this.factory.setSize(label, MGUI_Field.FIELDWIDTH, MGUI_Field.FIELDHEIGHT);
+                    label.setBounds(3 * i + 3, 6 * i + 1, MGUI_Player.ICON_WIDTH, MGUI_Player.ICON_HEIGHT);
                     layered.setLayer(label, i + 5);
                     label.setVisible(false);
                     layered.add(label);
@@ -254,7 +257,7 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
      */
     private void makeBase(Color backGroundColor) {
         this.base = new javax.swing.JLayeredPane();
-        this.factory.setSize(this.base, 11 * GUI_Field.FIELDWIDTH, 11 * GUI_Field.FIELDWIDTH);
+        this.factory.setSize(this.base, 11 * MGUI_Field.FIELDWIDTH, 11 * MGUI_Field.FIELDWIDTH);
         this.base.setLayout(new GridBagLayout());
         this.base.setBackground(backGroundColor);
         this.base.setOpaque(true);
@@ -270,7 +273,7 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
             for(int y = 1; y < sidelength; y++) {
                 JPanel panel = new javax.swing.JPanel();
                 panel.setBackground(backGroundColor);
-                this.factory.setSize(panel, GUI_Field.FIELDWIDTH, GUI_Field.FIELDHEIGHT);
+                this.factory.setSize(panel, MGUI_Field.FIELDWIDTH, MGUI_Field.FIELDHEIGHT);
                 this.base.setLayer(panel, 0);
                 this.base.add(panel, this.factory.createGridBagConstraints(x+offSet, y+offSet));
             }
@@ -285,7 +288,7 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
                 JLabelRotatable label = new JLabelRotatable();
                 this.diceLabels[x][y] = label;
                 label.setOpaque(false);
-                this.factory.setSize(label, GUI_Field.FIELDWIDTH, GUI_Field.FIELDHEIGHT);
+                this.factory.setSize(label, MGUI_Field.FIELDWIDTH, MGUI_Field.FIELDHEIGHT);
                 this.base.setLayer(label, 3);
                 this.base.add(label, this.factory.createGridBagConstraints(x, y), 0);
             }
@@ -310,13 +313,13 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
             int ycalc = y - i;
 
             JLabel iconLabel = new JLabel();
-            this.factory.setSize(iconLabel, 1 * GUI_Field.FIELDWIDTH, 1 * GUI_Field.FIELDWIDTH);
+            this.factory.setSize(iconLabel, 1 * MGUI_Field.FIELDWIDTH, 1 * MGUI_Field.FIELDWIDTH);
             this.base.setLayer(iconLabel, 1);
             this.base.add(iconLabel, this.factory.createGridBagConstraints(x, ycalc));
             this.iconLabels[i] = iconLabel;
 
             JLabel playerLabel = new JLabel();
-            this.factory.setSize(playerLabel, nameLabelSize * GUI_Field.FIELDWIDTH, 1 * GUI_Field.FIELDWIDTH);
+            this.factory.setSize(playerLabel, nameLabelSize * MGUI_Field.FIELDWIDTH, 1 * MGUI_Field.FIELDWIDTH);
             this.base.setLayer(playerLabel, 1);
             this.base.add(playerLabel, this.factory.createGridBagConstraints(x + 1, ycalc, nameLabelSize, 1));
             this.playerLabels[i] = playerLabel;

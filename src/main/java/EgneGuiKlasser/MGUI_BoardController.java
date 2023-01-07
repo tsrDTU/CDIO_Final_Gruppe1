@@ -24,13 +24,16 @@ import gui_fields.GUI_Board;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 
+import EgneGuiKlasser.MGUI_Board;
+import EgneGuiKlasser.MGUI_BoardController;
+
 /**
  * Provides access to GUI
  * @author Ronnie
  */
 public final class MGUI_BoardController {
     private String userInput = null;
-    private GUI_Board board;
+    private MGUI_Board board;
     private static volatile Random rand = null;
 
     public static Random rand() {
@@ -45,11 +48,16 @@ public final class MGUI_BoardController {
      * Contains service methods for board for controlling the board.
      * @param fields
      */
-    public MGUI_BoardController(GUI_Field[] fields) {
+    /*
+    public MGUI_BoardController(MGUI_Field[] fields) {
         this.board = new GUI_Board(fields);
     }
-    public MGUI_BoardController(GUI_Field[] fields, Color backGroundColor) {
-        this.board = new GUI_Board(fields, backGroundColor);
+
+     */
+    public MGUI_BoardController(MGUI_Field[] fields, Color backGroundColor)
+    {
+        this.board = new MGUI_Board(fields, backGroundColor);
+        System.out.println("Board Controller created");
     }
     /**
      * Displays a message for the user. The user presses OK when the message is read Is a breaking
@@ -358,7 +366,7 @@ public final class MGUI_BoardController {
      * @param player : The player must be created beforehand
      * @return true if player is added, otherwise false
      */
-    public boolean addPlayer(GUI_Player player) {
+    public boolean addPlayer(MGUI_Player player) {
         return this.board.addPlayer(player);
     }
     /**
@@ -496,7 +504,7 @@ public final class MGUI_BoardController {
         GUI_Center.getInstance().displayChanceCard();
     }
 
-    public GUI_Field[] getFields() { return board.getFields(); }
+    public MGUI_Field[] getFields() { return board.getFields(); }
 
     public void setDie(int faceValue) {
         int rotation1 = rand().nextInt(360);
