@@ -1,5 +1,9 @@
 package EgneGuiKlasser;
 
+/**
+ * Kopi af Maven:diplomitdtu:matadorgui:3.1.7.gui_codebehind.GUI_boardcontroller
+ */
+
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
