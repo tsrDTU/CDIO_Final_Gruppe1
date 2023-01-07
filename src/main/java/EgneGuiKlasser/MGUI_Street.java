@@ -20,6 +20,7 @@ public final class MGUI_Street extends MGUI_Ownable {
         this(TITLE, SUBTEXT, DESCRIPTION, RENT, BG_COLOR, FG_COLOR);
     }
     public MGUI_Street(String title, String subText, String description, String rent, Color bgColor, Color fgColor) {
+
         super(bgColor, fgColor, title, subText, description, rent);
         title = title.replace("\n", "<BR>");
 
@@ -36,6 +37,8 @@ public final class MGUI_Street extends MGUI_Ownable {
         super.layered.setLayer(this.titleLabel, 1);
         super.layered.setLayer(super.subTextLabel, 1);
         super.layered.setLayer(this.houseLabel, 0);
+
+        System.out.println("MGUI_Street:"+" title: "+title+" subText: "+subText+" description: "+description+" rent: "+rent+" bgColor "+bgColor+" fgColor "+fgColor);
     }
     public EgneGuiKlasser.MGUI_Street setTextColor(Color textColor) {
         this.titleLabel.setForeground(textColor);

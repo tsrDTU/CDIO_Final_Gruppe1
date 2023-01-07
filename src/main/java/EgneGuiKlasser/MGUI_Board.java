@@ -94,7 +94,7 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
         generateSquareBoard(sideLength);
         this.fields = fields;
         nextPoint = 0;
-        System.out.println(sideLength);
+        System.out.println("Sidelength: "+sideLength);
 
         int year = Calendar.getInstance().get(Calendar.YEAR);
         this.setTitle(Attrs.getString("GUI_Board.Title")+(year%100));
@@ -153,6 +153,7 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
             }
             i++;
         }
+        System.out.println("makeFildPanels is run");
     }
 
 

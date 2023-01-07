@@ -91,6 +91,7 @@ public class MGUI
             if(!EgneGuiKlasser.MGUI.null_fields_allowed){
                 check_for_null_fields(fields);
                 System.out.println("MGUI created");
+                System.out.println(fields);
             }
             this.boardController = new MGUI_BoardController(fields, backGroundColor);
         }

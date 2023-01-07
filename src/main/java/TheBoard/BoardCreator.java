@@ -2,10 +2,6 @@ package TheBoard;
 import Files.FileReference;
 import GameMechanics.Colors;
 import GameMechanics.Fields;
-import gui_fields.GUI_Car;
-import gui_fields.GUI_Player;
-import gui_fields.GUI_Street;
-
 
 import java.awt.*;
 import java.io.FileNotFoundException;
@@ -29,6 +25,7 @@ public class BoardCreator{
                     Colors.ColorSpace(Integer.parseInt(textRDR(DescriptionF, String.valueOf(i + 1))), i),
                     Color.BLACK);
             //fields[2] = new GUI_Street(title,subtext,description,rent,BgColor,Color.BLACK)
+            System.out.println(fields[i]);
         }
 //--------------------------------------------------------------------------
 //
