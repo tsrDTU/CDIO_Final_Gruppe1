@@ -102,7 +102,7 @@ class ChanceTest {
 
             gui.addPlayer(PlayerArray[i]);
         }
-        Cars.restart(PlayerArray,fields, AmountofPlayers,fieldNR());
+        player.PlayerReset.restart(PlayerArray,fields, AmountofPlayers,fieldNR());
 
         int[][] OwnedtrueOwnedFalse = InitializeOwnedStat(AmountofPlayers).clone();
 
