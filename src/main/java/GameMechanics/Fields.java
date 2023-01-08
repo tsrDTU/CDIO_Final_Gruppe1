@@ -213,7 +213,8 @@ public class Fields {
             if (Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()]==0)
             return BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
                     CurrentSpaceForSelectedPlayer);
-            else {System.out.println("line 204 in fields - BuyCurrentProperty failed");
+            else {PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer, Ownedtrue, PlayerArray);
+//            System.out.println("line 216 in fields - BuyCurrentProperty failed");
             return "0";}
 
             //            if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= BoardCreator.CostofField()[THEfieldsNR] && GoOn) {
@@ -244,6 +245,18 @@ public class Fields {
         //  The selected player has landed on their own field and 0 is added to their account
         //System.out.println("    0");      | EMPTY NOTE |
         //return "0";
+    }
+
+    private static void PayTheOwner(GUI_Street[] fields, int currentlocation,MjPlayer selectedPlayer,
+                                    int[][] OwnedtrueOwnedFalse,MjPlayer[] PlayerArray) {
+        selectedPlayer.setBalance(selectedPlayer.getBalance()-Integer.parseInt(fields[currentlocation].getRent()));
+        int x = 0;
+        for (int i = 0; i < AmountofPlayers; i++) {
+            if (OwnedtrueOwnedFalse[currentlocation][i]==1)
+                    x=i;
+        }
+        PlayerArray[x].setBalance(PlayerArray[x].getBalance()+Integer.parseInt(fields[currentlocation].getRent()));
+
     }
 
 
