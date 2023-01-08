@@ -38,7 +38,7 @@ public final class MGUI_Street extends MGUI_Ownable {
         super.layered.setLayer(super.subTextLabel, 1);
         super.layered.setLayer(this.houseLabel, 0);
 
-        System.out.println("MGUI_Street:"+" title: "+title+" subText: "+subText+" description: "+description+" rent: "+rent+" bgColor "+bgColor+" fgColor "+fgColor);
+ //       System.out.println("MGUI_Street:"+" title: "+title+" subText: "+subText+" description: "+description+" rent: "+rent+" bgColor "+bgColor+" fgColor "+fgColor);
     }
     public EgneGuiKlasser.MGUI_Street setTextColor(Color textColor) {
         this.titleLabel.setForeground(textColor);
@@ -78,6 +78,8 @@ public final class MGUI_Street extends MGUI_Ownable {
         }
         this.houseLabel.setIcon(icon);
     }
+
+    /*
     @Override
     protected void displayOnCenter(GUI_Player[] playerList) {
         super.displayOnCenter(playerList);
@@ -93,6 +95,8 @@ public final class MGUI_Street extends MGUI_Ownable {
 
         super.displayCarOnCenter(playerList);
     }
+
+     */
     @Override
     public String toString() {
         return "GUI_Street [ownerName=" + ownerName + ", bgColor=" + bgColor + ", fgColor=" + fgColor + ", title="

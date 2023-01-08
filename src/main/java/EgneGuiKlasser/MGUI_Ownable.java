@@ -57,9 +57,9 @@ public abstract class MGUI_Ownable extends MGUI_Field {
     public void setRentLabel(String text){ this.rentLable = text; }
     public String getRent(){ return this.rent; }
     public void setRent(String rent){ this.rent = rent; }
-
+/*
     @Override
-    protected void displayOnCenter(GUI_Player[] playerList){
+    protected void displayOnCenter(MGUI_Player[] playerList){
         super.displayOnCenter(playerList);
         Border border;
         if(this.ownerName != null){
@@ -71,4 +71,6 @@ public abstract class MGUI_Ownable extends MGUI_Field {
         }
         GUI_Center.getInstance().getCenterPanel().setBorder(border);
     }
+
+ */
 }

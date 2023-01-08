@@ -91,6 +91,7 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
         if (fields.length%4 != 0){
             sideLength++;
         }
+
         generateSquareBoard(sideLength);
         this.fields = fields;
         nextPoint = 0;
