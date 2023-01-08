@@ -142,13 +142,14 @@ public class FieldBuyTest {
                 System.out.println("Round " +Round);
                 System.out.println(PlayerArray[0].getBalance() + " Player1 - "+PlayerArray[1].getBalance()+" Player2");
                 System.out.println("Price: "+fields[CurrentSpaceForSelectedPlayer].getRent()+" - Expected: "+ expected);
-
+                System.out.println("");
 //                String.valueOf(PlayerArray[0].getBalance()-Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent()));
+            if (expected<-10000) break;
             }
 
 
         }
-        gui.getUserButtonPressed("Click Ok to End Showing: ", "Ok");
+//        gui.getUserButtonPressed("Click Ok to End Showing: ", "Ok");
         System.exit(0);
     }
 }

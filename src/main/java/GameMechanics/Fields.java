@@ -76,15 +76,27 @@ public class Fields {
                                         throws FileNotFoundException {
         if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= BoardCreator.CostofField()[THEfieldsNR] && GoOn) {
             //System.out.println("you bought the space");   | EMPTY NOTE |
-            Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] = 1;
-            //  Puts the name of the player who bought the space onto the title of the field
-            fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
-            //  Returns a string that is used to add to the amount of money for the selected player
-            //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
-            return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
+            int x =0;
+            for (int i = 0; i < AmountofPlayers; i++) {
+                if (Ownedtrue[CurrentSpaceForSelectedPlayer][i]==1) x++;
+            }
+
+            if (Ownedtrue[CurrentSpaceForSelectedPlayer][x]==0) {
+                Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber() + 1] = 1;
+                //  Puts the name of the player who bought the space onto the title of the field
+                fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle() + " " + selectedPlayer.getName());
+                //  Returns a string that is used to add to the amount of money for the selected player
+                //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
+                return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
+            }
+            else if (Ownedtrue[CurrentSpaceForSelectedPlayer][x]!=0) {
+                System.out.println("93 line fields - cannot buy");
+            }
             // OVENFOR KAN KØBSVÆRDI ÆNDRES
         }
-        else return "0";// this makes sure you don't pay the bank when landing on your own property
+        else return "0";
+        // this makes sure you don't pay the bank when landing on your own property
+        return null;
     }
 
     public static String wannaBuyDoYou(int[][] Ownedtrue,
@@ -100,10 +112,10 @@ public class Fields {
         int ny_bilPos;
         String NewBal;
         int THEfieldsNR = Find_THEfieldsNR(fields,selectedPlayer);
-//        for (int i = 0; i < Base.fieldNR(); i++) {
-//            if (fields[i].hasCar(selectedPlayer))
-//                THEfieldsNR = i;
-//        }
+        for (int i = 0; i < Base.fieldNR(); i++) {
+            if (fields[i].hasCar(selectedPlayer))
+                THEfieldsNR = i;
+        }
 
         boolean PassedGo = false;
         //  defines the exact locations for each player (used for the jail and Go spaces)
@@ -130,12 +142,14 @@ public class Fields {
         }
 
 // What happenes on jailvisit landing
-        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL VISIT"))
-            return "0";
+        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL VISIT")){
+            System.out.println("Passed JAIL VISIT - - - - - - - -");
+            return "0";}
 
 // ADDS MONEY TO ACCOUNT AFTER PASSING START
         if (PassedGo){
             PlayerArray[selectedPlayer.getNumber()].setBalance(selectedPlayer.getBalance()+4000);
+            System.out.println(selectedPlayer.getName()+ " Passed GO - - - - - - - -");
             //  sets balance according to jail status - and removes jail status for next trip around the board
             //System.out.println("BOARD PASSED");    // | EMPTY NOTE |
 
@@ -148,7 +162,7 @@ public class Fields {
         PassedGo = false;
 //CHANCEKORT
 //  This checks if the field is even when devided by 3 twice - the location of the chance spaces
-        if ((THEfieldsNR%3)%3==0 && THEfieldsNR!=6 && THEfieldsNR!=0 && THEfieldsNR!=12&& THEfieldsNR!=18) {
+        if (PassedGo/*THEfieldsNR!=6 && THEfieldsNR!=0 && THEfieldsNR!=12&& THEfieldsNR!=18*/) {
 //-----------------------------------------------------------------------------------------------------
 //
 //      HER SKAL DER STÅ HVAD DER SKER PÅ CHANCEKORT
@@ -196,9 +210,11 @@ public class Fields {
             //  This is a check for if the player wants to buy, ((It does not function because the player is forced to buy))
             ///if (boolforBUY) {
             //  This checks if the selected player has enough money, And buys the space if it does.
-
+            if (Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()]==0)
             return BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
                     CurrentSpaceForSelectedPlayer);
+            else {System.out.println("line 204 in fields - BuyCurrentProperty failed");
+            return "0";}
 
             //            if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= BoardCreator.CostofField()[THEfieldsNR] && GoOn) {
 //                //System.out.println("you bought the space");   | EMPTY NOTE |
@@ -222,6 +238,7 @@ public class Fields {
             else {NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
                 PlayerArray[SpaceOwner].setBalance(PlayerArray[SpaceOwner].getBalance()+BoardCreator.CostofField()[THEfieldsNR]);}
             //System.out.println(-CosttoOwn[THEfieldsNR] + "   " +CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
+            System.out.println("returned New Bal            - - - - - -");
             return NewBal;
         }
         //  The selected player has landed on their own field and 0 is added to their account
