@@ -250,7 +250,6 @@ public class Main {
 
                 //  You get forced to buy the field, therefor (you want to buy)
                 boolean wanttobuyanswer;
-                System.out.println(BoardCreator.CostofField()[CurrentSpaceForSelectedPlayer]+ "   Triss");
                 if (BoardCreator.CostofField()[CurrentSpaceForSelectedPlayer]==0){
                     ;
                     wanttobuyanswer=false;}
