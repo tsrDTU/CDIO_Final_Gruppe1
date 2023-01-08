@@ -240,19 +240,28 @@ public class Main {
                 for (int i = 0; i < Base.fieldNR(); i++) {
                     if (Base.fields[i].hasCar(selectedPlayer)/*fields[i].hasCar(selectedPlayer)*/)
                         CurrentSpaceForSelectedPlayer = i;
+
                 }
 
                 //System.out.println(Fields.noOwnerShipCheck(5 ));
 
-                System.out.println(d1.getFaceValue()+" ");
+                //System.out.println(d1.getFaceValue()+" ");
 
 
                 //  You get forced to buy the field, therefor (you want to buy)
-                boolean wanttobuyYesNo = true;
-
+                boolean wanttobuyanswer;
+                System.out.println(BoardCreator.CostofField()[CurrentSpaceForSelectedPlayer]+ "   Triss");
+                if (BoardCreator.CostofField()[CurrentSpaceForSelectedPlayer]==0){
+                    ;
+                    wanttobuyanswer=false;}
+                else {
+                    String wanttobuy = gui.getUserButtonPressed("Do you want to buy?", "Yes", "No");
+                    if (wanttobuy.equals("Yes")) wanttobuyanswer = true;
+                        else wanttobuyanswer = false;
+                }
 
                 //  This handles the trades with rent and buying of fields - see at - src/main/java/GameMechanics.Fields
-                if (wanttobuyYesNo) {
+                if (wanttobuyanswer) {
                     String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
                             selectedPlayer,
                             //wanttobuyYesNo,
