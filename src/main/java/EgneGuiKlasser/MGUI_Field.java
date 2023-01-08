@@ -88,7 +88,8 @@ public abstract class MGUI_Field {
         this.layered.setForeground(fgColor);
         this.layered.setOpaque(true);
         this.layered.setBorder(border);
-        this.factory.setSize(this.layered, 1 * FIELDWIDTH, 1 * FIELDHEIGHT);
+// TSR        this.factory.setSize(this.layered, 1 * FIELDWIDTH, 1 * FIELDHEIGHT);
+        this.factory.setSize(this.layered, 1 * 63, 1 * 63);
         this.layered.setLayout(new GridBagLayout());
     }
 
@@ -156,7 +157,9 @@ public abstract class MGUI_Field {
      */
     protected JLabel makeLabel(int height) {
         JLabel label = new JLabel();
+ // TSR
         this.factory.setSize(label, 1 * FIELDWIDTH - 2, height);
+//        this.factory.setSize(label, 1 * 63 - 2, 63);
         label.setFont(new java.awt.Font(MGUI_Board.FONT, 0, MGUI_Board.FONTSIZE));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBackground(this.bgColor);

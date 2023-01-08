@@ -220,7 +220,8 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
                 int y = point.y;
 
                 JLayeredPane layered = new JLayeredPane();
-                this.factory.setSize(layered, MGUI_Field.FIELDWIDTH, MGUI_Field.FIELDHEIGHT);
+ // TSR               this.factory.setSize(layered, MGUI_Field.FIELDWIDTH, MGUI_Field.FIELDHEIGHT);
+                this.factory.setSize(layered, 63, 63);
                 this.carPanes[x][y] = layered;
                 layered.setOpaque(false);
 
@@ -229,7 +230,8 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
                     JLabel label = new JLabel();
                     cars[i] = label;
                     label.setOpaque(false);
-                    this.factory.setSize(label, MGUI_Field.FIELDWIDTH, MGUI_Field.FIELDHEIGHT);
+ // TSR                   this.factory.setSize(label, MGUI_Field.FIELDWIDTH, MGUI_Field.FIELDHEIGHT);
+                    this.factory.setSize(label, 63, 63);
                     label.setBounds(3 * i + 3, 6 * i + 1, MGUI_Player.ICON_WIDTH, MGUI_Player.ICON_HEIGHT);
                     layered.setLayer(label, i + 5);
                     label.setVisible(false);
@@ -259,7 +261,9 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
      */
     private void makeBase(Color backGroundColor) {
         this.base = new javax.swing.JLayeredPane();
-        this.factory.setSize(this.base, 11 * MGUI_Field.FIELDWIDTH, 11 * MGUI_Field.FIELDWIDTH);
+// TSR        this.factory.setSize(this.base, 11 * MGUI_Field.FIELDWIDTH, 11 * MGUI_Field.FIELDWIDTH);
+//Brættet er gjort bredere.
+        this.factory.setSize(this.base, 11 * 100, 11 * 63);
         this.base.setLayout(new GridBagLayout());
         this.base.setBackground(backGroundColor);
         this.base.setOpaque(true);
@@ -269,13 +273,17 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
     /**
      * Makes the background
      */
-    private void makeBackGroundPanels(int sidelength,Color backGroundColor) {
+    private void makeBackGroundPanels(int sidelength,Color backGroundColor)
+    {
         int offSet = (10-sidelength)/2;
-        for(int x = 1; x < sidelength; x++) {
-            for(int y = 1; y < sidelength; y++) {
+        for(int x = 1; x < sidelength; x++)
+        {
+            for(int y = 1; y < sidelength; y++)
+            {
                 JPanel panel = new javax.swing.JPanel();
                 panel.setBackground(backGroundColor);
-                this.factory.setSize(panel, MGUI_Field.FIELDWIDTH, MGUI_Field.FIELDHEIGHT);
+ // TSR               this.factory.setSize(panel, MGUI_Field.FIELDWIDTH, MGUI_Field.FIELDHEIGHT);
+                this.factory.setSize(panel, 63, 63);
                 this.base.setLayer(panel, 0);
                 this.base.add(panel, this.factory.createGridBagConstraints(x+offSet, y+offSet));
             }
@@ -290,7 +298,8 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
                 JLabelRotatable label = new JLabelRotatable();
                 this.diceLabels[x][y] = label;
                 label.setOpaque(false);
-                this.factory.setSize(label, MGUI_Field.FIELDWIDTH, MGUI_Field.FIELDHEIGHT);
+ // TSR               this.factory.setSize(label, MGUI_Field.FIELDWIDTH, MGUI_Field.FIELDHEIGHT);
+                this.factory.setSize(label, 63, 63);
                 this.base.setLayer(label, 3);
                 this.base.add(label, this.factory.createGridBagConstraints(x, y), 0);
             }
