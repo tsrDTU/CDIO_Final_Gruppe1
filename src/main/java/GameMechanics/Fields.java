@@ -135,7 +135,7 @@ public class Fields {
 
 // ADDS MONEY TO ACCOUNT AFTER PASSING START
         if (PassedGo){
-            PlayerArray[selectedPlayer.getNumber()].setBalance(selectedPlayer.getBalance()+2);
+            PlayerArray[selectedPlayer.getNumber()].setBalance(selectedPlayer.getBalance()+4000);
             //  sets balance according to jail status - and removes jail status for next trip around the board
             //System.out.println("BOARD PASSED");    // | EMPTY NOTE |
 
@@ -262,12 +262,15 @@ public class Fields {
         }
     }
 
-    public static void RestartOnePlayerOwnStatus(GUI_Player selectedplayer, int[][] OwnedtrueOwnedFalse){
+    public static void ResetOnePlayerOwnStatus(GUI_Player selectedplayer, int[][] OwnedtrueOwnedFalse){
+        //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < Base.fieldNR(); n++) {
-            //OwnedtrueOwnedFalse[n][0] = n;
-            if (selectedplayer.getNumber()+1==1)
+//OwnedtrueOwnedFalse[n][0] = n;
+            if (selectedplayer.getNumber()+1==1) {
                 OwnedtrueOwnedFalse[n][selectedplayer.getNumber()+1] = 0;
+            }
         }
+
     }
 
 }
