@@ -328,7 +328,13 @@ public class Main {
             //  Initialises values for displaying a winner
 
             //  if someone loses, the game ends and a winner/ winners are decided
-            if (selectedPlayer.getBalance() < 1) {
+//                int x=0;
+//                if (gameEnd) {gameEnd=false;}
+//                for (int i = 0; i < AmountofPlayers; i++) {
+//                    if(PlayerArray[i].getBalance()==0)
+//                        x++;}
+//                if(x==AmountofPlayers-1){
+            if(selectedPlayer.getBalance()<=1){
 
                 String Winners = new String();
 
@@ -393,8 +399,8 @@ public class Main {
                 while (!answerGameOk);
             }
             //end game if last selection to (wanna keep playing?) is no
-            if (!game_running)
-                System.exit(0);
+
+
         }
     }
     //-------------------------------------------------------------------------------------

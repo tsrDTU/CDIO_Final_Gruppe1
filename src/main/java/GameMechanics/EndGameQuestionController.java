@@ -15,6 +15,7 @@ public class EndGameQuestionController {
             , boolean answerGameOk, int[][] OwnedtrueOwnedFalse, int DialogNR, int[] PlayerSpaceNRexcact
             , GUI_Player[] PlayerArray)
             throws FileNotFoundException {
+
         if (answer_game.equals(dialog[DialogNR+2])) {
             game_running = false;
             answerGameOk = true;
