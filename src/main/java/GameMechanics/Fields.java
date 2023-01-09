@@ -115,7 +115,7 @@ public class Fields {
         }
 
 // WHERE JAIL IS LOCATED
-        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL")){
+        if (Objects.equals(fields[THEfieldsNR].getTitle(), "Fængsel")){
             MoveInJail(fields, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, THEfieldsNR,
                     JailOn, PlayerSpaceNRexcact);
 //            //  Finds the Space with JailVisit
@@ -130,7 +130,7 @@ public class Fields {
         }
 
 // What happenes on jailvisit landing
-        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL VISIT"))
+        if (Objects.equals(fields[THEfieldsNR].getTitle(), "I fængsel/På besøg"))
             return "0";
 
 // ADDS MONEY TO ACCOUNT AFTER PASSING START
