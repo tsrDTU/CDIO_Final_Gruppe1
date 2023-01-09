@@ -108,7 +108,7 @@ public class FieldBuyTest {
 //        WHERE TO CHANGE WHAT SPACES THE CARS LAND ON
 //
 //-------------------------------------------------------------------------------
-
+            gui.showMessage("Ok");
             Cars.moveCars(8, selectedPlayer, PlayerArray, AmountofPlayers, fieldNR());
             //  Sets the current space for the selected player to a value
 

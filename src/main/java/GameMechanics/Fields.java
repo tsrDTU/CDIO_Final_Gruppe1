@@ -210,13 +210,10 @@ public class Fields {
             //  This is a check for if the player wants to buy, ((It does not function because the player is forced to buy))
             ///if (boolforBUY) {
             //  This checks if the selected player has enough money, And buys the space if it does.
-            if (Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber() + 1] != 1) {
-                PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer, Ownedtrue, PlayerArray);
-                if (Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()] == 0)
-                    return BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
-                            CurrentSpaceForSelectedPlayer);
-//            System.out.println("line 216 in fields - BuyCurrentProperty failed");
-            }
+            if (Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] == 0)
+                return BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
+                        CurrentSpaceForSelectedPlayer);
+
 
             //            if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= BoardCreator.CostofField()[THEfieldsNR] && GoOn) {
 //                //System.out.println("you bought the space");   | EMPTY NOTE |
@@ -234,10 +231,10 @@ public class Fields {
 //  Knows that someone owns the field, Pays rent and adds the rent to the SpaceOwners balance
 
 
-            else {
+            /*else {
                 System.out.println("landed on own field");
                 return "0";
-            /*{
+            *//*{
             NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
             if (DoubleProperty.DoubleCost(Ownedtrue, selectedPlayer.getNumber(),CurrentSpaceForSelectedPlayer, fields)) {
                 NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]*2);
@@ -247,19 +244,22 @@ public class Fields {
             //System.out.println(-CosttoOwn[THEfieldsNR] + "   " +CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
             System.out.println("returned New Bal            - - - - - -");
             return NewBal;
-        }*/
-
-
+        }*//*
                 //  The selected player has landed on their own field and 0 is added to their account
                 //System.out.println("    0");      | EMPTY NOTE |
                 //return "0";
 
-            }
+            }*/
+        if (true/*Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] == 0*/) {
+            PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer, Ownedtrue, PlayerArray);
+//            System.out.println("line 216 in fields - BuyCurrentProperty failed");
+        }
         return "0";
     }
 
     private static void PayTheOwner(GUI_Street[] fields, int currentlocation,MjPlayer selectedPlayer,
                                     int[][] OwnedtrueOwnedFalse,MjPlayer[] PlayerArray) {
+
         selectedPlayer.setBalance(selectedPlayer.getBalance()-Integer.parseInt(fields[currentlocation].getRent()));
         int x = 0;
         for (int i = 0; i < AmountofPlayers; i++) {
