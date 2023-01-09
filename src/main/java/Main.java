@@ -328,12 +328,6 @@ public class Main {
             //  Initialises values for displaying a winner
 
             //  if someone loses, the game ends and a winner/ winners are decided
-//                int x=0;
-//                if (gameEnd) {gameEnd=false;}
-//                for (int i = 0; i < AmountofPlayers; i++) {
-//                    if(PlayerArray[i].getBalance()==0)
-//                        x++;}
-//                if(x==AmountofPlayers-1){
             if(selectedPlayer.getBalance()<=1){
 
                 String Winners = new String();
