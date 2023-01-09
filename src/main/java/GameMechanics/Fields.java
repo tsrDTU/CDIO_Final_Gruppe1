@@ -149,7 +149,7 @@ public class Fields {
 
 // ADDS MONEY TO ACCOUNT AFTER PASSING START
         if (PassedGo) {
-            PlayerArray[selectedPlayer.getNumber()].setBalance(selectedPlayer.getBalance() + 4000);
+            PlayerArray[selectedPlayer.getNumber()].setBalance(selectedPlayer.getBalance() /*+ 4000*/);
             System.out.println(selectedPlayer.getName() + " Passed GO - - - - - - - -");
             //  sets balance according to jail status - and removes jail status for next trip around the board
             //System.out.println("BOARD PASSED");    // | EMPTY NOTE |
@@ -211,7 +211,7 @@ public class Fields {
             ///if (boolforBUY) {
             //  This checks if the selected player has enough money, And buys the space if it does.
             if (Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] == 0)
-                return BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
+                BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
                         CurrentSpaceForSelectedPlayer);
 
 
@@ -252,7 +252,7 @@ public class Fields {
             }*/
         if (true/*Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] == 0*/) {
             PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer, Ownedtrue, PlayerArray);
-//            System.out.println("line 216 in fields - BuyCurrentProperty failed");
+            System.out.println("Payed the owner x amount");
         }
         return "0";
     }

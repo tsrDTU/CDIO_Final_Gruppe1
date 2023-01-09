@@ -176,6 +176,8 @@ public class Main {
 //
 //-------------------------------------------------------------------------------------------
         int amountOfGameLoops = 0;
+
+
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
             DialogNR = 5;
@@ -184,10 +186,18 @@ public class Main {
             if (playingPlayer == AmountofPlayers)
                 playingPlayer = 0;
 
+
+
+
             playingPlayer2 = playingPlayer;
             if (selection) selectedPlayer = PlayerArray[playingPlayer];
             else selectedPlayer = PlayerArray[playingPlayer2];
 
+
+            if (selectedPlayer.getBalance()<=0) {
+                Jail.JailsetTrue(selectedPlayer, skipPlayer);
+                skipPlayer = true;
+            }
             //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
             if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
                 Jail.bailOut(selectedPlayer, skipPlayer);
@@ -199,6 +209,14 @@ public class Main {
                 playingPlayer++;
                 skipPlayer=false;
                 //System.out.println("Player "+selectedPlayer.getNumber()+" smoked in jail");
+
+
+//                if (selectedPlayer.getBalance()<=0){
+//                    JailOn[selectedPlayer.getNumber()]=true;
+//                    skipPlayer=true;
+//                    playingPlayer++;
+//                    selectedPlayer = PlayerArray[playingPlayer2];}
+
 
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
@@ -308,7 +326,7 @@ public class Main {
                 selection = !selection;
                 playingPlayer++;
             }
-            //Extra tour
+
             else if ((selectedPlayer.getBalance() <= -1)) {
                 gui.showMessage(selectedPlayer.getName() + dialog[DialogNR]); DialogNR++;
             }
@@ -392,10 +410,11 @@ public class Main {
                 //more
                 while (!answerGameOk);
             }
+            if (gameEnd) System.exit(0);
 
             //end game if last selection to (wanna keep playing?) is no
-            if (!game_running)
-                System.exit(0);
+        // if
+//                System.exit(0);
         }
     }
     //-------------------------------------------------------------------------------------

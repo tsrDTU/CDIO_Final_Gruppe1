@@ -108,7 +108,7 @@ public class FieldBuyTest {
 //        WHERE TO CHANGE WHAT SPACES THE CARS LAND ON
 //
 //-------------------------------------------------------------------------------
-            gui.showMessage("Ok");
+//            gui.showMessage("Ok");
             Cars.moveCars(8, selectedPlayer, PlayerArray, AmountofPlayers, fieldNR());
             //  Sets the current space for the selected player to a value
 
@@ -142,6 +142,7 @@ public class FieldBuyTest {
                     rent = Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent());
                     expected = last_exp - rent;
                     last_exp = expected;
+
                     System.out.println("Round " +Round);
                     System.out.println(PlayerArray[0].getBalance() + " Player1 - "+PlayerArray[1].getBalance()+" Player2");
                     System.out.println("Price: "+fields[CurrentSpaceForSelectedPlayer].getRent()+" - Expected P2: "+ expected);

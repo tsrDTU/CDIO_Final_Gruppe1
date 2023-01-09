@@ -14,17 +14,23 @@ public class EndGameQuestionController {
     public static boolean AskEndQuestion(String answer_game, boolean game_running
             , boolean answerGameOk, int[][] OwnedtrueOwnedFalse, int DialogNR, int[] PlayerSpaceNRexcact
             , GUI_Player[] PlayerArray)
-            throws FileNotFoundException {
-        if (answer_game.equals(dialog[DialogNR+2])) {
+            throws FileNotFoundException
+    {
+        if (answer_game.equals(dialog[DialogNR+2]))
+        {
+
             game_running = false;
             answerGameOk = true;
+            System.exit(0);
         }   //  else restart the game
-        else {
+        else
+        {
             answerGameOk = true;
             player.PlayerReset.restart(PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
             GameMechanics.Fields.RestartFieldTitles(/*fields*/TitleF, Base.fieldNR(), Base.fields);
             GameMechanics.Fields.RestartOwnStatus(OwnedtrueOwnedFalse, Base.fieldNR(), AmountofPlayers);
-            for (int i = 0; i < AmountofPlayers; i++) {
+            for (int i = 0; i < AmountofPlayers; i++)
+            {
                 PlayerSpaceNRexcact[i] = 0;
             }
         }
