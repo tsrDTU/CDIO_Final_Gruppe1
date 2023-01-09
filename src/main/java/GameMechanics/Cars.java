@@ -74,6 +74,8 @@ public class Cars {
             if (PlayerNum[i])
                 street[LocationCurrent].setCar(players[i], true);
         }
+ //       LocationNEW= 33; //  Test fængsel
+//        LocationCurrent=32-Space; //Test fængsel
         //Moves the Player That wanted to move in the first place
         if (LocationCurrent+Space<=AmountofSpaces-1)
         /*street[LocationCurrent+Space]*/Base.fields[LocationCurrent+Space].setCar(currentplayer, true);
