@@ -17,10 +17,7 @@ import static GameMechanics.Die.getSum;
 import static TheBoard.Base.*;
 import static TheBoard.Language.dialog;
 
-
-import EgneGuiKlasser.MGUI_Street;
-import EgneGuiKlasser.MGUI_Player;
-import EgneGuiKlasser.MGUI_Car;
+import EgneGuiKlasser.*;
 
 //v1.2
 
@@ -56,6 +53,7 @@ public class Main {
 //        MGUI gui = new MGUI(Base.fields, Color.WHITE);
         MGUI gui = new MGUI(fields, Color.LIGHT_GRAY);
 
+        gui.showTextOnBoard("Test");
         //  Asks if the language has been initialised and makes a button for user to select language
             language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
 

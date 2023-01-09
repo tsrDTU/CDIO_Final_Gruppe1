@@ -14,10 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import gui_codebehind.GUI_Center;
 import gui_fields.GUI_Board;
@@ -515,5 +512,62 @@ public final class MGUI_BoardController {
 
     public void close() {
         this.board.dispose();
+    }
+
+// Metoder tilføjet af Torben
+    // https://www.guru99.com/java-swing-gui.html, https://docs.oracle.com/javase/tutorial/uiswing/components/textfield.html
+    public void showTextOnBoard(String msg)
+    {
+  //      final CountDownLatch latch = new CountDownLatch(1);
+        JLabel label = new JLabel("Dette er prøve");
+        label.setText(msg);
+        label.setBounds(50,50,50,50);
+        label.setHorizontalTextPosition(10);
+        label.setVerticalTextPosition(1);
+        label.setVisible(true);
+        this.board.add(label);
+
+        this.board.setVisible(true);
+        this.board.pack();
+        this.board.repaint();
+
+
+
+        /*
+        okButton.addActionListener(new ActionListener()
+        {
+
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                EgneGuiKlasser.MGUI_BoardController.this.board.clearInputPanel();
+                latch.countDown();
+            }
+        }
+        );
+
+        okButton.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) { }
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    EgneGuiKlasser.MGUI_BoardController.this.board.clearInputPanel();
+                    latch.countDown();
+                }
+            }
+            @Override
+            public void keyPressed(KeyEvent e) { }
+        });
+
+        this.board.getUserInput(msg, okButton);
+        getFocus(okButton);
+        try {
+            latch.await();
+        } catch(InterruptedException ex) {
+            ex.printStackTrace();
+        }
+
+         */
     }
 }

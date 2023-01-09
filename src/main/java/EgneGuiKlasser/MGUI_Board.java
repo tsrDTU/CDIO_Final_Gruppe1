@@ -253,6 +253,7 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
         this.base.setLayer(GUI_Center.getInstance().getCenterPanel(), 1);
         this.base.add(GUI_Center.getInstance().getCenterPanel(),
                 this.factory.createGridBagConstraints(4, 4, 3, 3));
+
     }
 
     /**

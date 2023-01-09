@@ -401,5 +401,10 @@ public class MGUI
             EgneGuiKlasser.MGUI.null_fields_allowed = allowed;
         }
 
+        public void showTextOnBoard(String txt)
+        {
+            boardController.showTextOnBoard(txt);
+        }
+
 
 }
