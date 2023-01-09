@@ -1,7 +1,7 @@
 package EgneGuiKlasser;
 
 /**
- * Kopi af Maven:diplomitdtu:matadorgui:3.1.7.gui_codebehind.GUI_boardcontroller
+ * Kopi af Maven:diplomitdtu:matadorgui:3.1.7.gui_codebehind.GUI_boardcontroller, som er tilrettet
  */
 
 import java.awt.Color;

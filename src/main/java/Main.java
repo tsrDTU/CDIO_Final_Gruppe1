@@ -51,12 +51,15 @@ public class Main {
         //BoardCreator.SetGUItext();
         //  Sets up the background GUI (Graphical User Interface) to a plain white
 //        MGUI gui = new MGUI(Base.fields, Color.WHITE);
-        MGUI gui = new MGUI(fields, Color.LIGHT_GRAY);
+        MGUI gui = new MGUI(fields, Color.BLACK);
 
-        gui.showTextOnBoard("Test");
+       // gui.showTextOnBoard("Test");
+        gui.showMessage("Test farve");
+ //       gui.getUserButtonPressed("Test farve");
         //  Asks if the language has been initialised and makes a button for user to select language
-            language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
+ //           language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
 
+        language="Dansk";
         //  Initialize the game dialog
         TheBoard.Language.initializeDialog(dialog, language);
 /*
@@ -103,7 +106,7 @@ public class Main {
             int first = 0; for (int l = 0; l < AmountofPlayers; l++) {if (userRoles.size()>AmountofPlayers)
                 userRoles.remove(first); first++;}
             String[] RoleArray = new String[k];
-            PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[DialogNR+1], userRoles.toArray(RoleArray)));
+ //           PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[DialogNR+1], userRoles.toArray(RoleArray)));
             //Remove this role from the list.
             for (j=0;j<userRoles.size();j++)
             {
@@ -212,7 +215,7 @@ public class Main {
             d2.dice_roll();
 
             //Inform which user is playing
-            gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1]+" "+ selectedPlayer.getUserRole(), dialog[DialogNR+2]); DialogNR+=3;
+            gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1]+" ", dialog[DialogNR+2]); DialogNR+=3;
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
             //int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/

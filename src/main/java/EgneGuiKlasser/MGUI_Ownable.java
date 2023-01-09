@@ -1,5 +1,9 @@
 package EgneGuiKlasser;
 
+/**
+ * Kopi af af Maven:diplomitdtu:matadorgui:3.1.7.GUI_Ownable som er til rettet
+ */
+
 
 import java.awt.Color;
 import javax.swing.border.Border;

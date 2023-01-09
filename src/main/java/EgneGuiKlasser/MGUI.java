@@ -1,6 +1,6 @@
 package EgneGuiKlasser;
 /**
- * Kopi af Maven:diplomitdtu:matadorgui:3.1.7.guimain.GUI
+ * Kopi af Maven:diplomitdtu:matadorgui:3.1.7.guimain.GUI som er tilrettet
  */
 
 import java.awt.Color;

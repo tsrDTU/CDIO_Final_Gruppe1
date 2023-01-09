@@ -1,5 +1,9 @@
 package EgneGuiKlasser;
 
+/**
+ * Kopi af Maven:diplomitdtu:matadorgui:3.1.7.GUI_Street som er tilrettet.
+ */
+
 import java.awt.Color;
 import javax.swing.Icon;
 import javax.swing.JLabel;

@@ -190,6 +190,7 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
      */
     public void getUserInput(String message, Component... components) {
         this.messageArea.setText(message);
+        this.messageArea.setForeground(Color.WHITE); // TSR
         for(Component c : components) {
             this.inputPanel.add(c);
         }
@@ -262,9 +263,9 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
      */
     private void makeBase(Color backGroundColor) {
         this.base = new javax.swing.JLayeredPane();
-// TSR        this.factory.setSize(this.base, 11 * MGUI_Field.FIELDWIDTH, 11 * MGUI_Field.FIELDWIDTH);
-//Brættet er gjort bredere.
-        this.factory.setSize(this.base, 11 * 100, 11 * 63);
+        this.factory.setSize(this.base, 11 * MGUI_Field.FIELDWIDTH, 11 * MGUI_Field.FIELDWIDTH);
+//Brættet er gjort bredere. TSR
+//      this.factory.setSize(this.base, 11 * 100, 11 * 63);
         this.base.setLayout(new GridBagLayout());
         this.base.setBackground(backGroundColor);
         this.base.setOpaque(true);
@@ -424,6 +425,7 @@ public final class MGUI_Board extends javax.swing.JFrame implements Observer
                 Icon icon = new ImageIcon(p.getImage());
 
                 this.iconLabels[position].setIcon(icon);
+                this.playerLabels[position].setForeground(Color.WHITE); //TSR
                 this.playerLabels[position].setText("<html>" + p.getName() + "<br>"
                         + p.getBalance());
                 position++;
