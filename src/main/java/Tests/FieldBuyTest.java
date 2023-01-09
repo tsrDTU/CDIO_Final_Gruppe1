@@ -90,7 +90,7 @@ public class FieldBuyTest {
         selectedPlayer = PlayerArray[1];
         int last_exp=30000;
         int rent;
-        int expected;
+        int expected = 30000;
         int Round = 0;
 
         while (selectedPlayer.getBalance() > 20000) {
@@ -109,7 +109,7 @@ public class FieldBuyTest {
 //
 //-------------------------------------------------------------------------------
 
-            Cars.moveCars(21, selectedPlayer, PlayerArray, AmountofPlayers, fieldNR());
+            Cars.moveCars(8, selectedPlayer, PlayerArray, AmountofPlayers, fieldNR());
             //  Sets the current space for the selected player to a value
 
 
@@ -124,9 +124,7 @@ public class FieldBuyTest {
 
 
             //  This handles the trades with rent and buying of fields - see at - src/main/java/GameMechanics.Fields
-            rent = Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent());
-            expected = last_exp-rent;
-            last_exp=expected;
+            
             if (wanttobuyYesNo/*&&Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent())!=0*/) {
                 String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
                         selectedPlayer,
@@ -138,18 +136,23 @@ public class FieldBuyTest {
                 selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                 //System.out.println(NewBalance)
                 // ;       | EMPTY NOTE |
-                Round++;
-                System.out.println("Round " +Round);
-                System.out.println(PlayerArray[0].getBalance() + " Player1 - "+PlayerArray[1].getBalance()+" Player2");
-                System.out.println("Price: "+fields[CurrentSpaceForSelectedPlayer].getRent()+" - Expected: "+ expected);
-                System.out.println("");
 //                String.valueOf(PlayerArray[0].getBalance()-Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent()));
-            if (expected<-10000) break;
+                if (/*selectedPlayer.getNumber()==1*/true) {
+                    Round++;
+                    rent = Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent());
+                    expected = last_exp - rent;
+                    last_exp = expected;
+                    System.out.println("Round " +Round);
+                    System.out.println(PlayerArray[0].getBalance() + " Player1 - "+PlayerArray[1].getBalance()+" Player2");
+                    System.out.println("Price: "+fields[CurrentSpaceForSelectedPlayer].getRent()+" - Expected P2: "+ expected);
+                    System.out.println("");
+                }
+                if (expected<=-10000) break;
             }
 
 
         }
-//        gui.getUserButtonPressed("Click Ok to End Showing: ", "Ok");
+        gui.getUserButtonPressed("Click Ok to End Showing: ", "Ok");
         System.exit(0);
     }
 }
