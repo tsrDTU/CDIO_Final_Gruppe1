@@ -93,7 +93,7 @@ public class FieldBuyTest {
         int expected = 30000;
         int Round = 0;
 
-        while (selectedPlayer.getBalance() > 20000) {
+        while (selectedPlayer.getBalance() > 0) {
             if (selectedPlayer==PlayerArray[0])
                 selectedPlayer = PlayerArray[1];
             else if (selectedPlayer==PlayerArray[1])
@@ -125,7 +125,7 @@ public class FieldBuyTest {
 
             //  This handles the trades with rent and buying of fields - see at - src/main/java/GameMechanics.Fields
             
-            if (wanttobuyYesNo/*&&Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent())!=0*/) {
+            if (Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent())!=0) {
                 String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
                         selectedPlayer,
                         //wanttobuyYesNo,
@@ -137,7 +137,7 @@ public class FieldBuyTest {
                 //System.out.println(NewBalance)
                 // ;       | EMPTY NOTE |
 //                String.valueOf(PlayerArray[0].getBalance()-Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent()));
-                if (/*selectedPlayer.getNumber()==1*/true) {
+                if (selectedPlayer.getNumber()==1) {
                     Round++;
                     rent = Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent());
                     expected = last_exp - rent;
@@ -152,7 +152,7 @@ public class FieldBuyTest {
 
 
         }
-        gui.getUserButtonPressed("Click Ok to End Showing: ", "Ok");
+//        gui.getUserButtonPressed("Click Ok to End Showing: ", "Ok");
         System.exit(0);
     }
 }

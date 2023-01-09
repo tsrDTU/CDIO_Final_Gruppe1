@@ -28,6 +28,8 @@ public class Main {
 
 // kalhauge/BoardEngine
 
+    public static String ANSI_WHITE="\u001B[37m";
+
     public static void main(String[] args) throws IOException {
         String string_in, language, answer_game;
         int antal_kant, j, DialogNR=2;
@@ -390,6 +392,7 @@ public class Main {
                 //more
                 while (!answerGameOk);
             }
+
             //end game if last selection to (wanna keep playing?) is no
             if (!game_running)
                 System.exit(0);
