@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.util.Objects;
 import player.MjPlayer;
 
+import static Files.FileReference.TitleF;
+import static GameMechanics.textReaderClass.textRDR;
 import static TheBoard.Base.AmountofPlayers;
 import static TheBoard.Base.fieldNR;
 //import static cardClasses.*;
@@ -137,7 +139,7 @@ public class Fields {
 
 // ADDS MONEY TO ACCOUNT AFTER PASSING START
         if (PassedGo){
-            PlayerArray[selectedPlayer.getNumber()].setBalance(selectedPlayer.getBalance()+4000);
+            PlayerArray[selectedPlayer.getNumber()].setBalance(selectedPlayer.getBalance()-20);
             //  sets balance according to jail status - and removes jail status for next trip around the board
             //System.out.println("BOARD PASSED");    // | EMPTY NOTE |
 
@@ -264,19 +266,21 @@ public class Fields {
         }
     }
 
-    public static void ResetOnePlayerOwnStatus(GUI_Player selectedplayer, int[][] OwnedtrueOwnedFalse){
+    public static void ResetOnePlayerOwnStatus(GUI_Player selectedplayer, int[][] OwnedtrueOwnedFalse, GUI_Street[] fields, int THEfieldsNR) throws FileNotFoundException {
         //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < Base.fieldNR(); n++) {
 //OwnedtrueOwnedFalse[n][0] = n;1
             if (selectedplayer.getNumber()+1==1) {
-                OwnedtrueOwnedFalse[n][selectedplayer.getNumber()+1] = 0;
+                OwnedtrueOwnedFalse[n][selectedplayer.getNumber()] = 0;
+                fields[THEfieldsNR].setTitle(textRDR(TitleF, String.valueOf(THEfieldsNR+1)));
             }
+
         }
 
     }
 
-    public static void RestartOnePlayerOwnStatus(MjPlayer selectedPlayer, int[][] ownedtrueOwnedFalse) {
-    }
+
+
 }
 /*
 

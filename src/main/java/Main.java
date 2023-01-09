@@ -184,17 +184,35 @@ public class Main {
 //
 //-------------------------------------------------------------------------------------------
         int amountOfGameLoops = 0;
+        int CurrentSpaceForSelectedPlayer = 0;
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
             DialogNR = 5;
-                if (amountOfGameLoops == AmountofPlayers)
-                    amountOfGameLoops = 0;
+            if (amountOfGameLoops == AmountofPlayers)
+                amountOfGameLoops = 0;
             if (playingPlayer == AmountofPlayers)
                 playingPlayer = 0;
+
+            PlayerArray[0].setBalance(30000);
+            PlayerArray[1].setBalance(30000);
+
 
             playingPlayer2 = playingPlayer;
             if (selection) selectedPlayer = PlayerArray[playingPlayer];
             else selectedPlayer = PlayerArray[playingPlayer2];
+
+
+            if (selectedPlayer.getBalance() <= 0) {
+                Fields.ResetOnePlayerOwnStatus(selectedPlayer, OwnedtrueOwnedFalse,fields, CurrentSpaceForSelectedPlayer);
+                selectedPlayer.setBalance(0);
+                skipPlayer = true;
+                playingPlayer++;
+                if(playingPlayer>=AmountofPlayers)
+                    playingPlayer=0;
+            Jail.JailsetTrue(selectedPlayer, skipPlayer);
+        }
+
+
 
             //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
             if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
@@ -208,6 +226,9 @@ public class Main {
                 skipPlayer=false;
                 //System.out.println("Player "+selectedPlayer.getNumber()+" smoked in jail");
 
+
+
+                selectedPlayer = PlayerArray[playingPlayer2];
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
                 if (playingPlayer == AmountofPlayers)
@@ -230,7 +251,6 @@ public class Main {
             //int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
             int DieSum = getSum(d1,d2);
 
-            int CurrentSpaceForSelectedPlayer = 0;
             CurrentSpaceForSelectedPlayer = 0;
             for (int i = 0; i < Base.fieldNR(); i++) {
                 if (Base.fields[i].hasCar(selectedPlayer)/*fields[i].hasCar(selectedPlayer)*/)
@@ -315,7 +335,7 @@ public class Main {
             answerGameOk = false;
 
 
-            GameMechanics.Fields.RestartOnePlayerOwnStatus(selectedPlayer,OwnedtrueOwnedFalse);
+//            GameMechanics.Fields.ResetOnePlayerOwnStatus(selectedPlayer,OwnedtrueOwnedFalse);
 
 
 
@@ -328,8 +348,12 @@ public class Main {
             //  Initialises values for displaying a winner
 
             //  if someone loses, the game ends and a winner/ winners are decided
-            if(selectedPlayer.getBalance()<=1){
-
+            int x=0;
+                if (gameEnd) {gameEnd=false;}
+                for (int i = 0; i < AmountofPlayers; i++) {
+                    if(PlayerArray[i].getBalance()==0)
+                        x++;}
+                if(x==AmountofPlayers-1){
                 String Winners = new String();
 
                 Winners = GameMechanics.Winner.Values(PlayerArray,selectedPlayer);
@@ -393,6 +417,8 @@ public class Main {
                 while (!answerGameOk);
             }
             //end game if last selection to (wanna keep playing?) is no
+            if (gameEnd);
+
 
 
         }

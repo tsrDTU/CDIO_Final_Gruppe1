@@ -19,6 +19,7 @@ public class EndGameQuestionController {
         if (answer_game.equals(dialog[DialogNR+2])) {
             game_running = false;
             answerGameOk = true;
+            System.exit(0);
         }   //  else restart the game
         else {
             answerGameOk = true;
