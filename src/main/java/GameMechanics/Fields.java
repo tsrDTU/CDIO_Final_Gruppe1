@@ -270,10 +270,9 @@ public class Fields {
         //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < Base.fieldNR(); n++) {
 //OwnedtrueOwnedFalse[n][0] = n;1
-            if (selectedplayer.getNumber()+1==1) {
                 OwnedtrueOwnedFalse[n][selectedplayer.getNumber()] = 0;
                 fields[THEfieldsNR].setTitle(textRDR(TitleF, String.valueOf(THEfieldsNR+1)));
-            }
+                System.out.println( "Hey jjjj");
 
         }
 

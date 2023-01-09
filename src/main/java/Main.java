@@ -210,6 +210,7 @@ public class Main {
                 if(playingPlayer>=AmountofPlayers)
                     playingPlayer=0;
             Jail.JailsetTrue(selectedPlayer, skipPlayer);
+
         }
 
 
@@ -243,6 +244,9 @@ public class Main {
             //roll the dices
             d1.dice_roll();
             d2.dice_roll();
+
+            if (selectedPlayer.getBalance() <= 0)
+                Fields.ResetOnePlayerOwnStatus(selectedPlayer, OwnedtrueOwnedFalse,fields, CurrentSpaceForSelectedPlayer);
 
             //Inform which user is playing
             gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1]+" "+ selectedPlayer.getUserRole(), dialog[DialogNR+2]); DialogNR+=3;
