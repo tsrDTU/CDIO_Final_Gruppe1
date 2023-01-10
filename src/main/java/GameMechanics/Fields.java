@@ -55,7 +55,7 @@ public class Fields {
             , GUI_Player selectedPlayer, int THEfieldsNR, boolean[] JailOn, int[] PlayerSpaceNRexcact){
             int JailVisitSpace=Base.JailLocationOnBoard;
             Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, JailVisitSpace, fields);
-            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
+            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 10;
             JailOn[selectedPlayer.getNumber()]=true;
             // System.out.println("player "+selectedPlayer.getNumber()+ " got jailed");  //Jail TestLine
             return "-1";  // return value to add to someones balance
@@ -185,14 +185,14 @@ public class Fields {
 
             if (JailOn[selectedPlayer.getNumber()]) {
                 //System.out.println("Subtracted 2 from balance cause JAIL");       //  | EMPTY NOTE |
-                selectedPlayer.setBalance(selectedPlayer.getBalance() - 1000);
+                selectedPlayer.setBalance(selectedPlayer.getBalance());
                 JailOn[selectedPlayer.getNumber()] = false;
             }  //else System.out.println("Did not subtract 2 Player"+(selectedPlayer.getNumber()+1));
         }
         PassedGo = false;
 //CHANCEKORT
 //  This checks if the field is even when devided by 3 twice - the location of the chance spaces
-        if ( false/*THEfieldsNR==2 || THEfieldsNR==7 || THEfieldsNR== 22 || THEfieldsNR==30 || THEfieldsNR==34 || THEfieldsNR==37*/) {
+        if (THEfieldsNR==2 || THEfieldsNR==7 || THEfieldsNR== 22 || THEfieldsNR==30 || THEfieldsNR==34 || THEfieldsNR==37) {
 //-----------------------------------------------------------------------------------------------------
 //
 //      HER SKAL DER STÅ HVAD DER SKER PÅ CHANCEKORT
@@ -237,11 +237,12 @@ public class Fields {
             ///if (boolforBUY) {
             //  This checks if the selected player has enough money, And buys the space if it does.
             if (!OwnStatus[CurrentSpaceForSelectedPlayer]){
+                System.out.println(CurrentSpaceForSelectedPlayer+" "+ fields[CurrentSpaceForSelectedPlayer].getRent()+" CSSP");
                 BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
                         CurrentSpaceForSelectedPlayer, OwnStatus, OwnerList);
 
 
-                fields[CurrentSpaceForSelectedPlayer].setTitle(fields[CurrentSpaceForSelectedPlayer].getTitle()+ " "+selectedPlayer.getName());
+//                fields[CurrentSpaceForSelectedPlayer].setTitle(fields[CurrentSpaceForSelectedPlayer].getTitle()+ " "+selectedPlayer.getName());
 //                OwnStatus[CurrentSpaceForSelectedPlayer]=true;
                 System.out.println("bought space");
             }
@@ -297,7 +298,7 @@ public class Fields {
         return "0";
     }
 
-    private static void PayTheOwner(GUI_Street[] fields, int currentlocation,MjPlayer selectedPlayer,
+    public static void PayTheOwner(GUI_Street[] fields, int currentlocation,MjPlayer selectedPlayer,
                                     int[][] OwnedtrueOwnedFalse,MjPlayer[] PlayerArray,boolean[] OwnStatus, int[] Ownerlist) {
         int owner;
         selectedPlayer.setBalance(selectedPlayer.getBalance()-Integer.parseInt(fields[currentlocation].getRent()));
@@ -337,12 +338,17 @@ public class Fields {
         }*/
     }
 
-    public static void RestartOwnStatus(int[][] OwnedtrueOwnedFalse, int fieldNR, int AmountofPlayers) {
+    public static void RestartOwnStatus(int[][] OwnedtrueOwnedFalse, int fieldNR, int AmountofPlayers,
+                                        boolean[] ownstatus, int[] OwnerList) {
         //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < fieldNR; n++) {
             //OwnedtrueOwnedFalse[n][0] = n;
-            for (int i = 1; i < AmountofPlayers+1; i++) {
-                OwnedtrueOwnedFalse[i][n] = 0;
+            for (int i = 0; i < AmountofPlayers+1; i++) {
+                OwnedtrueOwnedFalse[n][i] = 0;
+            }
+            for (int i = 0; i < Base.fieldNR(); i++) {
+                ownstatus[i]=false;
+                OwnerList[i]=0;
             }
         }
     }
@@ -352,7 +358,7 @@ public class Fields {
         for (int n = 0; n < Base.fieldNR(); n++) {
 //OwnedtrueOwnedFalse[n][0] = n;
             if (selectedplayer.getNumber()+1==1) {
-                OwnedtrueOwnedFalse[n][selectedplayer.getNumber()+1] = 0;
+                OwnedtrueOwnedFalse[n][selectedplayer.getNumber()] = 0;
             }
         }
 

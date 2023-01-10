@@ -101,7 +101,7 @@ public class Main {
             PlayerName[i] = (gui.getUserString(dialog[DialogNR]+(i+1)+"?"));
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
-            PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
+            PlayerArray[i] = new MjPlayer(PlayerName[i], 30000 , playerCars[i]);
             GameMechanics.Colors.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
             //Set users role
           //  int first = 0; for (int l = 0; l < AmountofPlayers; l++) {if (userRoles.size()>AmountofPlayers)
@@ -208,7 +208,7 @@ public class Main {
                 Jail.bailOut(selectedPlayer, skipPlayer);
                 JailOn[selectedPlayer.getNumber()]=false;
                 //System.out.println("Spiller skippes ikke pga. GOJF kort");
-            } else if (JailOn[selectedPlayer.getNumber()]){
+            } else if (false/*JailOn[selectedPlayer.getNumber()]*/){
                 skipPlayer = true; JailOn[selectedPlayer.getNumber()]=false;}
             if (skipPlayer) {
                 playingPlayer++;
@@ -266,9 +266,11 @@ public class Main {
 
                 //  You get forced to buy the field, therefor (you want to buy)
                 boolean wanttobuyanswer;
-                if (BoardCreator.CostofField()[CurrentSpaceForSelectedPlayer]==0){
-                    ;
-                    wanttobuyanswer=false;}
+
+                if (Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent())==0)
+                    wanttobuyanswer=false;
+                else if (ownstatus[CurrentSpaceForSelectedPlayer])
+                    wanttobuyanswer=false;
                 else {
                     String wanttobuy = gui.getUserButtonPressed("Do you want to buy?", "Yes", "No");
                     if (wanttobuy.equals("Yes")) wanttobuyanswer = true;
@@ -276,7 +278,8 @@ public class Main {
                 }
 
                 //  This handles the trades with rent and buying of fields - see at - src/main/java/GameMechanics.Fields
-                if (wanttobuyanswer) {
+                if (wanttobuyanswer && !ownstatus[CurrentSpaceForSelectedPlayer]) {
+                    System.out.println(fields[CurrentSpaceForSelectedPlayer].getRent());
                     String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
                             selectedPlayer,
                             //wanttobuyYesNo,
@@ -287,6 +290,10 @@ public class Main {
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
+                else
+                    Fields.PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer
+                            ,OwnedtrueOwnedFalse, PlayerArray, ownstatus, OwnerList);
+
 //                GameMechanics.textReaderClass.textRDR(DescriptionF, "12");
                 amountOfGameLoops++;
 
@@ -384,7 +391,7 @@ public class Main {
                     //  if anwser to "a new game" is no - stop the game
 
                     game_running = EndGameQuestionController.AskEndQuestion(answer_game,game_running,answerGameOk
-                    ,OwnedtrueOwnedFalse,DialogNR,PlayerSpaceNRexcact, PlayerArray);
+                    ,OwnedtrueOwnedFalse,DialogNR,PlayerSpaceNRexcact, PlayerArray, ownstatus, OwnerList);
                     answerGameOk = true;
 //                    if (answer_game.equals(dialog[DialogNR+2])) {
 //                        game_running = false;

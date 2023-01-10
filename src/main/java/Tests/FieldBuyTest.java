@@ -147,13 +147,13 @@ public class FieldBuyTest {
                     rent = Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent());
                     expected = last_exp - rent;
                     last_exp = expected;
-                    if (Round>4)
+                    if (Round>3)
                         expected1 += Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent());
 
                     System.out.println("Round " +Round);
                     System.out.println(PlayerArray[0].getBalance() + " Player1 :-: "+PlayerArray[1].getBalance()+" Player2");
                     System.out.println("Price: "+fields[CurrentSpaceForSelectedPlayer].getRent()+" - Expected P2: "+ expected);
-                    if (Round>4)
+                    if (Round>3)
                         System.out.println("            - Expected P1: "+ expected1);
                     System.out.println("");
                 }
