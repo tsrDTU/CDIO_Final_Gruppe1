@@ -98,9 +98,6 @@ public class Fields {
         for (int i = 0; i < AmountofPlayers; i++) {
             if (Ownedtrue[TheFieldsNR]==1)
                 x= true;
-//                System.out.println(Ownedtrue[TheFieldsNR][0]);
-//            System.out.println(Ownedtrue[TheFieldsNR][1]);
-//            System.out.println(Ownedtrue[TheFieldsNR][2]);
         }
             return x;
     }
@@ -236,8 +233,9 @@ public class Fields {
                 BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
                         CurrentSpaceForSelectedPlayer);
                 OwnStatus[CurrentSpaceForSelectedPlayer]=true;
+
                 fields[CurrentSpaceForSelectedPlayer].setTitle(fields[CurrentSpaceForSelectedPlayer].getTitle()+ " "+selectedPlayer.getName());
-                OwnStatus[CurrentSpaceForSelectedPlayer]=true;
+//                OwnStatus[CurrentSpaceForSelectedPlayer]=true;
                 System.out.println("bought space");
             }
 

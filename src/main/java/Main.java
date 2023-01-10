@@ -41,6 +41,7 @@ public class Main {
         String[] freeUserRoles;
 
         int[] OwnerList = Fields.InitialiseOwnerList();
+        boolean[] ownstatus = Fields.OwnStatus();
 
 //-------------------------------------------------------------------------------------------
 //
@@ -78,7 +79,7 @@ public class Main {
         antal_kant = 6;
 
 
-        boolean[] ownstatus = Fields.OwnStatus();
+
 
 
 
