@@ -268,7 +268,7 @@ public class Main {
                 boolean wanttobuyanswer;
 
                 if (Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent())==0)
-                    wanttobuyanswer=false;
+                    wanttobuyanswer=true;
                 else if (ownstatus[CurrentSpaceForSelectedPlayer])
                     wanttobuyanswer=false;
                 else {
@@ -306,9 +306,9 @@ public class Main {
             }
 
             //Shows description of the space you land on, and changes color
-
-           if (fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "CHANCE") {
-            //    gui.displayChanceCard(Chance.chanceCards[DieSum - 5].getKortNavnavn());
+            int CSSP =CurrentSpaceForSelectedPlayer;
+           if (true /*fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "Prøv lykken"*/) {
+//               gui.displayChanceCard(Chance.chanceCards[DieSum - 5].getKortNavnavn());
             } else
                 gui.displayChanceCard(selectedPlayer.getName() + " | " + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]
                         ].getTitle() + "\n" + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getSubText());

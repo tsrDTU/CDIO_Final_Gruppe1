@@ -191,7 +191,6 @@ public class Fields {
         }
         PassedGo = false;
 //CHANCEKORT
-//  This checks if the field is even when devided by 3 twice - the location of the chance spaces
         if (THEfieldsNR==2 || THEfieldsNR==7 || THEfieldsNR== 22 || THEfieldsNR==30 || THEfieldsNR==34 || THEfieldsNR==37) {
 //-----------------------------------------------------------------------------------------------------
 //
@@ -203,9 +202,13 @@ public class Fields {
             //           Chance landetPaaChance = new Chance();
             //           landetPaaChance.traekEtChanceKort();
 
+            Chance C1= new Chance();
+
 
             //bilen har muligvis fået ny positon efter chancekortet er eksekveret
             ny_bilPos = chankort.chanceFieldIsHit(selectedPlayer, PlayerArray, CurrentSpaceForSelectedPlayer, AmountofPlayers, 3, gui, fields);
+//            chankort.traekEtChanceKort();
+
 
             if (CurrentSpaceForSelectedPlayer != ny_bilPos) {
                 if (CurrentSpaceForSelectedPlayer + 1 > fieldNR())
