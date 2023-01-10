@@ -71,21 +71,51 @@ public class Fields {
         return THEfieldsNR;
     }
 
-    public static String BuyCurrentProperty(MjPlayer[] PlayerArray, MjPlayer selectedPlayer, GUI_Street[] fields,
-                                         int THEfieldsNR,boolean GoOn, int[][] Ownedtrue, int CurrentSpaceForSelectedPlayer)
+    public static void BuyCurrentProperty(MjPlayer[] PlayerArray, MjPlayer selectedPlayer, GUI_Street[] fields,
+                                          int THEfieldsNR, boolean GoOn, int[][] Ownedtrue, int CurrentSpaceForSelectedPlayer)
                                         throws FileNotFoundException {
-        if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= BoardCreator.CostofField()[THEfieldsNR] && GoOn) {
-            //System.out.println("you bought the space");   | EMPTY NOTE |
-            Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] = 1;
-            //  Puts the name of the player who bought the space onto the title of the field
-            fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle()+" "+selectedPlayer.getName());
-            //  Returns a string that is used to add to the amount of money for the selected player
-            //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
-            return String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
-            // OVENFOR KAN KØBSVÆRDI ÆNDRES
-        }
-        else return "0";// this makes sure you don't pay the bank when landing on your own property
+
+            //System.out.println("you bought the space");   | EMPTY NOTE
+                Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber() + 1] = 1;
+        System.out.println("changed own status");
+        System.out.println(Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1]);
+        System.out.println(Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()]);
+                //  Puts the name of the player who bought the space onto the title of the field
+                fields[THEfieldsNR].setTitle(fields[THEfieldsNR].getTitle() + " " + selectedPlayer.getName());
+                //  Returns a string that is used to add to the amount of money for the selected player
+                //System.out.println(-CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
+        //BoardCreator.CostofField();
+
+
+        // OVENFOR KAN KØBSVÆRDI ÆNDRES
+
+
     }
+
+
+
+    public static boolean OwnerShip(int[] Ownedtrue,int TheFieldsNR) {
+        boolean x = false;
+
+        for (int i = 0; i < AmountofPlayers; i++) {
+            if (Ownedtrue[TheFieldsNR]==1)
+                x= true;
+        }
+            return x;
+    }
+    public static boolean[] OwnStatus() {
+        boolean[] ownstatus = new boolean[Base.fieldNR()];
+            for (int i = 0; i < Base.fieldNR(); i++)
+            {
+                ownstatus[i] = false;
+            }
+        return ownstatus;
+    }
+
+    public static int FindOwnerNumber(int[] OwnerList,int currentspace){
+            return OwnerList[currentspace];
+    }
+
 
     public static String wannaBuyDoYou(int[][] Ownedtrue,
                                        MjPlayer selectedPlayer,
@@ -99,11 +129,12 @@ public class Fields {
 //        int THEfieldsNR = 0;
         int ny_bilPos;
         String NewBal;
-        int THEfieldsNR = Find_THEfieldsNR(fields,selectedPlayer);
-//        for (int i = 0; i < Base.fieldNR(); i++) {
-//            if (fields[i].hasCar(selectedPlayer))
-//                THEfieldsNR = i;
-//        }
+        int owner;
+        int THEfieldsNR = Find_THEfieldsNR(fields, selectedPlayer);
+        for (int i = 0; i < Base.fieldNR(); i++) {
+            if (fields[i].hasCar(selectedPlayer))
+                THEfieldsNR = i;
+        }
 
         boolean PassedGo = false;
         //  defines the exact locations for each player (used for the jail and Go spaces)
@@ -113,6 +144,8 @@ public class Fields {
             PlayerSpaceNRexcact[selectedPlayer.getNumber()] = THEfieldsNR;
             PassedGo = true;
         }
+
+
 
 // WHERE JAIL IS LOCATED
         if (Objects.equals(fields[THEfieldsNR].getTitle(), "Fængsel")){
@@ -132,6 +165,7 @@ public class Fields {
 // What happenes on jailvisit landing
         if (Objects.equals(fields[THEfieldsNR].getTitle(), "I fængsel/På besøg"))
             return "0";
+
 
 // ADDS MONEY TO ACCOUNT AFTER PASSING START
         if (PassedGo){
@@ -161,12 +195,11 @@ public class Fields {
 
 
             //bilen har muligvis fået ny positon efter chancekortet er eksekveret
-            ny_bilPos=chankort.chanceFieldIsHit(selectedPlayer, PlayerArray,CurrentSpaceForSelectedPlayer, AmountofPlayers,3,gui,fields);
+            ny_bilPos = chankort.chanceFieldIsHit(selectedPlayer, PlayerArray, CurrentSpaceForSelectedPlayer, AmountofPlayers, 3, gui, fields);
 
-            if (CurrentSpaceForSelectedPlayer != ny_bilPos)
-            {
-                if (CurrentSpaceForSelectedPlayer+1>fieldNR())
-                    CurrentSpaceForSelectedPlayer-=fieldNR();
+            if (CurrentSpaceForSelectedPlayer != ny_bilPos) {
+                if (CurrentSpaceForSelectedPlayer + 1 > fieldNR())
+                    CurrentSpaceForSelectedPlayer -= fieldNR();
                 Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, ny_bilPos, fields);
             }
             //System.out.println(landetPaaChance.traekEtChanceKort());
@@ -177,7 +210,7 @@ public class Fields {
 //READY FOR ASKING IF BUYING IS IN ORDER
         //  Defines an owner of a given space
         int SpaceOwner = 0;
-        boolean GoOn= true;
+        boolean GoOn = true;
         //  Checks if someone owns the space
         for (int i=0;i<AmountofPlayers;i++) {
             if (Ownedtrue[THEfieldsNR][i + 1] == 0){
@@ -196,9 +229,16 @@ public class Fields {
             //  This is a check for if the player wants to buy, ((It does not function because the player is forced to buy))
             ///if (boolforBUY) {
             //  This checks if the selected player has enough money, And buys the space if it does.
+            if (!OwnStatus[CurrentSpaceForSelectedPlayer]){
+                BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
+                        CurrentSpaceForSelectedPlayer);
+                OwnStatus[CurrentSpaceForSelectedPlayer]=true;
 
-            return BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
-                    CurrentSpaceForSelectedPlayer);
+                fields[CurrentSpaceForSelectedPlayer].setTitle(fields[CurrentSpaceForSelectedPlayer].getTitle()+ " "+selectedPlayer.getName());
+//                OwnStatus[CurrentSpaceForSelectedPlayer]=true;
+                System.out.println("bought space");
+            }
+
 
             //            if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= BoardCreator.CostofField()[THEfieldsNR] && GoOn) {
 //                //System.out.println("you bought the space");   | EMPTY NOTE |
@@ -214,7 +254,12 @@ public class Fields {
 //            else return "Missing code in fields line 196 on saying no to buying a field"; // returns error message in case there is an error
 
 //  Knows that someone owns the field, Pays rent and adds the rent to the SpaceOwners balance
-        else {
+
+
+            /*else {
+                System.out.println("landed on own field");
+                return "0";
+            *//*{
             NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]);
             if (DoubleProperty.DoubleCost(Ownedtrue, selectedPlayer.getNumber(),CurrentSpaceForSelectedPlayer, fields)) {
                 NewBal = String.valueOf(-BoardCreator.CostofField()[THEfieldsNR]*2);
@@ -223,13 +268,45 @@ public class Fields {
                 PlayerArray[SpaceOwner].setBalance(PlayerArray[SpaceOwner].getBalance()+BoardCreator.CostofField()[THEfieldsNR]);}
             //System.out.println(-CosttoOwn[THEfieldsNR] + "   " +CosttoOwn[THEfieldsNR]);      | EMPTY NOTE |
             return NewBal;
+        }*//*
+                //  The selected player has landed on their own field and 0 is added to their account
+                //System.out.println("    0");      | EMPTY NOTE |
+                //return "0";
+
+            }*/
+/*
+
+        System.out.println("Payed the owner x amount");
+        System.out.println(Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()]);
+        System.out.println(Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1]);
+*/
+
+
+        else /*(Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1] == 0) */{
+            PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer, Ownedtrue, PlayerArray, OwnStatus, OwnerList);
+                System.out.println("payed the owner");
         }
-        //  The selected player has landed on their own field and 0 is added to their account
-        //System.out.println("    0");      | EMPTY NOTE |
-        //return "0";
+        return "0";
     }
 
+    private static void PayTheOwner(GUI_Street[] fields, int currentlocation,MjPlayer selectedPlayer,
+                                    int[][] OwnedtrueOwnedFalse,MjPlayer[] PlayerArray,boolean[] OwnStatus, int[] Ownerlist) {
+        int owner;
+        selectedPlayer.setBalance(selectedPlayer.getBalance()-Integer.parseInt(fields[currentlocation].getRent()));
 
+            if (OwnStatus[currentlocation]){
+                owner = FindOwnerNumber(Ownerlist,currentlocation);
+        PlayerArray[owner].setBalance(PlayerArray[owner].getBalance()+Integer.parseInt(fields[currentlocation].getRent()));}
+
+    }
+
+    public static int[] InitialiseOwnerList() {
+        int[] OwList = new int[Base.fieldNR()];
+        for (int i = 0; i < Base.fieldNR(); i++) {
+            OwList[i] = 0;
+        }
+        return OwList;
+    }
 //    LINE STOP
 
 
@@ -257,7 +334,7 @@ public class Fields {
         for (int n = 0; n < fieldNR; n++) {
             //OwnedtrueOwnedFalse[n][0] = n;
             for (int i = 1; i < AmountofPlayers+1; i++) {
-                OwnedtrueOwnedFalse[n][i] = 0;
+                OwnedtrueOwnedFalse[i][n] = 0;
             }
         }
     }
