@@ -25,7 +25,7 @@ public class EndGameQuestionController {
             answerGameOk = true;
             GameMechanics.Cars.restart(PlayerArray, Base.fields, AmountofPlayers, Base.fieldNR());
             GameMechanics.Fields.RestartFieldTitles(/*fields*/TitleF, Base.fieldNR(), Base.fields);
-            GameMechanics.Fields.RestartOwnStatus(OwnedtrueOwnedFalse, Base.fieldNR(), AmountofPlayers);
+//            GameMechanics.Fields.RestartOwnStatus(OwnedtrueOwnedFalse, Base.fieldNR(), AmountofPlayers);
             for (int i = 0; i < AmountofPlayers; i++) {
                 PlayerSpaceNRexcact[i] = 0;
             }

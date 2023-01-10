@@ -197,6 +197,7 @@ public class Fields {
 //BUYS A FIELD
         //  This checks if the field is owned, and continues if it is not
         if (GoOn)
+
             //  This is a check for if the player wants to buy, ((It does not function because the player is forced to buy))
             ///if (boolforBUY) {
             //  This checks if the selected player has enough money, And buys the space if it does.
@@ -256,15 +257,6 @@ public class Fields {
         }*/
     }
 
-    public static void RestartOwnStatus(int[][] OwnedtrueOwnedFalse, int fieldNR, int AmountofPlayers) {
-        //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
-        for (int n = 0; n < fieldNR; n++) {
-            //OwnedtrueOwnedFalse[n][0] = n;
-            for (int i = 1; i < AmountofPlayers+1; i++) {
-                OwnedtrueOwnedFalse[n][i] = 0;
-            }
-        }
-    }
 
     public static void ResetOnePlayerOwnStatus(GUI_Player selectedplayer, int[][] OwnedtrueOwnedFalse, GUI_Street[] fields, int THEfieldsNR) throws FileNotFoundException {
         //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
@@ -277,9 +269,32 @@ public class Fields {
         }
 
     }
+    public static Boolean Ownership (int[] Ownedtrue,int TheFieldsNR){
+        boolean x = false;
+
+        for (int i = 0; i < AmountofPlayers; i++) {
+            if (Ownedtrue[TheFieldsNR]==1);
+            x=true;
+        }
+        return x;
+    }
+
+    public static boolean[] ownstatus(){
+        boolean[] ownstatus = new boolean[Base.fieldNR()];
+        for (int i = 0; i < Base.fieldNR(); i++) {
+            ownstatus[i]=false;
+        }
+        return ownstatus;
+    }
 
 
-
+    public static int[] InitialiseOwnerlist() {
+        int[] Owlist = new int[Base.fieldNR()];
+        for (int i = 0; i < Base.fieldNR(); i++) {
+            Owlist[i]=0;
+        }
+        return Owlist;
+    }
 }
 /*
 

@@ -39,6 +39,11 @@ public class Main {
         //String[] userRoles={"Bil","Skib","Hund","Kat"};
         String[] freeUserRoles;
 
+
+        int[] Ownerlist = Fields.InitialiseOwnerlist();
+        boolean[] ownstatus = Fields.ownstatus();
+
+
         //NEWTEST//NEWTEST//NEWTEST//NEWTEST//NEWTEST//NEWTEST//
 
 
