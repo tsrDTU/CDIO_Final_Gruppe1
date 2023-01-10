@@ -3,6 +3,8 @@ import Files.FileReference;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
 import cardClasses.Chance;
+import cardClasses.ChanceBanktrans;
+import cardClasses.ChanceModtagFraBanken;
 import cardClasses.Chancekort;
 import gui_codebehind.GUI_Center;
 import gui_fields.*;
@@ -132,7 +134,7 @@ public class Fields {
                                        int[] PlayerSpaceNRexcact,
                                        boolean[] JailOn, Chance chankort, gui_main.GUI gui, GUI_Street[] fields,
                                        boolean[] OwnStatus, int[] OwnerList/*NEW*/) throws FileNotFoundException {
-        boolean wannaBuy = false;
+        boolean wannaBuy = true;
         boolean[] Playerboughtspace = new boolean[AmountofPlayers];
         int ny_bilPos;
         String NewBal;
@@ -202,12 +204,15 @@ public class Fields {
             //           Chance landetPaaChance = new Chance();
             //           landetPaaChance.traekEtChanceKort();
 
-            Chance C1= new Chance();
+            Chance landetPaaChance = new Chance();
+            landetPaaChance.traekEtChanceKort();
 
 
             //bilen har muligvis fået ny positon efter chancekortet er eksekveret
             ny_bilPos = chankort.chanceFieldIsHit(selectedPlayer, PlayerArray, CurrentSpaceForSelectedPlayer, AmountofPlayers, 3, gui, fields);
-//            chankort.traekEtChanceKort();
+
+
+
 
 
             if (CurrentSpaceForSelectedPlayer != ny_bilPos) {
@@ -226,7 +231,7 @@ public class Fields {
         boolean GoOn = true;
         //  Checks if someone owns the space
         System.out.println(OwnStatus[THEfieldsNR]);
-            if (OwnStatus[THEfieldsNR])
+            if (OwnStatus[THEfieldsNR] || wannaBuy)
 
                     GoOn=false;
 
