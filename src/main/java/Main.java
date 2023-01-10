@@ -40,6 +40,7 @@ public class Main {
         //String[] userRoles={"Bil","Skib","Hund","Kat"};
         String[] freeUserRoles;
 
+        int[] OwnerList = Fields.InitialiseOwnerList();
 
 //-------------------------------------------------------------------------------------------
 //
@@ -75,6 +76,11 @@ public class Main {
 */
 
         antal_kant = 6;
+
+
+        boolean[] ownstatus = Fields.OwnStatus();
+
+
 
             //Asks how many players, and sets cars and players
             String Players = gui.getUserButtonPressed(dialog[DialogNR], "2", "3", "4"); DialogNR++;
@@ -116,6 +122,7 @@ public class Main {
                     k--;
                     //userRoles[j] = userRoles[j-1];
                 }
+
             }
             gui.addPlayer(PlayerArray[i]);
         }
@@ -287,7 +294,7 @@ public class Main {
                             PlayerArray,
                             CurrentSpaceForSelectedPlayer,
                             PlayerSpaceNRexcact,
-                            JailOn, chankort, gui, fields);
+                            JailOn, chankort, gui, fields, ownstatus, OwnerList);
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
@@ -333,7 +340,7 @@ public class Main {
             answerGameOk = false;
 
 
-//            GameMechanics.Fields.RestartOnePlayerOwnStatus(selectedPlayer,OwnedtrueOwnedFalse);
+//            GameMechanics.Fields.RestartOnePlayerOwnStatusOwnStatus(selectedPlayer,OwnedtrueOwnedFalse);
 
 
 

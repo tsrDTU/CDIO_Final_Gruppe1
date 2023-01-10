@@ -28,6 +28,10 @@ class ChanceTest {
         String[] freeUserRoles;
         MjPlayer selectedPlayer;
         int CurrentSpaceForSelectedPlayer = 0;
+        int[] OwnerList = Fields.InitialiseOwnerList();
+
+        boolean[] ownstatus = Fields.OwnStatus();
+
         /*
         Chancekort kortTrukket = mjChance.traekEtChanceKort();
         System.out.println(kortTrukket.getClass());
@@ -159,7 +163,7 @@ class ChanceTest {
                     PlayerArray,
                     CurrentSpaceForSelectedPlayer,
                     PlayerSpaceNRexcact,
-                    JailOn, mjChance, gui, fields);
+                    JailOn, mjChance, gui, fields, ownstatus, OwnerList );
             selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
             //System.out.println(NewBalance);       | EMPTY NOTE |
         }

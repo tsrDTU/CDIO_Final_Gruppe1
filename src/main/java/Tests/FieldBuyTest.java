@@ -40,6 +40,7 @@ public class FieldBuyTest {
 
     public static void main(String[] args) throws IOException {
 
+        int[] OwnerList = Fields.InitialiseOwnerList();
         Chance mjChance = new Chance();
         String string_in, language, answer_game;
         int antal_kant, AmountofPlayers, i, j;
@@ -80,7 +81,8 @@ public class FieldBuyTest {
         }
         player.PlayerReset.restart(PlayerArray, fields, AmountofPlayers, fieldNR());
 
-        int[][] OwnedtrueOwnedFalse = InitializeOwnedStat(AmountofPlayers).clone();
+        int[][] OwnedtrueOwnedFalse = InitializeOwnedStat(AmountofPlayers);
+        boolean[] OwnStatus = Fields.OwnStatus();
 
 //--------------------------------------------------------------------------------
 //
@@ -109,10 +111,10 @@ public class FieldBuyTest {
 //
 //-------------------------------------------------------------------------------
 //            gui.showMessage("Ok");
-            Cars.moveCars(8, selectedPlayer, PlayerArray, AmountofPlayers, fieldNR());
+            Cars.moveCars(2, selectedPlayer, PlayerArray, AmountofPlayers, fieldNR());
             //  Sets the current space for the selected player to a value
 
-
+            ;
             for (i = 0; i < fieldNR(); i++) {
                 if (fields[i].hasCar(selectedPlayer))
                     CurrentSpaceForSelectedPlayer = i;
@@ -132,7 +134,7 @@ public class FieldBuyTest {
                         PlayerArray,
                         CurrentSpaceForSelectedPlayer,
                         PlayerSpaceNRexcact,
-                        JailOn, mjChance, gui, fields);
+                        JailOn, mjChance, gui, fields, OwnStatus, OwnerList);
                 selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                 //System.out.println(NewBalance)
                 // ;       | EMPTY NOTE |
