@@ -138,6 +138,7 @@ public class FieldBuyTest {
                 selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                 //System.out.println(NewBalance)
                 // ;       | EMPTY NOTE |
+                System.out.println(AmountofPlayers + " this is the amount of players");
 //                String.valueOf(PlayerArray[0].getBalance()-Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent()));
                 if (selectedPlayer.getNumber()==1) {
                     Round++;

@@ -104,8 +104,7 @@ public class Fields {
         }
             return x;
     }
-    public static boolean[] OwnStatus(AmountofPlayers) {
-        System.out.println(AmountofPlayers+" AOP");
+    public static boolean[] OwnStatus() {
         boolean[] ownstatus = new boolean[Base.fieldNR()];
             for (int i = 0; i < Base.fieldNR(); i++)
             {
