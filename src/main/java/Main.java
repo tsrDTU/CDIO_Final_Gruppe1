@@ -114,6 +114,7 @@ public class Main {
           //          k--;
                     //userRoles[j] = userRoles[j-1];
            //     }
+            //hi
           //  }
             gui.addPlayer(PlayerArray[i]);
         }
