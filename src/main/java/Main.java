@@ -28,8 +28,6 @@ public class Main {
 
 // kalhauge/BoardEngine
 
-    public static String ANSI_WHITE="\u001B[37m";
-
     public static void main(String[] args) throws IOException {
         String string_in, language, answer_game;
         int antal_kant, j, DialogNR=2;
@@ -108,23 +106,23 @@ public class Main {
             PlayerName[i] = (gui.getUserString(dialog[DialogNR]+(i+1)+"?"));
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
-            PlayerArray[i] = new MjPlayer(PlayerName[i], 30000/*20 - ((AmountofPlayers - 2) * (2)) - Previous bal*/, playerCars[i]);
+            PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             GameMechanics.Colors.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
             //Set users role
-            int first = 0; for (int l = 0; l < AmountofPlayers; l++) {if (userRoles.size()>AmountofPlayers)
-                userRoles.remove(first); first++;}
-            String[] RoleArray = new String[k];
-            PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[DialogNR+1], userRoles.toArray(RoleArray)));
+          //  int first = 0; for (int l = 0; l < AmountofPlayers; l++) {if (userRoles.size()>AmountofPlayers)
+          //      userRoles.remove(first); first++;}
+         //   String[] RoleArray = new String[k];
+          //  PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[DialogNR+1], userRoles.toArray(RoleArray)));
             //Remove this role from the list.
-            for (j=0;j<userRoles.size();j++)
-            {
-                if (userRoles.get(j).equals(PlayerArray[i].getUserRole())) {
-                    userRoles.remove(j);
-                    k--;
+       //     for (j=0;j<userRoles.size();j++)
+        //    {
+          //      if (userRoles.get(j).equals(PlayerArray[i].getUserRole())) {
+          //          userRoles.remove(j);
+          //          k--;
                     //userRoles[j] = userRoles[j-1];
-                }
-
-            }
+           //     }
+            //hi
+          //  }
             gui.addPlayer(PlayerArray[i]);
         }
         DialogNR+=2;
@@ -201,11 +199,6 @@ public class Main {
             if (selection) selectedPlayer = PlayerArray[playingPlayer];
             else selectedPlayer = PlayerArray[playingPlayer2];
 
-
-            if (selectedPlayer.getBalance()<=0) {
-                Jail.JailsetTrue(selectedPlayer, skipPlayer);
-                skipPlayer = true;
-            }
             //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
             if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
                 Jail.bailOut(selectedPlayer, skipPlayer);
