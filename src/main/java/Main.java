@@ -21,7 +21,7 @@ import static TheBoard.Base.*;
 import static TheBoard.BoardCreator.JailInit;
 import static TheBoard.Language.dialog;
 import player.MjPlayer;
-
+//hej
 //v1.2
 
 public class Main {
@@ -34,7 +34,7 @@ public class Main {
         boolean game_running, answerGameOk;
         game_running = true;
         //int fieldNR = 24;
-        ArrayList<String> userRoles = new ArrayList<>(Arrays.asList("Bil","Skib","Hund","Kat"));
+      //  ArrayList<String> userRoles = new ArrayList<>(Arrays.asList("Bil","Skib","Hund","Kat"));
         //String[] userRoles={"Bil","Skib","Hund","Kat"};
         String[] freeUserRoles;
 
@@ -102,19 +102,19 @@ public class Main {
             PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             GameMechanics.Colors.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
             //Set users role
-            int first = 0; for (int l = 0; l < AmountofPlayers; l++) {if (userRoles.size()>AmountofPlayers)
-                userRoles.remove(first); first++;}
-            String[] RoleArray = new String[k];
-            PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[DialogNR+1], userRoles.toArray(RoleArray)));
+          //  int first = 0; for (int l = 0; l < AmountofPlayers; l++) {if (userRoles.size()>AmountofPlayers)
+          //      userRoles.remove(first); first++;}
+         //   String[] RoleArray = new String[k];
+          //  PlayerArray[i].setUserRole(gui.getUserButtonPressed(dialog[DialogNR+1], userRoles.toArray(RoleArray)));
             //Remove this role from the list.
-            for (j=0;j<userRoles.size();j++)
-            {
-                if (userRoles.get(j).equals(PlayerArray[i].getUserRole())) {
-                    userRoles.remove(j);
-                    k--;
+       //     for (j=0;j<userRoles.size();j++)
+        //    {
+          //      if (userRoles.get(j).equals(PlayerArray[i].getUserRole())) {
+          //          userRoles.remove(j);
+          //          k--;
                     //userRoles[j] = userRoles[j-1];
-                }
-            }
+           //     }
+          //  }
             gui.addPlayer(PlayerArray[i]);
         }
         DialogNR+=2;
@@ -214,7 +214,7 @@ public class Main {
             d2.dice_roll();
 
             //Inform which user is playing
-            gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1]+" "+ selectedPlayer.getUserRole(), dialog[DialogNR+2]); DialogNR+=3;
+            gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1]+" ", dialog[DialogNR+2]); DialogNR+=3;
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
 
             //int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
@@ -305,7 +305,7 @@ public class Main {
             answerGameOk = false;
 
 
-            GameMechanics.Fields.RestartOnePlayerOwnStatus(selectedPlayer,OwnedtrueOwnedFalse);
+           // GameMechanics.Fields.RestartOnePlayerOwnStatus(selectedPlayer,OwnedtrueOwnedFalse);
 
 
 

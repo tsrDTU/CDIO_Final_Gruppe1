@@ -115,7 +115,7 @@ public class Fields {
         }
 
 // WHERE JAIL IS LOCATED
-        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL")){
+        if (Objects.equals(fields[THEfieldsNR].getTitle(), "Fængsel")){
             MoveInJail(fields, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, THEfieldsNR,
                     JailOn, PlayerSpaceNRexcact);
 //            //  Finds the Space with JailVisit
@@ -130,12 +130,12 @@ public class Fields {
         }
 
 // What happenes on jailvisit landing
-        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL VISIT"))
+        if (Objects.equals(fields[THEfieldsNR].getTitle(), "I fængsel/På besøg"))
             return "0";
 
 // ADDS MONEY TO ACCOUNT AFTER PASSING START
         if (PassedGo){
-            PlayerArray[selectedPlayer.getNumber()].setBalance(selectedPlayer.getBalance()+2);
+            PlayerArray[selectedPlayer.getNumber()].setBalance(selectedPlayer.getBalance()+4000);
             //  sets balance according to jail status - and removes jail status for next trip around the board
             //System.out.println("BOARD PASSED");    // | EMPTY NOTE |
 
@@ -148,7 +148,7 @@ public class Fields {
         PassedGo = false;
 //CHANCEKORT
 //  This checks if the field is even when devided by 3 twice - the location of the chance spaces
-        if ((THEfieldsNR%3)%3==0 && THEfieldsNR!=6 && THEfieldsNR!=0 && THEfieldsNR!=12&& THEfieldsNR!=18) {
+        if ( THEfieldsNR!=2 || THEfieldsNR!=7 || THEfieldsNR!= 22 || THEfieldsNR!=30 || THEfieldsNR!=34 || THEfieldsNR!=37) {
 //-----------------------------------------------------------------------------------------------------
 //
 //      HER SKAL DER STÅ HVAD DER SKER PÅ CHANCEKORT
@@ -262,12 +262,15 @@ public class Fields {
         }
     }
 
-    public static void RestartOnePlayerOwnStatus(GUI_Player selectedplayer, int[][] OwnedtrueOwnedFalse){
+    public static void ResetOnePlayerOwnStatus(GUI_Player selectedplayer, int[][] OwnedtrueOwnedFalse){
+        //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < Base.fieldNR(); n++) {
-            //OwnedtrueOwnedFalse[n][0] = n;
-            if (selectedplayer.getNumber()+1==1)
+//OwnedtrueOwnedFalse[n][0] = n;
+            if (selectedplayer.getNumber()+1==1) {
                 OwnedtrueOwnedFalse[n][selectedplayer.getNumber()+1] = 0;
+            }
         }
+
     }
 
 }

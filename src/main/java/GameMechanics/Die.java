@@ -37,9 +37,7 @@ public class Die {
         //       faceValue = upperBound;
     }
 
-    public void dice_roll ()
-    {
-        faceValue = (int)(Math.random() * numberOfSides) + 1;
+    public void dice_roll () { faceValue =  4; /*(int)(Math.random() * numberOfSides) + 1;*/
     }
 
 
