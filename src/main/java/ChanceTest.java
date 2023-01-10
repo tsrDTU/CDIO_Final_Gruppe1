@@ -17,6 +17,7 @@ import static TheBoard.Language.dialog;
 import java.io.*;
 
 import EgneGuiKlasser.MGUI_Player;
+import EgneGuiKlasser.*;
 
 class ChanceTest {
 

@@ -2,7 +2,7 @@ package Tests;
 
 import TheBoard.Base;
 import org.junit.jupiter.api.Test;
-import player.MjPlayer;
+//import player.MjPlayer;
 import Files.FileReference;
 
 import java.io.FileNotFoundException;

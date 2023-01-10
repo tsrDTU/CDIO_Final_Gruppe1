@@ -31,7 +31,7 @@ public static String[] dialog = new String[DialogLineAmaount];
 //            file = new File("src/main/Language/French");
             file = Francias;
 
-        if (Objects.equals(sprog,"German"))
+        if (Objects.equals(sprog,"Deutch"))
 //            file = new File("src/main/Language/German");
             file = German;
 
