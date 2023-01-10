@@ -140,6 +140,7 @@ public class Fields {
             PlayerArray[selectedPlayer.getNumber()].setBalance(selectedPlayer.getBalance()+4000);
             //  sets balance according to jail status - and removes jail status for next trip around the board
             //System.out.println("BOARD PASSED");    // | EMPTY NOTE |
+            //hey
 
             if (JailOn[selectedPlayer.getNumber()]){
                 //System.out.println("Subtracted 2 from balance cause JAIL");       //  | EMPTY NOTE |
