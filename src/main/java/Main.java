@@ -198,8 +198,8 @@ public class Main {
             if (playingPlayer == AmountofPlayers)
                 playingPlayer = 0;
 
-            PlayerArray[0].setBalance(30000);
-            PlayerArray[1].setBalance(30000);
+//            PlayerArray[0].setBalance(30000);
+//            PlayerArray[1].setBalance(30000);
 
 
             playingPlayer2 = playingPlayer;
