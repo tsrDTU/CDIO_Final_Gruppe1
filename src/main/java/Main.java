@@ -21,7 +21,7 @@ import static TheBoard.Base.*;
 import static TheBoard.BoardCreator.JailInit;
 import static TheBoard.Language.dialog;
 import player.MjPlayer;
-//hej
+
 //v1.2
 
 public class Main {
@@ -75,11 +75,6 @@ public class Main {
 */
 
         antal_kant = 6;
-
-
-
-
-
 
             //Asks how many players, and sets cars and players
             String Players = gui.getUserButtonPressed(dialog[DialogNR], "2", "3", "4"); DialogNR++;
@@ -182,8 +177,6 @@ public class Main {
 //
 //-------------------------------------------------------------------------------------------
         int amountOfGameLoops = 0;
-
-
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
             DialogNR = 5;
@@ -192,12 +185,23 @@ public class Main {
             if (playingPlayer == AmountofPlayers)
                 playingPlayer = 0;
 
-
-
-
             playingPlayer2 = playingPlayer;
             if (selection) selectedPlayer = PlayerArray[playingPlayer];
             else selectedPlayer = PlayerArray[playingPlayer2];
+
+
+//            if (selectedPlayer.getBalance() <= 0) {
+//                Fields.ResetOnePlayerOwnStatus(selectedPlayer, OwnedtrueOwnedFalse,fields, CurrentSpaceForSelectedPlayer);
+//                selectedPlayer.setBalance(0);
+//                skipPlayer = true;
+//                playingPlayer++;
+//                if(playingPlayer>=AmountofPlayers)
+//                    playingPlayer=0;
+//            Jail.JailsetTrue(selectedPlayer, skipPlayer);
+//
+//        }
+
+
 
             //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
             if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
@@ -210,14 +214,6 @@ public class Main {
                 playingPlayer++;
                 skipPlayer=false;
                 //System.out.println("Player "+selectedPlayer.getNumber()+" smoked in jail");
-
-
-//                if (selectedPlayer.getBalance()<=0){
-//                    JailOn[selectedPlayer.getNumber()]=true;
-//                    skipPlayer=true;
-//                    playingPlayer++;
-//                    selectedPlayer = PlayerArray[playingPlayer2];}
-
 
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
@@ -261,7 +257,6 @@ public class Main {
                 for (int i = 0; i < Base.fieldNR(); i++) {
                     if (Base.fields[i].hasCar(selectedPlayer)/*fields[i].hasCar(selectedPlayer)*/)
                         CurrentSpaceForSelectedPlayer = i;
-
                 }
 
                 //System.out.println(Fields.noOwnerShipCheck(5 ));
@@ -327,7 +322,7 @@ public class Main {
                 selection = !selection;
                 playingPlayer++;
             }
-
+            //Extra tour
             else if ((selectedPlayer.getBalance() <= -1)) {
                 gui.showMessage(selectedPlayer.getName() + dialog[DialogNR]); DialogNR++;
             }
