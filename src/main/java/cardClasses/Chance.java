@@ -10,7 +10,7 @@ import java.util.Objects;
 
 
 public  class Chance {
-    private static Chancekort[] chanceCards=new Chancekort[46];
+    public static Chancekort[] chanceCards=new Chancekort[46];
     int testKortMode=0;
 
     /**

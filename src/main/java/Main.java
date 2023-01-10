@@ -21,7 +21,7 @@ import static TheBoard.Base.*;
 import static TheBoard.BoardCreator.JailInit;
 import static TheBoard.Language.dialog;
 import player.MjPlayer;
-//hej
+
 //v1.2
 
 public class Main {
@@ -76,11 +76,6 @@ public class Main {
 
         antal_kant = 6;
 
-
-
-
-
-
             //Asks how many players, and sets cars and players
             String Players = gui.getUserButtonPressed(dialog[DialogNR], "2", "3", "4"); DialogNR++;
             AmountofPlayers = Integer.parseInt(Players);
@@ -106,7 +101,7 @@ public class Main {
             PlayerName[i] = (gui.getUserString(dialog[DialogNR]+(i+1)+"?"));
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
-            PlayerArray[i] = new MjPlayer(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
+            PlayerArray[i] = new MjPlayer(PlayerName[i], 30000 , playerCars[i]);
             GameMechanics.Colors.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
             //Set users role
           //  int first = 0; for (int l = 0; l < AmountofPlayers; l++) {if (userRoles.size()>AmountofPlayers)
@@ -182,8 +177,6 @@ public class Main {
 //
 //-------------------------------------------------------------------------------------------
         int amountOfGameLoops = 0;
-
-
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
             DialogNR = 5;
@@ -192,32 +185,35 @@ public class Main {
             if (playingPlayer == AmountofPlayers)
                 playingPlayer = 0;
 
-
-
-
             playingPlayer2 = playingPlayer;
             if (selection) selectedPlayer = PlayerArray[playingPlayer];
             else selectedPlayer = PlayerArray[playingPlayer2];
+
+
+//            if (selectedPlayer.getBalance() <= 0) {
+//                Fields.ResetOnePlayerOwnStatus(selectedPlayer, OwnedtrueOwnedFalse,fields, CurrentSpaceForSelectedPlayer);
+//                selectedPlayer.setBalance(0);
+//                skipPlayer = true;
+//                playingPlayer++;
+//                if(playingPlayer>=AmountofPlayers)
+//                    playingPlayer=0;
+//            Jail.JailsetTrue(selectedPlayer, skipPlayer);
+//
+//        }
+
+
 
             //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
             if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
                 Jail.bailOut(selectedPlayer, skipPlayer);
                 JailOn[selectedPlayer.getNumber()]=false;
                 //System.out.println("Spiller skippes ikke pga. GOJF kort");
-            } else if (JailOn[selectedPlayer.getNumber()]){
+            } else if (false/*JailOn[selectedPlayer.getNumber()]*/){
                 skipPlayer = true; JailOn[selectedPlayer.getNumber()]=false;}
             if (skipPlayer) {
                 playingPlayer++;
                 skipPlayer=false;
                 //System.out.println("Player "+selectedPlayer.getNumber()+" smoked in jail");
-
-
-//                if (selectedPlayer.getBalance()<=0){
-//                    JailOn[selectedPlayer.getNumber()]=true;
-//                    skipPlayer=true;
-//                    playingPlayer++;
-//                    selectedPlayer = PlayerArray[playingPlayer2];}
-
 
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
@@ -261,7 +257,6 @@ public class Main {
                 for (int i = 0; i < Base.fieldNR(); i++) {
                     if (Base.fields[i].hasCar(selectedPlayer)/*fields[i].hasCar(selectedPlayer)*/)
                         CurrentSpaceForSelectedPlayer = i;
-
                 }
 
                 //System.out.println(Fields.noOwnerShipCheck(5 ));
@@ -271,9 +266,11 @@ public class Main {
 
                 //  You get forced to buy the field, therefor (you want to buy)
                 boolean wanttobuyanswer;
-                if (BoardCreator.CostofField()[CurrentSpaceForSelectedPlayer]==0){
-                    ;
-                    wanttobuyanswer=false;}
+
+                if (Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent())==0)
+                    wanttobuyanswer=true;
+                else if (ownstatus[CurrentSpaceForSelectedPlayer])
+                    wanttobuyanswer=false;
                 else {
                     String wanttobuy = gui.getUserButtonPressed("Do you want to buy?", "Yes", "No");
                     if (wanttobuy.equals("Yes")) wanttobuyanswer = true;
@@ -281,7 +278,8 @@ public class Main {
                 }
 
                 //  This handles the trades with rent and buying of fields - see at - src/main/java/GameMechanics.Fields
-                if (wanttobuyanswer) {
+                if (wanttobuyanswer && !ownstatus[CurrentSpaceForSelectedPlayer]) {
+                    System.out.println(fields[CurrentSpaceForSelectedPlayer].getRent());
                     String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
                             selectedPlayer,
                             //wanttobuyYesNo,
@@ -292,6 +290,10 @@ public class Main {
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
+                else
+                    Fields.PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer
+                            ,OwnedtrueOwnedFalse, PlayerArray, ownstatus, OwnerList);
+
 //                GameMechanics.textReaderClass.textRDR(DescriptionF, "12");
                 amountOfGameLoops++;
 
@@ -304,9 +306,9 @@ public class Main {
             }
 
             //Shows description of the space you land on, and changes color
-
-           if (fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "CHANCE") {
-            //    gui.displayChanceCard(Chance.chanceCards[DieSum - 5].getKortNavnavn());
+            int CSSP =CurrentSpaceForSelectedPlayer;
+           if (true /*fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "Prøv lykken"*/) {
+//               gui.displayChanceCard(Chance.chanceCards[DieSum - 5].getKortNavnavn());
             } else
                 gui.displayChanceCard(selectedPlayer.getName() + " | " + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]
                         ].getTitle() + "\n" + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getSubText());
@@ -327,7 +329,7 @@ public class Main {
                 selection = !selection;
                 playingPlayer++;
             }
-
+            //Extra tour
             else if ((selectedPlayer.getBalance() <= -1)) {
                 gui.showMessage(selectedPlayer.getName() + dialog[DialogNR]); DialogNR++;
             }
@@ -389,7 +391,7 @@ public class Main {
                     //  if anwser to "a new game" is no - stop the game
 
                     game_running = EndGameQuestionController.AskEndQuestion(answer_game,game_running,answerGameOk
-                    ,OwnedtrueOwnedFalse,DialogNR,PlayerSpaceNRexcact, PlayerArray);
+                    ,OwnedtrueOwnedFalse,DialogNR,PlayerSpaceNRexcact, PlayerArray, ownstatus, OwnerList);
                     answerGameOk = true;
 //                    if (answer_game.equals(dialog[DialogNR+2])) {
 //                        game_running = false;

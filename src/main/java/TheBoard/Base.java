@@ -17,7 +17,9 @@ public class Base {
     public static String Winner = " ";
     public static int WinnerInt = 0;
     public static int fieldNR(){return 40;}
+
     public static int JailLocationOnBoard=6;
+    public static int JAILvisitlocation=10;
     //  makes the amount of fields on the board - changing it to 40 will make 40 spaces instead of the 24 currently
 
     //public static String Players;

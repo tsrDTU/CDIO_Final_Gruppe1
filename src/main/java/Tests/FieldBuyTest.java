@@ -93,7 +93,9 @@ public class FieldBuyTest {
         int last_exp=30000;
         int rent;
         int expected = 30000;
+        int expected1 = 30000;
         int Round = 0;
+
 
         while (selectedPlayer.getBalance() > 0) {
             if (selectedPlayer==PlayerArray[0])
@@ -111,7 +113,7 @@ public class FieldBuyTest {
 //
 //-------------------------------------------------------------------------------
 //            gui.showMessage("Ok");
-            Cars.moveCars(2, selectedPlayer, PlayerArray, AmountofPlayers, fieldNR());
+            Cars.moveCars(8, selectedPlayer, PlayerArray, AmountofPlayers, fieldNR());
             //  Sets the current space for the selected player to a value
 
             ;
@@ -138,17 +140,21 @@ public class FieldBuyTest {
                 selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                 //System.out.println(NewBalance)
                 // ;       | EMPTY NOTE |
-                System.out.println(AmountofPlayers + " this is the amount of players");
+
 //                String.valueOf(PlayerArray[0].getBalance()-Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent()));
                 if (selectedPlayer.getNumber()==1) {
                     Round++;
                     rent = Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent());
                     expected = last_exp - rent;
                     last_exp = expected;
+                    if (Round>3)
+                        expected1 += Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent());
 
                     System.out.println("Round " +Round);
-                    System.out.println(PlayerArray[0].getBalance() + " Player1 - "+PlayerArray[1].getBalance()+" Player2");
+                    System.out.println(PlayerArray[0].getBalance() + " Player1 :-: "+PlayerArray[1].getBalance()+" Player2");
                     System.out.println("Price: "+fields[CurrentSpaceForSelectedPlayer].getRent()+" - Expected P2: "+ expected);
+                    if (Round>3)
+                        System.out.println("            - Expected P1: "+ expected1);
                     System.out.println("");
                 }
                 if (expected<=-10000) break;
