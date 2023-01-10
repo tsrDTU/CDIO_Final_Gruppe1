@@ -365,6 +365,11 @@ public  class Chance {
 
             }
 
+            if (actKort instanceof ChanceModtagFraBanken)
+            {
+                System.out.println( "ChanceKort beløb: "+ ((ChanceModtagFraBanken) actKort).getBeloeb());
+            }
+
         }while (slut > 1);
         //System.out.println("While slut");
         //System.out.println("bilPos "+bilPos);
