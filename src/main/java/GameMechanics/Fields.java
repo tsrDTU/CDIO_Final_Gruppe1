@@ -117,9 +117,10 @@ public class Fields {
         }
 
 // WHERE JAIL IS LOCATED
-        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL")){
+        if (THEfieldsNR==32/*Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL")*/){
             MoveInJail(fields, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, THEfieldsNR,
                     JailOn, PlayerSpaceNRexcact);
+            gui.getUserButtonPressed("Du er i fengsel", "det går");
 //            //  Finds the Space with JailVisit
 //            int JailVisitSpace=7;
 //            //  Moves car to JailVisitSpace
@@ -132,7 +133,7 @@ public class Fields {
         }
 
 // What happenes on jailvisit landing
-        if (Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL VISIT"))
+        if (THEfieldsNR==10/*Objects.equals(fields[THEfieldsNR].getTitle(), "JAIL VISIT")*/)
             return "0";
 
 // ADDS MONEY TO ACCOUNT AFTER PASSING START

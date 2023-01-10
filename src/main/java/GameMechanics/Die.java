@@ -39,7 +39,7 @@ public class Die {
 
     public void dice_roll ()
     {
-        faceValue = (int)(Math.random() * numberOfSides) + 1;
+        faceValue =(int)(Math.random() * numberOfSides) + 1;
     }
 
 
