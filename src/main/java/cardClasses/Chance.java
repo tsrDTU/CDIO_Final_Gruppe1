@@ -1,12 +1,11 @@
 package cardClasses;
-import GameMechanics.Fields;
-import TheBoard.Base;
+import EgneGuiKlasser.MGUI;
 import gui_main.GUI;
-import player.MjPlayer;
+
 import gui_fields.*;
-import TheBoard.Base;
 
 import java.util.Objects;
+import EgneGuiKlasser.*;
 
 
 public  class Chance {
@@ -198,13 +197,13 @@ public  class Chance {
      * @param fields: Liste over felter
      * @return: Bilens position på brættet efter at chancekort er håndteret. det kan samme position som eller en anden.
      */
-    public int chanceFieldIsHit(MjPlayer actPlayer,MjPlayer[] players, int actField,
-                                int AmountofPlayers, int AmountofSpaces, GUI gui, GUI_Street[] fields)
+    public int chanceFieldIsHit(MGUI_Player actPlayer, MGUI_Player[] players, int actField,
+                                int AmountofPlayers, int AmountofSpaces, MGUI gui, MGUI_Street[] fields)
     {
         int i, j, bilPos;
         int slut=0;
         String farvCod, modtRolle, valg;
-        MjPlayer playModt;
+        MGUI_Player playModt;
 
         bilPos=actField;
         //System.out.println("bilPos "+bilPos);

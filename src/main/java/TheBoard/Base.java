@@ -3,9 +3,10 @@ package TheBoard;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
-import player.MjPlayer;
+
 
 import static TheBoard.Language.dialog;
+import EgneGuiKlasser.*;
 
 public class Base {
 //----------------------------------------------------------------------------------------------
@@ -37,13 +38,13 @@ public class Base {
     public static int AmountofPlayers;
 
 
-    public static GUI_Street[] fields = new GUI_Street[Base.fieldNR()];
+    public static MGUI_Street[] fields = new MGUI_Street[Base.fieldNR()];
     //  This makes the class for all the Streets based off the fieldNR
 
 
-    public static MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
+    public static MGUI_Player[] PlayerArray = new MGUI_Player[AmountofPlayers];
     public static boolean[] JailOn = new boolean[AmountofPlayers];
-    public static MjPlayer[] PlayerArray(){return PlayerArray;}// = new MjPlayer[AmountofPlayers];
+    public static MGUI_Player[] PlayerArray(){return PlayerArray;}// = new MGUI_Player[AmountofPlayers];
     public static boolean[] JailOn(){return JailOn;}
 
 //    public static boolean[] JailOn(){return new boolean[AmountofPlayers];}
