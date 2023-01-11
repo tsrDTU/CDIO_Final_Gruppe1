@@ -32,7 +32,7 @@ public class Die {
     public void Die_test (int lowerBound, int upperBound)
     {
         int temp =(int)(Math.random() * upperBound-lowerBound) + 1;
-        faceValue = temp+lowerBound;
+//        faceValue = temp+lowerBound;
         //       System.out.println(temp + lowerBound);
         //       faceValue = upperBound;
     }
