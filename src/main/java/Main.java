@@ -230,6 +230,9 @@ public class Main {
 
             d1.dice_roll();
             d2.dice_roll();
+            d1 = new Die();
+            d2 = new Die();
+
 
 
             //Inform which user is playing
