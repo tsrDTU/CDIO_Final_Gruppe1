@@ -13,10 +13,7 @@ public class Jail {
 //-------------------------------------------------------------------------------
     public static boolean[] JailRegister( int AmountofPlayers, int AmountofSpaces, GUI_Street[] fields) {
         //  Finds the Space with JailVisit
-        int JailVisitSpace=0;
-        for (int i = 0; i < AmountofSpaces; i++) {
-            if (fields[i].getTitle() == "JAIL VISIT")
-                JailVisitSpace = i;}
+        int JailVisitSpace=10;
         //
         boolean[] JailOn = new boolean[AmountofPlayers];
         for (int i = 0; i < AmountofPlayers; i++) {
@@ -46,6 +43,7 @@ public class Jail {
     public static boolean jailed(MjPlayer selectedPlayer, boolean skipPlayer) {
         if (JailRegister(Base.AmountofPlayers, Base.fieldNR(), Base.fields)[selectedPlayer.getNumber()])
             skipPlayer=true;
+        System.out.println("jailed ");
         JailRegister(Base.AmountofPlayers, Base.fieldNR(), Base.fields)[selectedPlayer.getNumber()] = false;
         return skipPlayer;
     }

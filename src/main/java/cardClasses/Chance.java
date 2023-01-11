@@ -10,7 +10,7 @@ import java.util.Objects;
 
 
 public  class Chance {
-    private static Chancekort[] chanceCards=new Chancekort[46];
+    public static Chancekort[] chanceCards=new Chancekort[46];
     int testKortMode=0;
 
     /**
@@ -364,6 +364,18 @@ public  class Chance {
                 //System.out.println("ChanceRyk1ElChMemere");
 
 
+            }
+
+            if (actKort instanceof ChanceModtagFraBanken)
+            {
+                actPlayer.setBalance(actPlayer.getBalance() + ((ChanceModtagFraBanken) actKort).getBeloeb());
+                System.out.println("Chancekort: ChanceModtagFraBanken");
+            }
+
+            if (actKort instanceof ChanceBetalBanken)
+            {
+                actPlayer.setBalance(actPlayer.getBalance() - ((ChanceBetalBanken) actKort).getBeloeb());
+                System.out.println("Chancekort: ChanceBetalBanken");
             }
 
         }while (slut > 1);
