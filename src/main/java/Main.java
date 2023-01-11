@@ -156,7 +156,7 @@ public class Main {
         // If sides are different from 6, set the number of sides.
         if (antal_kant != 6) {
             d1.setNumberOfSides(antal_kant);
-            //d2.setNumberOfSides(antal_kant);
+            d2.setNumberOfSides(antal_kant);
         }
 
         int playingPlayer = intselect;
@@ -227,6 +227,7 @@ public class Main {
             //if (amountOfGameLoops == 0);
             //GameMechanics.Jail.JailRegister(AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
+            System.out.println("Facevalue af d1 " +d1.getFaceValue());
             d1.dice_roll();
             d2.dice_roll();
 

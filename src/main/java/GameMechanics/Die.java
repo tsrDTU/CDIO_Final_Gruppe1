@@ -31,13 +31,14 @@ public class Die {
     }
     public void Die_test (int lowerBound, int upperBound)
     {
+ //       System.out.println("Die_test");
         int temp =(int)(Math.random() * upperBound-lowerBound) + 1;
         faceValue = temp+lowerBound;
         //       System.out.println(temp + lowerBound);
         //       faceValue = upperBound;
     }
 
-    public void dice_roll () { faceValue = 1/*(int)(Math.random() * numberOfSides) + 1*/;
+    public void dice_roll () { faceValue = (int)(Math.random() * numberOfSides) + 1;
     }
 
 
