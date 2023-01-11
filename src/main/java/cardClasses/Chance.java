@@ -367,7 +367,14 @@ public  class Chance {
 
             if (actKort instanceof ChanceModtagFraBanken)
             {
-                System.out.println( "ChanceKort beløb: "+ ((ChanceModtagFraBanken) actKort).getBeloeb());
+                actPlayer.setBalance(actPlayer.getBalance() + ((ChanceModtagFraBanken) actKort).getBeloeb());
+                System.out.println("Chancekort: ChanceModtagFraBanken");
+            }
+
+            if (actKort instanceof ChanceBetalBanken)
+            {
+                actPlayer.setBalance(actPlayer.getBalance() - ((ChanceBetalBanken) actKort).getBeloeb());
+                System.out.println("Chancekort: ChanceBetalBanken");
             }
 
         }while (slut > 1);
