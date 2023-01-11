@@ -19,7 +19,7 @@ public  class Chance {
     public Chance()
     {
         //System.out.println("Chance initialiseres");
-
+/*
         chanceCards[0]=new ChanceBetalBanken("Fuldt stop", "De har kørt frem for “fuldt stop”, Betal 1000 kroner i bøde", 1000);
         chanceCards[1]=new ChanceBetalBanken("Vognvask og smøring", "Betal for vognvask og smøring kr 300", 300);
         chanceCards[2]=new ChanceBetalBanken("2 kasser øl","Betal kr 200 for levering af 2 kasser øl", 200);
@@ -44,7 +44,9 @@ public  class Chance {
         chanceCards[21]=new ChanceModtagFraBanken("Nyttehaven", "Værdien af egen avl fra nyttehaven udgør 200 som de modtager af banken", 200);
 
 
-        /*
+ */
+
+
         chanceCards[0]=new ChanceBetalbankenHusHotel("Oliepriserne","Oliepriserne er steget, og De skal betale kr 500 pr hus og kr 2000 pr hotel", 500, 2000);
         chanceCards[1]=new ChanceBetalbankenHusHotel("Ejendomsskat","Ejendomsskatten er steget. Ekstraudgifterne er: 800 kr pr hus, 2300 kr pr hotel.",800,2300);
         chanceCards[2]=new ChanceBetalBanken("Fuldt stop", "De har kørt frem for “fuldt stop”, Betal 1000 kroner i bøde", 1000);
@@ -94,7 +96,7 @@ public  class Chance {
 
 
 
-         */
+
 /*
 
 
