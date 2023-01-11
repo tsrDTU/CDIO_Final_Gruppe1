@@ -33,14 +33,14 @@ public class Die {
     {
  //       System.out.println("Die_test");
         int temp =(int)(Math.random() * upperBound-lowerBound) + 1;
-        faceValue = temp+lowerBound;
+//        faceValue = temp+lowerBound;
         //       System.out.println(temp + lowerBound);
         //       faceValue = upperBound;
     }
 
     public void dice_roll () { faceValue = (int)(Math.random() * numberOfSides) + 1;
     }
-
+//hh
 
     public int getFaceValue(){
         return faceValue;

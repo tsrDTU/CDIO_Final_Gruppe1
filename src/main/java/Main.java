@@ -231,8 +231,8 @@ public class Main {
 
             d1.dice_roll();
             d2.dice_roll();
-            d1 = new Die();
-            d2 = new Die();
+//            d1 = new Die();
+//            d2 = new Die();
 
 
 
@@ -438,7 +438,7 @@ public class Main {
 
         for (int i = 0; i <= ReadLineNR; i++) {
             if (i == ReadLineNR - 1) {
-                //
+                //2
                 return TXTRDRscanner.nextLine();
             } else TXTRDRscanner.nextLine();
         }
