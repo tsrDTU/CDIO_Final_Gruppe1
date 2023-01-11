@@ -16,8 +16,10 @@ import gui_resources.Attrs;
 
 import javax.swing.*;
 
+import EgneGuiKlasser.*;
+
 public class Help {
-  public Help(GUI gui) {
+  public Help(MGUI gui) {
  //   BufferedImage template = new SwingComponentFactory().createImage(Attrs.getImagePath("gui")).getSubimage(20, 30, 50, 20);
     JFileChooser helpfile=new JFileChooser();
     SwingComponentFactory template = new SwingComponentFactory();
