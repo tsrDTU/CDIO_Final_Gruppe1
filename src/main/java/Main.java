@@ -151,13 +151,13 @@ public class Main {
         //String AmountofDice = gui.getUserButtonPressed("how many dice?", "1", "2");
             Die d1 = new Die();
             Die d2 = new Die();
-
+//        System.out.println(d1.getFaceValue()+d2.getFaceValue()+" 22222222");
 
         // If sides are different from 6, set the number of sides.
-        if (antal_kant != 6) {
+        /*if (antal_kant != 6) {
             d1.setNumberOfSides(antal_kant);
             //d2.setNumberOfSides(antal_kant);
-        }
+        }*/
 
         int playingPlayer = intselect;
         int playingPlayer2;
@@ -227,8 +227,13 @@ public class Main {
             //if (amountOfGameLoops == 0);
             //GameMechanics.Jail.JailRegister(AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
+
             d1.dice_roll();
             d2.dice_roll();
+            d1 = new Die();
+            d2 = new Die();
+
+
 
             //Inform which user is playing
             gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1]+" ", dialog[DialogNR+2]); DialogNR+=3;
@@ -236,6 +241,7 @@ public class Main {
 
             //int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
             int DieSum = getSum(d1,d2);
+//            System.out.println(d1.getFaceValue()+" "+d2.getFaceValue());
 
             int CurrentSpaceForSelectedPlayer = 0;
             CurrentSpaceForSelectedPlayer = 0;
@@ -307,7 +313,7 @@ public class Main {
 
             //Shows description of the space you land on, and changes color
             int CSSP =CurrentSpaceForSelectedPlayer;
-           if (true /*fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "Prøv lykken"*/) {
+           if (fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "Prøv lykken") {
 //               gui.displayChanceCard(Chance.chanceCards[DieSum - 5].getKortNavnavn());
             } else
                 gui.displayChanceCard(selectedPlayer.getName() + " | " + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]

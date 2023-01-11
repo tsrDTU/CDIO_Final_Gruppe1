@@ -232,8 +232,7 @@ public class Fields {
         //  Checks if someone owns the space
         System.out.println(OwnStatus[THEfieldsNR]);
             if (OwnStatus[THEfieldsNR] || wannaBuy)
-
-                    GoOn=false;
+                    GoOn=true;
 
             //  Found an owner - SpaceOwner
 
