@@ -404,7 +404,7 @@ public class Main {
                     //  if anwser to "a new game" is no - stop the game
 
                     game_running = EndGameQuestionController.AskEndQuestion(answer_game,game_running,answerGameOk
-                    ,OwnedtrueOwnedFalse,DialogNR,PlayerSpaceNRexcact, PlayerArray, ownstatus, OwnerList);
+                    ,OwnedtrueOwnedFalse,DialogNR,PlayerSpaceNRexcact, PlayerArray, OwnerList, ownstatus);
                     answerGameOk = true;
 //                    if (answer_game.equals(dialog[DialogNR+2])) {
 //                        game_running = false;
