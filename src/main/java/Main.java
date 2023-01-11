@@ -61,8 +61,9 @@ public class Main {
         MGUI gui = new MGUI(fields, Color.BLACK);
 
         //  Asks if the language has been initialised and makes a button for user to select language
-            language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "Deutsch"); // Select language for the game dialog
+//            language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "Deutsch"); // Select language for the game dialog
 
+        language="Dansk";
         //  Initialize the game dialog
         TheBoard.Language.initializeDialog(dialog, language);
 /*
