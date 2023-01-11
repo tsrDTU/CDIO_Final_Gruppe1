@@ -307,7 +307,7 @@ public class Main {
 
             //Shows description of the space you land on, and changes color
             int CSSP =CurrentSpaceForSelectedPlayer;
-           if (true /*fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "Prøv lykken"*/) {
+           if (fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getTitle() == "Prøv lykken") {
 //               gui.displayChanceCard(Chance.chanceCards[DieSum - 5].getKortNavnavn());
             } else
                 gui.displayChanceCard(selectedPlayer.getName() + " | " + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]
