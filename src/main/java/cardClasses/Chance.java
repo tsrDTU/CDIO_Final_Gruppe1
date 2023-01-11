@@ -378,6 +378,7 @@ public  class Chance {
                 System.out.println("Chancekort: ChanceBetalBanken");
             }
 
+
         }while (slut > 1);
         //System.out.println("While slut");
         //System.out.println("bilPos "+bilPos);
