@@ -204,8 +204,8 @@ public class Fields {
             //           Chance landetPaaChance = new Chance();
             //           landetPaaChance.traekEtChanceKort();
 
-            Chance landetPaaChance = new Chance();
-            landetPaaChance.traekEtChanceKort();
+ //           Chance landetPaaChance = new Chance();
+ //           landetPaaChance.traekEtChanceKort();
 
 
             //bilen har muligvis fået ny positon efter chancekortet er eksekveret
