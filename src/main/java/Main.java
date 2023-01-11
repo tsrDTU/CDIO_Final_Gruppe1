@@ -24,7 +24,11 @@ import player.MjPlayer;
 
 //v1.2
 
-public class Main {
+public class
+
+
+
+Main {
 
 // kalhauge/BoardEngine
 
@@ -33,6 +37,8 @@ public class Main {
         int antal_kant, j, DialogNR=2;
         boolean game_running, answerGameOk;
         game_running = true;
+        //Test
+
         //int fieldNR = 24;
       //  ArrayList<String> userRoles = new ArrayList<>(Arrays.asList("Bil","Skib","Hund","Kat"));
         //String[] userRoles={"Bil","Skib","Hund","Kat"};
@@ -59,9 +65,8 @@ public class Main {
         GUI gui = new GUI(fields, Color.LIGHT_GRAY);
 
         //  Asks if the language has been initialised and makes a button for user to select language
-    //        language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
+            language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
 
-        language="Dansk";
         //  Initialize the game dialog
         TheBoard.Language.initializeDialog(dialog, language);
 /*

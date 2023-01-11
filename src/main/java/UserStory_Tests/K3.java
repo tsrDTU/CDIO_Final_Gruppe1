@@ -66,6 +66,12 @@ public class K3 {
         int[][] OwnedtrueOwnedFalse = InitializeOwnedStat(AmountofPlayers);
         boolean[] OwnStatus = Fields.OwnStatus();
 
+
+//--------------------------------------------------------------------------------
+//
+//        "GAME START"
+//
+//--------------------------------------------------------------------------------
         selectedPlayer = PlayerArray[1];
         int last_exp=30000;
         int rent;
@@ -74,12 +80,6 @@ public class K3 {
         int Round = 0;
         Die d1 = new Die();
         Die d2 = new Die();
-
-//--------------------------------------------------------------------------------
-//
-//        "GAME START"
-//
-//--------------------------------------------------------------------------------
 
         while (selectedPlayer.getBalance() > 0) {
             if (selectedPlayer==PlayerArray[0])
