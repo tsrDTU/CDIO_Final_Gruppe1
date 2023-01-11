@@ -1,6 +1,6 @@
 import GameMechanics.Die;
 
-public class Test {
+public class DieTest {
     public static void main(String[] args) {
         final int rolls = 10000;
         final double expectedValue = rolls / 6;
