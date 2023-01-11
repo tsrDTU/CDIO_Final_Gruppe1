@@ -230,7 +230,7 @@ public class Fields {
         int SpaceOwner = 0;
         boolean GoOn = true;
         //  Checks if someone owns the space
-        System.out.println(OwnStatus[THEfieldsNR]);
+        System.out.println("Er pladsen ejet? "+OwnStatus[THEfieldsNR]);
             if (OwnStatus[THEfieldsNR] || wannaBuy)
                     GoOn=true;
 
