@@ -142,7 +142,14 @@ class FieldsClassTest {
 
     @Test
     public void OwnStatusTest(){
-
+    boolean[] ownstatus = OwnStatus();
+    boolean x = false;
+        for (int i = 0; i < Base.fieldNR(); i++) {
+            if (ownstatus[i])
+                x=true;}
+        assertEquals(false,ownstatus[0]);
+        assertEquals(false, ownstatus[39]);
+        assertFalse(x); // checks if any spaces are owned when initialising ownstatus
     }
 
     @Test
