@@ -188,7 +188,7 @@ class FieldsClassTest {
 
     @Test // Test 7 IM
     public void WannabuyTest(){
-
+        assertEquals(0,1);
     }
     @Test // Test 8 I
     public void PayTheOwnerTest() throws FileNotFoundException {
@@ -272,12 +272,12 @@ class FieldsClassTest {
 
     @Test // Test 12 IM
     public void RestartOwnStatusTest(){
-
+        assertEquals(0,1);
     }
 
     @Test // Test 13 IM
     public void RestartOnePlayerOwnStatusTest(){
-
+        assertEquals(0,1);
     }
 
     @Test // Test 14 IM
