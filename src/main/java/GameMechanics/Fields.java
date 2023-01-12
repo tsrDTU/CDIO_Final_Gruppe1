@@ -194,7 +194,7 @@ public class Fields {
         }
         PassedGo = false;
 //CHANCEKORT
-        if (THEfieldsNR==2 || THEfieldsNR==7 || THEfieldsNR== 22 || THEfieldsNR==30 || THEfieldsNR==34 || THEfieldsNR==37) {
+        if (THEfieldsNR==2 || THEfieldsNR==7 || THEfieldsNR==17||THEfieldsNR== 22 || THEfieldsNR==30 || THEfieldsNR==34 || THEfieldsNR==37) {
 //-----------------------------------------------------------------------------------------------------
 //
 //      HER SKAL DER STÅ HVAD DER SKER PÅ CHANCEKORT
