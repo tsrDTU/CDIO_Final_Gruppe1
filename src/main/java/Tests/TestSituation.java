@@ -199,6 +199,8 @@ public class TestSituation {
 //-------------------------------------------------------------------------------------------
             int amountOfGameLoops = 0;
 
+            Fields.moveNewPosition(fields, PlayerArray,0,PlayerArray[0],pos_pl1,PlayerSpaceNRexcact);
+            Fields.moveNewPosition(fields, PlayerArray,0,PlayerArray[1],pospl2,PlayerSpaceNRexcact);
 
             while (!gameEnd) {
                 //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {

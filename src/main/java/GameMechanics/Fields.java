@@ -377,6 +377,15 @@ public class Fields {
 
     }
 
+    public static void moveNewPosition (MGUI_Street[] fields,MGUI_Player[] PlayerArray,int CurrentSpaceForSelectedPlayer
+            , MGUI_Player selectedPlayer, int NewPos, int[] PlayerSpaceNRexcact){
+
+        Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, NewPos, fields);
+        PlayerSpaceNRexcact[selectedPlayer.getNumber()] = NewPos;
+
+
+    }
+
 }
 /*
 
