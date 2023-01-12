@@ -106,12 +106,38 @@ class FieldsClassTest {
 
     @Test
     public void BuyCurrentPropertyTest(){
-
+    // already in another class test
     }
 
     @Test
     public void OwnerShipTest(){
+    int[] Ownedtrue = new int[Base.fieldNR()];
+        for (int i = 0; i < Base.fieldNR(); i++) {Ownedtrue[i] = 0;} // empty array
+        int CS1 = 0; // determining "Current Space 1"
+        int CS2 = 1;
+        int CS3 = 5;
+        int CS4 = 2;
+        int CS5 = 10;
 
+        Ownedtrue[CS1]=1; // setting owners
+        Ownedtrue[CS2]=1;
+        Ownedtrue[CS3]=1;
+        Ownedtrue[CS4]=1;
+        Ownedtrue[CS5]=1;
+
+        boolean Result1 = OwnerShip(Ownedtrue, CS1); // uses method to check if owned
+        boolean Result2 = OwnerShip(Ownedtrue, CS2);
+        boolean Result3 = OwnerShip(Ownedtrue, CS3);
+        boolean Result4 = OwnerShip(Ownedtrue, CS4);
+        boolean Result5 = OwnerShip(Ownedtrue, CS5);
+
+        assertTrue(Result1); // test
+        assertTrue(Result2);
+        assertTrue(Result3);
+        assertTrue(Result4);
+        assertTrue(Result5);
+        assertNotEquals(true, Ownedtrue[20]); // test not equal on empty spaces
+        assertNotEquals(true, Ownedtrue[32]);
     }
 
     @Test

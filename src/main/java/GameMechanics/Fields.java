@@ -104,11 +104,8 @@ public class Fields {
 
     public static boolean OwnerShip(int[] Ownedtrue,int TheFieldsNR) {
         boolean x = false;
-
-        for (int i = 0; i < AmountofPlayers; i++) {
             if (Ownedtrue[TheFieldsNR]==1)
-                x= true;
-        }
+                x = true;
             return x;
     }
     public static boolean[] OwnStatus() {
