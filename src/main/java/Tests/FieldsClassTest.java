@@ -232,10 +232,13 @@ class FieldsClassTest {
 
     @Test // Test 9
     public void InitialiseOwnerTest(){
-
+    int[] OwnerList = InitialiseOwnerList();
+    assertEquals(0, OwnerList[0]);
+    assertEquals(0, OwnerList[39]);
+    assertEquals(40, OwnerList.length);
     }
 
-    @Test // Test 10
+        @Test // Test 10
     public void displayDiscriptionsTest(){
     //
     }

@@ -313,9 +313,7 @@ public class Fields {
 
     public static int[] InitialiseOwnerList() {
         int[] OwList = new int[Base.fieldNR()];
-        for (int i = 0; i < Base.fieldNR(); i++) {
-            OwList[i] = 0;
-        }
+        for (int i = 0; i < Base.fieldNR(); i++) {OwList[i] = 0;}
         return OwList;
     }
 //    LINE STOP
