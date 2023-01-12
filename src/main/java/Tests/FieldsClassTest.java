@@ -153,8 +153,35 @@ class FieldsClassTest {
     }
 
     @Test
-    public void FindOwnerNumberTest(){
+    public void FindOwnerNumberTest() throws FileNotFoundException {
+        int[] OwnerList = InitialiseOwnerList();
+        int S1 = 4; // Space 4
+        int S2 = 6;
+        int S3 = 12;
+        int S4 = 0;
+        int S5 = 20;
 
+        int P1 = 0; // Player 1
+        int P2 = 1;
+        int P3 = 2;
+
+        OwnerList[S1] = P1;
+        OwnerList[S2] = P2;
+        OwnerList[S3] = P3;
+        OwnerList[S4] = P1;
+        OwnerList[S5] = P3;
+
+        int R1 = FindOwnerNumber(OwnerList, S1); // Result 1
+        int R2 = FindOwnerNumber(OwnerList, S2);
+        int R3 = FindOwnerNumber(OwnerList, S3);
+        int R4 = FindOwnerNumber(OwnerList, S4);
+        int R5 = FindOwnerNumber(OwnerList, S5);
+
+        assertEquals(P1, R1); // tests if the right players own the right spaces
+        assertEquals(P2, R2); // after input to FindOwnerNumber
+        assertEquals(P3, R3);
+        assertEquals(P1, R4);
+        assertEquals(P3, R5);
     }
 
     @Test

@@ -118,7 +118,6 @@ public class Fields {
     }
 
     public static int FindOwnerNumber(int[] OwnerList,int currentspace){
-
         return OwnerList[currentspace];
     }
 
