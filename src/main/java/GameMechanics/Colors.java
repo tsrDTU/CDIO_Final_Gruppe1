@@ -6,6 +6,8 @@ import gui_fields.GUI_Street;
 
 import java.awt.*;
 
+import EgneGuiKlasser.*;
+
 public class Colors {
     //-------------------------------------------------------------------------------
 //
@@ -13,7 +15,7 @@ public class Colors {
 //
 //-------------------------------------------------------------------------------
     // Color creation for the cars - Look up HSB colors system online to learn more
-    public static void CarColor(GUI_Car playerCars[], GUI_Player PlayerArray[], String Players, int PlayerNumber, GUI_Street[] fields) {
+    public static void CarColor(MGUI_Car playerCars[], MGUI_Player PlayerArray[], String Players, int PlayerNumber, MGUI_Street[] fields) {
         Color[] color = new Color[Integer.parseInt(Players)];
         for (int i =0;i<Integer.parseInt(Players);i++){
             String h = String.valueOf(i*0.18+1);

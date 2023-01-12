@@ -11,9 +11,11 @@ import static TheBoard.Base.*;
 import static GameMechanics.textReaderClass.textRDR;
 import static Files.FileReference.*;
 
+import EgneGuiKlasser.*;
+
 public class DoubleProperty {
 
-    public static int[] CostCheck(int currentFieldNR, GUI_Street[] fields) throws FileNotFoundException {
+    public static int[] CostCheck(int currentFieldNR, MGUI_Street[] fields) throws FileNotFoundException {
         int CostOCF = Integer.parseInt(fields[currentFieldNR].getDescription());/*Integer.parseInt(textRDR(DescriptionF, String.valueOf(currentFieldNR+1)))*/;
         int[] cost = new int[fieldNR()+4];
         int[] costToCheck = new int[fieldNR()+2];
@@ -30,7 +32,7 @@ public class DoubleProperty {
         return cost;
     }
 
-    public static boolean DoubleCost(int[][] OwnedTrueOwnedFalse, int selectedPlayersNR, int spaceNumber, GUI_Street[] fields) throws FileNotFoundException {
+    public static boolean DoubleCost(int[][] OwnedTrueOwnedFalse, int selectedPlayersNR, int spaceNumber, MGUI_Street[] fields) throws FileNotFoundException {
         int[] InvestegationFields = CostCheck(spaceNumber, fields);
         int Cost = Integer.parseInt(fields[spaceNumber].getDescription())/*Integer.parseInt(textReaderClass.textRDR(FileReference.CostToOwnFieldF,String.valueOf(spaceNumber)))*/;
         //if (Fields.OwnedCheck(OwnedTrueOwnedFalse, selectedPlayersNR, spaceNumber)&&costoffield[spaceNumber]==Cost)

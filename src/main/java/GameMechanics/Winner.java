@@ -5,8 +5,10 @@ import gui_fields.GUI_Player;
 
 import static TheBoard.Base.*;
 
+import EgneGuiKlasser.*;
+
 public class Winner {
-    public static String Values(GUI_Player[] PlayerArray, GUI_Player selectedPlayer) {
+    public static String Values(MGUI_Player[] PlayerArray, MGUI_Player selectedPlayer) {
         //  Initialises values for displaying a winner
         String[] Winners = new String[AmountofPlayers];
         //  if someone loses, the game ends and a winner/ winners are decided
@@ -42,12 +44,12 @@ public class Winner {
         } return Winners[WinnerInt];
     }
 
-    public static int winnerint(GUI_Player PlayerArray){
+    public static int winnerint(MGUI_Player PlayerArray){
         int TheInt = 2;
         return TheInt;
     }
 
-    public static int Money(GUI_Player[] PlayerArray, GUI_Player selectedPlayer) {
+    public static int Money(MGUI_Player[] PlayerArray, MGUI_Player selectedPlayer) {
         //  Initialises values for displaying a winner
         String[] Winners = new String[AmountofPlayers];
         //  if someone loses, the game ends and a winner/ winners are decided
