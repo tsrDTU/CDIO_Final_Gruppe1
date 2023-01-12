@@ -1,5 +1,6 @@
 package cardClasses;
 import EgneGuiKlasser.MGUI;
+import GameMechanics.Fields;
 import gui_main.GUI;
 
 import gui_fields.*;
@@ -102,32 +103,18 @@ public  class Chance {
                 //System.out.println("Testkort trukket");
             }
             //System.out.println("Chancekort nr: "+kort_nr+" trukket");
-/*
-            if (kort_nr==0|| kort_nr == 5 || kort_nr == 11 || kort_nr == 12 || kort_nr == 9)
+
+            if (kort_nr==42 || kort_nr == 43 )
             {
-
-
-                if (chanceCards[kort_nr].getClass().equals(ChanceOverdragelseskort.class))
+                 if (chanceCards[kort_nr] instanceof ChanceAmnistiFeng)
                 {
-                    if (chanceCards[kort_nr] instanceof ChanceOverdragelseskort==true)
-                    {
-                        // Hvis kortet allede er trukket og en anden spiller har det, skal dette træk ignoreres og et nyt kort skal trækkes
-                        if(((ChanceOverdragelseskort) chanceCards[kort_nr]).getAktivt()) kOk=11;
-                    }
-
-                }
-                else if (chanceCards[kort_nr] instanceof ChanceAmnistiFeng)
-                {
-                    // Hvis kortet allede er trukket og en anden spiller har det, skal dette træk ignoreres og et nyt kort skal trækkes
+                    // Hvis kortet allerede er trukket og en anden spiller har det, skal dette træk ignoreres og et nyt kort skal trækkes
                     if (((ChanceAmnistiFeng) chanceCards[kort_nr]).getAktivt()) kOk=11;
                 }
-                else kOk=11;
-
-
-
+                else kOk=0;
             }
 
- */
+
 
         } while (kOk > 0);
 
@@ -341,6 +328,19 @@ public  class Chance {
                     }
                 }
             }
+
+            if (actKort instanceof ChanceGaaIFaengsel)
+            {
+                // Felt 10 er fængslet. Når dette felt returneres håndterer Fileds at sætte brugeren i fængsel.
+               bilPos=10;
+            }
+
+            if (actKort instanceof  ChanceMatadorLegat)
+            {
+                if (actPlayer.getBalance() < 15000) actPlayer.setBalance(actPlayer.getBalance() + 40000);
+            }
+
+
 
         }while (slut > 1);
         //System.out.println("While slut");
