@@ -1,21 +1,14 @@
 package GameMechanics;
-import Files.FileReference;
 import TheBoard.Base;
-import TheBoard.BoardCreator;
 import cardClasses.Chance;
-import cardClasses.Chancekort;
 import gui_codebehind.GUI_Center;
-import gui_fields.*;
+
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Objects;
 
 import EgneGuiKlasser.*;
 
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 
 import static TheBoard.Base.*;
 //import static cardClasses.*;
@@ -301,14 +294,14 @@ public class Fields {
 
 
         if (OwnStatus[CurrentSpaceForSelectedPlayer]) {
-            PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer, Ownedtrue, PlayerArray, OwnStatus, OwnerList);
+            PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer, PlayerArray, OwnStatus, OwnerList);
                 System.out.println("payed the owner");
         }
         return "0";
     }
 
     public static void PayTheOwner(MGUI_Street[] fields, int currentlocation, MGUI_Player selectedPlayer,
-                                   int[][] OwnedtrueOwnedFalse, MGUI_Player[] PlayerArray, boolean[] OwnStatus, int[] Ownerlist) {
+                                   MGUI_Player[] PlayerArray, boolean[] OwnStatus, int[] Ownerlist) {
         int owner;
         selectedPlayer.setBalance(selectedPlayer.getBalance()-Integer.parseInt(fields[currentlocation].getRent()));
 

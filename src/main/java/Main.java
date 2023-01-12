@@ -2,7 +2,6 @@ import GUI_Beskeder.Help;
 import GameMechanics.*;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
-import TheBoard.Language;
 import cardClasses.Chance;
 //import gui_fields.GUI_Player;
 //import gui_fields.GUI_Street;
@@ -10,16 +9,11 @@ import cardClasses.Chance;
 //import gui_fields.GUI_Car;
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static Files.FileReference.*;
 import static GameMechanics.Die.getSum;
-import static GameMechanics.textReaderClass.textRDR;
 import static TheBoard.Base.*;
-import static TheBoard.BoardCreator.JailInit;
 import static TheBoard.Language.dialog;
 //import player.MjPlayer;
 
@@ -308,7 +302,7 @@ public class Main {
                 }
                 else
                     Fields.PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer
-                            ,OwnedtrueOwnedFalse, PlayerArray, ownstatus, OwnerList);
+                            , PlayerArray, ownstatus, OwnerList);
 
 //                GameMechanics.textReaderClass.textRDR(DescriptionF, "12");
                 amountOfGameLoops++;

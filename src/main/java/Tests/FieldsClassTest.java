@@ -5,12 +5,11 @@ import EgneGuiKlasser.MGUI_Car;
 import EgneGuiKlasser.MGUI_Player;
 import EgneGuiKlasser.MGUI_Street;
 import GameMechanics.Cars;
-import GameMechanics.Fields;
 
+import GameMechanics.Fields;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
 import org.junit.jupiter.api.Test;
-import player.PlayerReset;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
@@ -190,8 +189,44 @@ class FieldsClassTest {
     }
 
     @Test
-    public void PayTheOwnerTest(){
+    public void PayTheOwnerTest() throws FileNotFoundException {
+        MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
+        MGUI_Player[] PlayerArray = new MGUI_Player[4];
+        MGUI_Car[] playerCars = new MGUI_Car[4];
+        MGUI GUI = new MGUI(fields, Color.BLACK);
 
+        playerCars[0] = new MGUI_Car(Color.RED, Color.BLACK, Cars.setCarType(1), MGUI_Car.Pattern.FILL);
+        playerCars[1] = new MGUI_Car(Color.GREEN, Color.BLACK, Cars.setCarType(1), MGUI_Car.Pattern.FILL);
+
+        MGUI_Player selectedplayer1 = new MGUI_Player("hannibal1", 30000, playerCars[0]) ;
+        MGUI_Player selectedplayer2 = new MGUI_Player("hannibal2", 30000, playerCars[1]) ;
+        boolean[] OwnStatus = OwnStatus();
+        int[] OwnerList = Fields.InitialiseOwnerList();
+        OwnerList[4] = 1;
+        OwnerList[7] = 0;
+
+        int startMoney = 30000;
+        int currentlocation1 = 4;
+        int currentlocation2 = 8;
+        int currentlocation3 = 10;
+        //Test if balance of player changes after pay
+        assertEquals(startMoney,selectedplayer1.getBalance());
+        assertEquals(startMoney,selectedplayer2.getBalance());
+    PayTheOwner(fields, currentlocation1, selectedplayer1, PlayerArray, OwnStatus, OwnerList);
+    PayTheOwner(fields, currentlocation2, selectedplayer2, PlayerArray, OwnStatus, OwnerList);
+        System.out.println(selectedplayer1.getBalance()+ " bal player1");
+        System.out.println(selectedplayer2.getBalance()+ " bal player2");
+        assertEquals(startMoney - Integer.parseInt(fields[4].getRent()), selectedplayer1.getBalance());
+        assertEquals(startMoney - Integer.parseInt(fields[8].getRent()), selectedplayer2.getBalance());
+
+        //Reset player balance to see if money is removed for one and added for another
+        selectedplayer1.setBalance(30000);
+        selectedplayer2.setBalance(30000);
+        OwnerList[10] = 1;
+        OwnStatus[10] = true;
+        PayTheOwner(fields, currentlocation3, selectedplayer1, PlayerArray, OwnStatus, OwnerList);
+        System.out.println("P1B "+selectedplayer1.getBalance());
+        System.out.println("P2B "+selectedplayer2.getBalance());
     }
 
     @Test

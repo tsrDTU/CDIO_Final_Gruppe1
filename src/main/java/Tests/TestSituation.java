@@ -4,7 +4,6 @@ import EgneGuiKlasser.MGUI;
 import EgneGuiKlasser.MGUI_Car;
 import EgneGuiKlasser.MGUI_Player;
 import EgneGuiKlasser.MGUI_Street;
-import GUI_Beskeder.Help;
 import GameMechanics.*;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
@@ -329,7 +328,7 @@ public class TestSituation {
                         //System.out.println(NewBalance);       | EMPTY NOTE |
                     } else
                         Fields.PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer
-                                , OwnedtrueOwnedFalse, PlayerArray, ownstatus, OwnerList);
+                                , PlayerArray, ownstatus, OwnerList);
 
 //                GameMechanics.textReaderClass.textRDR(DescriptionF, "12");
                     amountOfGameLoops++;
