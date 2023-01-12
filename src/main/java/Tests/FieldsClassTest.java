@@ -17,10 +17,11 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 
 import static GameMechanics.Fields.*;
+import static TheBoard.Base.AmountofPlayers;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FieldsClassTest {
-    @Test
+    @Test // Test 0 NI
     public void noOwnerShipCheckTest(){         // Method is never used
         int list = 9;
         boolean OwnerValue = noOwnerShipCheck(2);
@@ -51,7 +52,7 @@ class FieldsClassTest {
 //        boolean T4 = OwnedCheck(OwnedTrue,pn4, ftt4);
 //    }
 
-    @Test // Test 1
+    @Test // Test 1 I
     public void MoveInJailTest() throws FileNotFoundException {
     int JailLocation = Base.JailLocationOnBoard;
     int JailVisit = Base.JAILvisitlocation;
@@ -70,7 +71,7 @@ class FieldsClassTest {
                 FNR, JailOn, Plocation);
     }
 
-    @Test // Test 2
+    @Test // Test 2 V
     public void Find_TheFieldsNRTest() throws FileNotFoundException {
         MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
         MGUI_Player[] PlayerArray = new MGUI_Player[4];
@@ -105,12 +106,12 @@ class FieldsClassTest {
         assertEquals(14, FL3);
     }
 
-    @Test // Test 3
+    @Test // Test 3 V
     public void BuyCurrentPropertyTest(){
     // already in another class test
     }
 
-    @Test // Test 4
+    @Test // Test 4 V
     public void OwnerShipTest(){
     int[] Ownedtrue = new int[Base.fieldNR()];
         for (int i = 0; i < Base.fieldNR(); i++) {Ownedtrue[i] = 0;} // empty array
@@ -141,7 +142,7 @@ class FieldsClassTest {
         assertNotEquals(true, Ownedtrue[32]);
     }
 
-    @Test // Test 5
+    @Test // Test 5 V
     public void OwnStatusTest(){
     boolean[] ownstatus = OwnStatus();
     boolean x = false;
@@ -153,7 +154,7 @@ class FieldsClassTest {
         assertFalse(x); // checks if any spaces are owned when initialising ownstatus
     }
 
-    @Test // Test 6
+    @Test // Test 6 V
     public void FindOwnerNumberTest() throws FileNotFoundException {
         int[] OwnerList = InitialiseOwnerList();
         int S1 = 4; // Space 4
@@ -185,12 +186,11 @@ class FieldsClassTest {
         assertEquals(P3, R5);
     }
 
-    @Test // Test 7
+    @Test // Test 7 IM
     public void WannabuyTest(){
 
     }
-
-    @Test // Test 8
+    @Test // Test 8 I
     public void PayTheOwnerTest() throws FileNotFoundException {
         MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
         MGUI_Player[] PlayerArray = new MGUI_Player[4];
@@ -231,7 +231,7 @@ class FieldsClassTest {
         System.out.println("P2B "+selectedplayer2.getBalance());
     }
 
-    @Test // Test 9
+    @Test // Test 9 V
     public void InitialiseOwnerTest(){
     int[] OwnerList = InitialiseOwnerList();
     assertEquals(0, OwnerList[0]);
@@ -239,7 +239,7 @@ class FieldsClassTest {
     assertEquals(40, OwnerList.length);
     }
 
-        @Test // Test 10
+        @Test // Test 10 I
     public void displayDiscriptionsTest() throws FileNotFoundException {
         MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
         int currentlocation = 3;
@@ -255,7 +255,7 @@ class FieldsClassTest {
 //            GUI_Center.getInstance().setBGColor(NewColor);
     }
 
-    @Test // Test 11
+    @Test // Test 11 V
     public void RestartFieldTitlesTest() throws FileNotFoundException {
         MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
         MGUI GUI = new MGUI(fields, Color.BLACK);
@@ -270,18 +270,47 @@ class FieldsClassTest {
 //        System.out.println(fields[2].getTitle());
     }
 
-    @Test // Test 12
+    @Test // Test 12 IM
     public void RestartOwnStatusTest(){
 
     }
 
-    @Test // Test 13
+    @Test // Test 13 IM
     public void RestartOnePlayerOwnStatusTest(){
 
     }
 
-    @Test // Test 14
-    public void MoveNewPositionTest(){
+    @Test // Test 14 IM
+    public void MoveNewPositionTest() throws FileNotFoundException {
+        MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
+        MGUI_Player[] PlayerArray = new MGUI_Player[3];
+        MGUI_Car[] playerCars = new MGUI_Car[3];
+        playerCars[1] = new MGUI_Car(Color.RED, Color.BLACK, Cars.setCarType(1), MGUI_Car.Pattern.FILL);
+        playerCars[2] = new MGUI_Car(Color.GREEN, Color.BLACK, Cars.setCarType(1), MGUI_Car.Pattern.FILL);
+        MGUI GUI = new MGUI(fields, Color.BLACK);
 
+//        gui.addPlayer(PlayerArray[1]);
+
+        player.PlayerReset.restart(PlayerArray,fields, AmountofPlayers,Base.fieldNR());
+
+        PlayerArray[1]= new MGUI_Player("Hannibal", 30000, playerCars[0]);
+        PlayerArray[2]= new MGUI_Player("Hannibal2", 30000, playerCars[1]);
+        boolean[] JailOn = new boolean[Base.fieldNR()];
+        int[] Plocation = new int[Base.fieldNR()];
+        int CSSP = 7; // Current Space for Selected Player
+        MGUI_Player selectedplayer = PlayerArray[1];
+        int NewPos = 20;
+        int[] PlayerSpaceNRexcact = new int[2];
+        PlayerSpaceNRexcact[0] = 7;
+        PlayerSpaceNRexcact[1] = 14;
+//        for (int i = 1; i < 2; i++) {PlayerSpaceNRexcact[i] =0;}
+        System.out.println(selectedplayer.getNumber()+1);
+        PlayerSpaceNRexcact[selectedplayer.getNumber()+1] = CSSP;
+//        Cars.moveCars(3, selectedplayer, PlayerArray, 2, Base.fieldNR());
+
+        assertEquals(7, CSSP);
+        Fields.moveNewPosition(fields, PlayerArray, CSSP, selectedplayer, NewPos, PlayerSpaceNRexcact);
+        assertNotEquals(7, CSSP);
+        assertEquals(NewPos, CSSP);
     }
 }
