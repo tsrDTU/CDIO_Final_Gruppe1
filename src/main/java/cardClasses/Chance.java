@@ -9,7 +9,7 @@ import EgneGuiKlasser.*;
 
 
 public  class Chance {
-    private static Chancekort[] chanceCards=new Chancekort[46];
+    private static Chancekort[] chanceCards=new Chancekort[47];
     int testKortMode=0;
 
     /**
@@ -93,6 +93,7 @@ public  class Chance {
         chanceCards[43]=new ChanceAmnistiFeng("kongens fødselsdag 2","I anledning af kongens fødselsdag benådes De herved for fængsel. Dette kort kan opbevares indtil De får brug for det, eller De kan sælge det.");
         chanceCards[44]=new ChanceGaaIFaengsel("Fængsel", "Gå i fængsel, De indkasserer ikke 4000 kr for at passere start.");
         chanceCards[45]=new ChanceGaaIFaengsel("Fængsel", "Gå i fængsel, De indkasserer ikke 4000 kr for at passere start.");
+        chanceCards[46]=new ChanceTrump("Trump chancekort", "Du har trukket Trump chancekortet og får derved ret til låne en million", 1000000);
 
 
 
@@ -140,7 +141,7 @@ public  class Chance {
             kOk=0;
 
             if (testKortMode==0) {
-                kort_nr = (int) (Math.random() * 22);
+                kort_nr = (int) (Math.random() * 47);
                 //System.out.println("Normalt kort trukket");
             }
             else
@@ -377,6 +378,18 @@ public  class Chance {
             {
                 actPlayer.setBalance(actPlayer.getBalance() - ((ChanceBetalBanken) actKort).getBeloeb());
                 System.out.println("Chancekort: ChanceBetalBanken");
+            }
+
+            if (actKort instanceof ChanceModtagFraHverSpiller)
+            {
+                actPlayer.setBalance(actPlayer.getBalance() + ((ChanceModtagFraHverSpiller) actKort).getBeloeb());
+                for (int k = 0; k < AmountofPlayers; k++)
+                {
+                    if (actPlayer != players[k])
+                    {
+                        players[k].setBalance(players[k].getBalance() - ((ChanceModtagFraHverSpiller) actKort).getBeloeb());
+                    }
+                }
             }
 
         }while (slut > 1);
