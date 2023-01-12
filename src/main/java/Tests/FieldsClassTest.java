@@ -4,6 +4,7 @@ import EgneGuiKlasser.MGUI;
 import EgneGuiKlasser.MGUI_Car;
 import EgneGuiKlasser.MGUI_Player;
 import EgneGuiKlasser.MGUI_Street;
+import Files.FileReference;
 import GameMechanics.Cars;
 
 import GameMechanics.Fields;
@@ -49,7 +50,7 @@ class FieldsClassTest {
 //        boolean T4 = OwnedCheck(OwnedTrue,pn4, ftt4);
 //    }
 
-    @Test
+    @Test // Test 1
     public void MoveInJailTest() throws FileNotFoundException {
     int JailLocation = Base.JailLocationOnBoard;
     int JailVisit = Base.JAILvisitlocation;
@@ -68,7 +69,7 @@ class FieldsClassTest {
                 FNR, JailOn, Plocation);
     }
 
-    @Test
+    @Test // Test 2
     public void Find_TheFieldsNRTest() throws FileNotFoundException {
         MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
         MGUI_Player[] PlayerArray = new MGUI_Player[4];
@@ -103,12 +104,12 @@ class FieldsClassTest {
         assertEquals(14, FL3);
     }
 
-    @Test
+    @Test // Test 3
     public void BuyCurrentPropertyTest(){
     // already in another class test
     }
 
-    @Test
+    @Test // Test 4
     public void OwnerShipTest(){
     int[] Ownedtrue = new int[Base.fieldNR()];
         for (int i = 0; i < Base.fieldNR(); i++) {Ownedtrue[i] = 0;} // empty array
@@ -139,7 +140,7 @@ class FieldsClassTest {
         assertNotEquals(true, Ownedtrue[32]);
     }
 
-    @Test
+    @Test // Test 5
     public void OwnStatusTest(){
     boolean[] ownstatus = OwnStatus();
     boolean x = false;
@@ -151,7 +152,7 @@ class FieldsClassTest {
         assertFalse(x); // checks if any spaces are owned when initialising ownstatus
     }
 
-    @Test
+    @Test // Test 6
     public void FindOwnerNumberTest() throws FileNotFoundException {
         int[] OwnerList = InitialiseOwnerList();
         int S1 = 4; // Space 4
@@ -183,12 +184,12 @@ class FieldsClassTest {
         assertEquals(P3, R5);
     }
 
-    @Test
+    @Test // Test 7
     public void WannabuyTest(){
 
     }
 
-    @Test
+    @Test // Test 8
     public void PayTheOwnerTest() throws FileNotFoundException {
         MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
         MGUI_Player[] PlayerArray = new MGUI_Player[4];
@@ -229,32 +230,42 @@ class FieldsClassTest {
         System.out.println("P2B "+selectedplayer2.getBalance());
     }
 
-    @Test
+    @Test // Test 9
     public void InitialiseOwnerTest(){
 
     }
 
-    @Test
+    @Test // Test 10
     public void displayDiscriptionsTest(){
-
+    //
     }
 
-    @Test
-    public void RestartFieldTitlesTest(){
-
+    @Test // Test 11
+    public void RestartFieldTitlesTest() throws FileNotFoundException {
+        MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
+        MGUI GUI = new MGUI(fields, Color.BLACK);
+        String startTitle = fields[2].getTitle();// Tests if title is correct in beginning
+        assertEquals(fields[2].getTitle(),GameMechanics.textReaderClass.textRDR(FileReference.TitleF, "3"));
+//        System.out.println(fields[2].getTitle());
+        fields[2].setTitle(fields[2].getTitle()+" NewTitle");// Sets new title and Tests if there is
+        assertEquals(fields[2].getTitle(), startTitle+" NewTitle"); // a new title displayed
+//        System.out.println(fields[2].getTitle());
+        RestartFieldTitles(FileReference.TitleF,Base.fieldNR(),fields);// Uses method to reset titles:
+        assertEquals(fields[2].getTitle(),startTitle);
+//        System.out.println(fields[2].getTitle());
     }
 
-    @Test
+    @Test // Test 12
     public void RestartOwnStatusTest(){
 
     }
 
-    @Test
+    @Test // Test 13
     public void RestartOnePlayerOwnStatusTest(){
 
     }
 
-    @Test
+    @Test // Test 14
     public void MoveNewPositionTest(){
 
     }
