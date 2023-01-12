@@ -348,7 +348,7 @@ public class TestSituation {
                 } else
                     gui.displayChanceCard(selectedPlayer.getName() + " | " + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]
                             ].getTitle() + "\n" + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getSubText());
-                Fields.displayDescriptions(fields, CurrentSpaceForSelectedPlayer, amountOfGameLoops);
+                Fields.displayDescriptions(fields, CurrentSpaceForSelectedPlayer);
                 //Display GameMechanics.Die on the Board
                 GameMechanics.Die.OnBoard(d1, d2, gui);/*, d2*/
 

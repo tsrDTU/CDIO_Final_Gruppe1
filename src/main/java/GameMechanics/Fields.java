@@ -319,7 +319,7 @@ public class Fields {
 //    LINE STOP
 
 
-    public static void displayDescriptions(MGUI_Street[] fields,int currentLocation, int TimesAroundBoard) throws FileNotFoundException {
+    public static void displayDescriptions(MGUI_Street[] fields,int currentLocation) throws FileNotFoundException {
         //  Changes the color of the Discription space
         Color NewColor = Colors.ColorSpace(Integer.parseInt(fields[currentLocation].getDescription())/*Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF*/, Integer.parseInt(String.valueOf(currentLocation+1)));
         //System.out.println(textReaderClass.textRDR(FileReference.DescriptionF, String.valueOf(currentLocation+1)));

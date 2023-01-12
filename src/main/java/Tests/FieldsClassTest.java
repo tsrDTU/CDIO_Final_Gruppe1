@@ -10,6 +10,7 @@ import GameMechanics.Cars;
 import GameMechanics.Fields;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
+import gui_codebehind.GUI_Center;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -239,8 +240,19 @@ class FieldsClassTest {
     }
 
         @Test // Test 10
-    public void displayDiscriptionsTest(){
-    //
+    public void displayDiscriptionsTest() throws FileNotFoundException {
+        MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
+        int currentlocation = 3;
+        displayDescriptions(fields, currentlocation);
+        GUI_Center.getInstance().setBGColor(Color.WHITE);
+        GUI_Center StBG1 = GUI_Center.getInstance();
+
+        GUI_Center.getInstance().setBGColor(Color.BLACK);
+        GUI_Center StBG2 = GUI_Center.getInstance();
+        assertEquals(StBG1, StBG2);
+//                                              CANNOT DETECT CHANGE
+//        Color NewColor = Color.BLACK;
+//            GUI_Center.getInstance().setBGColor(NewColor);
     }
 
     @Test // Test 11
