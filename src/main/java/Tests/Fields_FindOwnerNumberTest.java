@@ -32,6 +32,6 @@ class Fields_FindOwnerNumberTest {
         assertEquals(1,OwnerOutput2);
         assertEquals(3,OwnerOutput3);
         assertEquals(0,OwnerOutput4);
-        assertEquals(0,x);            // tests that the fields from 15-40 are empty
+        assertEquals(0,OwnerOutput5); // tests that the fields from 15-40 are empty
     }
 }
