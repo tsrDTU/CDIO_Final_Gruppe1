@@ -66,6 +66,8 @@ public abstract class MGUI_Field {
     protected static final Color BG_COLOR = Color.LIGHT_GRAY;
     protected static final Color FG_COLOR = Color.BLACK;
 
+    private HashMap<Integer, JLabel> hotels = new HashMap<Integer, JLabel>(); // TSR
+
 
     //TODO add number to parameters - just for display
     protected MGUI_Field(Color bgColor, Color fgColor, String title, String subText, String description) {
