@@ -54,21 +54,31 @@ class FieldsClassTest {
 
     @Test // Test 1 I
     public void MoveInJailTest() throws FileNotFoundException {
-    int JailLocation = Base.JailLocationOnBoard;
-    int JailVisit = Base.JAILvisitlocation;
         MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
         MGUI_Player[] PlayerArray = new MGUI_Player[4];
         MGUI_Car[] playerCars = new MGUI_Car[4];
-        playerCars[1] = new MGUI_Car(Color.RED, Color.BLACK, Cars.setCarType(1), MGUI_Car.Pattern.FILL);
-        PlayerArray[1]= new MGUI_Player("Hannibal", 30000, playerCars[0]);
+        playerCars[0] = new MGUI_Car(Color.RED, Color.BLACK, Cars.setCarType(1), MGUI_Car.Pattern.FILL);
+        playerCars[1] = new MGUI_Car(Color.BLUE, Color.BLACK, Cars.setCarType(2), MGUI_Car.Pattern.FILL);
+        PlayerArray[0]= new MGUI_Player("Hannibal1", 30000, playerCars[0]);
+        PlayerArray[1]= new MGUI_Player("Hannibal2", 30000, playerCars[1]);
         boolean[] JailOn = new boolean[Base.fieldNR()];
         int[] Plocation = new int[Base.fieldNR()];
-        int CSSP = 32; // Current Space for Selected Player
+        int CSSP = Base.JailLocationOnBoard; // Current Space for Selected Player
         MGUI_Player selectedplayer = PlayerArray[1];
-        int FNR = 10; // FieldNR
+        MGUI gui = new MGUI(fields, Color.BLACK);
+        gui.addPlayer(PlayerArray[0]);
+        gui.addPlayer(PlayerArray[1]);
+        int FNR = Base.JailLocationOnBoard; // FieldNR
 //        Plocation = fields[selectedplayer.getNumber()];
+        assertEquals(32, CSSP);
         MoveInJail(fields, PlayerArray, CSSP, selectedplayer,
                 FNR, JailOn, Plocation);
+        System.out.println("Jail visit - "+Base.JAILvisitlocation);
+        System.out.println("Jail location - "+Base.JailLocationOnBoard);
+        assertEquals(fields[Base.JAILvisitlocation].getTitle(),fields[CSSP].getTitle());
+        assertEquals(CSSP, Base.JAILvisitlocation);
+        assertTrue(JailOn[selectedplayer.getNumber()]);
+        assertNotEquals(0, Plocation[selectedplayer.getNumber()]);
     }
 
     @Test // Test 2 V

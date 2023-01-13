@@ -54,8 +54,10 @@ public class Fields {
             JailOn[selectedPlayer.getNumber()]=true;
             // System.out.println("player "+selectedPlayer.getNumber()+ " got jailed");  //Jail TestLine
             return "0";  // return value to add to someones balance
-
     }
+    // ALL BELOW IS JAIL
+
+    // ALL ABOVE IS JAIL
 
     public static int Find_THEfieldsNR(MGUI_Street[] fields, MGUI_Player selectedPlayer){
         int THEfieldsNR = 0;
