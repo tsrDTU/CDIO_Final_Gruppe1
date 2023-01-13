@@ -1,8 +1,6 @@
 package GameMechanics;
 
 import TheBoard.Base;
-import gui_fields.GUI_Player;
-import gui_fields.GUI_Street;
 
 import EgneGuiKlasser.*;
 
@@ -12,9 +10,9 @@ public class Jail {
 //          Makes a Register that keeps info on who has been jailed - sets free after board turn
 //
 //-------------------------------------------------------------------------------
-    public static boolean[] JailRegister( int AmountofPlayers, int AmountofSpaces, MGUI_Street[] fields) {
+    public static boolean[] JailRegister(int AmountofPlayers, MGUI_Street[] fields) {
         //  Finds the Space with JailVisit
-        int JailVisitSpace=10;
+        int JailVisitSpace=Base.JAILvisitlocation;
         //
         boolean[] JailOn = new boolean[AmountofPlayers];
         for (int i = 0; i < AmountofPlayers; i++) {
@@ -42,10 +40,10 @@ public class Jail {
 
     //      If person is jailed - skip turn - make person not jailed.
     public static boolean jailed(MGUI_Player selectedPlayer, boolean skipPlayer) {
-        if (JailRegister(Base.AmountofPlayers, Base.fieldNR(), Base.fields)[selectedPlayer.getNumber()])
+        if (JailRegister(Base.AmountofPlayers, Base.fields)[selectedPlayer.getNumber()])
             skipPlayer=true;
         System.out.println("jailed ");
-        JailRegister(Base.AmountofPlayers, Base.fieldNR(), Base.fields)[selectedPlayer.getNumber()] = false;
+        JailRegister(Base.AmountofPlayers, Base.fields)[selectedPlayer.getNumber()] = false;
         return skipPlayer;
     }
 
