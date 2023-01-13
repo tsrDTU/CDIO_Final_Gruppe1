@@ -18,6 +18,7 @@ import static TheBoard.Language.dialog;
 //import player.MjPlayer;
 
 import EgneGuiKlasser.*;
+import gui_resources.Attrs;
 //hej
 //v1.2
 
@@ -300,9 +301,10 @@ public class Main {
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
-                else
+                else if (!ownstatus[CurrentSpaceForSelectedPlayer] && wanttobuyanswer)
                     Fields.PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer
                             , PlayerArray, ownstatus, OwnerList);
+
 
 //                GameMechanics.textReaderClass.textRDR(DescriptionF, "12");
                 amountOfGameLoops++;
