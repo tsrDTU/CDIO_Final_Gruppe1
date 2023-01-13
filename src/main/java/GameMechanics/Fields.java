@@ -1,21 +1,14 @@
 package GameMechanics;
-import Files.FileReference;
 import TheBoard.Base;
-import TheBoard.BoardCreator;
 import cardClasses.Chance;
-import cardClasses.ChanceBanktrans;
-import cardClasses.ChanceModtagFraBanken;
-import cardClasses.Chancekort;
 import gui_codebehind.GUI_Center;
-import gui_fields.*;
+
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Objects;
-import player.MjPlayer;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
+import EgneGuiKlasser.*;
+
 
 import static TheBoard.Base.*;
 //import static cardClasses.*;
@@ -53,18 +46,20 @@ public class Fields {
         return ArrayofOwnership[spaceNumber][selectedPlayersNR]==1;
         //System.out.println("---------------");
     }
-    public static String MoveInJail(GUI_Street[] fields,MjPlayer[] PlayerArray,int CurrentSpaceForSelectedPlayer
-            , GUI_Player selectedPlayer, int THEfieldsNR, boolean[] JailOn, int[] PlayerSpaceNRexcact){
+    public static String MoveInJail(MGUI_Street[] fields,MGUI_Player[] PlayerArray,int CurrentSpaceForSelectedPlayer
+            , MGUI_Player selectedPlayer, int THEfieldsNR, boolean[] JailOn, int[] PlayerSpaceNRexcact){
             int JailVisitSpace=Base.JailLocationOnBoard;
             Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, JailVisitSpace, fields);
-            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 10;
+            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = JailVisitSpace;
             JailOn[selectedPlayer.getNumber()]=true;
             // System.out.println("player "+selectedPlayer.getNumber()+ " got jailed");  //Jail TestLine
-            return "-1";  // return value to add to someones balance
-
+            return "0";  // return value to add to someones balance
     }
+    // ALL BELOW IS JAIL
 
-    public static int Find_THEfieldsNR(GUI_Street[] fields, MjPlayer selectedPlayer){
+    // ALL ABOVE IS JAIL
+
+    public static int Find_THEfieldsNR(MGUI_Street[] fields, MGUI_Player selectedPlayer){
         int THEfieldsNR = 0;
         for (int i = 0; i < Base.fieldNR(); i++)
         {
@@ -74,9 +69,9 @@ public class Fields {
         return THEfieldsNR;
     }
 
-    public static void BuyCurrentProperty(MjPlayer[] PlayerArray, MjPlayer selectedPlayer, GUI_Street[] fields,
+    public static void BuyCurrentProperty(MGUI_Player[] PlayerArray, MGUI_Player selectedPlayer, MGUI_Street[] fields,
                                           int THEfieldsNR, boolean GoOn, int[][] Ownedtrue, int CurrentSpaceForSelectedPlayer
-                                          , boolean[] OwnStatus, int[] OwnerList)
+            , boolean[] OwnStatus, int[] OwnerList)
                                         throws FileNotFoundException {
 
             //System.out.println("you bought the space");   | EMPTY NOTE
@@ -104,11 +99,8 @@ public class Fields {
 
     public static boolean OwnerShip(int[] Ownedtrue,int TheFieldsNR) {
         boolean x = false;
-
-        for (int i = 0; i < AmountofPlayers; i++) {
             if (Ownedtrue[TheFieldsNR]==1)
-                x= true;
-        }
+                x = true;
             return x;
     }
     public static boolean[] OwnStatus() {
@@ -121,20 +113,19 @@ public class Fields {
     }
 
     public static int FindOwnerNumber(int[] OwnerList,int currentspace){
-
         return OwnerList[currentspace];
     }
 
 
     public static String wannaBuyDoYou(int[][] Ownedtrue,
-                                       MjPlayer selectedPlayer,
+                                       MGUI_Player selectedPlayer,
                                        //boolean boolforBUY,
-                                       MjPlayer[] PlayerArray,
+                                       MGUI_Player[] PlayerArray,
                                        int CurrentSpaceForSelectedPlayer,
                                        int[] PlayerSpaceNRexcact,
-                                       boolean[] JailOn, Chance chankort, gui_main.GUI gui, GUI_Street[] fields,
+                                       boolean[] JailOn, Chance chankort, MGUI gui, MGUI_Street[] fields,
                                        boolean[] OwnStatus, int[] OwnerList/*NEW*/) throws FileNotFoundException {
-        boolean wannaBuy = true;
+        boolean wannaBuy = false;
         boolean[] Playerboughtspace = new boolean[AmountofPlayers];
         int ny_bilPos;
         String NewBal;
@@ -160,14 +151,15 @@ public class Fields {
         if (THEfieldsNR== JailLocationOnBoard) {
             MoveInJail(fields, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, THEfieldsNR,
                     JailOn, PlayerSpaceNRexcact);
+            System.out.println("JAILJAILJAIL");
 //            //  Finds the Space with JailVisit
 //            int JailVisitSpace=7;
 //            //  Moves car to JailVisitSpace
-//            Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, JailVisitSpace, fields);
-//            //  Changes PlayerSpace Info to new location and activates the JailOn Array
-//            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
-//            JailOn[selectedPlayer.getNumber()]=true;
-//            // System.out.println("player "+selectedPlayer.getNumber()+ " got jailed");  //Jail TestLine
+            Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, Base.JAILvisitlocation, fields);
+            //  Changes PlayerSpace Info to new location and activates the JailOn Array
+            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
+            JailOn[selectedPlayer.getNumber()]=true;
+            // System.out.println("player "+selectedPlayer.getNumber()+ " got jailed");  //Jail TestLine
 //            return "-1";  // return value to add to someones balance
         }
 
@@ -193,7 +185,7 @@ public class Fields {
         }
         PassedGo = false;
 //CHANCEKORT
-        if (THEfieldsNR==2 || THEfieldsNR==7 || THEfieldsNR== 22 || THEfieldsNR==30 || THEfieldsNR==34 || THEfieldsNR==37) {
+        if (THEfieldsNR==2 || THEfieldsNR==7 || THEfieldsNR==17||THEfieldsNR== 22 || THEfieldsNR==30 || THEfieldsNR==34 || THEfieldsNR==37) {
 //-----------------------------------------------------------------------------------------------------
 //
 //      HER SKAL DER STÅ HVAD DER SKER PÅ CHANCEKORT
@@ -235,15 +227,19 @@ public class Fields {
                     GoOn=true;
 
             //  Found an owner - SpaceOwner
-
-
+            /*else {
+                GoOn = false;
+                SpaceOwner = i;
+                break;
+            }
+        }*/
 //BUYS A FIELD
         //  This checks if the field is owned, and continues if it is not
         if (GoOn)
             //  This is a check for if the player wants to buy, ((It does not function because the player is forced to buy))
             ///if (boolforBUY) {
             //  This checks if the selected player has enough money, And buys the space if it does.
-            if (!OwnStatus[CurrentSpaceForSelectedPlayer]){
+            if (!OwnStatus[CurrentSpaceForSelectedPlayer] && Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent())!=0){
                 System.out.println(CurrentSpaceForSelectedPlayer+" "+ fields[CurrentSpaceForSelectedPlayer].getRent()+" CSSP");
                 BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
                         CurrentSpaceForSelectedPlayer, OwnStatus, OwnerList);
@@ -253,6 +249,7 @@ public class Fields {
 //                OwnStatus[CurrentSpaceForSelectedPlayer]=true;
                 System.out.println("bought space");
             }
+
 
 
             //            if (PlayerArray[selectedPlayer.getNumber()].getBalance() >= BoardCreator.CostofField()[THEfieldsNR] && GoOn) {
@@ -299,14 +296,14 @@ public class Fields {
 
 
         if (OwnStatus[CurrentSpaceForSelectedPlayer]) {
-            PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer, Ownedtrue, PlayerArray, OwnStatus, OwnerList);
+            PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer, PlayerArray, OwnStatus, OwnerList);
                 System.out.println("payed the owner");
         }
         return "0";
     }
 
-    public static void PayTheOwner(GUI_Street[] fields, int currentlocation,MjPlayer selectedPlayer,
-                                    int[][] OwnedtrueOwnedFalse,MjPlayer[] PlayerArray,boolean[] OwnStatus, int[] Ownerlist) {
+    public static void PayTheOwner(MGUI_Street[] fields, int currentlocation, MGUI_Player selectedPlayer,
+                                   MGUI_Player[] PlayerArray, boolean[] OwnStatus, int[] Ownerlist) {
         int owner;
         selectedPlayer.setBalance(selectedPlayer.getBalance()-Integer.parseInt(fields[currentlocation].getRent()));
 
@@ -318,15 +315,13 @@ public class Fields {
 
     public static int[] InitialiseOwnerList() {
         int[] OwList = new int[Base.fieldNR()];
-        for (int i = 0; i < Base.fieldNR(); i++) {
-            OwList[i] = 0;
-        }
+        for (int i = 0; i < Base.fieldNR(); i++) {OwList[i] = 0;}
         return OwList;
     }
 //    LINE STOP
 
 
-    public static void displayDescriptions(GUI_Street[] fields,int currentLocation, int TimesAroundBoard) throws FileNotFoundException {
+    public static void displayDescriptions(MGUI_Street[] fields,int currentLocation) throws FileNotFoundException {
         //  Changes the color of the Discription space
         Color NewColor = Colors.ColorSpace(Integer.parseInt(fields[currentLocation].getDescription())/*Integer.parseInt(textReaderClass.textRDR(FileReference.DescriptionF*/, Integer.parseInt(String.valueOf(currentLocation+1)));
         //System.out.println(textReaderClass.textRDR(FileReference.DescriptionF, String.valueOf(currentLocation+1)));
@@ -334,7 +329,7 @@ public class Fields {
 }
 
 
-    public static void RestartFieldTitles(/*GUI_Street[]*/File file, int AmountofSpaces, GUI_Street[] fields) throws FileNotFoundException {
+    public static void RestartFieldTitles(/*MGUI_Street[]*/File file, int AmountofSpaces, MGUI_Street[] fields) throws FileNotFoundException {
         //  Resets all titles
         for (int i=0;i<AmountofSpaces;i++){
             fields[i].setTitle(textReaderClass.textRDR(file, String.valueOf(i+1)));
@@ -360,7 +355,7 @@ public class Fields {
         }
     }
 
-    public static void ResetOnePlayerOwnStatus(GUI_Player selectedplayer, int[][] OwnedtrueOwnedFalse){
+    public static void ResetOnePlayerOwnStatus(MGUI_Player selectedplayer, int[][] OwnedtrueOwnedFalse){
         //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < Base.fieldNR(); n++) {
 //OwnedtrueOwnedFalse[n][0] = n;
@@ -368,6 +363,15 @@ public class Fields {
                 OwnedtrueOwnedFalse[n][selectedplayer.getNumber()] = 0;
             }
         }
+
+    }
+
+    public static void moveNewPosition (MGUI_Street[] fields,MGUI_Player[] PlayerArray,int CurrentSpaceForSelectedPlayer
+            , MGUI_Player selectedPlayer, int NewPos, int[] PlayerSpaceNRexcact){
+
+        Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, NewPos, fields);
+        PlayerSpaceNRexcact[selectedPlayer.getNumber()] = NewPos;
+
 
     }
 

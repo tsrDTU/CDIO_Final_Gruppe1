@@ -1,34 +1,27 @@
+import GUI_Beskeder.Help;
 import GameMechanics.*;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
-import TheBoard.Language;
 import cardClasses.Chance;
-import gui_fields.GUI_Player;
-import gui_fields.GUI_Street;
-import gui_main.GUI;
-import gui_fields.GUI_Car;
+//import gui_fields.GUI_Player;
+//import gui_fields.GUI_Street;
+//import gui_main.GUI;
+//import gui_fields.GUI_Car;
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static Files.FileReference.*;
 import static GameMechanics.Die.getSum;
-import static GameMechanics.textReaderClass.textRDR;
 import static TheBoard.Base.*;
-import static TheBoard.BoardCreator.JailInit;
 import static TheBoard.Language.dialog;
-import player.MjPlayer;
+//import player.MjPlayer;
 
+import EgneGuiKlasser.*;
+//hej
 //v1.2
 
-public class
-
-
-
-Main {
+public class Main {
 
 // kalhauge/BoardEngine
 
@@ -37,7 +30,6 @@ Main {
         int antal_kant, j, DialogNR=2;
         boolean game_running, answerGameOk;
         game_running = true;
-        //Test
         //int fieldNR = 24;
       //  ArrayList<String> userRoles = new ArrayList<>(Arrays.asList("Bil","Skib","Hund","Kat"));
         //String[] userRoles={"Bil","Skib","Hund","Kat"};
@@ -55,18 +47,18 @@ Main {
 
         //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
         //TheBoard.BoardCreator.InitBoardFieldsGuts();
-    GUI_Street[] fields = TheBoard.BoardCreator.InitBoardFieldsGuts();
+    MGUI_Street[] fields = TheBoard.BoardCreator.InitBoardFieldsGuts();
         //System.out.println(DescriptionF);
 
         //BoardCreator.SetGUItext();
         //  Sets up the background GUI (Graphical User Interface) to a plain white
-//        GUI gui = new GUI(Base.fields, Color.WHITE);
-        GUI gui = new GUI(fields, Color.LIGHT_GRAY);
+//        MGUI gui = new MGUI(Base.fields, Color.WHITE);
+        MGUI gui = new MGUI(fields, Color.BLACK);
 
+        Help help=new Help(gui);
         //  Asks if the language has been initialised and makes a button for user to select language
- //           language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "German"); // Select language for the game dialog
-
-        language="Dansk";
+//            language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "Deutsch"); // Select language for the game dialog
+            language= "dansk";
         //  Initialize the game dialog
         TheBoard.Language.initializeDialog(dialog, language);
 /*
@@ -90,10 +82,10 @@ Main {
 //        boolean[] JailOn = Base.JailOn();
         boolean[] JailOn = new boolean[AmountofPlayers];
         BoardCreator.JailInit(JailOn);
-//        MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
-        MjPlayer[] PlayerArray = new MjPlayer[AmountofPlayers];
+//        MGUI_Player[] PlayerArray = new MGUI_Player[AmountofPlayers];
+        MGUI_Player[] PlayerArray = new MGUI_Player[AmountofPlayers];
         System.out.println(PlayerArray.length);
-        GUI_Car[] playerCars = new GUI_Car[AmountofPlayers];
+        MGUI_Car[] playerCars = new MGUI_Car[AmountofPlayers];
         String[] PlayerName = new String[AmountofPlayers];
 
         //BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
@@ -106,8 +98,8 @@ Main {
             //  Sets the car of each player
             PlayerName[i] = (gui.getUserString(dialog[DialogNR]+(i+1)+"?"));
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
-            playerCars[i] = new GUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), GUI_Car.Pattern.FILL);
-            PlayerArray[i] = new MjPlayer(PlayerName[i], 30000 , playerCars[i]);
+            playerCars[i] = new MGUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), MGUI_Car.Pattern.FILL);
+            PlayerArray[i] = new MGUI_Player(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             GameMechanics.Colors.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
             //Set users role
           //  int first = 0; for (int l = 0; l < AmountofPlayers; l++) {if (userRoles.size()>AmountofPlayers)
@@ -150,7 +142,7 @@ Main {
 
         int intselect = 0;
         //Create a selected player that will point at active player
-        MjPlayer selectedPlayer;
+        MGUI_Player selectedPlayer;
         boolean gameEnd = false; //, lastMax = false;
 
         //Create the dices. Default 6 sides
@@ -158,6 +150,7 @@ Main {
             Die d1 = new Die();
             Die d2 = new Die();
 //        System.out.println(d1.getFaceValue()+d2.getFaceValue()+" 22222222");
+
 
         // If sides are different from 6, set the number of sides.
         /*if (antal_kant != 6) {
@@ -183,6 +176,8 @@ Main {
 //
 //-------------------------------------------------------------------------------------------
         int amountOfGameLoops = 0;
+
+
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
             DialogNR = 5;
@@ -190,6 +185,9 @@ Main {
                     amountOfGameLoops = 0;
             if (playingPlayer == AmountofPlayers)
                 playingPlayer = 0;
+
+
+
 
             playingPlayer2 = playingPlayer;
             if (selection) selectedPlayer = PlayerArray[playingPlayer];
@@ -214,7 +212,7 @@ Main {
                 Jail.bailOut(selectedPlayer, skipPlayer);
                 JailOn[selectedPlayer.getNumber()]=false;
                 //System.out.println("Spiller skippes ikke pga. GOJF kort");
-            } else if (false/*JailOn[selectedPlayer.getNumber()]*/){
+            } else if (JailOn[selectedPlayer.getNumber()]){
                 skipPlayer = true; JailOn[selectedPlayer.getNumber()]=false;}
             if (skipPlayer) {
                 playingPlayer++;
@@ -304,7 +302,7 @@ Main {
                 }
                 else
                     Fields.PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer
-                            ,OwnedtrueOwnedFalse, PlayerArray, ownstatus, OwnerList);
+                            , PlayerArray, ownstatus, OwnerList);
 
 //                GameMechanics.textReaderClass.textRDR(DescriptionF, "12");
                 amountOfGameLoops++;
@@ -324,7 +322,7 @@ Main {
             } else
                 gui.displayChanceCard(selectedPlayer.getName() + " | " + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]
                         ].getTitle() + "\n" + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getSubText());
-            Fields.displayDescriptions(fields, CurrentSpaceForSelectedPlayer, amountOfGameLoops);
+            Fields.displayDescriptions(fields, CurrentSpaceForSelectedPlayer);
             //Display GameMechanics.Die on the Board
             GameMechanics.Die.OnBoard(d1, d2, gui);/*, d2*/
 
@@ -403,7 +401,7 @@ Main {
                     //  if anwser to "a new game" is no - stop the game
 
                     game_running = EndGameQuestionController.AskEndQuestion(answer_game,game_running,answerGameOk
-                    ,OwnedtrueOwnedFalse,DialogNR,PlayerSpaceNRexcact, PlayerArray, ownstatus, OwnerList);
+                    ,OwnedtrueOwnedFalse,DialogNR,PlayerSpaceNRexcact, PlayerArray, OwnerList, ownstatus);
                     answerGameOk = true;
 //                    if (answer_game.equals(dialog[DialogNR+2])) {
 //                        game_running = false;
@@ -443,7 +441,7 @@ Main {
 
         for (int i = 0; i <= ReadLineNR; i++) {
             if (i == ReadLineNR - 1) {
-                //2
+                //
                 return TXTRDRscanner.nextLine();
             } else TXTRDRscanner.nextLine();
         }

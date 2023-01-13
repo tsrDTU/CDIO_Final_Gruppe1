@@ -3,7 +3,8 @@ package GameMechanics;
 import TheBoard.Base;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
-import player.MjPlayer;
+
+import EgneGuiKlasser.*;
 
 public class Jail {
 //-------------------------------------------------------------------------------
@@ -11,7 +12,7 @@ public class Jail {
 //          Makes a Register that keeps info on who has been jailed - sets free after board turn
 //
 //-------------------------------------------------------------------------------
-    public static boolean[] JailRegister( int AmountofPlayers, int AmountofSpaces, GUI_Street[] fields) {
+    public static boolean[] JailRegister( int AmountofPlayers, int AmountofSpaces, MGUI_Street[] fields) {
         //  Finds the Space with JailVisit
         int JailVisitSpace=10;
         //
@@ -31,7 +32,7 @@ public class Jail {
 //-----------------------------------------------------------------------------------------------------
 
     //     If person has GetOutOfJailFree card - don't skip player
-    public static boolean bailOut(MjPlayer selectedPlayer, boolean skipPlayer) {
+    public static boolean bailOut(MGUI_Player selectedPlayer, boolean skipPlayer) {
         if (selectedPlayer.getAmnistiKortHaves()) {
             skipPlayer = false;
             selectedPlayer.setAmnistkortHaves(false);
@@ -40,7 +41,7 @@ public class Jail {
     }
 
     //      If person is jailed - skip turn - make person not jailed.
-    public static boolean jailed(MjPlayer selectedPlayer, boolean skipPlayer) {
+    public static boolean jailed(MGUI_Player selectedPlayer, boolean skipPlayer) {
         if (JailRegister(Base.AmountofPlayers, Base.fieldNR(), Base.fields)[selectedPlayer.getNumber()])
             skipPlayer=true;
         System.out.println("jailed ");
@@ -48,7 +49,7 @@ public class Jail {
         return skipPlayer;
     }
 
-    public static boolean JailsetTrue(MjPlayer selectedPlayer, boolean skipPlayer) {
+    public static boolean JailsetTrue(MGUI_Player selectedPlayer, boolean skipPlayer) {
         if (skipPlayer)
             return false;
         return true;

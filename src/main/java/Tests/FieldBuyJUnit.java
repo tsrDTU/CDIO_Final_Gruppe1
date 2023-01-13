@@ -2,7 +2,7 @@ package Tests;
 
 import TheBoard.Base;
 import org.junit.jupiter.api.Test;
-import player.MjPlayer;
+//import player.MjPlayer;
 import Files.FileReference;
 
 import java.io.FileNotFoundException;
@@ -20,7 +20,8 @@ class FieldBuyJUnit {
         int[] costOfFields = new int[Base.fieldNR()];
         for (int i = 0; i < Base.fieldNR(); i++) {
             costOfFields[i] = Integer.parseInt(textRDR(CostToOwnFieldF, String.valueOf(i)));
+//            System.out.println(costOfFields[i]);
         }
-        assertEquals(28000, startBalance - costOfFields[8]);
+        assertEquals(28000, startBalance - costOfFields[8+1]);
     }
 }
