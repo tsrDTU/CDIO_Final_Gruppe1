@@ -3,10 +3,9 @@ package UserStory_Tests;
 import EgneGuiKlasser.MGUI;
 import EgneGuiKlasser.MGUI_Car;
 import EgneGuiKlasser.MGUI_Player;
-import GameMechanics.Cars;
-import GameMechanics.Colors;
-import GameMechanics.Die;
-import GameMechanics.Fields;
+import EgneGuiKlasser.MGUI_Street;
+import GameMechanics.*;
+import TheBoard.Base;
 import TheBoard.BoardCreator;
 import TheBoard.Language;
 import cardClasses.Chance;
@@ -19,11 +18,12 @@ import java.io.IOException;
 
 import static GameMechanics.Die.getSum;
 import static TheBoard.Base.*;
-import static TheBoard.Base.fields;
 import static TheBoard.Language.dialog;
 
 public class K1 {
     public static void main(String[] args) throws IOException {
+        MGUI_Car[] playerCars = new MGUI_Car[2];
+        MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
 
         int[] OwnerList = Fields.InitialiseOwnerList();
         Chance mjChance = new Chance();
@@ -43,9 +43,8 @@ public class K1 {
         antal_kant = 6;
         AmountofPlayers = 2;
 
-        boolean[] JailOn = new boolean[AmountofPlayers + 1];
+        boolean[] JailOn = Jail.JailRegister(AmountofPlayers, Base.fieldNR(), fields);
         MGUI_Player[] PlayerArray = new MGUI_Player[AmountofPlayers];
-        MGUI_Car[] playerCars = new MGUI_Car[AmountofPlayers];
         String[] PlayerName = new String[AmountofPlayers];
 
         BoardCreator.PersonCreator(AmountofPlayers, PlayerArray, PlayerName, playerCars);
