@@ -16,9 +16,24 @@ public class Test_Faengsel_Amnisti {
             pos_pl1[slag1]=0;
             pos_pl2[slag1]=0;
             slag[slag1]=2;
-            chancekort_nr[slag1]=17;
+            chancekort_nr[slag1]=43;
 
-            TestSituation_FlereSlag testSituation_flere_slag=new TestSituation_FlereSlag(pos_pl1,pos_pl2,slag,chancekort_nr,1);
+
+            slag1=1;
+            pos_pl1[slag1]=2;
+            pos_pl2[slag1]=0;
+            slag[slag1]=5;
+            chancekort_nr[slag1]=44;
+/*
+            slag1=2;
+            pos_pl1[slag1]=10;
+            pos_pl2[slag1]=0;
+            slag[slag1]=2;
+            chancekort_nr[slag1]=43;
+
+ */
+
+            TestSituation_FlereSlag testSituation_flere_slag=new TestSituation_FlereSlag(pos_pl1,pos_pl2,slag,chancekort_nr,2,30000,30000);
 
         }
     }

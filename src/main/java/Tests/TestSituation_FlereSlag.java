@@ -28,7 +28,7 @@ import static TheBoard.Language.dialog;
 //hej
 //v1.2
 
-        public TestSituation_FlereSlag(int[] pos_pl1, int[] pospl2, int[] foerste_terning_slag, int[] chancekort_nr, int antal_slag) throws IOException {
+        public TestSituation_FlereSlag(int[] pos_pl1, int[] pospl2, int[] foerste_terning_slag, int[] chancekort_nr, int antal_slag, int bal1, int bal2) throws IOException {
             {
                 int slag_nr=0;
 
@@ -197,13 +197,22 @@ import static TheBoard.Language.dialog;
 //-------------------------------------------------------------------------------------------
                 int amountOfGameLoops = 0;
 
+                PlayerArray[0].setBalance(bal1);
+                PlayerArray[1].setBalance(bal2);
 
                 while (!gameEnd) {
                     //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
 
                     if (slag_nr < antal_slag) {
-                        Fields.moveNewPosition(fields, PlayerArray, 0, PlayerArray[0], pos_pl1[slag_nr], PlayerSpaceNRexcact);
-                        Fields.moveNewPosition(fields, PlayerArray, 0, PlayerArray[1], pospl2[slag_nr], PlayerSpaceNRexcact);
+                        if (slag_nr == 0) {
+                            Fields.moveNewPosition(fields, PlayerArray, 0, PlayerArray[0], pos_pl1[slag_nr], PlayerSpaceNRexcact);
+                            Fields.moveNewPosition(fields, PlayerArray, 0, PlayerArray[1], pospl2[slag_nr], PlayerSpaceNRexcact);
+                        }
+                        else
+                        {
+                            Fields.moveNewPosition(fields, PlayerArray, pos_pl1[slag_nr -1], PlayerArray[0], pos_pl1[slag_nr], PlayerSpaceNRexcact);
+                            Fields.moveNewPosition(fields, PlayerArray, pospl2[slag_nr - 1], PlayerArray[1], pospl2[slag_nr], PlayerSpaceNRexcact);
+                        }
                     }
 
                     DialogNR = 5;
@@ -220,7 +229,7 @@ import static TheBoard.Language.dialog;
 
                     // Føste chsance kort som trækkes skal være chancekort_nr som specificeret i kaldet
 
-                    if (slag_nr < antal_slag) {
+                    if (slag_nr < antal_slag && selectedPlayer == PlayerArray[0]) {
                         chankort.setTestKortMode(chancekort_nr[slag_nr]);
                     }
 
@@ -277,7 +286,7 @@ import static TheBoard.Language.dialog;
 
                     //int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
                     // Første slag skal ramme et felt defineret i kaldet. Derefter skal der slås normalt
-                    if (slag_nr < antal_slag) {
+                    if (slag_nr < antal_slag && selectedPlayer == PlayerArray[0]) {
                         DieSum = foerste_terning_slag[slag_nr];
 
                     } else DieSum = getSum(d1, d2);
@@ -464,7 +473,7 @@ import static TheBoard.Language.dialog;
                     // if
 //                System.exit(0);
 
-                    slag_nr++;
+                  if (selectedPlayer==PlayerArray[0]) slag_nr++;
                 }
             }
         }
