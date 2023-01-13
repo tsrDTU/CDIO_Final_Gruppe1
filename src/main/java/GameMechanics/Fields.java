@@ -157,7 +157,9 @@ public class Fields {
 //            //  Moves car to JailVisitSpace
             Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, Base.JAILvisitlocation, fields);
             //  Changes PlayerSpace Info to new location and activates the JailOn Array
-            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
+            PlayerSpaceNRexcact[selectedPlayer.getNumber()] = JAILvisitlocation;
+
+            CurrentSpaceForSelectedPlayer = JAILvisitlocation;
             JailOn[selectedPlayer.getNumber()]=true;
             // System.out.println("player "+selectedPlayer.getNumber()+ " got jailed");  //Jail TestLine
 //            return "-1";  // return value to add to someones balance
