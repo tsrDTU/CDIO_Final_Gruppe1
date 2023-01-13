@@ -27,7 +27,7 @@ public class TestSituation {
 //hej
 //v1.2
 
-    public TestSituation(int pos_pl1, int pospl2, int foerste_terning_slag, int chancekort_nr) throws IOException {
+    public TestSituation(int pos_pl1, int pospl2, int foerste_terning_slag, int chancekort_nr, int bal1, int bal2) throws IOException {
         {
 
 // kalhauge/BoardEngine
@@ -200,6 +200,9 @@ public class TestSituation {
 
             Fields.moveNewPosition(fields, PlayerArray,0,PlayerArray[0],pos_pl1,PlayerSpaceNRexcact);
             Fields.moveNewPosition(fields, PlayerArray,0,PlayerArray[1],pospl2,PlayerSpaceNRexcact);
+
+            PlayerArray[0].setBalance(bal1);
+            PlayerArray[1].setBalance(bal2);
 
             while (!gameEnd) {
                 //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
