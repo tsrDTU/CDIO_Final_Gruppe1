@@ -212,10 +212,15 @@ public class Fields {
                 // Hvis chankort.chanceFieldIsHit sætter ny_bilPos == 10 er et gå i fængsel chancekort trukket.
                 if (ny_bilPos == 10)
                 {
+                    CurrentSpaceForSelectedPlayer=32;
                     MoveInJail(fields, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, THEfieldsNR,
                             JailOn, PlayerSpaceNRexcact);
                     //            //  Moves car to JailVisitSpace
+
                     Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, Base.JAILvisitlocation, fields);
+                    CurrentSpaceForSelectedPlayer=2;
+                    Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, Base.JAILvisitlocation, fields);
+
                     //  Changes PlayerSpace Info to new location and activates the JailOn Array
                     PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
                     JailOn[selectedPlayer.getNumber()]=true;

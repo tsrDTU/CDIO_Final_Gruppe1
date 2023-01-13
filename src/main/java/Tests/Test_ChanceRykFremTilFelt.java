@@ -7,7 +7,7 @@ import java.io.IOException;
         public static void main(String[] args) throws IOException {
             {
 
-                TestSituation tesBetalBanken = new TestSituation(35,12,2,37);
+                TestSituation tesBetalBanken = new TestSituation(35,12,2,37,0,0);
 
             }
         }
