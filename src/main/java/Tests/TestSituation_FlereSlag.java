@@ -338,7 +338,7 @@ import static TheBoard.Language.dialog;
                             //System.out.println(NewBalance);       | EMPTY NOTE |
                         } else
                             Fields.PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer
-                                    , OwnedtrueOwnedFalse, PlayerArray, ownstatus, OwnerList);
+                                    /*, OwnedtrueOwnedFalse*/, PlayerArray, ownstatus, OwnerList);
 
 //                GameMechanics.textReaderClass.textRDR(DescriptionF, "12");
                         amountOfGameLoops++;
@@ -358,7 +358,7 @@ import static TheBoard.Language.dialog;
                     } else
                         gui.displayChanceCard(selectedPlayer.getName() + " | " + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]
                                 ].getTitle() + "\n" + fields[PlayerSpaceNRexcact[selectedPlayer.getNumber()]].getSubText());
-                    Fields.displayDescriptions(fields, CurrentSpaceForSelectedPlayer, amountOfGameLoops);
+                    Fields.displayDescriptions(fields, CurrentSpaceForSelectedPlayer/*, amountOfGameLoops*/);
                     //Display GameMechanics.Die on the Board
                     GameMechanics.Die.OnBoard(d1, d2, gui);/*, d2*/
 
