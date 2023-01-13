@@ -218,8 +218,14 @@ public class Fields {
                     //            //  Moves car to JailVisitSpace
 
                     Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, Base.JAILvisitlocation, fields);
-                    CurrentSpaceForSelectedPlayer=2;
-                    Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, Base.JAILvisitlocation, fields);
+   //                 CurrentSpaceForSelectedPlayer=2;
+                    /*
+                    for (int i = 0; i < Base.fieldNR(); i++) {
+                        if (Base.fields[i].hasCar(selectedPlayer)/*fields[i].hasCar(selectedPlayer)*/ //)
+    //                        CurrentSpaceForSelectedPlayer = i;
+                 //   }
+
+                    Cars.moveCarTo(AmountofPlayers, PlayerArray, 0, selectedPlayer, Base.JAILvisitlocation, fields);
 
                     //  Changes PlayerSpace Info to new location and activates the JailOn Array
                     PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
