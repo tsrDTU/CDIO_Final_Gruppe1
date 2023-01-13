@@ -1,16 +1,16 @@
 package cardClasses;
+import EgneGuiKlasser.MGUI;
 import GameMechanics.Fields;
-import TheBoard.Base;
 import gui_main.GUI;
-import player.MjPlayer;
+
 import gui_fields.*;
-import TheBoard.Base;
 
 import java.util.Objects;
+import EgneGuiKlasser.*;
 
 
 public  class Chance {
-    public static Chancekort[] chanceCards=new Chancekort[46];
+    private static Chancekort[] chanceCards=new Chancekort[47];
     int testKortMode=0;
 
     /**
@@ -21,31 +21,8 @@ public  class Chance {
     {
         //System.out.println("Chance initialiseres");
 
-        chanceCards[0]=new ChanceBetalBanken("Fuldt stop", "De har kørt frem for “fuldt stop”, Betal 1000 kroner i bøde", 1000);
-        chanceCards[1]=new ChanceBetalBanken("Vognvask og smøring", "Betal for vognvask og smøring kr 300", 300);
-        chanceCards[2]=new ChanceBetalBanken("2 kasser øl","Betal kr 200 for levering af 2 kasser øl", 200);
-        chanceCards[3]=new ChanceBetalBanken("Reparation1 af deres vogn", "Betal 3000 for reparation af deres vogn", 3000);
-        chanceCards[4]=new ChanceBetalBanken("Reparation2 af deres vogn", "Betal 3000 for reparation af deres vogn", 3000);
-        chanceCards[5]=new ChanceBetalBanken("4 nye dæk", "De har købt 4 nye dæk til Deres vogn, betal kr 1000", 1000);
-        chanceCards[6]=new ChanceBetalBanken("Parkeringsbøde", "De har fået en parkeringsbøde, betal kr 200 i bøde", 200);
-        chanceCards[7]=new ChanceBetalBanken("bilforsikring", "Betal deres bilforsikring, kr 1000", 1000);
-        chanceCards[8]=new ChanceBetalBanken("Smøger", "De har været udenlands og købt for mange smøger, betal kr 200 i told.", 200);
-        chanceCards[9]=new ChanceBetalBanken("Tandlægeregning", "Tandlægeregning, betal kr 2000.", 2000);
-        chanceCards[10]=new ChanceModtagFraBanken("klasselotteriet1", "De har vundet i klasselotteriet. Modtag 500 kr.", 500);
-        chanceCards[11]=new ChanceModtagFraBanken("klasselotteriet2", "De har vundet i klasselotteriet. Modtag 500 kr.", 500);
-        chanceCards[12]=new ChanceModtagFraBanken("Aktieudbytte1", "De modtager Deres aktieudbytte. Modtag kr 1000 af banken", 1000);
-        chanceCards[13]=new ChanceModtagFraBanken("Aktieudbytte2", "De modtager Deres aktieudbytte. Modtag kr 1000 af banken", 1000);
-        chanceCards[14]=new ChanceModtagFraBanken("Aktieudbytte3", "De modtager Deres aktieudbytte. Modtag kr 1000 af banken", 1000);
-        chanceCards[15]=new ChanceModtagFraBanken("Eftergivet skat", "Kommunen har eftergivet et kvartals skat. Hæv i banken 3000 kr.", 3000);
-        chanceCards[16]=new ChanceModtagFraBanken("Elleve rigtige", "De have en række med elleve rigtige i tipning, modtag kl 1000", 1000);
-        chanceCards[17]=new ChanceModtagFraBanken("Gageforhøjelse", "Grundet dyrtiden har De fået gageforhøjelse, modtag kr 1000.", 1000);
-        chanceCards[18]=new ChanceModtagFraBanken("Præmieobligation1", "Deres præmieobligation er udtrykket. De modtager 1000 kr af banken.", 1000);
-        chanceCards[19]=new ChanceModtagFraBanken("Præmieobligation2", "Deres præmieobligation er udtrykket. De modtager 1000 kr af banken.", 1000);
-        chanceCards[20]=new ChanceModtagFraBanken("Gamle møbler", "De har solg nogle gamle møbler på auktion. Modtag 1000 kr af banken.", 1000);
-        chanceCards[21]=new ChanceModtagFraBanken("Nyttehaven", "Værdien af egen avl fra nyttehaven udgør 200 som de modtager af banken", 200);
 
 
-        /*
         chanceCards[0]=new ChanceBetalbankenHusHotel("Oliepriserne","Oliepriserne er steget, og De skal betale kr 500 pr hus og kr 2000 pr hotel", 500, 2000);
         chanceCards[1]=new ChanceBetalbankenHusHotel("Ejendomsskat","Ejendomsskatten er steget. Ekstraudgifterne er: 800 kr pr hus, 2300 kr pr hotel.",800,2300);
         chanceCards[2]=new ChanceBetalBanken("Fuldt stop", "De har kørt frem for “fuldt stop”, Betal 1000 kroner i bøde", 1000);
@@ -92,38 +69,14 @@ public  class Chance {
         chanceCards[43]=new ChanceAmnistiFeng("kongens fødselsdag 2","I anledning af kongens fødselsdag benådes De herved for fængsel. Dette kort kan opbevares indtil De får brug for det, eller De kan sælge det.");
         chanceCards[44]=new ChanceGaaIFaengsel("Fængsel", "Gå i fængsel, De indkasserer ikke 4000 kr for at passere start.");
         chanceCards[45]=new ChanceGaaIFaengsel("Fængsel", "Gå i fængsel, De indkasserer ikke 4000 kr for at passere start.");
+        chanceCards[46]=new ChanceTrump("Trump chancekort", "Du har trukket Trump chancekortet og får derved ret til låne en million", 1000000);
 
 
 
-         */
-/*
-
-
-        chanceCards[0]=new ChanceOverdragelseskort(".Til Bil","Dette chance kort er givet til Bilen. Tag et chancekort mere Bil: På din næste tur skal du drøne frem til et hvilket som helst ledigt felt og købe det. Hvis det ikke er nogen ledige felter skal du købe et fra en anden spiller!", "Bil");
-
-        chanceCards[1]=new ChanceRykFremTilFelt("Start","Du rykkes frem til start.", 0);
-        chanceCards[2]=new ChanceRyk05("Ryk05","Du Rykkes op til 5 felter frem");
-        chanceCards[3]=new ChanceKortFarve("Ryk orange","Gratis felt. Du RykKes frem til et orange felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.", 3);
-        chanceCards[4]=new ChanceRyk1ElChMemere("Ryk 1 eller change mere","Ryk 1 felt frem eller tag et chancekort mere");
-        chanceCards[5]=new ChanceOverdragelseskort("Til Skibet","Dette kort er givet til skibet. Tag et chancekort mere. Skib: På den næste tur skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Skib");
-        chanceCards[6]=new ChanceBanktrans("For meget slik","Du har spist for meget slik. Betal M2 til banken.", -2,1,0);
-        chanceCards[7]=new Chance2Farver("Vælg orange eller grønt felt","Gratis felt. Ryk frem til et orange eller grønt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.", 3, 8);
-        chanceCards[8]=new ChanceKortFarve("Ryk lyseblåt","Gratis felt. Ryk frem til et lyseblåt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",5);
-        chanceCards[9]=new ChanceAmnistiFeng("Amnesti","Du løslades uden omkostninger. Du har dette kort til du får brug for det.");
-        chanceCards[10]=new ChanceRykFremTilFelt("ryk tilStrandpromenaden","Du Rykkes frem til Strandpromenaden.", 23);
-        chanceCards[11]=new ChanceOverdragelseskort("Til Katten","Dette kort er givet til Katten. Tag et chancekort mere. Kat: På den næste tur skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Kat");
-        chanceCards[12]=new ChanceOverdragelseskort("Til Hunden","Dette kort er givet til Hunden.Tag et chancekort mere. Hund: På den næste tur skal du sejle frem til hvilket som helst ledigt felt og købe det. Hvis der ikke er nogen ledige felter, skal du købe et af en anden spiller.","Hund");
-        chanceCards[13]=new ChanceBanktrans("Fødselsdag","Det er din fødselsdag. Alle giver dig 1 M. Tillyke med fødselsdagen",1,0,2);
-        chanceCards[14]=new Chance2Farver("Ryk til Pink eller Mørkeblåt","Gratis felt. Du Rykkes frem til et pink eller mørkeblåt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",4,2);
-        chanceCards[15]=new ChanceBanktrans("Alle lektier lavet","Du har lavet alle dine lektier. Modtag 2M fra banken",2,0,1);
-        chanceCards[16]=new ChanceKortFarve("Ryk til rødt felt","Gratis felt. du rykkes Ryk frem til et rødt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",1);
-        chanceCards[17]=new ChanceRykFremTilFelt("Ryk frem til Skaterparken","Gratis felt. Du Rykkes frem til Skaterparken for at lave det perfekte grind. Hvis ingen ejer den, får du den gratis. Ellers skal du betale leje ejeren.",10);
-        chanceCards[18]=new Chance2Farver("Ryk frem til lyseblåt eller rødt","Gratis felt. Du Rykkes frem til et lyseblåt eller rødt felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",5,1);
-        chanceCards[19]=new Chance2Farver("Ryk frem til brunt eller gult felt","Gratis felt. Du Rykkes frem til et brunt eller gult felt. Hvis det der ledigt, får du det gratis. Ellers skal du betale leje ejeren.",7,6);
 
 
 
- */
+
     }
 
     /**
@@ -139,7 +92,7 @@ public  class Chance {
             kOk=0;
 
             if (testKortMode==0) {
-                kort_nr = (int) (Math.random() * 22);
+                kort_nr = (int) (Math.random() * 47);
                 //System.out.println("Normalt kort trukket");
             }
             else
@@ -150,32 +103,18 @@ public  class Chance {
                 //System.out.println("Testkort trukket");
             }
             //System.out.println("Chancekort nr: "+kort_nr+" trukket");
-/*
-            if (kort_nr==0|| kort_nr == 5 || kort_nr == 11 || kort_nr == 12 || kort_nr == 9)
+
+            if (kort_nr==42 || kort_nr == 43 )
             {
-
-
-                if (chanceCards[kort_nr].getClass().equals(ChanceOverdragelseskort.class))
+                 if (chanceCards[kort_nr] instanceof ChanceAmnistiFeng)
                 {
-                    if (chanceCards[kort_nr] instanceof ChanceOverdragelseskort==true)
-                    {
-                        // Hvis kortet allede er trukket og en anden spiller har det, skal dette træk ignoreres og et nyt kort skal trækkes
-                        if(((ChanceOverdragelseskort) chanceCards[kort_nr]).getAktivt()) kOk=11;
-                    }
-
-                }
-                else if (chanceCards[kort_nr] instanceof ChanceAmnistiFeng)
-                {
-                    // Hvis kortet allede er trukket og en anden spiller har det, skal dette træk ignoreres og et nyt kort skal trækkes
+                    // Hvis kortet allerede er trukket og en anden spiller har det, skal dette træk ignoreres og et nyt kort skal trækkes
                     if (((ChanceAmnistiFeng) chanceCards[kort_nr]).getAktivt()) kOk=11;
                 }
-                else kOk=11;
-
-
-
+                else kOk=0;
             }
 
- */
+
 
         } while (kOk > 0);
 
@@ -198,13 +137,13 @@ public  class Chance {
      * @param fields: Liste over felter
      * @return: Bilens position på brættet efter at chancekort er håndteret. det kan samme position som eller en anden.
      */
-    public int chanceFieldIsHit(MjPlayer actPlayer,MjPlayer[] players, int actField,
-                                int AmountofPlayers, int AmountofSpaces, GUI gui, GUI_Street[] fields)
+    public int chanceFieldIsHit(MGUI_Player actPlayer, MGUI_Player[] players, int actField,
+                                int AmountofPlayers, int AmountofSpaces, MGUI gui, MGUI_Street[] fields)
     {
         int i, j, bilPos;
         int slut=0;
         String farvCod, modtRolle, valg;
-        MjPlayer playModt;
+        MGUI_Player playModt;
 
         bilPos=actField;
         //System.out.println("bilPos "+bilPos);
@@ -377,6 +316,30 @@ public  class Chance {
                 actPlayer.setBalance(actPlayer.getBalance() - ((ChanceBetalBanken) actKort).getBeloeb());
                 System.out.println("Chancekort: ChanceBetalBanken");
             }
+
+            if (actKort instanceof ChanceModtagFraHverSpiller)
+            {
+                actPlayer.setBalance(actPlayer.getBalance() + ((ChanceModtagFraHverSpiller) actKort).getBeloeb());
+                for (int k = 0; k < AmountofPlayers; k++)
+                {
+                    if (actPlayer != players[k])
+                    {
+                        players[k].setBalance(players[k].getBalance() - ((ChanceModtagFraHverSpiller) actKort).getBeloeb());
+                    }
+                }
+            }
+
+            if (actKort instanceof ChanceGaaIFaengsel)
+            {
+                // Felt 10 er fængslet. Når dette felt returneres håndterer Fileds at sætte brugeren i fængsel.
+               bilPos=10;
+            }
+
+            if (actKort instanceof  ChanceMatadorLegat)
+            {
+                if (actPlayer.getBalance() < 15000) actPlayer.setBalance(actPlayer.getBalance() + 40000);
+            }
+
 
 
         }while (slut > 1);
