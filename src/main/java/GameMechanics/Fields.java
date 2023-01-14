@@ -216,7 +216,7 @@ public class Fields {
             if (CurrentSpaceForSelectedPlayer != ny_bilPos)
             {
                 // Hvis chankort.chanceFieldIsHit sætter ny_bilPos == 10 er et gå i fængsel chancekort trukket.
-                if (ny_bilPos == 10)
+                if (ny_bilPos == JAILvisitlocation)
                 {
                     CurrentSpaceForSelectedPlayer=32;
                     MoveInJail(fields, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, THEfieldsNR,
@@ -257,7 +257,7 @@ public class Fields {
         boolean GoOn = true;
         //  Checks if someone owns the space
         System.out.println("Er pladsen ejet? "+OwnStatus[THEfieldsNR]);
-            if (OwnStatus[THEfieldsNR] || wannaBuy)
+            if (OwnStatus[THEfieldsNR])
                     GoOn=true;
 
             //  Found an owner - SpaceOwner
@@ -328,7 +328,7 @@ public class Fields {
         System.out.println(Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1]);
 */
 
-
+        System.out.println("pay the owner");
         if (OwnStatus[CurrentSpaceForSelectedPlayer]) {
             PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer, PlayerArray, OwnStatus, OwnerList);
                 System.out.println("payed the owner");

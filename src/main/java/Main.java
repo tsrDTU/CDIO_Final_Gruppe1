@@ -301,7 +301,7 @@ public class Main {
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
-                else if (!ownstatus[CurrentSpaceForSelectedPlayer] && wanttobuyanswer)
+                else if (ownstatus[CurrentSpaceForSelectedPlayer] || wanttobuyanswer)
                     Fields.PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer
                             , PlayerArray, ownstatus, OwnerList);
 
