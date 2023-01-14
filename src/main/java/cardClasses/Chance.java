@@ -339,6 +339,10 @@ public  class Chance {
             {
                 if (actPlayer.getBalance() < 15000) actPlayer.setBalance(actPlayer.getBalance() + 40000);
             }
+            if (actKort instanceof ChanceRykFelter)
+            {
+                bilPos=actField + ((ChanceRykFelter) actKort).getAntal_felter();
+            }
 
 
 
