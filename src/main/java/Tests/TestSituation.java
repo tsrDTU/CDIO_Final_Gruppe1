@@ -24,10 +24,24 @@ import static TheBoard.Language.dialog;
 public class TestSituation {
 
 
-//hej
-//v1.2
 
-    public TestSituation(int pos_pl1, int pospl2, int foerste_terning_slag, int chancekort_nr, int bal1, int bal2) throws IOException {
+//v1.0
+
+    /**
+     * Parametrene til TestSituation stiller 3 spilleres biler på definerede felter og bestemmer det første chance kort, som trækkes. Når første slag er slået og føsrte
+     * chancekort er trukket kører spillet videre som normalt. TestSituation er en kopi af klassen main, som er rettet til
+     * @param pos_pl1: Startposition for player 1
+     * @param pospl2: Startposition for player 2
+     * @param pos_pl3: Startposition for player 3
+     * @param foerste_terning_slag: Første slag for spiller 1
+     * @param chancekort_nr: Nummeret på det chancekort, som trækkes. Se venligst i cardClasses/Chance hvilket type kort det er.
+     * @param bal1: Player1's start pengebeholdning.
+     * @param bal2: Player2's startpengebeholdning.
+     * @param bal3: Player3's start pengebeholdning.
+     * @throws IOException
+     */
+
+    public TestSituation(int pos_pl1, int pospl2, int pos_pl3, int foerste_terning_slag, int chancekort_nr, int bal1, int bal2, int bal3) throws IOException {
         {
 
 // kalhauge/BoardEngine
@@ -89,7 +103,7 @@ public class TestSituation {
 
 
  */
-            AmountofPlayers = 2;
+            AmountofPlayers = 3;
 //        JailInit(JailOn);
 //        boolean[] JailOn = Base.JailOn();
             boolean[] JailOn = new boolean[AmountofPlayers];
@@ -102,7 +116,7 @@ public class TestSituation {
 
             MGUI_Car[] playerCars = new MGUI_Car[AmountofPlayers];
 //        MGUI_Car[] playerCars[AmountofPlayers];
-            String[] PlayerName = {"Player1", "Player2"};
+            String[] PlayerName = {"Player1", "Player2", "Player3"};
 
             //BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
             System.out.println(JailOn.length);
@@ -200,9 +214,11 @@ public class TestSituation {
 
             Fields.moveNewPosition(fields, PlayerArray,0,PlayerArray[0],pos_pl1,PlayerSpaceNRexcact);
             Fields.moveNewPosition(fields, PlayerArray,0,PlayerArray[1],pospl2,PlayerSpaceNRexcact);
+            Fields.moveNewPosition(fields, PlayerArray,0,PlayerArray[2],pos_pl3,PlayerSpaceNRexcact);
 
             PlayerArray[0].setBalance(bal1);
             PlayerArray[1].setBalance(bal2);
+            PlayerArray[2].setBalance(bal3);
 
             while (!gameEnd) {
                 //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {

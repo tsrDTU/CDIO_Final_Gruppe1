@@ -113,5 +113,13 @@ public class BoardCreator{
     public static void PersonCreator(int AmountofPlayers, MGUI_Player[] PlayerArray, String[] PlayerName, MGUI_Car[] playerCars) {
 
     }
+/*
+    public static create_house(MGUI_Street fields)
+    {
+        fields.ma
+
+    }
+
+ */
 }
 

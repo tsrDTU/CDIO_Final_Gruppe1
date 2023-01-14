@@ -11,6 +11,8 @@ import EgneGuiKlasser.*;
 
 
 import static TheBoard.Base.*;
+
+import EgneGuiKlasser.*;
 //import static cardClasses.*;
 
 public class Fields {
@@ -134,6 +136,8 @@ public class Fields {
         for (int i = 0; i < Base.fieldNR(); i++) {
             if (fields[i].hasCar(selectedPlayer))
                 THEfieldsNR = i;
+  //          fields[i].setHotel(true); // TSR
+  //          fields[i].setHouses(4); // TSR
         }
 
         boolean PassedGo = false;
@@ -404,6 +408,13 @@ public class Fields {
 
 
     }
+/* TSR
+    public void setHouse(MGUI_Street[] fields ,int field_nr, int antal_huse)
+    {
+
+    }
+
+ */
 
 }
 /*
