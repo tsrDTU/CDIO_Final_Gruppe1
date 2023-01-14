@@ -39,9 +39,9 @@ public class Die {
         //       faceValue = upperBound;
     }
 
-    public void dice_roll () { faceValue = 2/*(int)(Math.random() * numberOfSides) + 1*/;
+    public void dice_roll () { faceValue = (int)(Math.random() * numberOfSides) + 1;
     }
-//hh
+    public void dice_rollT (int Dice_Value) {faceValue = Dice_Value;}
 
     public int getFaceValue(){
         return faceValue;
