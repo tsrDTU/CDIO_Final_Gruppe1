@@ -204,7 +204,8 @@ import static TheBoard.Language.dialog;
                 Chance chankort = new Chance();
 
 
-                boolean skipPlayer = false;
+                boolean[] skipPlayer = new boolean[AmountofPlayers];
+                for (int i = 0; i < AmountofPlayers; i++) {skipPlayer[i]=false;}
 
 //-------------------------------------------------------------------------------------------
 //
@@ -271,12 +272,12 @@ import static TheBoard.Language.dialog;
                         JailOn[selectedPlayer.getNumber()] = false;
                         //System.out.println("Spiller skippes ikke pga. GOJF kort");
                     } else if (JailOn[selectedPlayer.getNumber()]) {
-                        skipPlayer = true;
+                        skipPlayer[selectedPlayer.getNumber()] = true;
                         JailOn[selectedPlayer.getNumber()] = false;
                     }
-                    if (skipPlayer) {
+                    if (skipPlayer[selectedPlayer.getNumber()]) {
                         playingPlayer++;
-                        skipPlayer = false;
+                        skipPlayer[selectedPlayer.getNumber()] = false;
                         //System.out.println("Player "+selectedPlayer.getNumber()+" smoked in jail");
 
                         if (amountOfGameLoops == AmountofPlayers)

@@ -30,12 +30,12 @@ public class Jail {
 //-----------------------------------------------------------------------------------------------------
 
     //     If person has GetOutOfJailFree card - don't skip player
-    public static boolean bailOut(MGUI_Player selectedPlayer, boolean skipPlayer) {
+    public static boolean bailOut(MGUI_Player selectedPlayer, boolean[] skipPlayer) {
         if (selectedPlayer.getAmnistiKortHaves()) {
-            skipPlayer = false;
+            skipPlayer[selectedPlayer.getNumber()] = false;
             selectedPlayer.setAmnistkortHaves(false);
         }
-        return skipPlayer;
+        return skipPlayer[selectedPlayer.getNumber()];
     }
 
     //      If person is jailed - skip turn - make person not jailed.

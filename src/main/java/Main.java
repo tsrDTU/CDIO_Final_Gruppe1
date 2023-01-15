@@ -59,7 +59,7 @@ public class Main {
         Help help=new Help(gui);
         //  Asks if the language has been initialised and makes a button for user to select language
 //            language = gui.getUserButtonPressed("Select Langage:", "Dansk", "English", "Francias", "Deutsch"); // Select language for the game dialog
-            language= "dansk";
+            language= "Dansk";
         //  Initialize the game dialog
         TheBoard.Language.initializeDialog(dialog, language);
 /*
@@ -74,6 +74,10 @@ public class Main {
 */
 
         antal_kant = 6;
+
+
+
+            String CheatAnswer = gui.getUserString(dialog[14]+". Cheat Code: ");
 
             //Asks how many players, and sets cars and players
             String Players = gui.getUserButtonPressed(dialog[DialogNR], "2", "3", "4"); DialogNR++;
@@ -100,7 +104,7 @@ public class Main {
             PlayerName[i] = (gui.getUserString(dialog[DialogNR]+(i+1)+"?"));
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new MGUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i+1), MGUI_Car.Pattern.FILL);
-            PlayerArray[i] = new MGUI_Player(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
+            PlayerArray[i] = new MGUI_Player(PlayerName[i], 30000, playerCars[i]);
             GameMechanics.Colors.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
             //Set users role
           //  int first = 0; for (int l = 0; l < AmountofPlayers; l++) {if (userRoles.size()>AmountofPlayers)
@@ -169,7 +173,18 @@ public class Main {
         }
         //TheBoard.BoardCreator.JailInit(0);
         Chance chankort=new Chance();
-        boolean skipPlayer = false;
+        boolean[] skipPlayer = new boolean[AmountofPlayers];
+        for (int a = 0; a < AmountofPlayers; a++) {skipPlayer[a]=false;}
+
+
+        if (AmountofPlayers>2 && Objects.equals(CheatAnswer, "MILLION"))
+            for (int i = 0; i < AmountofPlayers; i++) {PlayerArray[i].setBalance(5000000);}
+        if (Objects.equals(CheatAnswer,"MINMAX"))
+            for (int i = 0; i < AmountofPlayers; i++) {PlayerArray[i].setBalance(5);
+            PlayerArray[0].setBalance(9999999);
+            PlayerArray[1].setBalance(9999999);}
+
+
 
 //-------------------------------------------------------------------------------------------
 //
@@ -196,7 +211,7 @@ public class Main {
 
 
 //            if (selectedPlayer.getBalance() <= 0) {
-//                Fields.ResetOnePlayerOwnStatus(selectedPlayer, OwnedtrueOwnedFalse,fields, CurrentSpaceForSelectedPlayer);
+//                Fields.ResetOnePlayerOwnStatus(selectedPlayer, OwnedtrueOwnedFalse/*,fields, CurrentSpaceForSelectedPlayer*/);
 //                selectedPlayer.setBalance(0);
 //                skipPlayer = true;
 //                playingPlayer++;
@@ -214,10 +229,11 @@ public class Main {
                 JailOn[selectedPlayer.getNumber()]=false;
                 //System.out.println("Spiller skippes ikke pga. GOJF kort");
             } else if (JailOn[selectedPlayer.getNumber()]){
-                skipPlayer = true; JailOn[selectedPlayer.getNumber()]=false;}
-            if (skipPlayer) {
+                skipPlayer[selectedPlayer.getNumber()] = true; JailOn[selectedPlayer.getNumber()]=false;}
+            if (skipPlayer[selectedPlayer.getNumber()]) {
+                System.out.println("Player skipped");
                 playingPlayer++;
-                skipPlayer=false;
+                skipPlayer[selectedPlayer.getNumber()]=false;
                 //System.out.println("Player "+selectedPlayer.getNumber()+" smoked in jail");
 
                 if (amountOfGameLoops == AmountofPlayers)
@@ -233,10 +249,27 @@ public class Main {
             //GameMechanics.Jail.JailRegister(AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
 
-            d1.dice_roll();
-            d2.dice_roll();
+
+
+            if (Objects.equals(CheatAnswer, "JAIL")){
+                if (selectedPlayer.getNumber()==PlayerArray[0].getNumber()){
+                    d1.dice_rollT(16);
+                    d2.dice_rollT(16);
+                    int DieSum = 32;
+                }
+                else {
+                    d1.dice_roll();
+                    d2.dice_roll();
+                }
+            }
+            else {
+                d1.dice_roll();
+                d2.dice_roll();
+            }
 //            d1 = new Die();
 //            d2 = new Die();
+
+
 
 
 
@@ -246,6 +279,7 @@ public class Main {
 
             //int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
             int DieSum = getSum(d1,d2);
+
 //            System.out.println(d1.getFaceValue()+" "+d2.getFaceValue());
 
             int CurrentSpaceForSelectedPlayer = 0;
@@ -291,6 +325,8 @@ public class Main {
                 //  This handles the trades with rent and buying of fields - see at - src/main/java/GameMechanics.Fields
                 if (wanttobuyanswer && !ownstatus[CurrentSpaceForSelectedPlayer]) {
                     System.out.println(fields[CurrentSpaceForSelectedPlayer].getRent());
+                    if (CurrentSpaceForSelectedPlayer== JailLocationOnBoard)
+                        gui.getUserButtonPressed(dialog[12], dialog[13]);
                     String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
                             selectedPlayer,
                             //wanttobuyYesNo,
