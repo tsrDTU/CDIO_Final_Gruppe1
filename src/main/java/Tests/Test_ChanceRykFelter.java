@@ -14,7 +14,7 @@ import java.io.IOException;
         public static void main(String[] args) throws IOException {
             {
 
-                TestSituation tesBetalBanken = new TestSituation(35,12,25,2,30,30000, 30000,30000);
+                TestSituation tes = new TestSituation(35,12,25,2,30,30000, 30000,30000);
 
             }
         }
