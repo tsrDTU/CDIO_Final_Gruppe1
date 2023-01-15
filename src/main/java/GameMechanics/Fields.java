@@ -11,6 +11,8 @@ import EgneGuiKlasser.*;
 
 
 import static TheBoard.Base.*;
+
+import EgneGuiKlasser.*;
 //import static cardClasses.*;
 
 public class Fields {
@@ -134,6 +136,8 @@ public class Fields {
         for (int i = 0; i < Base.fieldNR(); i++) {
             if (fields[i].hasCar(selectedPlayer))
                 THEfieldsNR = i;
+  //          fields[i].setHotel(true); // TSR
+  //          fields[i].setHouses(4); // TSR
         }
 
         boolean PassedGo = false;
@@ -212,14 +216,29 @@ public class Fields {
             if (CurrentSpaceForSelectedPlayer != ny_bilPos)
             {
                 // Hvis chankort.chanceFieldIsHit sætter ny_bilPos == 10 er et gå i fængsel chancekort trukket.
-                if (ny_bilPos == 10)
+                if (ny_bilPos == JAILvisitlocation)
                 {
-                    CurrentSpaceForSelectedPlayer=32;
+//                    CurrentSpaceForSelectedPlayer=32;
+//                    MoveInJail(fields, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, THEfieldsNR,
+//                            JailOn, PlayerSpaceNRexcact);
+                    //            //  Moves car to JailVisitSpace
+//                    wannaBuyDoYou(Ownedtrue,selectedPlayer,PlayerArray,CurrentSpaceForSelectedPlayer,
+//                            PlayerSpaceNRexcact,JailOn,chankort,gui,fields,OwnStatus(),OwnerList);
+                    //
+
+
                     MoveInJail(fields, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, THEfieldsNR,
                             JailOn, PlayerSpaceNRexcact);
-                    //            //  Moves car to JailVisitSpace
-
                     Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, Base.JAILvisitlocation, fields);
+                    //  Changes PlayerSpace Info to new location and activates the JailOn Array
+                    PlayerSpaceNRexcact[selectedPlayer.getNumber()] = JAILvisitlocation;
+                    CurrentSpaceForSelectedPlayer = JAILvisitlocation;
+                    JailOn[selectedPlayer.getNumber()]=true;
+                    //
+                    fields[JailLocationOnBoard].removeAllCars();
+                    selectedPlayer.setBalance(selectedPlayer.getBalance()-4000);
+
+//                    Cars.moveCarTo(AmountofPlayers, PlayerArray, CurrentSpaceForSelectedPlayer, selectedPlayer, Base.JAILvisitlocation, fields);
    //                 CurrentSpaceForSelectedPlayer=2;
                     /*
                     for (int i = 0; i < Base.fieldNR(); i++) {
@@ -227,7 +246,7 @@ public class Fields {
     //                        CurrentSpaceForSelectedPlayer = i;
                  //   }
 
-                    Cars.moveCarTo(AmountofPlayers, PlayerArray, 0, selectedPlayer, Base.JAILvisitlocation, fields);
+//                    Cars.moveCarTo(AmountofPlayers, PlayerArray, 0, selectedPlayer, Base.JAILvisitlocation, fields);
 
                     //  Changes PlayerSpace Info to new location and activates the JailOn Array
                     PlayerSpaceNRexcact[selectedPlayer.getNumber()] = 6;
@@ -253,7 +272,7 @@ public class Fields {
         boolean GoOn = true;
         //  Checks if someone owns the space
         System.out.println("Er pladsen ejet? "+OwnStatus[THEfieldsNR]);
-            if (OwnStatus[THEfieldsNR] || wannaBuy)
+            if (OwnStatus[THEfieldsNR])
                     GoOn=true;
 
             //  Found an owner - SpaceOwner
@@ -324,7 +343,7 @@ public class Fields {
         System.out.println(Ownedtrue[CurrentSpaceForSelectedPlayer][selectedPlayer.getNumber()+1]);
 */
 
-
+        System.out.println("pay the owner");
         if (OwnStatus[CurrentSpaceForSelectedPlayer]) {
             PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer, PlayerArray, OwnStatus, OwnerList);
                 System.out.println("payed the owner");
@@ -404,6 +423,13 @@ public class Fields {
 
 
     }
+/* TSR
+    public void setHouse(MGUI_Street[] fields ,int field_nr, int antal_huse)
+    {
+
+    }
+
+ */
 
 }
 /*

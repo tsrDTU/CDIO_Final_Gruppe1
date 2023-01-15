@@ -24,11 +24,27 @@ import static TheBoard.Language.dialog;
 
     public class TestSituation_FlereSlag {
 
+        /**
+         * Parametrene til TestSituation_FlereSlag stiller 3 spilleres biler på definerede felter og bestemmer de første chance kort, som trækkes.
+         * Når de første slag er slået de og første
+         * chancekort er trukket kører spillet videre som normalt. TestSituation er en kopi af klassen main, som er rettet til.
+         * @param pos_pl1: Position for player 1
+         * @param pospl2: Position for player 2
+         * @param pos_pl3: Position for player 3
+         * @param foerste_terning_slag: Slag for spiller 1
+         * @param chancekort_nr: Nummeret på det chancekort, som trækkes. Se venligst i cardClasses/Chance hvilket type kort det er.
+         * @param antal_slag: Antal slag hvor spillernes position er bestemt af kaldet og hvor Player1's slag og træk af chancekort er bestemt.
+         * @param bal1: Player1's start pengebeholdning.
+         * @param bal2: Player2's startpengebeholdning.
+         * @param bal3: Player3's start pengebeholdning.
+         * @throws IOException
+         */
+
 
 //hej
 //v1.2
 
-        public TestSituation_FlereSlag(int[] pos_pl1, int[] pospl2, int[] foerste_terning_slag, int[] chancekort_nr, int antal_slag, int bal1, int bal2) throws IOException {
+        public TestSituation_FlereSlag(int[] pos_pl1, int[] pospl2,int[] pos_pl3, int[] foerste_terning_slag, int[] chancekort_nr, int antal_slag, int bal1, int bal2, int bal3) throws IOException {
             {
                 int slag_nr=0;
 
@@ -91,7 +107,7 @@ import static TheBoard.Language.dialog;
 
 
  */
-                AmountofPlayers = 2;
+                AmountofPlayers = 3;
 //        JailInit(JailOn);
 //        boolean[] JailOn = Base.JailOn();
                 boolean[] JailOn = new boolean[AmountofPlayers];
@@ -104,7 +120,7 @@ import static TheBoard.Language.dialog;
 
                 MGUI_Car[] playerCars = new MGUI_Car[AmountofPlayers];
 //        MGUI_Car[] playerCars[AmountofPlayers];
-                String[] PlayerName = {"Player1", "Player2"};
+                String[] PlayerName = {"Player1", "Player2", "Player3"};
 
                 //BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
                 System.out.println(JailOn.length);
@@ -199,6 +215,7 @@ import static TheBoard.Language.dialog;
 
                 PlayerArray[0].setBalance(bal1);
                 PlayerArray[1].setBalance(bal2);
+                PlayerArray[2].setBalance(bal3);
 
                 while (!gameEnd) {
                     //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
@@ -207,11 +224,13 @@ import static TheBoard.Language.dialog;
                         if (slag_nr == 0) {
                             Fields.moveNewPosition(fields, PlayerArray, 0, PlayerArray[0], pos_pl1[slag_nr], PlayerSpaceNRexcact);
                             Fields.moveNewPosition(fields, PlayerArray, 0, PlayerArray[1], pospl2[slag_nr], PlayerSpaceNRexcact);
+                            Fields.moveNewPosition(fields, PlayerArray, 0, PlayerArray[2], pos_pl3[slag_nr], PlayerSpaceNRexcact);
                         }
                         else
                         {
                             Fields.moveNewPosition(fields, PlayerArray, pos_pl1[slag_nr -1], PlayerArray[0], pos_pl1[slag_nr], PlayerSpaceNRexcact);
                             Fields.moveNewPosition(fields, PlayerArray, pospl2[slag_nr - 1], PlayerArray[1], pospl2[slag_nr], PlayerSpaceNRexcact);
+                            Fields.moveNewPosition(fields, PlayerArray, pos_pl3[slag_nr - 1], PlayerArray[2], pos_pl3[slag_nr], PlayerSpaceNRexcact);
                         }
                     }
 

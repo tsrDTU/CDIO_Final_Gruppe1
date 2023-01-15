@@ -159,8 +159,9 @@ class FieldsClassTest {
         for (int i = 0; i < Base.fieldNR(); i++) {
             if (ownstatus[i])
                 x=true;}
-        assertEquals(false,ownstatus[0]);
-        assertEquals(false, ownstatus[39]);
+        for (int i = 0; i < Base.fieldNR(); i++) {
+            assertEquals(false, ownstatus[i]);
+        }
         assertFalse(x); // checks if any spaces are owned when initialising ownstatus
     }
 
