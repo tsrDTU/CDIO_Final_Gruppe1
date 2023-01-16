@@ -29,6 +29,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String string_in, language, answer_game;
         int antal_kant, j, DialogNR=2;
+        boolean slaaet_ens;
         boolean game_running, answerGameOk;
         game_running = true;
         //int fieldNR = 24;
@@ -198,20 +199,30 @@ public class Main {
         selectedPlayer = PlayerArray[0];
         playingPlayer2 = 1;
 
+        slaaet_ens=false;
+
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
-            DialogNR = 5;
+            if (slaaet_ens == false) {
+                DialogNR = 5;
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
-            if (playingPlayer == AmountofPlayers)
-                playingPlayer = 0/*playingPlayer2*/;
+                if (playingPlayer == AmountofPlayers)
+                    playingPlayer = 0/*playingPlayer2*/;
 
 
+                playingPlayer2 = playingPlayer;
+                if (selection) selectedPlayer = PlayerArray[playingPlayer];
+                else selectedPlayer = PlayerArray[playingPlayer2];
+            }
+            else {
+                if (amountOfGameLoops == AmountofPlayers)
+                    amountOfGameLoops = 0;
+                gui.showMessage("Du har slået 2 ens og får et ekstra slag.");
+                DialogNR = 5;
+                slaaet_ens=false;
+            }
 
-
-            playingPlayer2 = playingPlayer;
-            if (selection) selectedPlayer = PlayerArray[playingPlayer];
-            else selectedPlayer = PlayerArray[playingPlayer2];
 
 
 //            if (selectedPlayer.getBalance() <= 0) {
@@ -273,8 +284,10 @@ public class Main {
                 d1.dice_roll();
                 d2.dice_roll();
 
-            d1 = new Die();
-            d2 = new Die();
+                if (d1.getFaceValue() == d2.getFaceValue()) slaaet_ens=true;
+
+  //          d1 = new Die();
+  //          d2 = new Die();
 
 
 
@@ -392,7 +405,9 @@ public class Main {
             else if ((selectedPlayer.getBalance() <= -1)) {
                 gui.showMessage(selectedPlayer.getName() + dialog[DialogNR]); DialogNR++;
             }
-            playingPlayer = amountOfGameLoops;
+            if (slaaet_ens == false) {
+                playingPlayer = amountOfGameLoops;
+            }
 
             answerGameOk = false;
 
