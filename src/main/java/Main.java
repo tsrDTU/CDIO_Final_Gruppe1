@@ -34,6 +34,7 @@ public class Main {
         //int fieldNR = 24;
       //  ArrayList<String> userRoles = new ArrayList<>(Arrays.asList("Bil","Skib","Hund","Kat"));
         //String[] userRoles={"Bil","Skib","Hund","Kat"};
+        // Test
         String[] freeUserRoles;
 
         int[] OwnerList = Fields.InitialiseOwnerList();
