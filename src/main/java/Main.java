@@ -192,7 +192,9 @@ public class Main {
 //
 //-------------------------------------------------------------------------------------------
         int amountOfGameLoops = 0;
-
+        int Round = 0;
+        selectedPlayer = PlayerArray[0];
+        playingPlayer2 = 1;
 
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
@@ -200,7 +202,7 @@ public class Main {
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
             if (playingPlayer == AmountofPlayers)
-                playingPlayer = 0;
+                playingPlayer = 0/*playingPlayer2*/;
 
 
 
@@ -224,6 +226,7 @@ public class Main {
 
 
             //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
+            ////////
             if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
                 Jail.bailOut(selectedPlayer, skipPlayer);
                 JailOn[selectedPlayer.getNumber()]=false;
@@ -245,13 +248,20 @@ public class Main {
                 if (selection) selectedPlayer = PlayerArray[playingPlayer];
                 else selectedPlayer = PlayerArray[playingPlayer2];
             }
+            ///////
+
+
             //if (amountOfGameLoops == 0);
             //GameMechanics.Jail.JailRegister(AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
 
+            if (Objects.equals(CheatAnswer, "CHANCE")&&Round<3)
+                if (selectedPlayer.getNumber()==PlayerArray[0].getNumber()){
+                    d1.dice_rollT(1);
+                    d2.dice_rollT(1);
+                    int DieSum = 2;}
 
-
-            if (Objects.equals(CheatAnswer, "JAIL")){
+            else if (Objects.equals(CheatAnswer, "JAIL")){
                 if (selectedPlayer.getNumber()==PlayerArray[0].getNumber()){
                     d1.dice_rollT(16);
                     d2.dice_rollT(16);
@@ -266,8 +276,9 @@ public class Main {
                 d1.dice_roll();
                 d2.dice_roll();
             }
-//            d1 = new Die();
-//            d2 = new Die();
+            d1 = new Die();
+            d2 = new Die();
+
 
 
 
@@ -341,9 +352,11 @@ public class Main {
                     Fields.PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer
                             , PlayerArray, ownstatus, OwnerList);
 
+                amountOfGameLoops++;
+                Round++;
+
 
 //                GameMechanics.textReaderClass.textRDR(DescriptionF, "12");
-                amountOfGameLoops++;
 
                 //Fields.OwnedCheck(OwnedtrueOwnedFalse,selectedPlayer.getNumber(), CurrentSpaceForSelectedPlayer);
                 //DoubleProperty.CostCheck(CurrentSpaceForSelectedPlayer);
@@ -351,6 +364,7 @@ public class Main {
 
                 //Negative balance is not allowed
                 if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
+
             }
 
             //Shows description of the space you land on, and changes color
@@ -373,14 +387,16 @@ public class Main {
 //            if (DieSum<0) DieSum= 0;
 
             //Switch selected player
-            if (!(Objects.equals(fields[DieSum%Base.fieldNR()].getTitle(), "extra"))) {
+            /*if (Objects.equals(d1.getFaceValue(),d2.getFaceValue())) {
                 selection = !selection;
                 playingPlayer++;
-            }
+            }*/
             //Extra tour
             else if ((selectedPlayer.getBalance() <= -1)) {
                 gui.showMessage(selectedPlayer.getName() + dialog[DialogNR]); DialogNR++;
             }
+            playingPlayer = amountOfGameLoops;
+
             answerGameOk = false;
 
 
@@ -397,7 +413,11 @@ public class Main {
             //  Initialises values for displaying a winner
 
             //  if someone loses, the game ends and a winner/ winners are decided
-            if (selectedPlayer.getBalance() < 1) {
+            int Amountof0BalP = 0;
+            for (int i = 0; i < AmountofPlayers; i++) {
+                if (PlayerArray[i].getBalance()==0)
+                    Amountof0BalP++;}
+            if (Amountof0BalP>AmountofPlayers-1) {
 
                 String Winners = new String();
 
