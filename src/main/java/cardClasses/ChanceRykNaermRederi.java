@@ -5,15 +5,22 @@ package cardClasses;
  */
 public class ChanceRykNaermRederi extends Chancekort
 {
+    private int gange_leje;
     private String felt="Rederi";
 
-    ChanceRykNaermRederi (String nvn, String inf)
+   public ChanceRykNaermRederi (String nvn, String inf, int gng_leje)
     {
         super(nvn, inf);
+        gange_leje=gng_leje;
     }
 
     public String getFelt()
     {
         return felt;
+    }
+
+    public int getGange_leje()
+    {
+        return gange_leje;
     }
 }

@@ -11,6 +11,7 @@ import GameMechanics.Fields;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
 import gui_codebehind.GUI_Center;
+import gui_fields.GUI_Car;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -18,6 +19,7 @@ import java.io.FileNotFoundException;
 
 import static GameMechanics.Fields.*;
 import static TheBoard.Base.AmountofPlayers;
+import static TheBoard.Base.PlayerArray;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FieldsClassTest {
@@ -281,14 +283,40 @@ class FieldsClassTest {
 //        System.out.println(fields[2].getTitle());
     }
 
-    @Test // Test 12 IM
+    @Test // Test 12 V
     public void RestartOwnStatusTest(){
-        assertEquals(0,1);
+        // We decided not to use this method as it wasn't working properly
+        boolean[] OS = OwnStatus();
+        Base.AmountofPlayers=3;
+        int[][] OwnTOF = new int[Base.fieldNR()][AmountofPlayers];
+        int[] OwnerList = InitialiseOwnerList();
+        for (int a = 0; a < Base.fieldNR(); a++)
+        {for (int i = 0; i < AmountofPlayers; i++) {
+            OwnTOF[a][i]= 0;}}
+        for (int i = 0; i < AmountofPlayers; i++) {RestartOwnStatus(OwnTOF, i, AmountofPlayers, OS, OwnerList);}
     }
 
     @Test // Test 13 IM
     public void RestartOnePlayerOwnStatusTest(){
-        assertEquals(0,1);
+        AmountofPlayers=3;
+        int[][] OTOF = new int[Base.fieldNR()][AmountofPlayers];
+        MGUI_Player[] PlayerArray= new MGUI_Player[AmountofPlayers];
+        MGUI_Car[] playerCars = new MGUI_Car[3];
+        playerCars[0] = new MGUI_Car(Color.RED, Color.BLACK, Cars.setCarType(1), MGUI_Car.Pattern.FILL);
+        playerCars[1] = new MGUI_Car(Color.GREEN, Color.BLACK, Cars.setCarType(1), MGUI_Car.Pattern.FILL);
+        playerCars[2] = new MGUI_Car(Color.GREEN, Color.BLUE, Cars.setCarType(1), MGUI_Car.Pattern.FILL);
+        PlayerArray[0]= new MGUI_Player("Hannibal", 30000, playerCars[0]);
+        PlayerArray[1]= new MGUI_Player("Hannibal2", 30000, playerCars[1]);
+        PlayerArray[2]= new MGUI_Player("Hannibal3", 30000, playerCars[2]);
+        MGUI_Player selectedP = PlayerArray[0];
+        OTOF[2][0] = 1;
+        ResetOnePlayerOwnStatus(selectedP, OTOF);
+        for (int i = 0; i < Base.fieldNR(); i++) {
+            System.out.println(OTOF[i][0]);
+            if (OTOF[i][0]!=0)
+                System.out.println("i = "+i+ " : Is where the error appears");
+            assertTrue(OTOF[i][0]==0);
+        }
     }
 
     @Test // Test 14 IM

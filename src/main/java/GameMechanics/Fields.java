@@ -11,6 +11,7 @@ import EgneGuiKlasser.*;
 
 
 import static TheBoard.Base.*;
+import static TheBoard.Language.dialog;
 
 import EgneGuiKlasser.*;
 //import static cardClasses.*;
@@ -234,6 +235,7 @@ public class Fields {
                     PlayerSpaceNRexcact[selectedPlayer.getNumber()] = JAILvisitlocation;
                     CurrentSpaceForSelectedPlayer = JAILvisitlocation;
                     JailOn[selectedPlayer.getNumber()]=true;
+
                     //
                     fields[JailLocationOnBoard].removeAllCars();
                     selectedPlayer.setBalance(selectedPlayer.getBalance()-4000);
@@ -408,8 +410,8 @@ public class Fields {
         //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < Base.fieldNR(); n++) {
 //OwnedtrueOwnedFalse[n][0] = n;
-            if (selectedplayer.getNumber()+1==1) {
-                OwnedtrueOwnedFalse[n][selectedplayer.getNumber()] = 0;
+            if (OwnedtrueOwnedFalse[n][selectedplayer.getNumber()+1]!=0) {
+                OwnedtrueOwnedFalse[n][selectedplayer.getNumber()+1] = 0;
             }
         }
 
