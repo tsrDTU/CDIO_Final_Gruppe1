@@ -32,7 +32,7 @@ public class K10_player1 {
         //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
         BoardCreator.InitBoardFieldsGuts();
 
-        MGUI gui = new MGUI(fields, Color.WHITE);
+        MGUI gui = new MGUI(fields, Color.BLACK);
         language = "Dansk";
         Language.initializeDialog(dialog, language);
         antal_kant = 6;

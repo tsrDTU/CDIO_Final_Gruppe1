@@ -20,29 +20,15 @@ import static GameMechanics.Die.getSum;
 import static TheBoard.Base.*;
 import static TheBoard.Base.WinnerMoney;
 import static TheBoard.Language.dialog;
-import GameMechanics.*;
-import GUI_Beskeder.Help;
-import TheBoard.Base;
-import TheBoard.BoardCreator;
-import cardClasses.Chance;
 //import gui_fields.GUI_Player;
 //import gui_fields.GUI_Street;
 //import gui_main.GUI;
 //import gui_fields.GUI_Car;
-import java.awt.*;
-import java.io.*;
-import java.util.Objects;
-import java.util.Scanner;
 
-import static GameMechanics.Die.getSum;
-import static TheBoard.Base.*;
-import static TheBoard.Language.dialog;
 //import player.MjPlayer;
 
-import EgneGuiKlasser.*;
-import gui_resources.Attrs;
 
-public class K20 {
+public class K20_Slaa_2_ens {
 
 //hej
 //v1.2

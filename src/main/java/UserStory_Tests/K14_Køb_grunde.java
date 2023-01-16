@@ -11,19 +11,16 @@ import TheBoard.BoardCreator;
 import TheBoard.Language;
 import cardClasses.Chance;
 //import gui_fields.MGUI_Car;
-import gui_main.GUI;
 //import player.MGUI_Player;
 
 
 import java.awt.*;
 import java.io.IOException;
 
-import static GameMechanics.Die.getSum;
 import static TheBoard.Base.*;
-import static TheBoard.Base.AmountofPlayers;
 import static TheBoard.Language.dialog;
 
-public class K14 {
+public class K14_Køb_grunde {
     public static void main(String[] args) throws IOException {
 
         int[] OwnerList = Fields.InitialiseOwnerList();
@@ -38,7 +35,7 @@ public class K14 {
         //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
         BoardCreator.InitBoardFieldsGuts();
 
-        MGUI gui = new MGUI(fields, Color.WHITE);
+        MGUI gui = new MGUI(fields, Color.BLACK);
         language = "Dansk";
         Language.initializeDialog(dialog, language);
         antal_kant = 6;

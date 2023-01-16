@@ -35,7 +35,7 @@ public class K3_slå_tering_flyt_bil {
         //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
         BoardCreator.InitBoardFieldsGuts();
 
-        MGUI gui = new MGUI(fields, Color.WHITE);
+        MGUI gui = new MGUI(fields, Color.BLACK);
         language = "Dansk";
         Language.initializeDialog(dialog, language);
         antal_kant = 6;
