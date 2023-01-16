@@ -80,7 +80,7 @@ public class Main {
 //            String CheatAnswer = gui.getUserString(dialog[14]+". Cheat Code: ");
 
             //Asks how many players, and sets cars and players
-            String Players = gui.getUserButtonPressed(dialog[DialogNR], "2", "3", "4"); DialogNR++;
+            String Players = gui.getUserButtonPressed(dialog[DialogNR], "2", "3", "4","5","6"); DialogNR++;
             AmountofPlayers = Integer.parseInt(Players);
 
 //        JailInit(JailOn);
