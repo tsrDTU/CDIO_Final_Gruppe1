@@ -22,7 +22,7 @@ public class FileReference {
     //public static File TitleF = new File("src/main/Field_Guts/Title");
     public static File TitleF = new File("src/main/Field_Guts/Title");
     public static File subtextF = new File("src/main/Field_Guts/subText");
-    public static File rentF = new File("src/main/Field_Guts/rent");
+    public static File rentF = new File("src/main/Field_Guts/CostToOwnField");
     public static final String CostToOwnFieldSt = new File("src/main/Field_Guts/CostToOwnField").getPath();
     public static File CostToOwnFieldF = new File(CostToOwnFieldSt);
 //------------------------------------------------------------------------------

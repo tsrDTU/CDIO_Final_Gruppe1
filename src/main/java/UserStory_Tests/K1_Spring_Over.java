@@ -9,18 +9,15 @@ import TheBoard.Base;
 import TheBoard.BoardCreator;
 import TheBoard.Language;
 import cardClasses.Chance;
-import gui_fields.GUI_Car;
-import gui_main.GUI;
 //import player.MGUI_Player;
 
 import java.awt.*;
 import java.io.IOException;
 
-import static GameMechanics.Die.getSum;
 import static TheBoard.Base.*;
 import static TheBoard.Language.dialog;
 
-public class K1 {
+public class K1_Spring_Over {
     public static void main(String[] args) throws IOException {
         MGUI_Car[] playerCars = new MGUI_Car[2];
         MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();

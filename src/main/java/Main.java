@@ -42,6 +42,7 @@ public class Main {
         int[] OwnerList = Fields.InitialiseOwnerList();
         boolean[] ownstatus = Fields.OwnStatus();
 
+
 //-------------------------------------------------------------------------------------------
 //
 //          Game Definitions
@@ -80,7 +81,7 @@ public class Main {
 
 
 
-//            String CheatAnswer = gui.getUserString(dialog[14]+". Cheat Code: ");
+            String CheatAnswer = gui.getUserString(dialog[14]+". Cheat Code: ");
 
             //Asks how many players, and sets cars and players
             String Players = gui.getUserButtonPressed(dialog[DialogNR], "2", "3", "4","5","6"); DialogNR++;
@@ -158,7 +159,8 @@ public class Main {
             Die d1 = new Die();
             Die d2 = new Die();
 //        System.out.println(d1.getFaceValue()+d2.getFaceValue()+" 22222222");
-
+        if (Objects.equals(CheatAnswer, "C4"))
+            PlayerArray[0].setBalance(2000);
 
         // If sides are different from 6, set the number of sides.
         /*if (antal_kant != 6) {
@@ -187,7 +189,8 @@ public class Main {
 //            PlayerArray[0].setBalance(9999999);
 //            PlayerArray[1].setBalance(9999999);}
 //
-
+        boolean[] PlayerLost = new boolean[AmountofPlayers+1];
+        for (int i = 0; i < AmountofPlayers+1; i++) {PlayerLost[i]=false;}
 //
 //-------------------------------------------------------------------------------------------
 //
@@ -203,20 +206,25 @@ public class Main {
 
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
-            if (slaaet_ens == false) {
+            if (PlayerLost[selectedPlayer.getNumber()]) {
+                System.out.println("habbawdabdajshdbawdhabosdjahbws");
+                if (selectedPlayer.getNumber()+1==AmountofPlayers)
+                   selectedPlayer = PlayerArray[0];
+                else selectedPlayer = PlayerArray[selectedPlayer.getNumber()+1];
+            }
+
+            if (slaaet_ens==true) {
                 DialogNR = 5;
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
-                if (playingPlayer == AmountofPlayers)
-                    playingPlayer = 0/*playingPlayer2*/;
-
-
+                if (playingPlayer >= AmountofPlayers)
+                    playingPlayer = playingPlayer2;
                 playingPlayer2 = playingPlayer;
-                if (selection) selectedPlayer = PlayerArray[playingPlayer];
-                else selectedPlayer = PlayerArray[playingPlayer2];
+//                if (selection) selectedPlayer = PlayerArray[playingPlayer];
+//                else selectedPlayer = PlayerArray[0]/*PlayerArray[playingPlayer2]*/;
             }
             else {
-                if (amountOfGameLoops == AmountofPlayers)
+                if (amountOfGameLoops >= AmountofPlayers)
                     amountOfGameLoops = 0;
                 gui.showMessage("Du har slået 2 ens og får et ekstra slag.");
                 DialogNR = 5;
@@ -254,7 +262,7 @@ public class Main {
 
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
-                if (playingPlayer == AmountofPlayers)
+                if (playingPlayer >= AmountofPlayers)
                     playingPlayer = 0;
 
                 playingPlayer2 = playingPlayer;
@@ -281,8 +289,11 @@ public class Main {
 //                    int DieSum = 32;
 //                }
 
+
                 d1.dice_roll();
                 d2.dice_roll();
+//                d1.dice_rollT(4);
+//                d2.dice_rollT(4);
 
                 if (d1.getFaceValue() == d2.getFaceValue()) slaaet_ens=true;
 
@@ -300,6 +311,7 @@ public class Main {
 
             //int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
             int DieSum = getSum(d1,d2);
+            GameMechanics.Die.OnBoard(d1, d2, gui);
 
 //            System.out.println(d1.getFaceValue()+" "+d2.getFaceValue());
 
@@ -408,6 +420,7 @@ public class Main {
             if (slaaet_ens == false) {
                 playingPlayer = amountOfGameLoops;
             }
+            PlayerLost[selectedPlayer.getNumber()]=true;
 
             answerGameOk = false;
 
@@ -436,26 +449,6 @@ public class Main {
                 Winners = GameMechanics.Winner.Values(PlayerArray,selectedPlayer);
                 WinnerMoney = GameMechanics.Winner.Money(PlayerArray,selectedPlayer);
 
-                /*
-
-                for (int i = 1; i < AmountofPlayers; i++) {
-                    //  if the player has more money, set it as the new winner, by resetting the array and putting the new value in
-                    if (PlayerArray[i].getBalance() > WinnerMoney) {
-                        for (int b = 0; b < AmountofPlayers; b++) {
-                            Winners[b] = " ";
-                        }
-                        Winners[i] = PlayerArray[i].getName();
-                        WinnerMoney = PlayerArray[i].getBalance();
-                        WinnerInt = i;
-                    }
-                    // if the next player has the same balance as previous player, set both as winners
-                    else if (PlayerArray[i].getBalance() == WinnerMoney)
-                        for (int l = 1; l < AmountofPlayers; l++) {
-                            Winners[i] = (Winners[i - 1] + " " + PlayerArray[i].getName());
-                        }
-                }
-
-                */
 
                 //  Displaying the Winners
                 gui.showMessage(Winners + dialog[DialogNR] + WinnerMoney); DialogNR++;

@@ -203,8 +203,8 @@ public class Spil_Med_Snydekoder {
             if (playingPlayer == AmountofPlayers)
                 playingPlayer = 0/*playingPlayer2*/;
 
-
-
+//              LINJE 200
+//              LINJE 410
 
             playingPlayer2 = playingPlayer;
             if (selection) selectedPlayer = PlayerArray[playingPlayer];
@@ -257,8 +257,8 @@ public class Spil_Med_Snydekoder {
             //GameMechanics.Jail.JailRegister(AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
 
-            d1.dice_roll();
-            d2.dice_roll();
+//            d1.dice_roll();
+//            d2.dice_roll();
             if (Objects.equals(CheatAnswer, "CHANCE")&&Round<3)
                 if (selectedPlayer.getNumber()==PlayerArray[0].getNumber()){
                     d1.dice_rollT(1);
@@ -283,11 +283,12 @@ public class Spil_Med_Snydekoder {
                  else {
                      d1.dice_roll();
                      d2.dice_roll();
-                 }}
+                 }
+             }
 
-                else {
-                    d1.dice_roll();
-                    d2.dice_roll();}
+             else {
+                 d1.dice_roll();
+                 d2.dice_roll();}
 //            d1 = new Die();
 //            d2 = new Die();
 
