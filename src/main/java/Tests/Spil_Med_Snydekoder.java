@@ -79,7 +79,7 @@ public class Spil_Med_Snydekoder {
         String CheatAnswer = gui.getUserString(dialog[14]+". Cheat Code: ");
 
         //Asks how many players, and sets cars and players
-        String Players = gui.getUserButtonPressed(dialog[DialogNR], "2", "3", "4"); DialogNR++;
+        String Players = gui.getUserButtonPressed(dialog[DialogNR], "2", "3", "4","5","6"); DialogNR++;
         AmountofPlayers = Integer.parseInt(Players);
 
 //        JailInit(JailOn);
@@ -210,6 +210,8 @@ public class Spil_Med_Snydekoder {
             if (selection) selectedPlayer = PlayerArray[playingPlayer];
             else selectedPlayer = PlayerArray[playingPlayer2];
 
+            if (selectedPlayer.getBalance()==0)
+                skipPlayer[selectedPlayer.getNumber()]=true;
 
 //            if (selectedPlayer.getBalance() <= 0) {
 //                Fields.ResetOnePlayerOwnStatus(selectedPlayer, OwnedtrueOwnedFalse/*,fields, CurrentSpaceForSelectedPlayer*/);
@@ -248,6 +250,7 @@ public class Spil_Med_Snydekoder {
                 else selectedPlayer = PlayerArray[playingPlayer2];
             }
             ///////
+
 
 
             //if (amountOfGameLoops == 0);
