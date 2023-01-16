@@ -161,6 +161,9 @@ public class Main {
 //        System.out.println(d1.getFaceValue()+d2.getFaceValue()+" 22222222");
         if (Objects.equals(CheatAnswer, "C4"))
             PlayerArray[0].setBalance(2000);
+        if (Objects.equals(CheatAnswer, "AB1"))
+            for (int i = 0; i < AmountofPlayers-1; i++) {
+                PlayerArray[i].setBalance(500);}
 
         // If sides are different from 6, set the number of sides.
         /*if (antal_kant != 6) {
@@ -206,6 +209,9 @@ public class Main {
 
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
+            for (int i = 0; i < AmountofPlayers; i++) {if (PlayerArray[i].getBalance()<=0) PlayerArray[i].setBalance(0);
+            }
+
             if (PlayerLost[selectedPlayer.getNumber()]) {
                 System.out.println("habbawdabdajshdbawdhabosdjahbws");
                 if (selectedPlayer.getNumber()+1==AmountofPlayers)
@@ -213,15 +219,15 @@ public class Main {
                 else selectedPlayer = PlayerArray[selectedPlayer.getNumber()+1];
             }
 
-            if (slaaet_ens==true) {
+            if (!slaaet_ens) {
                 DialogNR = 5;
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
                 if (playingPlayer >= AmountofPlayers)
                     playingPlayer = playingPlayer2;
                 playingPlayer2 = playingPlayer;
-//                if (selection) selectedPlayer = PlayerArray[playingPlayer];
-//                else selectedPlayer = PlayerArray[0]/*PlayerArray[playingPlayer2]*/;
+                if (selection) selectedPlayer = PlayerArray[playingPlayer];
+                else selectedPlayer = PlayerArray[0]/*PlayerArray[playingPlayer2]*/;
             }
             else {
                 if (amountOfGameLoops >= AmountofPlayers)
@@ -420,8 +426,18 @@ public class Main {
             if (slaaet_ens == false) {
                 playingPlayer = amountOfGameLoops;
             }
-            PlayerLost[selectedPlayer.getNumber()]=true;
 
+            boolean[] SpaceHasCurrentPlayer = new boolean[AmountofPlayers];
+            for (int i = 0; i < AmountofPlayers; i++) {SpaceHasCurrentPlayer[i]=false;}
+            if (selectedPlayer.getBalance()<=0) {
+                PlayerLost[selectedPlayer.getNumber()] = true;
+                Fields.ResetOnePlayerOwnStatus(selectedPlayer, OwnedtrueOwnedFalse);
+                for (int i = 0; i < AmountofPlayers; i++) {
+                    if (fields[CurrentSpaceForSelectedPlayer].hasCar(PlayerArray[i])) SpaceHasCurrentPlayer[i]=true;}
+                fields[CurrentSpaceForSelectedPlayer].removeAllCars();
+                SpaceHasCurrentPlayer[selectedPlayer.getNumber()]=false;
+                for (int i = 0; i < AmountofPlayers; i++) {if (SpaceHasCurrentPlayer[i]) fields[i].setCar(PlayerArray[i], true);                }
+            }
             answerGameOk = false;
 
 
@@ -442,7 +458,7 @@ public class Main {
             for (int i = 0; i < AmountofPlayers; i++) {
                 if (PlayerArray[i].getBalance()==0)
                     Amountof0BalP++;}
-            if (Amountof0BalP>AmountofPlayers-1) {
+            if (Amountof0BalP==AmountofPlayers-1) {
 
                 String Winners = new String();
 
@@ -457,6 +473,8 @@ public class Main {
 //          Game End
 //
 //-------------------------------------------------------------------------------------------
+//                if (selectedPlayer.)
+//                answerGameOk=false;
                 do {
 
                     //  Ask for new game
