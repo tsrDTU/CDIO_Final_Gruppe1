@@ -10,8 +10,6 @@ import GameMechanics.Fields;
 import TheBoard.BoardCreator;
 import TheBoard.Language;
 import cardClasses.Chance;
-import gui_fields.GUI_Car;
-import gui_main.GUI;
 //import player.MGUI_Player;
 
 import java.awt.*;
@@ -22,7 +20,7 @@ import static TheBoard.Base.*;
 import static TheBoard.Base.fields;
 import static TheBoard.Language.dialog;
 
-public class K3 {
+public class K3_slå_tering_flyt_bil {
     public static void main(String[] args) throws IOException {
 
         int[] OwnerList = Fields.InitialiseOwnerList();
