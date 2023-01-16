@@ -97,7 +97,7 @@ public class Main {
         String[] PlayerName = new String[AmountofPlayers];
 
         //BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
-        System.out.println(JailOn.length);
+        System.out.println("Jail on"+ JailOn.length);
 
 
 //  Sets names for each player in a for loop and gives an adjacent car with a private color
@@ -241,6 +241,7 @@ public class Main {
             //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
             ////////
             if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
+                gui.showMessage("Da du har et amnesti kort løslades du hermed fra fængslet og kan køre videre");
                 Jail.bailOut(selectedPlayer, skipPlayer);
                 JailOn[selectedPlayer.getNumber()]=false;
                 //System.out.println("Spiller skippes ikke pga. GOJF kort");

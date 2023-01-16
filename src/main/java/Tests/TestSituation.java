@@ -119,7 +119,7 @@ public class TestSituation {
             String[] PlayerName = {"Player1", "Player2", "Player3"};
 
             //BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
-            System.out.println(JailOn.length);
+            System.out.println("Jail on"+ JailOn.length);
 
 
 //  Sets names for each player in a for loop and gives an adjacent car with a private color
@@ -248,14 +248,29 @@ public class TestSituation {
 
 
                 //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
-                if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
-                    Jail.bailOut(selectedPlayer, skipPlayer);
-                    JailOn[selectedPlayer.getNumber()] = false;
-                    //System.out.println("Spiller skippes ikke pga. GOJF kort");
-                } else if (JailOn[selectedPlayer.getNumber()]) {
-                    skipPlayer[selectedPlayer.getNumber()] = true;
-                    JailOn[selectedPlayer.getNumber()] = false;
+                if (JailOn[selectedPlayer.getNumber()]) {
+                    if (selectedPlayer.getAmnistiKortHaves()) {
+                        gui.showMessage("Da du har et amnesti kort løslades du hermed fra fængslet og kan køre videre");
+                        Jail.bailOut(selectedPlayer, skipPlayer);
+                        JailOn[selectedPlayer.getNumber()] = false;
+                        //System.out.println("Spiller skippes ikke pga. GOJF kort");
+                    } else {
+                        String valg = gui.getUserButtonPressed("Du sidder fængsel. Vælg", "Slå", "Betal 1000 kr.", "Stå over");
+                        if (valg.equals("Betal 1000 kr.")) {
+                            selectedPlayer.setBalance(selectedPlayer.getBalance() - 1000);
+                            Jail.bailOut(selectedPlayer, skipPlayer);
+                            JailOn[selectedPlayer.getNumber()] = false;
+                        } else if (valg.equals("Stå over")) {
+                            skipPlayer[selectedPlayer.getNumber()] = true;
+                            JailOn[selectedPlayer.getNumber()] = true;
+                        }
+                        else
+                        {
+
+                        }
+                    }
                 }
+
                 if (skipPlayer[selectedPlayer.getNumber()]) {
                     playingPlayer++;
                     skipPlayer[selectedPlayer.getNumber()] = false;
