@@ -186,7 +186,7 @@ public class Main {
 //            for (int i = 0; i < AmountofPlayers; i++) {PlayerArray[i].setBalance(5);
 //            PlayerArray[0].setBalance(9999999);
 //            PlayerArray[1].setBalance(9999999);}
-
+//
 
 
 //-------------------------------------------------------------------------------------------

@@ -307,7 +307,7 @@ public class K20 {
 //                    d2.dice_rollT(16);
 //                    int DieSum = 32;
 //                }
-
+//
 
                 if (Round==0) {
                     d1.dice_rollT(4);
