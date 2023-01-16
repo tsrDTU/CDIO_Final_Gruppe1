@@ -104,12 +104,19 @@ public  class Chance {
             }
             //System.out.println("Chancekort nr: "+kort_nr+" trukket");
 
-            if (kort_nr==42 || kort_nr == 43 )
+            if (kort_nr==42 || kort_nr == 43 || kort_nr == 46)
             {
                  if (chanceCards[kort_nr] instanceof ChanceAmnistiFeng)
                 {
                     // Hvis kortet allerede er trukket og en anden spiller har det, skal dette træk ignoreres og et nyt kort skal trækkes
                     if (((ChanceAmnistiFeng) chanceCards[kort_nr]).getAktivt()) kOk=11;
+                }
+                else kOk=0;
+
+                if (chanceCards[kort_nr] instanceof ChanceTrump)
+                {
+                    // Hvis kortet allerede er trukket og en anden spiller har det, skal dette træk ignoreres og et nyt kort skal trækkes
+                    if (((ChanceTrump) chanceCards[kort_nr]).getAktivt()) kOk=11;
                 }
                 else kOk=0;
             }
@@ -396,6 +403,8 @@ public  class Chance {
             if (actKort instanceof ChanceTrump)
             {
                 actPlayer.setBalance(actPlayer.getBalance() + ((ChanceTrump) actKort).getBeloeb());
+                ((ChanceTrump) actKort).setAktivt(true);
+                ((ChanceTrump) actKort).setIndehaver(actPlayer.getNumber());
             }
 
         }while (slut > 1);
