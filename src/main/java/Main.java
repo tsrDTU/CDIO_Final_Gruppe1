@@ -33,7 +33,7 @@ public class Main {
         game_running = true;
         //int fieldNR = 24;
 
-        // test
+        // test test
       //  ArrayList<String> userRoles = new ArrayList<>(Arrays.asList("Bil","Skib","Hund","Kat"));
         //String[] userRoles={"Bil","Skib","Hund","Kat"};
         String[] freeUserRoles;
