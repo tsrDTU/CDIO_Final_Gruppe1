@@ -10,25 +10,25 @@ import GameMechanics.Fields;
 import TheBoard.BoardCreator;
 import TheBoard.Language;
 import cardClasses.Chance;
-import gui_fields.GUI_Car;
-import gui_main.GUI;
-//mport player.MGUI_Player;
+//import player.MGUI_Player;
 
 import java.awt.*;
 import java.io.IOException;
 
 import static GameMechanics.Die.getSum;
 import static TheBoard.Base.*;
-import static TheBoard.Base.AmountofPlayers;
+import static TheBoard.Base.fields;
 import static TheBoard.Language.dialog;
 
-public class K10 {
+public class K3_slå_tering_flyt_bil {
     public static void main(String[] args) throws IOException {
 
         int[] OwnerList = Fields.InitialiseOwnerList();
         Chance mjChance = new Chance();
         String string_in, language, answer_game;
         int antal_kant, AmountofPlayers, i, j;
+        String[] userRoles = {"Bil", "Skib", "Hund", "Kat"};
+        String[] freeUserRoles;
         MGUI_Player selectedPlayer;
         int CurrentSpaceForSelectedPlayer = 0;
 
@@ -49,15 +49,15 @@ public class K10 {
         BoardCreator.PersonCreator(AmountofPlayers, PlayerArray, PlayerName, playerCars);
 
 //  Sets names for each player in a for loop and gives an adjacent car with a private color
-            //  Sets the car of each player
         for (i = 0; i < AmountofPlayers; i++) {
             //  Sets the car of each player
-            PlayerName[i] = (gui.getUserString(dialog[3]+(i+1)+"?"));
+            PlayerName[i] = "";
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new MGUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i + 1), MGUI_Car.Pattern.FILL);
             PlayerArray[i] = new MGUI_Player(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
             Colors.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
-
+            //Set users role
+            PlayerArray[i].setUserRole(userRoles[i]);
 
 
             gui.addPlayer(PlayerArray[i]);
@@ -67,6 +67,12 @@ public class K10 {
         int[][] OwnedtrueOwnedFalse = InitializeOwnedStat(AmountofPlayers);
         boolean[] OwnStatus = Fields.OwnStatus();
 
+
+//--------------------------------------------------------------------------------
+//
+//        "GAME START"
+//
+//--------------------------------------------------------------------------------
         selectedPlayer = PlayerArray[1];
         int last_exp=30000;
         int rent;
@@ -76,12 +82,6 @@ public class K10 {
         Die d1 = new Die();
         Die d2 = new Die();
 
-//--------------------------------------------------------------------------------
-//
-//        "GAME START"
-//
-//--------------------------------------------------------------------------------
-
         while (selectedPlayer.getBalance() > 0) {
             if (selectedPlayer==PlayerArray[0])
                 selectedPlayer = PlayerArray[1];
@@ -89,7 +89,7 @@ public class K10 {
                 selectedPlayer = PlayerArray[0];
             //  Initialising something for GameMechanics.Jail and Start field
             int[] PlayerSpaceNRexcact = new int[AmountofPlayers];
-            gui.getUserButtonPressed( selectedPlayer.getName() + dialog[5], dialog[6]);
+            gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
 
 
             d1.dice_roll();

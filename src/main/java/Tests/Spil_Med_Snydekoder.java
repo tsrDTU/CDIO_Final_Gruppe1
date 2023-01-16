@@ -257,29 +257,39 @@ public class Spil_Med_Snydekoder {
             //GameMechanics.Jail.JailRegister(AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
 
+            d1.dice_roll();
+            d2.dice_roll();
             if (Objects.equals(CheatAnswer, "CHANCE")&&Round<3)
                 if (selectedPlayer.getNumber()==PlayerArray[0].getNumber()){
                     d1.dice_rollT(1);
                     d2.dice_rollT(1);
                     int DieSum = 2;}
 
-                else if (Objects.equals(CheatAnswer, "JAIL")){
-                    if (selectedPlayer.getNumber()==PlayerArray[0].getNumber()){
-                        d1.dice_rollT(16);
-                        d2.dice_rollT(16);
-                        int DieSum = 32;
-                    }
-                    else {
-                        d1.dice_roll();
-                        d2.dice_roll();
-                    }
-                }
+            else if (Objects.equals(CheatAnswer, "JAIL")){
+                 if (selectedPlayer.getNumber()==PlayerArray[0].getNumber()){
+                     d1.dice_rollT(16);
+                     d2.dice_rollT(16);
+                     int DieSum = 32;
+                 }
+                 else {
+                     d1.dice_roll();
+                     d2.dice_roll();
+                 }
+             }
+             else if (Objects.equals(CheatAnswer, "DOUBLE")){
+                if (selectedPlayer.getNumber()==PlayerArray[0].getNumber()){
+                    d1.dice_rollT(5);
+                    d2.dice_rollT(5);}
+                 else {
+                     d1.dice_roll();
+                     d2.dice_roll();
+                 }}
+
                 else {
                     d1.dice_roll();
-                    d2.dice_roll();
-                }
-            d1 = new Die();
-            d2 = new Die();
+                    d2.dice_roll();}
+//            d1 = new Die();
+//            d2 = new Die();
 
 
 
