@@ -1,3 +1,4 @@
+import Files.FileReference;
 import GameMechanics.*;
 import GUI_Beskeder.Help;
 import TheBoard.Base;
@@ -423,9 +424,6 @@ public class Main {
             else if ((selectedPlayer.getBalance() <= -1)) {
                 gui.showMessage(selectedPlayer.getName() + dialog[DialogNR]); DialogNR++;
             }
-            if (slaaet_ens == false) {
-                playingPlayer = amountOfGameLoops;
-            }
 
             boolean[] SpaceHasCurrentPlayer = new boolean[AmountofPlayers];
             for (int i = 0; i < AmountofPlayers; i++) {SpaceHasCurrentPlayer[i]=false;}
@@ -437,7 +435,19 @@ public class Main {
                 fields[CurrentSpaceForSelectedPlayer].removeAllCars();
                 SpaceHasCurrentPlayer[selectedPlayer.getNumber()]=false;
                 for (int i = 0; i < AmountofPlayers; i++) {if (SpaceHasCurrentPlayer[i]) fields[i].setCar(PlayerArray[i], true);                }
+                for (int i = 0; i < Base.fieldNR(); i++) {
+                    if (selectedPlayer.getNumber()+1 == OwnerList[i]){
+                        OwnerList[i] = 0;
+                        fields[i].setTitle(textReaderClass.textRDR(FileReference.TitleF, String.valueOf(i+1)));
+                        ownstatus[i] = false;
+                    }
+
+                }
             }
+            if (slaaet_ens == false) {
+                playingPlayer = amountOfGameLoops;
+            }
+
             answerGameOk = false;
 
 
