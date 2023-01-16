@@ -12,18 +12,14 @@ import TheBoard.Base;
 import TheBoard.BoardCreator;
 import TheBoard.Language;
 import cardClasses.Chance;
-import gui_fields.GUI_Car;
-import gui_main.GUI;
 
 import java.awt.*;
 import java.io.IOException;
 
-import static GameMechanics.Die.getSum;
 import static TheBoard.Base.*;
-import static TheBoard.Base.AmountofPlayers;
 import static TheBoard.Language.dialog;
 
-public class K9 {
+public class K9_0kr_spil_videre {
     public static void main(String[] args) throws IOException {
 
         int[] OwnerList = Fields.InitialiseOwnerList();
