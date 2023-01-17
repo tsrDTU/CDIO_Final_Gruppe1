@@ -201,7 +201,7 @@ public class Main {
         int CurrentSpaceForSelectedPlayer = 0;
         boolean[] PlayerLost = new boolean[AmountofPlayers+1];
         for (int i = 0; i < AmountofPlayers+1; i++) {PlayerLost[i]=false;}
-        PlayerArray[0].setBalance(1);
+//        PlayerArray[0].setBalance(1);
 //-------------------------------------------------------------------------------------------
 //
 //          Game Starts officially
