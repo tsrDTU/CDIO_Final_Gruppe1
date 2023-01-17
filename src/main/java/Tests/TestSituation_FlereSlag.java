@@ -268,6 +268,7 @@ import static TheBoard.Language.dialog;
 
                     //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
                     if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
+                        gui.showMessage("Da du har et amnesti kort løslades du hermed fra fængslet og kan køre videre");
                         Jail.bailOut(selectedPlayer, skipPlayer);
                         JailOn[selectedPlayer.getNumber()] = false;
                         //System.out.println("Spiller skippes ikke pga. GOJF kort");
