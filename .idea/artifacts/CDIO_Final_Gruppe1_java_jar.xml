@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="CDIOdel3Gruppe1.java:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/CDIOdel3Gruppe1_java_jar</output-path>
+  <artifact type="jar" name="CDIO_Final_Gruppe1.java:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CDIO_Final_Gruppe1_java_jar</output-path>
     <root id="archive" name="CDIOdel3Gruppe1.java.jar">
       <element id="module-output" name="CDIOdel3Gruppe1.java" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar" path-in-jar="/" />
