@@ -217,10 +217,11 @@ import static TheBoard.Language.dialog;
                 PlayerArray[0].setBalance(bal1);
                 PlayerArray[1].setBalance(bal2);
                 PlayerArray[2].setBalance(bal3);
+                GameMechanics.Fields.setTestMode();
 
                 while (!gameEnd) {
                     //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
-
+/*
                     if (slag_nr < antal_slag) {
                         if (slag_nr == 0) {
                             Fields.moveNewPosition(fields, PlayerArray, 0, PlayerArray[0], pos_pl1[slag_nr], PlayerSpaceNRexcact);
@@ -229,11 +230,17 @@ import static TheBoard.Language.dialog;
                         }
                         else
                         {
+
                             Fields.moveNewPosition(fields, PlayerArray, pos_pl1[slag_nr -1], PlayerArray[0], pos_pl1[slag_nr], PlayerSpaceNRexcact);
                             Fields.moveNewPosition(fields, PlayerArray, pospl2[slag_nr - 1], PlayerArray[1], pospl2[slag_nr], PlayerSpaceNRexcact);
-                            Fields.moveNewPosition(fields, PlayerArray, pos_pl3[slag_nr - 1], PlayerArray[2], pos_pl3[slag_nr], PlayerSpaceNRexcact);
+
+
+                          Fields.moveNewPosition(fields, PlayerArray, pos_pl3[slag_nr - 1], PlayerArray[2], pos_pl3[slag_nr], PlayerSpaceNRexcact);
+
+
                         }
                     }
+                    */
 
                     DialogNR = 5;
                     if (amountOfGameLoops == AmountofPlayers)
@@ -309,7 +316,8 @@ import static TheBoard.Language.dialog;
                     // Første slag skal ramme et felt defineret i kaldet. Derefter skal der slås normalt
                     if (slag_nr < antal_slag && selectedPlayer == PlayerArray[0]) {
                         DieSum = foerste_terning_slag[slag_nr];
-
+                        System.out.println("DieSum: "+ DieSum);
+                        System.out.println("Antal øjne: "+ foerste_terning_slag[slag_nr]);
                     } else DieSum = getSum(d1, d2);
 
 //            System.out.println(d1.getFaceValue()+" "+d2.getFaceValue());
@@ -494,7 +502,10 @@ import static TheBoard.Language.dialog;
                     // if
 //                System.exit(0);
 
-                  if (selectedPlayer==PlayerArray[0]) slag_nr++;
+                  if (selectedPlayer==PlayerArray[0]) {
+                      slag_nr++;
+                      System.out.println("Næste slag");
+                  }
                 }
             }
         }

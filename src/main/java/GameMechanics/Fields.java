@@ -17,6 +17,7 @@ import EgneGuiKlasser.*;
 //import static cardClasses.*;
 
 public class Fields {
+    private static boolean testMode=false;
 //
 //
 //            Checks if anyone owns the space you give it
@@ -290,11 +291,20 @@ public class Fields {
             //  This is a check for if the player wants to buy, ((It does not function because the player is forced to buy))
             ///if (boolforBUY) {
             //  This checks if the selected player has enough money, And buys the space if it does.
+
             if (!OwnStatus[CurrentSpaceForSelectedPlayer] && Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent())!=0){
                 System.out.println(CurrentSpaceForSelectedPlayer+" "+ fields[CurrentSpaceForSelectedPlayer].getRent()+" CSSP");
                 BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
                         CurrentSpaceForSelectedPlayer, OwnStatus, OwnerList);
+// TSR
 
+                if (testMode) {
+                    String valg = gui.getUserButtonPressed("Du ejer dette felt. Vil du købe et hus?", "Ja", "Nej");
+
+                    if (valg.equals("Ja")) {
+                        fields[CurrentSpaceForSelectedPlayer].setHouses(1);
+                    }
+                }
 
 //                fields[CurrentSpaceForSelectedPlayer].setTitle(fields[CurrentSpaceForSelectedPlayer].getTitle()+ " "+selectedPlayer.getName());
 //                OwnStatus[CurrentSpaceForSelectedPlayer]=true;
@@ -425,11 +435,20 @@ public class Fields {
 
 
     }
+
+    public static void setTestMode()
+    {
+        testMode=true;
+    }
+
+
+
 /* TSR
     public void setHouse(MGUI_Street[] fields ,int field_nr, int antal_huse)
     {
 
     }
+
 
  */
 

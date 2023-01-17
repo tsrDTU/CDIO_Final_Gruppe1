@@ -43,6 +43,7 @@ public class Main {
         int[] OwnerList = Fields.InitialiseOwnerList();
         boolean[] ownstatus = Fields.OwnStatus();
         int[] antal_slag_i_faengsel=new int[7];
+        String valg;
 
 
 //-------------------------------------------------------------------------------------------
@@ -275,7 +276,7 @@ public class Main {
                     JailOn[selectedPlayer.getNumber()] = false;
                     //System.out.println("Spiller skippes ikke pga. GOJF kort");
                 } else {
-                    String valg = gui.getUserButtonPressed("Du sidder fængsel. Vælg", "Slå", "Betal 1000 kr.", "Stå over");
+                     valg = gui.getUserButtonPressed("Du sidder fængsel. Vælg", "Slå", "Betal 1000 kr.", "Stå over");
                     if (valg.equals("Betal 1000 kr.")) {
                         selectedPlayer.setBalance(selectedPlayer.getBalance() - 1000);
                         Jail.bailOut(selectedPlayer, skipPlayer);
@@ -424,8 +425,21 @@ public class Main {
 
                 if (Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent())==0)
                     wanttobuyanswer=true;
-                else if (ownstatus[CurrentSpaceForSelectedPlayer])
-                    wanttobuyanswer=false;
+                else if (ownstatus[CurrentSpaceForSelectedPlayer]) {
+                    wanttobuyanswer = false;
+                    /*
+                   if (OwnerList[CurrentSpaceForSelectedPlayer]== selectedPlayer.getNumber())
+                   {
+                    valg=gui.getUserButtonPressed("Du ejer dette felt. Vil du købe et hus?", "Ja", "Nej");
+
+                    if (valg.equals("ja"))
+                    {
+                        Base.fields[CurrentSpaceForSelectedPlayer].setHotel(true);
+                    }
+                   }
+
+                     */
+                }
                 else {
                     String wanttobuy = gui.getUserButtonPressed("Do you want to buy?", "Yes", "No");
                     if (wanttobuy.equals("Yes")) wanttobuyanswer = true;
