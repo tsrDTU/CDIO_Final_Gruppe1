@@ -1,6 +1,7 @@
 package Tests;
-import GUI_Beskeder.Help;
+import Files.FileReference;
 import GameMechanics.*;
+import GUI_Beskeder.Help;
 import TheBoard.Base;
 import TheBoard.BoardCreator;
 import cardClasses.Chance;
@@ -20,6 +21,8 @@ import static TheBoard.Language.dialog;
 
 import EgneGuiKlasser.*;
 import gui_resources.Attrs;
+//hej
+//v1.2
 
 public class Spil_Med_Snydekoder {
 
@@ -28,15 +31,20 @@ public class Spil_Med_Snydekoder {
     public static void main(String[] args) throws IOException {
         String string_in, language, answer_game;
         int antal_kant, j, DialogNR=2;
+        boolean slaaet_ens;
         boolean game_running, answerGameOk;
         game_running = true;
         //int fieldNR = 24;
+
+        // test
         //  ArrayList<String> userRoles = new ArrayList<>(Arrays.asList("Bil","Skib","Hund","Kat"));
         //String[] userRoles={"Bil","Skib","Hund","Kat"};
         String[] freeUserRoles;
 
         int[] OwnerList = Fields.InitialiseOwnerList();
         boolean[] ownstatus = Fields.OwnStatus();
+        int[] antal_slag_i_faengsel=new int[7];
+
 
 //-------------------------------------------------------------------------------------------
 //
@@ -93,7 +101,7 @@ public class Spil_Med_Snydekoder {
         String[] PlayerName = new String[AmountofPlayers];
 
         //BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
-        System.out.println(JailOn.length);
+        System.out.println("Jail on"+ JailOn.length);
 
 
 //  Sets names for each player in a for loop and gives an adjacent car with a private color
@@ -154,7 +162,11 @@ public class Spil_Med_Snydekoder {
         Die d1 = new Die();
         Die d2 = new Die();
 //        System.out.println(d1.getFaceValue()+d2.getFaceValue()+" 22222222");
-
+        if (Objects.equals(CheatAnswer, "PL12K"))
+            PlayerArray[0].setBalance(2000);
+        if (Objects.equals(CheatAnswer, "ALLBUT1"))
+            for (int i = 0; i < AmountofPlayers-1; i++) {
+                PlayerArray[i].setBalance(500);}
 
         // If sides are different from 6, set the number of sides.
         /*if (antal_kant != 6) {
@@ -180,11 +192,12 @@ public class Spil_Med_Snydekoder {
             for (int i = 0; i < AmountofPlayers; i++) {PlayerArray[i].setBalance(5000000);}
         if (Objects.equals(CheatAnswer,"MINMAX"))
             for (int i = 0; i < AmountofPlayers; i++) {PlayerArray[i].setBalance(5);
-                PlayerArray[0].setBalance(9999999);
-                PlayerArray[1].setBalance(9999999);}
-
-
-
+            PlayerArray[0].setBalance(9999999);
+            PlayerArray[1].setBalance(9999999);}
+//
+        boolean[] PlayerLost = new boolean[AmountofPlayers+1];
+        for (int i = 0; i < AmountofPlayers+1; i++) {PlayerLost[i]=false;}
+//
 //-------------------------------------------------------------------------------------------
 //
 //          Game Starts officially
@@ -195,23 +208,39 @@ public class Spil_Med_Snydekoder {
         selectedPlayer = PlayerArray[0];
         playingPlayer2 = 1;
 
+        slaaet_ens=false;
+
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
-            DialogNR = 5;
-            if (amountOfGameLoops == AmountofPlayers)
-                amountOfGameLoops = 0;
-            if (playingPlayer == AmountofPlayers)
-                playingPlayer = 0/*playingPlayer2*/;
+            for (int i = 0; i < AmountofPlayers; i++) {if (PlayerArray[i].getBalance()<=0) PlayerArray[i].setBalance(0);
+            }
 
-//              LINJE 200
-//              LINJE 410
+            if (PlayerLost[selectedPlayer.getNumber()]) {
+                System.out.println("habbawdabdajshdbawdhabosdjahbws");
+                if (selectedPlayer.getNumber()+1==AmountofPlayers)
+                    selectedPlayer = PlayerArray[0];
+                else selectedPlayer = PlayerArray[selectedPlayer.getNumber()+1];
+            }
 
-            playingPlayer2 = playingPlayer;
-            if (selection) selectedPlayer = PlayerArray[playingPlayer];
-            else selectedPlayer = PlayerArray[playingPlayer2];
+            if (!slaaet_ens) {
+                DialogNR = 5;
+                if (amountOfGameLoops == AmountofPlayers)
+                    amountOfGameLoops = 0;
+                if (playingPlayer >= AmountofPlayers)
+                    playingPlayer = playingPlayer2;
+                playingPlayer2 = playingPlayer;
+                if (selection) selectedPlayer = PlayerArray[playingPlayer];
+                else selectedPlayer = PlayerArray[0]/*PlayerArray[playingPlayer2]*/;
+            }
+            else {
+                if (amountOfGameLoops >= AmountofPlayers)
+                    amountOfGameLoops = 0;
+                gui.showMessage("Du har slået 2 ens og får et ekstra slag.");
+                DialogNR = 5;
+                slaaet_ens=false;
+            }
 
-            if (selectedPlayer.getBalance()==0)
-                skipPlayer[selectedPlayer.getNumber()]=true;
+
 
 //            if (selectedPlayer.getBalance() <= 0) {
 //                Fields.ResetOnePlayerOwnStatus(selectedPlayer, OwnedtrueOwnedFalse/*,fields, CurrentSpaceForSelectedPlayer*/);
@@ -228,12 +257,80 @@ public class Spil_Med_Snydekoder {
 
             //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
             ////////
+            /*
             if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
+                gui.showMessage("Da du har et amnesti kort løslades du hermed fra fængslet og kan køre videre");
                 Jail.bailOut(selectedPlayer, skipPlayer);
                 JailOn[selectedPlayer.getNumber()]=false;
                 //System.out.println("Spiller skippes ikke pga. GOJF kort");
             } else if (JailOn[selectedPlayer.getNumber()]){
                 skipPlayer[selectedPlayer.getNumber()] = true; JailOn[selectedPlayer.getNumber()]=false;}
+
+             */
+            if (JailOn[selectedPlayer.getNumber()])
+            {
+                if (selectedPlayer.getAmnistiKortHaves())
+                {
+                    gui.showMessage("Da du har et amnesti kort løslades du hermed fra fængslet og kan køre videre");
+                    Jail.bailOut(selectedPlayer, skipPlayer);
+                    JailOn[selectedPlayer.getNumber()] = false;
+                    //System.out.println("Spiller skippes ikke pga. GOJF kort");
+                } else {
+                    String valg = gui.getUserButtonPressed("Du sidder fængsel. Vælg", "Slå", "Betal 1000 kr.", "Stå over");
+                    if (valg.equals("Betal 1000 kr.")) {
+                        selectedPlayer.setBalance(selectedPlayer.getBalance() - 1000);
+                        Jail.bailOut(selectedPlayer, skipPlayer);
+                        JailOn[selectedPlayer.getNumber()] = false;
+                    } else if (valg.equals("Stå over"))
+                    {
+                        if (antal_slag_i_faengsel[selectedPlayer.getNumber()] > 0)
+                        {
+                            skipPlayer[selectedPlayer.getNumber()] = true;
+                            JailOn[selectedPlayer.getNumber()] = true;
+                            antal_slag_i_faengsel[selectedPlayer.getNumber()]--;
+                        }
+                        else
+                        {
+                            gui.showMessage("Du har siddet i fængsel 3 gange nu og skal videre. Der trækkes 1000 kr. på din konto");
+                            selectedPlayer.setBalance(selectedPlayer.getBalance() - 1000);
+                            Jail.bailOut(selectedPlayer, skipPlayer);
+                            JailOn[selectedPlayer.getNumber()] = false;
+                        }
+                    }
+                    else
+                    {
+                        if (antal_slag_i_faengsel[selectedPlayer.getNumber()] > 0)
+                        {
+                            d1.dice_roll();
+                            d2.dice_roll();
+                            if (d1.getFaceValue() == d2.getFaceValue())
+                            {
+                                Jail.bailOut(selectedPlayer, skipPlayer);
+                                JailOn[selectedPlayer.getNumber()] = false;
+                                gui.showMessage("Du slog ens og er fri");
+                            }
+                            else
+                            {
+                                gui.showMessage("Du slog ikke ens og er stadig i fængsel");
+                                Jail.bailOut(selectedPlayer, skipPlayer);
+                                JailOn[selectedPlayer.getNumber()] = true;
+                                skipPlayer[selectedPlayer.getNumber()]=true;
+                                antal_slag_i_faengsel[selectedPlayer.getNumber()]--;
+                            }
+                        }
+                        else
+                        {
+                            gui.showMessage("Du har siddet i fængsel 3 gange nu og skal videre. Der trækkes 1000 kr. på din konto");
+                            selectedPlayer.setBalance(selectedPlayer.getBalance() - 1000);
+                            Jail.bailOut(selectedPlayer, skipPlayer);
+                            JailOn[selectedPlayer.getNumber()] = false;
+                        }
+
+                    }
+                }
+            }
+
+
             if (skipPlayer[selectedPlayer.getNumber()]) {
                 System.out.println("Player skipped");
                 playingPlayer++;
@@ -242,7 +339,7 @@ public class Spil_Med_Snydekoder {
 
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
-                if (playingPlayer == AmountofPlayers)
+                if (playingPlayer >= AmountofPlayers)
                     playingPlayer = 0;
 
                 playingPlayer2 = playingPlayer;
@@ -252,13 +349,10 @@ public class Spil_Med_Snydekoder {
             ///////
 
 
-
             //if (amountOfGameLoops == 0);
             //GameMechanics.Jail.JailRegister(AmountofPlayers, TheBoard.Base.fieldNR(), fields);
             //roll the dices
 
-//            d1.dice_roll();
-//            d2.dice_roll();
             if (Objects.equals(CheatAnswer, "CHANCE")&&Round<3)
                 if (selectedPlayer.getNumber()==PlayerArray[0].getNumber()){
                     d1.dice_rollT(1);
@@ -266,31 +360,22 @@ public class Spil_Med_Snydekoder {
                     int DieSum = 2;}
 
             else if (Objects.equals(CheatAnswer, "JAIL")){
-                 if (selectedPlayer.getNumber()==PlayerArray[0].getNumber()){
-                     d1.dice_rollT(16);
-                     d2.dice_rollT(16);
-                     int DieSum = 32;
-                 }
-                 else {
-                     d1.dice_roll();
-                     d2.dice_roll();
-                 }
-             }
-             else if (Objects.equals(CheatAnswer, "DOUBLE")){
                 if (selectedPlayer.getNumber()==PlayerArray[0].getNumber()){
-                    d1.dice_rollT(5);
-                    d2.dice_rollT(5);}
-                 else {
-                     d1.dice_roll();
-                     d2.dice_roll();
-                 }
-             }
+                    d1.dice_rollT(16);
+                    d2.dice_rollT(16);
+                    int DieSum = 32;
+                }
 
-             else {
-                 d1.dice_roll();
-                 d2.dice_roll();}
-//            d1 = new Die();
-//            d2 = new Die();
+
+            d1.dice_roll();
+            d2.dice_roll();
+//                d1.dice_rollT(4);
+//                d2.dice_rollT(4);
+
+            if (d1.getFaceValue() == d2.getFaceValue()) slaaet_ens=true;
+
+            //          d1 = new Die();
+            //          d2 = new Die();
 
 
 
@@ -303,6 +388,7 @@ public class Spil_Med_Snydekoder {
 
             //int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
             int DieSum = getSum(d1,d2);
+            GameMechanics.Die.OnBoard(d1, d2, gui);
 
 //            System.out.println(d1.getFaceValue()+" "+d2.getFaceValue());
 
@@ -359,6 +445,7 @@ public class Spil_Med_Snydekoder {
                             PlayerSpaceNRexcact,
                             JailOn, chankort, gui, fields, ownstatus, OwnerList);
                     selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
+                    antal_slag_i_faengsel[selectedPlayer.getNumber()]=2;
                     //System.out.println(NewBalance);       | EMPTY NOTE |
                 }
                 else if (ownstatus[CurrentSpaceForSelectedPlayer] || wanttobuyanswer)
@@ -408,7 +495,29 @@ public class Spil_Med_Snydekoder {
             else if ((selectedPlayer.getBalance() <= -1)) {
                 gui.showMessage(selectedPlayer.getName() + dialog[DialogNR]); DialogNR++;
             }
-            playingPlayer = amountOfGameLoops;
+
+            boolean[] SpaceHasCurrentPlayer = new boolean[AmountofPlayers];
+            for (int i = 0; i < AmountofPlayers; i++) {SpaceHasCurrentPlayer[i]=false;}
+            if (selectedPlayer.getBalance()<=0) {
+                PlayerLost[selectedPlayer.getNumber()] = true;
+                Fields.ResetOnePlayerOwnStatus(selectedPlayer, OwnedtrueOwnedFalse);
+                for (int i = 0; i < AmountofPlayers; i++) {
+                    if (fields[CurrentSpaceForSelectedPlayer].hasCar(PlayerArray[i])) SpaceHasCurrentPlayer[i]=true;}
+                fields[CurrentSpaceForSelectedPlayer].removeAllCars();
+                SpaceHasCurrentPlayer[selectedPlayer.getNumber()]=false;
+                for (int i = 0; i < AmountofPlayers; i++) {if (SpaceHasCurrentPlayer[i]) fields[i].setCar(PlayerArray[i], true);                }
+                for (int i = 0; i < Base.fieldNR(); i++) {
+                    if (selectedPlayer.getNumber()+1 == OwnerList[i]){
+                        OwnerList[i] = 0;
+                        fields[i].setTitle(textReaderClass.textRDR(FileReference.TitleF, String.valueOf(i+1)));
+                        ownstatus[i] = false;
+                    }
+
+                }
+            }
+            if (slaaet_ens == false) {
+                playingPlayer = amountOfGameLoops;
+            }
 
             answerGameOk = false;
 
@@ -430,33 +539,13 @@ public class Spil_Med_Snydekoder {
             for (int i = 0; i < AmountofPlayers; i++) {
                 if (PlayerArray[i].getBalance()==0)
                     Amountof0BalP++;}
-            if (Amountof0BalP>AmountofPlayers-1) {
+            if (Amountof0BalP==AmountofPlayers-1) {
 
                 String Winners = new String();
 
                 Winners = GameMechanics.Winner.Values(PlayerArray,selectedPlayer);
                 WinnerMoney = GameMechanics.Winner.Money(PlayerArray,selectedPlayer);
 
-                /*
-
-                for (int i = 1; i < AmountofPlayers; i++) {
-                    //  if the player has more money, set it as the new winner, by resetting the array and putting the new value in
-                    if (PlayerArray[i].getBalance() > WinnerMoney) {
-                        for (int b = 0; b < AmountofPlayers; b++) {
-                            Winners[b] = " ";
-                        }
-                        Winners[i] = PlayerArray[i].getName();
-                        WinnerMoney = PlayerArray[i].getBalance();
-                        WinnerInt = i;
-                    }
-                    // if the next player has the same balance as previous player, set both as winners
-                    else if (PlayerArray[i].getBalance() == WinnerMoney)
-                        for (int l = 1; l < AmountofPlayers; l++) {
-                            Winners[i] = (Winners[i - 1] + " " + PlayerArray[i].getName());
-                        }
-                }
-
-                */
 
                 //  Displaying the Winners
                 gui.showMessage(Winners + dialog[DialogNR] + WinnerMoney); DialogNR++;
@@ -465,6 +554,8 @@ public class Spil_Med_Snydekoder {
 //          Game End
 //
 //-------------------------------------------------------------------------------------------
+//                if (selectedPlayer.)
+//                answerGameOk=false;
                 do {
 
                     //  Ask for new game
@@ -500,7 +591,7 @@ public class Spil_Med_Snydekoder {
             // if
 //                System.exit(0);
         }
-    }
+    }}
     //-------------------------------------------------------------------------------------
     //
     //          Text reader

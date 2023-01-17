@@ -83,7 +83,7 @@ public class Main {
 
 
 
-            String CheatAnswer = gui.getUserString(dialog[14]+". Cheat Code: ");
+//            String CheatAnswer = gui.getUserString(dialog[14]+". Cheat Code: ");
 
             //Asks how many players, and sets cars and players
             String Players = gui.getUserButtonPressed(dialog[DialogNR], "2", "3", "4","5","6"); DialogNR++;
@@ -161,11 +161,11 @@ public class Main {
             Die d1 = new Die();
             Die d2 = new Die();
 //        System.out.println(d1.getFaceValue()+d2.getFaceValue()+" 22222222");
-        if (Objects.equals(CheatAnswer, "C4"))
-            PlayerArray[0].setBalance(2000);
-        if (Objects.equals(CheatAnswer, "AB1"))
-            for (int i = 0; i < AmountofPlayers-1; i++) {
-                PlayerArray[i].setBalance(500);}
+//        if (Objects.equals(CheatAnswer, "C4"))
+//            PlayerArray[0].setBalance(2000);
+//        if (Objects.equals(CheatAnswer, "AB1"))
+//            for (int i = 0; i < AmountofPlayers-1; i++) {
+//                PlayerArray[i].setBalance(500);}
 
         // If sides are different from 6, set the number of sides.
         /*if (antal_kant != 6) {
