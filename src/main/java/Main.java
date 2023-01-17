@@ -302,6 +302,7 @@ public class Main {
                         {
                             d1.dice_roll();
                             d2.dice_roll();
+                            Die.OnBoard(d1,d2,gui);
                             if (d1.getFaceValue() == d2.getFaceValue())
                             {
                                 Jail.bailOut(selectedPlayer, skipPlayer);
