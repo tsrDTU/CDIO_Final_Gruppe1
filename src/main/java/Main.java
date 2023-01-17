@@ -215,7 +215,6 @@ public class Main {
             }
 
             if (PlayerLost[selectedPlayer.getNumber()]) {
-                System.out.println("habbawdabdajshdbawdhabosdjahbws");
                 if (selectedPlayer.getNumber()+1==AmountofPlayers)
                    selectedPlayer = PlayerArray[0];
                 else selectedPlayer = PlayerArray[selectedPlayer.getNumber()+1];
@@ -226,10 +225,11 @@ public class Main {
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
                 if (playingPlayer >= AmountofPlayers)
-                    playingPlayer = playingPlayer2;
+                    playingPlayer = 0/*playingPlayer2*/;
                 playingPlayer2 = playingPlayer;
                 if (selection) selectedPlayer = PlayerArray[playingPlayer];
-                else selectedPlayer = PlayerArray[0]/*PlayerArray[playingPlayer2]*/;
+                else selectedPlayer = /*PlayerArray[0]*/PlayerArray[playingPlayer2];
+                System.out.println("-          PlayingPlayer 2 = "+PlayerArray[playingPlayer2]);
             }
             else {
                 if (amountOfGameLoops >= AmountofPlayers)
@@ -450,8 +450,8 @@ public class Main {
                 else if (ownstatus[CurrentSpaceForSelectedPlayer] || wanttobuyanswer)
                     Fields.PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer
                             , PlayerArray, ownstatus, OwnerList);
-
-                amountOfGameLoops++;
+                if (!slaaet_ens)
+                    amountOfGameLoops++;
                 Round++;
 
 
