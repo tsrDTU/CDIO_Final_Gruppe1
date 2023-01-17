@@ -147,9 +147,9 @@ public class Spil_Med_Snydekoder {
         // The player who starts has been selected
         boolean selection = true;
         //Sets all player locations on the board to space 0
-        for (int i = 0; i < AmountofPlayers; i++) {
-            if (i > 0 && Base.fields[i] != null) Base.fields[0].setCar(PlayerArray[i], true);
-        }
+//        for (int i = 0; i < AmountofPlayers; i++) {
+//            if (i > 0 && Base.fields[i] != null) Base.fields[0].setCar(PlayerArray[i], true);
+//        }
 
 
         int intselect = 0;
@@ -211,6 +211,16 @@ public class Spil_Med_Snydekoder {
         slaaet_ens=false;
 
         while (!gameEnd) {
+            if (Round==1 && PlayerLost[0]) {
+                for (int i = 0; i < AmountofPlayers; i++) {
+                    fields[i].removeAllCars();
+                }
+                for (int i = 0; i < AmountofPlayers; i++) {
+                    fields[i].setCar(PlayerArray[i], true);
+                    if (PlayerLost[i]) fields[i].setCar(PlayerArray[i], false);
+                }
+            }
+            gui.getUserButtonPressed("22", "fa", "na");
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
 //                for (int i = 0; i < AmountofPlayers; i++) {if (PlayerArray[i].getBalance() <= 0) PlayerArray[i].setBalance(0);}
 ////                if (PlayerLost[selectedPlayer.getNumber()]) selectedPlayer;
@@ -252,9 +262,9 @@ public class Spil_Med_Snydekoder {
                     if (selection) selectedPlayer = PlayerArray[playingPlayer];
                     else {selectedPlayer = PlayerArray[0]/*PlayerArray[playingPlayer2]*/;
 
-                        for (int i = 0; i < AmountofPlayers; i++) {if (PlayerLost[i]) playingPlayer = i+1;
-
-                        }
+//                        for (int i = 0; i < AmountofPlayers; i++) {if (PlayerLost[i]) playingPlayer = i+1;
+//
+//                        }
                         if (PlayerLost[selectedPlayer.getNumber()])
                             for (int i = 0; i < AmountofPlayers; i++) {if (PlayerArray[i].getBalance() <= 0) PlayerArray[i].setBalance(0);}}
                 } else {
@@ -411,8 +421,9 @@ public class Spil_Med_Snydekoder {
 
                 if (!gameEnd) {
                     // Moves the cars around the field and gives consequence- see the GameMechanics.Cars Class under - src/main/java/GameMechanics.Cars
-                    Cars.moveCars(DieSum, selectedPlayer, PlayerArray, /*fields*/ AmountofPlayers, Base.fieldNR());
-
+                    if (!PlayerLost[selectedPlayer.getNumber()])
+                        Cars.moveCars(DieSum, selectedPlayer, PlayerArray, /*fields*/ AmountofPlayers, Base.fieldNR());
+                    System.out.println();
                     //  Sets the current space for the selected player to a value
                     CurrentSpaceForSelectedPlayer = 0;
                     for (int i = 0; i < Base.fieldNR(); i++) {
@@ -505,13 +516,20 @@ public class Spil_Med_Snydekoder {
             boolean[] SpaceHasCurrentPlayer = new boolean[AmountofPlayers];
             for (int i = 0; i < AmountofPlayers; i++) {SpaceHasCurrentPlayer[i]=false;}
             if (selectedPlayer.getBalance()<=0) {
-                PlayerLost[selectedPlayer.getNumber()] = true;
-                Fields.ResetOnePlayerOwnStatus(selectedPlayer, OwnedtrueOwnedFalse);
-                for (int i = 0; i < AmountofPlayers; i++) {
-                    if (fields[CurrentSpaceForSelectedPlayer].hasCar(PlayerArray[i])) SpaceHasCurrentPlayer[i]=true;}
-                fields[CurrentSpaceForSelectedPlayer].removeAllCars();
-                SpaceHasCurrentPlayer[selectedPlayer.getNumber()]=false;
-                for (int i = 0; i < AmountofPlayers; i++) {if (SpaceHasCurrentPlayer[i]) fields[i].setCar(PlayerArray[i], true);                }
+                for (int c = 0; c < AmountofPlayers; c++) {
+                    if (SpaceHasCurrentPlayer[c]) fields[CurrentSpaceForSelectedPlayer].setCar(PlayerArray[c], false);
+                }
+//                PlayerLost[selectedPlayer.getNumber()] = true;
+//                Fields.ResetOnePlayerOwnStatus(selectedPlayer, OwnedtrueOwnedFalse);
+//                for (int i = 0; i < AmountofPlayers; i++) {
+////                    if (fields[CurrentSpaceForSelectedPlayer].hasCar(PlayerArray[i])) SpaceHasCurrentPlayer[i]=true;
+//                }
+//                fields[CurrentSpaceForSelectedPlayer].removeAllCars();
+//                SpaceHasCurrentPlayer[selectedPlayer.getNumber()]=false;
+//
+//                for (int c = 0; c < AmountofPlayers; c++) {
+//                    if (SpaceHasCurrentPlayer[c]) fields[CurrentSpaceForSelectedPlayer].setCar(PlayerArray[c], true);                }
+
                 for (int i = 0; i < Base.fieldNR(); i++) {
                     if (selectedPlayer.getNumber()+1 == OwnerList[i]){
                         OwnerList[i] = 0;

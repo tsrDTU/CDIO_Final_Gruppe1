@@ -198,6 +198,7 @@ public class Main {
 //            PlayerArray[0].setBalance(9999999);
 //            PlayerArray[1].setBalance(9999999);}
 //
+        int CurrentSpaceForSelectedPlayer = 0;
         boolean[] PlayerLost = new boolean[AmountofPlayers+1];
         for (int i = 0; i < AmountofPlayers+1; i++) {PlayerLost[i]=false;}
         PlayerArray[0].setBalance(1);
@@ -215,46 +216,93 @@ public class Main {
 
         while (!gameEnd) {
             //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
-            for (int i = 0; i < AmountofPlayers; i++) {if (PlayerArray[i].getBalance()<=0) PlayerArray[i].setBalance(0);
-            }
+            boolean[] SpaceHasCurrentPlayer = new boolean[AmountofPlayers];
+            for (int i = 0; i < AmountofPlayers; i++) {SpaceHasCurrentPlayer[i]=false;}
+            for (int i = 0; i < Base.fieldNR(); i++) {
+                if (fields[i].hasCar(PlayerArray[selectedPlayer.getNumber()])&& PlayerLost[selectedPlayer.getNumber()]) {
 
-            if (PlayerLost[selectedPlayer.getNumber()]) {
-                if (selectedPlayer.getNumber()+1==AmountofPlayers){
-                    selectedPlayer = PlayerArray[0];
-                    for (int i = 0; i < AmountofPlayers; i++) {if (PlayerLost[i]) {
-                        if (PlayerArray[i].getNumber()==AmountofPlayers) selectedPlayer = PlayerArray[0];
-                        else selectedPlayer = PlayerArray[i];
-                        }
+                    for (int c = 0; c < AmountofPlayers; c++) {
+                        if (fields[c].hasCar(PlayerArray[c]))
+                            SpaceHasCurrentPlayer[c] = true;
                     }
-
-                    for (int i = 0; i < AmountofPlayers; i++) {if (PlayerArray[i].getBalance()<=0) PlayerArray[i].setBalance(0);
+                    fields[i].removeAllCars();
+                    SpaceHasCurrentPlayer[selectedPlayer.getNumber()] = false;
+                    for (int d = 0; d < AmountofPlayers; d++) {
+                        if (SpaceHasCurrentPlayer[d]) fields[d].setCar(PlayerArray[d], true);
                     }
+                    CurrentSpaceForSelectedPlayer=0;
                 }
-                else selectedPlayer = PlayerArray[selectedPlayer.getNumber()+1];
+
             }
+
+
+//            for (int i = 0; i < AmountofPlayers; i++) {if (PlayerArray[i].getBalance()<=0) PlayerArray[i].setBalance(0);
+//            }
+//            for (int i = 0; i < AmountofPlayers; i++) {if (selectedPlayer.getBalance()==0) playingPlayer++;
+//            }
+                if (PlayerLost[selectedPlayer.getNumber()]){
+                    playingPlayer2 = playingPlayer;
+                    if (playingPlayer==AmountofPlayers) playingPlayer=0;
+            if (selection) selectedPlayer = PlayerArray[playingPlayer];
+            else selectedPlayer = /*PlayerArray[0]*/PlayerArray[playingPlayer2];}
+//            if (playingPlayer2==AmountofPlayers) playingPlayer2=0;
+//            if (PlayerLost[selectedPlayer.getNumber()]) {
+//                playingPlayer= playingPlayer2
+//                ;}
+//            if (PlayerLost[selectedPlayer.getNumber()]) {
+//                if (selectedPlayer.getNumber()+1==AmountofPlayers) {
+//                    selectedPlayer = PlayerArray[0];}
+//                    if (selectedPlayer == PlayerArray[0]){
+//                        if (PlayerLost[AmountofPlayers]) selectedPlayer = PlayerArray[0];
+//
+//                        for (int i = 0; i < AmountofPlayers; i++) {
+//                            if (PlayerLost[i]) {
+//                                if (PlayerArray[i].getNumber() == AmountofPlayers) selectedPlayer = PlayerArray[0];
+//                                else selectedPlayer = PlayerArray[i];
+//                                if (!PlayerLost[selectedPlayer.getNumber()]) break;
+//                            }
+//
+//                        }
+//
+//
+//                    for (int i = 0; i < AmountofPlayers; i++) {if (PlayerArray[i].getBalance()<=0) PlayerArray[i].setBalance(0);
+//                    }
+//                }
+//                else selectedPlayer = PlayerArray[selectedPlayer.getNumber()+1];
+//            }
 
             if (!slaaet_ens) {
                 DialogNR = 5;
                 if (amountOfGameLoops == AmountofPlayers)
                     amountOfGameLoops = 0;
+
                 if (playingPlayer >= AmountofPlayers)
                     playingPlayer = 0/*playingPlayer2*/;
+//                for (int i = 0; i < Base.fieldNR(); i++) {
+//                            if (!fields[i].hasCar(selectedPlayer)) {
+//                                selectedPlayer=PlayerArray[(amountOfGameLoops%AmountofPlayers)];
+//                                if (fields[i].hasCar(selectedPlayer)) selectedPlayer = PlayerArray[amountOfGameLoops];
+////                                else selectedPlayer = PlayerArray[i];
+//                                if (!PlayerLost[selectedPlayer.getNumber()]) break;
+//                            }
+//                        }
                 playingPlayer2 = playingPlayer;
                 if (selection) selectedPlayer = PlayerArray[playingPlayer];
                 else selectedPlayer = /*PlayerArray[0]*/PlayerArray[playingPlayer2];
-                for (int i = 0; i < AmountofPlayers; i++) {
-                    if (PlayerLost[selectedPlayer.getNumber()]) {
-                        if (i==AmountofPlayers-1) selectedPlayer=PlayerArray[0];
-                            else selectedPlayer=PlayerArray[i+1];
-                    }
-                    else break;
-
-                }
+//                for (int i = 0; i < AmountofPlayers; i++) {
+//                    if (PlayerLost[selectedPlayer.getNumber()]) {
+//                        if (i==AmountofPlayers-1) selectedPlayer=PlayerArray[0];
+//                            else selectedPlayer=PlayerArray[i+1];
+//                    }
+//                    else break;
+//
+//                }
             }
             else {
                 if (amountOfGameLoops >= AmountofPlayers)
                     amountOfGameLoops = 0;
-                gui.showMessage("Du har slået 2 ens og får et ekstra slag.");
+                if (!PlayerLost[selectedPlayer.getNumber()])
+                    gui.showMessage(selectedPlayer.getName()+" Du har slået 2 ens og får et ekstra slag.");
                 DialogNR = 5;
                 slaaet_ens=false;
             }
@@ -290,12 +338,12 @@ public class Main {
             {
                 if (selectedPlayer.getAmnistiKortHaves())
                 {
-                    gui.showMessage("Da du har et amnesti kort løslades du hermed fra fængslet og kan køre videre");
+                    gui.showMessage(selectedPlayer.getName()+" Da du har et amnesti kort løslades du hermed fra fængslet og kan køre videre");
                     Jail.bailOut(selectedPlayer, skipPlayer);
                     JailOn[selectedPlayer.getNumber()] = false;
                     //System.out.println("Spiller skippes ikke pga. GOJF kort");
                 } else {
-                    valg = gui.getUserButtonPressed("Du sidder i fængsel. Vælg", "Slå", "Betal 1000 kr.", "Stå over");
+                    valg = gui.getUserButtonPressed(selectedPlayer.getName()+" Du sidder i fængsel. Vælg", "Slå", "Betal 1000 kr.", "Stå over");
                     if (valg.equals("Betal 1000 kr.")) {
                         selectedPlayer.setBalance(selectedPlayer.getBalance() - 1000);
                         Jail.bailOut(selectedPlayer, skipPlayer);
@@ -310,7 +358,7 @@ public class Main {
                         }
                         else
                         {
-                            gui.showMessage("Du har siddet i fængsel 3 gange nu og skal videre. Der trækkes 1000 kr. på din konto");
+                            gui.showMessage(selectedPlayer.getName()+" Du har siddet i fængsel 3 gange nu og skal videre. Der trækkes 1000 kr. på din konto");
                             selectedPlayer.setBalance(selectedPlayer.getBalance() - 1000);
                             Jail.bailOut(selectedPlayer, skipPlayer);
                             JailOn[selectedPlayer.getNumber()] = false;
@@ -396,6 +444,11 @@ public class Main {
 
   //          d1 = new Die();
   //          d2 = new Die();
+            if (PlayerLost[selectedPlayer.getNumber()]){
+                d1.dice_rollT(0);
+                d2.dice_rollT(0);
+                slaaet_ens=false;
+            }
 
 
 
@@ -403,24 +456,30 @@ public class Main {
 
 
             //Inform which user is playing
-            gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1]+" ", dialog[DialogNR+2]); DialogNR+=3;
+            if (!PlayerLost[selectedPlayer.getNumber()])
+                gui.getUserButtonPressed(dialog[DialogNR] + " " + selectedPlayer.getName() + dialog[DialogNR+1]+" ", dialog[DialogNR+2]); DialogNR+=3;
             //Uses balance value in GUI, since it displays on GUI at all times, and works like a score.
-
+            if (PlayerLost[selectedPlayer.getNumber()]) {
+                d1.dice_rollT(0);
+                d2.dice_rollT(0);
+            }
             //int DieSum = d1.getFaceValue(); /*, getSum(d1,d2)*/
             int DieSum = getSum(d1,d2);
             GameMechanics.Die.OnBoard(d1, d2, gui);
 
 //            System.out.println(d1.getFaceValue()+" "+d2.getFaceValue());
 
-            int CurrentSpaceForSelectedPlayer = 0;
+
             CurrentSpaceForSelectedPlayer = 0;
-            for (int i = 0; i < Base.fieldNR(); i++) {
+            if (!PlayerLost[selectedPlayer.getNumber()])
+                for (int i = 0; i < Base.fieldNR(); i++) {
                 if (Base.fields[i].hasCar(selectedPlayer)/*fields[i].hasCar(selectedPlayer)*/)
                     CurrentSpaceForSelectedPlayer = i;
             }
 
             // Check om chancekort er modtaget
-            DieSum=selectedPlayer.haandterChanceKortModtaget(CurrentSpaceForSelectedPlayer,DieSum, fields,OwnedtrueOwnedFalse,gui);
+            if (!PlayerLost[selectedPlayer.getNumber()])
+                DieSum=selectedPlayer.haandterChanceKortModtaget(CurrentSpaceForSelectedPlayer,DieSum, fields,OwnedtrueOwnedFalse,gui);
             //if the game hasn't ended, continue
 
             if (!gameEnd) {
@@ -496,8 +555,10 @@ public class Main {
                 //DoubleProperty.DoubleCost(OwnedtrueOwnedFalse,selectedPlayer.getNumber(),CurrentSpaceForSelectedPlayer);
 
                 //Negative balance is not allowed
-                if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
+                if (selectedPlayer.getBalance() < 0) {selectedPlayer.setBalance(0);
                 PlayerLost[selectedPlayer.getNumber()]=true;
+                CurrentSpaceForSelectedPlayer=0;
+                }
             }
 
             //Shows description of the space you land on, and changes color
@@ -529,7 +590,7 @@ public class Main {
                 gui.showMessage(selectedPlayer.getName() + dialog[DialogNR]); DialogNR++;
             }
 
-            boolean[] SpaceHasCurrentPlayer = new boolean[AmountofPlayers];
+            /*boolean[] */SpaceHasCurrentPlayer = new boolean[AmountofPlayers];
             for (int i = 0; i < AmountofPlayers; i++) {SpaceHasCurrentPlayer[i]=false;}
             if (selectedPlayer.getBalance()<=0) {
                 PlayerLost[selectedPlayer.getNumber()] = true;
@@ -538,7 +599,7 @@ public class Main {
                     if (fields[CurrentSpaceForSelectedPlayer].hasCar(PlayerArray[i])) SpaceHasCurrentPlayer[i]=true;}
                 fields[CurrentSpaceForSelectedPlayer].removeAllCars();
                 SpaceHasCurrentPlayer[selectedPlayer.getNumber()]=false;
-                for (int i = 0; i < AmountofPlayers; i++) {if (SpaceHasCurrentPlayer[i]) fields[i].setCar(PlayerArray[i], true);                }
+                for (int i = 0; i < AmountofPlayers; i++) {if (SpaceHasCurrentPlayer[i]) fields[CurrentSpaceForSelectedPlayer].setCar(PlayerArray[i], true);                }
                 for (int i = 0; i < Base.fieldNR(); i++) {
                     if (selectedPlayer.getNumber()+1 == OwnerList[i]){
                         OwnerList[i] = 0;
@@ -551,6 +612,7 @@ public class Main {
             if (slaaet_ens == false) {
                 playingPlayer = amountOfGameLoops;
             }
+//            if (PlayerLost[selectedPlayer.getNumber()+1]) playingPlayer=amountOfGameLoops+2;
 
             answerGameOk = false;
 
