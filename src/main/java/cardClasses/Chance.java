@@ -326,11 +326,12 @@ public  class Chance {
 
             if (actKort instanceof ChanceModtagFraHverSpiller)
             {
-                actPlayer.setBalance(actPlayer.getBalance() + ((ChanceModtagFraHverSpiller) actKort).getBeloeb());
+
                 for (int k = 0; k < AmountofPlayers; k++)
                 {
                     if (actPlayer != players[k])
                     {
+                        actPlayer.setBalance(actPlayer.getBalance() + ((ChanceModtagFraHverSpiller) actKort).getBeloeb());
                         players[k].setBalance(players[k].getBalance() - ((ChanceModtagFraHverSpiller) actKort).getBeloeb());
                     }
                 }
