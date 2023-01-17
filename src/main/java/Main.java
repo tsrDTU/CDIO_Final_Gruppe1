@@ -16,6 +16,7 @@ import java.util.Scanner;
 import static GameMechanics.Die.getSum;
 import static TheBoard.Base.*;
 import static TheBoard.Language.dialog;
+import static java.awt.Color.GRAY;
 //import player.MjPlayer;
 
 import EgneGuiKlasser.*;
@@ -129,6 +130,8 @@ public class Main {
           //  }
             gui.addPlayer(PlayerArray[i]);
         }
+        if (AmountofPlayers==6) playerCars[5].setPrimaryColor(Color.ORANGE);
+
         DialogNR+=2;
         player.PlayerReset.restart(PlayerArray,fields, AmountofPlayers,fieldNR());
 
