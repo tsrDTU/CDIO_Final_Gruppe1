@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /**
  *  Tester at der sættes 40.000 ind i spillerens spillerens pengebeholdning, hvis spilleren ejer mindre end 15000 når
- *  chancekortet Matador legat er trukket.
+ *  chancekortet Matador legat er trukket. I denne test har spiller1 14999.
  */
 
 
@@ -12,7 +12,7 @@ import java.io.IOException;
         public static void main(String[] args) throws IOException {
             {
 
-                TestSituation tesBetalBanken = new TestSituation(0,0,0,2, 24, 14000,30000,30000);
+                TestSituation test1 = new TestSituation(0,0,0,2, 24, 15000,0,0);
 
             }
         }

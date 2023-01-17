@@ -60,6 +60,7 @@ public class TestSituation {
             boolean[] ownstatus = Fields.OwnStatus();
             int start_slag = 1;
             int DieSum;
+            int[] antal_slag_i_faengsel=new int[7];
 
 //-------------------------------------------------------------------------------------------
 //
@@ -119,7 +120,7 @@ public class TestSituation {
             String[] PlayerName = {"Player1", "Player2", "Player3"};
 
             //BoardCreator.PersonCreator(AmountofPlayers,PlayerArray,PlayerName,playerCars);
-            System.out.println(JailOn.length);
+            System.out.println("Jail on"+ JailOn.length);
 
 
 //  Sets names for each player in a for loop and gives an adjacent car with a private color
@@ -203,7 +204,8 @@ public class TestSituation {
 
             chankort.setTestKortMode(chancekort_nr);
 
-            boolean skipPlayer = false;
+            boolean[] skipPlayer = new boolean[AmountofPlayers];
+            for (int i = 0; i < AmountofPlayers; i++) {skipPlayer[i]=false;}
 
 //-------------------------------------------------------------------------------------------
 //
@@ -247,17 +249,73 @@ public class TestSituation {
 
 
                 //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
-                if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
-                    Jail.bailOut(selectedPlayer, skipPlayer);
-                    JailOn[selectedPlayer.getNumber()] = false;
-                    //System.out.println("Spiller skippes ikke pga. GOJF kort");
-                } else if (JailOn[selectedPlayer.getNumber()]) {
-                    skipPlayer = true;
-                    JailOn[selectedPlayer.getNumber()] = false;
+                if (JailOn[selectedPlayer.getNumber()])
+                {
+                    if (selectedPlayer.getAmnistiKortHaves())
+                    {
+                        gui.showMessage("Da du har et amnesti kort løslades du hermed fra fængslet og kan køre videre");
+                        Jail.bailOut(selectedPlayer, skipPlayer);
+                        JailOn[selectedPlayer.getNumber()] = false;
+                        //System.out.println("Spiller skippes ikke pga. GOJF kort");
+                    } else {
+                        String valg = gui.getUserButtonPressed("Du sidder fængsel. Vælg", "Slå", "Betal 1000 kr.", "Stå over");
+                        if (valg.equals("Betal 1000 kr.")) {
+                            selectedPlayer.setBalance(selectedPlayer.getBalance() - 1000);
+                            Jail.bailOut(selectedPlayer, skipPlayer);
+                            JailOn[selectedPlayer.getNumber()] = false;
+                        } else if (valg.equals("Stå over"))
+                        {
+                            if (antal_slag_i_faengsel[selectedPlayer.getNumber()] > 0)
+                            {
+                                skipPlayer[selectedPlayer.getNumber()] = true;
+                                JailOn[selectedPlayer.getNumber()] = true;
+                                antal_slag_i_faengsel[selectedPlayer.getNumber()]--;
+                            }
+                            else
+                            {
+                                gui.showMessage("Du har siddet i fængsel 3 gange nu og skal videre. Der trækkes 1000 kr. på din konto");
+                                selectedPlayer.setBalance(selectedPlayer.getBalance() - 1000);
+                                Jail.bailOut(selectedPlayer, skipPlayer);
+                                JailOn[selectedPlayer.getNumber()] = false;
+                            }
+                        }
+                        else
+                        {
+                            if (antal_slag_i_faengsel[selectedPlayer.getNumber()] > 0)
+                            {
+                               d1.dice_roll();
+                               d2.dice_roll();
+                               Die.OnBoard(d1,d2,gui);
+                               if (d1.getFaceValue() == d2.getFaceValue())
+                                {
+                                    Jail.bailOut(selectedPlayer, skipPlayer);
+                                    JailOn[selectedPlayer.getNumber()] = false;
+                                    gui.showMessage("Du slog ens og er fri");
+                                }
+                                 else
+                                {
+                                    gui.showMessage("Du slog ikke ens og er stadig i fængsel");
+                                    Jail.bailOut(selectedPlayer, skipPlayer);
+                                    JailOn[selectedPlayer.getNumber()] = true;
+                                    skipPlayer[selectedPlayer.getNumber()]=true;
+                                    antal_slag_i_faengsel[selectedPlayer.getNumber()]--;
+                                }
+                             }
+                             else
+                            {
+                               gui.showMessage("Du har siddet i fængsel 3 gange nu og skal videre. Der trækkes 1000 kr. på din konto");
+                               selectedPlayer.setBalance(selectedPlayer.getBalance() - 1000);
+                               Jail.bailOut(selectedPlayer, skipPlayer);
+                               JailOn[selectedPlayer.getNumber()] = false;
+                            }
+
+                        }
+                    }
                 }
-                if (skipPlayer) {
+
+                if (skipPlayer[selectedPlayer.getNumber()]) {
                     playingPlayer++;
-                    skipPlayer = false;
+                    skipPlayer[selectedPlayer.getNumber()] = false;
                     //System.out.println("Player "+selectedPlayer.getNumber()+" smoked in jail");
 
                     if (amountOfGameLoops == AmountofPlayers)
@@ -344,6 +402,7 @@ public class TestSituation {
                                 PlayerSpaceNRexcact,
                                 JailOn, chankort, gui, fields, ownstatus, OwnerList);
                         selectedPlayer.setBalance(selectedPlayer.getBalance() + Integer.parseInt(NewBalance));
+                        antal_slag_i_faengsel[selectedPlayer.getNumber()]=2;
                         //System.out.println(NewBalance);       | EMPTY NOTE |
                     } else
                         Fields.PayTheOwner(fields, CurrentSpaceForSelectedPlayer, selectedPlayer

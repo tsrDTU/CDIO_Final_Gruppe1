@@ -11,11 +11,13 @@ import EgneGuiKlasser.*;
 
 
 import static TheBoard.Base.*;
+import static TheBoard.Language.dialog;
 
 import EgneGuiKlasser.*;
 //import static cardClasses.*;
 
 public class Fields {
+    private static boolean testMode=false;
 //
 //
 //            Checks if anyone owns the space you give it
@@ -234,6 +236,7 @@ public class Fields {
                     PlayerSpaceNRexcact[selectedPlayer.getNumber()] = JAILvisitlocation;
                     CurrentSpaceForSelectedPlayer = JAILvisitlocation;
                     JailOn[selectedPlayer.getNumber()]=true;
+
                     //
                     fields[JailLocationOnBoard].removeAllCars();
                     selectedPlayer.setBalance(selectedPlayer.getBalance()-4000);
@@ -288,11 +291,20 @@ public class Fields {
             //  This is a check for if the player wants to buy, ((It does not function because the player is forced to buy))
             ///if (boolforBUY) {
             //  This checks if the selected player has enough money, And buys the space if it does.
+
             if (!OwnStatus[CurrentSpaceForSelectedPlayer] && Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent())!=0){
                 System.out.println(CurrentSpaceForSelectedPlayer+" "+ fields[CurrentSpaceForSelectedPlayer].getRent()+" CSSP");
                 BuyCurrentProperty(PlayerArray, selectedPlayer, fields, THEfieldsNR, GoOn, Ownedtrue,
                         CurrentSpaceForSelectedPlayer, OwnStatus, OwnerList);
+// TSR
 
+                if (testMode) {
+                    String valg = gui.getUserButtonPressed("Du ejer dette felt. Vil du købe et hus?", "Ja", "Nej");
+
+                    if (valg.equals("Ja")) {
+                        fields[CurrentSpaceForSelectedPlayer].setHouses(1);
+                    }
+                }
 
 //                fields[CurrentSpaceForSelectedPlayer].setTitle(fields[CurrentSpaceForSelectedPlayer].getTitle()+ " "+selectedPlayer.getName());
 //                OwnStatus[CurrentSpaceForSelectedPlayer]=true;
@@ -408,8 +420,8 @@ public class Fields {
         //  Goes through all fields and sets owned status to "Not Owned" - with an int 0
         for (int n = 0; n < Base.fieldNR(); n++) {
 //OwnedtrueOwnedFalse[n][0] = n;
-            if (selectedplayer.getNumber()+1==1) {
-                OwnedtrueOwnedFalse[n][selectedplayer.getNumber()] = 0;
+            if (OwnedtrueOwnedFalse[n][selectedplayer.getNumber()+1]!=0) {
+                OwnedtrueOwnedFalse[n][selectedplayer.getNumber()+1] = 0;
             }
         }
 
@@ -423,11 +435,20 @@ public class Fields {
 
 
     }
+
+    public static void setTestMode()
+    {
+        testMode=true;
+    }
+
+
+
 /* TSR
     public void setHouse(MGUI_Street[] fields ,int field_nr, int antal_huse)
     {
 
     }
+
 
  */
 

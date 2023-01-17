@@ -3,26 +3,23 @@ package UserStory_Tests;
 import EgneGuiKlasser.MGUI;
 import EgneGuiKlasser.MGUI_Car;
 import EgneGuiKlasser.MGUI_Player;
+import EgneGuiKlasser.MGUI_Street;
 import GameMechanics.Cars;
 import GameMechanics.Colors;
 import GameMechanics.Die;
 import GameMechanics.Fields;
+import TheBoard.Base;
 import TheBoard.BoardCreator;
 import TheBoard.Language;
 import cardClasses.Chance;
-import gui_fields.GUI_Car;
-import gui_main.GUI;
-//import player.MGUI_Player;
 
 import java.awt.*;
 import java.io.IOException;
 
-import static GameMechanics.Die.getSum;
 import static TheBoard.Base.*;
-import static TheBoard.Base.fields;
 import static TheBoard.Language.dialog;
 
-public class K3 {
+public class K9_0kr_spil_videre {
     public static void main(String[] args) throws IOException {
 
         int[] OwnerList = Fields.InitialiseOwnerList();
@@ -35,16 +32,17 @@ public class K3 {
         int CurrentSpaceForSelectedPlayer = 0;
 
         //  Initialises the TheBoard.Base.fields with values from txt files in - src/main/Field-Guts - and - Color.Colorspace
-        BoardCreator.InitBoardFieldsGuts();
+        MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
 
-        MGUI gui = new MGUI(fields, Color.WHITE);
+        MGUI gui = new MGUI(fields, Color.BLACK);
         language = "Dansk";
         Language.initializeDialog(dialog, language);
         antal_kant = 6;
-        AmountofPlayers = 2;
+        Base.AmountofPlayers = 3;
+        AmountofPlayers = Base.AmountofPlayers;
 
         boolean[] JailOn = new boolean[AmountofPlayers + 1];
-        MGUI_Player[] PlayerArray = new MGUI_Player[AmountofPlayers];
+        MGUI_Player[] PlayerArray = new MGUI_Player[Base.AmountofPlayers];
         MGUI_Car[] playerCars = new MGUI_Car[AmountofPlayers];
         String[] PlayerName = new String[AmountofPlayers];
 
@@ -56,7 +54,7 @@ public class K3 {
             PlayerName[i] = "";
             if (PlayerName[i].length() == 0) PlayerName[i] = ("Player" + (i + 1));
             playerCars[i] = new MGUI_Car(Color.RED, Color.BLACK, Cars.setCarType(i + 1), MGUI_Car.Pattern.FILL);
-            PlayerArray[i] = new MGUI_Player(PlayerName[i], 20 - ((AmountofPlayers - 2) * (2)), playerCars[i]);
+            PlayerArray[i] = new MGUI_Player(PlayerName[i], 30000, playerCars[i]);
             Colors.CarColor(playerCars, PlayerArray, String.valueOf(AmountofPlayers), i, fields);
             //Set users role
             PlayerArray[i].setUserRole(userRoles[i]);
@@ -83,12 +81,40 @@ public class K3 {
         int Round = 0;
         Die d1 = new Die();
         Die d2 = new Die();
+        PlayerArray[0].setBalance(1000);
+        PlayerArray[1].setBalance(1000);
+        int playingplayer = 0;
+        int playingplayer2;
+        int amountOfGameLoops = 0;
 
-        while (selectedPlayer.getBalance() > 0) {
-            if (selectedPlayer==PlayerArray[0])
-                selectedPlayer = PlayerArray[1];
-            else if (selectedPlayer==PlayerArray[1])
-                selectedPlayer = PlayerArray[0];
+        while (selectedPlayer.getBalance() < 50000)  {
+//            if (Round==0)
+//                selectedPlayer = PlayerArray[0];
+//            if (Round==1
+//            )
+//                selectedPlayer = PlayerArray[1];
+//            else selectedPlayer = PlayerArray[2];
+            if (amountOfGameLoops == AmountofPlayers) {
+                amountOfGameLoops = 0;
+            }
+            if (playingplayer == AmountofPlayers) {
+                playingplayer = 0;
+            }
+            amountOfGameLoops++;
+            if (amountOfGameLoops == AmountofPlayers )
+                amountOfGameLoops = 0;
+//            playingplayer2 = playingplayer;
+//            selectedPlayer = PlayerArray[playingplayer];
+//            selectedPlayer = PlayerArray[playingplayer2];
+            selectedPlayer = PlayerArray[amountOfGameLoops];
+
+
+
+
+//            if (selectedPlayer==PlayerArray[0])
+//                selectedPlayer = PlayerArray[1];
+//            else if (selectedPlayer==PlayerArray[1])
+//                selectedPlayer = PlayerArray[0];
             //  Initialising something for GameMechanics.Jail and Start field
             int[] PlayerSpaceNRexcact = new int[AmountofPlayers];
             gui.getUserButtonPressed(dialog[4] + " " + selectedPlayer.getName() + dialog[5], dialog[6]);
@@ -96,7 +122,7 @@ public class K3 {
 
             d1.dice_roll();
             d2.dice_roll();
-            int DieSum = getSum(d1,d2);
+            int DieSum = 4;
 
 //-------------------------------------------------------------------------------
 //
@@ -121,7 +147,7 @@ public class K3 {
 
             //  This handles the trades with rent and buying of fields - see at - src/main/java/GameMechanics.Fields
 
-            if (Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent())!=0) {
+            if (wanttobuyYesNo) {
                 String NewBalance = Fields.wannaBuyDoYou(OwnedtrueOwnedFalse,
                         selectedPlayer,
                         //wanttobuyYesNo,
@@ -134,12 +160,13 @@ public class K3 {
                 // ;       | EMPTY NOTE |
 
 //                String.valueOf(PlayerArray[0].getBalance()-Integer.parseInt(fields[CurrentSpaceForSelectedPlayer].getRent()));
-                if (selectedPlayer.getNumber()==1) {
-                    Round++;
 
-                }
-                if (expected<=-10000) break;
+                if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
+
+                Round++;
+                if (Round==20) break;
             }
+
 
 
         }

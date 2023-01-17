@@ -204,7 +204,8 @@ import static TheBoard.Language.dialog;
                 Chance chankort = new Chance();
 
 
-                boolean skipPlayer = false;
+                boolean[] skipPlayer = new boolean[AmountofPlayers];
+                for (int i = 0; i < AmountofPlayers; i++) {skipPlayer[i]=false;}
 
 //-------------------------------------------------------------------------------------------
 //
@@ -216,10 +217,11 @@ import static TheBoard.Language.dialog;
                 PlayerArray[0].setBalance(bal1);
                 PlayerArray[1].setBalance(bal2);
                 PlayerArray[2].setBalance(bal3);
+                GameMechanics.Fields.setTestMode();
 
                 while (!gameEnd) {
                     //while (PlayerArray[0].getBalance() < 3000 && PlayerArray[1].getBalance() < 3000 && !gameEnd) {
-
+/*
                     if (slag_nr < antal_slag) {
                         if (slag_nr == 0) {
                             Fields.moveNewPosition(fields, PlayerArray, 0, PlayerArray[0], pos_pl1[slag_nr], PlayerSpaceNRexcact);
@@ -228,11 +230,17 @@ import static TheBoard.Language.dialog;
                         }
                         else
                         {
+
                             Fields.moveNewPosition(fields, PlayerArray, pos_pl1[slag_nr -1], PlayerArray[0], pos_pl1[slag_nr], PlayerSpaceNRexcact);
                             Fields.moveNewPosition(fields, PlayerArray, pospl2[slag_nr - 1], PlayerArray[1], pospl2[slag_nr], PlayerSpaceNRexcact);
-                            Fields.moveNewPosition(fields, PlayerArray, pos_pl3[slag_nr - 1], PlayerArray[2], pos_pl3[slag_nr], PlayerSpaceNRexcact);
+
+
+                          Fields.moveNewPosition(fields, PlayerArray, pos_pl3[slag_nr - 1], PlayerArray[2], pos_pl3[slag_nr], PlayerSpaceNRexcact);
+
+
                         }
                     }
+                    */
 
                     DialogNR = 5;
                     if (amountOfGameLoops == AmountofPlayers)
@@ -267,16 +275,17 @@ import static TheBoard.Language.dialog;
 
                     //skipPlayer = (Jail.jailed(selectedPlayer,skipPlayer));
                     if (selectedPlayer.getAmnistiKortHaves() && JailOn[selectedPlayer.getNumber()]) {
+                        gui.showMessage("Da du har et amnesti kort løslades du hermed fra fængslet og kan køre videre");
                         Jail.bailOut(selectedPlayer, skipPlayer);
                         JailOn[selectedPlayer.getNumber()] = false;
                         //System.out.println("Spiller skippes ikke pga. GOJF kort");
                     } else if (JailOn[selectedPlayer.getNumber()]) {
-                        skipPlayer = true;
+                        skipPlayer[selectedPlayer.getNumber()] = true;
                         JailOn[selectedPlayer.getNumber()] = false;
                     }
-                    if (skipPlayer) {
+                    if (skipPlayer[selectedPlayer.getNumber()]) {
                         playingPlayer++;
-                        skipPlayer = false;
+                        skipPlayer[selectedPlayer.getNumber()] = false;
                         //System.out.println("Player "+selectedPlayer.getNumber()+" smoked in jail");
 
                         if (amountOfGameLoops == AmountofPlayers)
@@ -307,7 +316,8 @@ import static TheBoard.Language.dialog;
                     // Første slag skal ramme et felt defineret i kaldet. Derefter skal der slås normalt
                     if (slag_nr < antal_slag && selectedPlayer == PlayerArray[0]) {
                         DieSum = foerste_terning_slag[slag_nr];
-
+                        System.out.println("DieSum: "+ DieSum);
+                        System.out.println("Antal øjne: "+ foerste_terning_slag[slag_nr]);
                     } else DieSum = getSum(d1, d2);
 
 //            System.out.println(d1.getFaceValue()+" "+d2.getFaceValue());
@@ -492,7 +502,10 @@ import static TheBoard.Language.dialog;
                     // if
 //                System.exit(0);
 
-                  if (selectedPlayer==PlayerArray[0]) slag_nr++;
+                  if (selectedPlayer==PlayerArray[0]) {
+                      slag_nr++;
+                      System.out.println("Næste slag");
+                  }
                 }
             }
         }
