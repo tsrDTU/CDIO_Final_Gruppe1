@@ -19,7 +19,7 @@ import java.io.IOException;
 import static TheBoard.Base.*;
 import static TheBoard.Language.dialog;
 
-public class K9_0kr_spil_videre {
+public class null_kr_spil_videre {
     public static void main(String[] args) throws IOException {
 
         int[] OwnerList = Fields.InitialiseOwnerList();
