@@ -17,7 +17,7 @@ import java.io.IOException;
 import static TheBoard.Base.*;
 import static TheBoard.Language.dialog;
 
-public class K1_Spring_Over {
+public class K1_Kom_I_Faengsel {
     public static void main(String[] args) throws IOException {
         MGUI_Car[] playerCars = new MGUI_Car[2];
         MGUI_Street[] fields = BoardCreator.InitBoardFieldsGuts();
@@ -93,7 +93,12 @@ public class K1_Spring_Over {
 
             d1.dice_roll();
             d2.dice_roll();
-            int DieSum = 16;
+
+            int DieSum=Die.getSum(d1,d2);
+            if (Round==0)
+                DieSum = 32;
+
+
 //-------------------------------------------------------------------------------
 //
 //        WHERE TO CHANGE WHAT SPACES THE CARS LAND ON
