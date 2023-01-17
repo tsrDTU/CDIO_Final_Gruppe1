@@ -200,7 +200,7 @@ public class Main {
 //
         boolean[] PlayerLost = new boolean[AmountofPlayers+1];
         for (int i = 0; i < AmountofPlayers+1; i++) {PlayerLost[i]=false;}
-//
+        PlayerArray[0].setBalance(1);
 //-------------------------------------------------------------------------------------------
 //
 //          Game Starts officially
@@ -219,8 +219,17 @@ public class Main {
             }
 
             if (PlayerLost[selectedPlayer.getNumber()]) {
-                if (selectedPlayer.getNumber()+1==AmountofPlayers)
-                   selectedPlayer = PlayerArray[0];
+                if (selectedPlayer.getNumber()+1==AmountofPlayers){
+                    selectedPlayer = PlayerArray[0];
+                    for (int i = 0; i < AmountofPlayers; i++) {if (PlayerLost[i]) {
+                        if (PlayerArray[i].getNumber()==AmountofPlayers) selectedPlayer = PlayerArray[0];
+                        else selectedPlayer = PlayerArray[i];
+                        }
+                    }
+
+                    for (int i = 0; i < AmountofPlayers; i++) {if (PlayerArray[i].getBalance()<=0) PlayerArray[i].setBalance(0);
+                    }
+                }
                 else selectedPlayer = PlayerArray[selectedPlayer.getNumber()+1];
             }
 
@@ -233,7 +242,14 @@ public class Main {
                 playingPlayer2 = playingPlayer;
                 if (selection) selectedPlayer = PlayerArray[playingPlayer];
                 else selectedPlayer = /*PlayerArray[0]*/PlayerArray[playingPlayer2];
-                System.out.println("-          PlayingPlayer 2 = "+PlayerArray[playingPlayer2]);
+                for (int i = 0; i < AmountofPlayers; i++) {
+                    if (PlayerLost[selectedPlayer.getNumber()]) {
+                        if (i==AmountofPlayers-1) selectedPlayer=PlayerArray[0];
+                            else selectedPlayer=PlayerArray[i+1];
+                    }
+                    else break;
+
+                }
             }
             else {
                 if (amountOfGameLoops >= AmountofPlayers)
@@ -279,7 +295,7 @@ public class Main {
                     JailOn[selectedPlayer.getNumber()] = false;
                     //System.out.println("Spiller skippes ikke pga. GOJF kort");
                 } else {
-                     valg = gui.getUserButtonPressed("Du sidder fængsel. Vælg", "Slå", "Betal 1000 kr.", "Stå over");
+                    valg = gui.getUserButtonPressed("Du sidder i fængsel. Vælg", "Slå", "Betal 1000 kr.", "Stå over");
                     if (valg.equals("Betal 1000 kr.")) {
                         selectedPlayer.setBalance(selectedPlayer.getBalance() - 1000);
                         Jail.bailOut(selectedPlayer, skipPlayer);
@@ -481,7 +497,7 @@ public class Main {
 
                 //Negative balance is not allowed
                 if (selectedPlayer.getBalance() < 0) selectedPlayer.setBalance(0);
-
+                PlayerLost[selectedPlayer.getNumber()]=true;
             }
 
             //Shows description of the space you land on, and changes color
